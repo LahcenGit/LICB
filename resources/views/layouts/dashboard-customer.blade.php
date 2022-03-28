@@ -23,7 +23,6 @@
 	<link href="{{asset('dashboard/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/nouislider/nouislider.min.css')}}">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 	<!-- Style css -->
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 	
@@ -804,11 +803,7 @@
         <div class="dlabnav">
             <div class="dlabnav-scroll">
 				<ul class="metismenu" id="menu">
-                   <li> <a href="widget-basic.html" class="" aria-expanded="false">
-                            <i class="fas fa-chart-line"></i>
-							<span class="nav-text">Statistiques</span>
-						</a>
-                   </li>
+                   
 				 <li><a href="widget-basic.html" class="" aria-expanded="false">
 							<i class="fas fa-table"></i>
 							<span class="nav-text">Commandes</span>
@@ -891,7 +886,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script src="{{asset('dashboard/js/custom.min.js')}}"></script>
 	<script src="{{asset('dashboard/js/dlabnav-init.js')}}"></script>
-	<script src="https://your-site-or-cdn.com/fontawesome/v5.15.4/js/all.js" data-auto-a11y="true" ></script>
+
    
 	<script>
 		function cardsCenter()
