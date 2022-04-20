@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +30,6 @@ Route::get('/dashboard-admin/orders', function () {
 Route::get('/dashboard-customer/orders', function () {
     return view('customer.orders');
 });
+//admin route
 Route::resource('/dashboard-admin/categories',CategoryController::class);
+Route::resource('/dashboard-admin/products',ProductController::class);

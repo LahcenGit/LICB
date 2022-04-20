@@ -1011,6 +1011,7 @@
     <script src="{{asset('dashboard/js/plugins-init/datatables.init.j')}}s"></script>
 	<script src="{{asset('dashboard/vendor/owl-carousel/owl.carousel.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('dashboard/js/custom.min.js')}}"></script>
 	<script src="{{asset('dashboard/js/dlabnav-init.js')}}"></script>
 	

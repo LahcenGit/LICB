@@ -37,16 +37,16 @@
                                      
                                            @foreach($categories as $category)
                                           
-                                           <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->name}}</option>
+                                           <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->designation}}</option>
                                            @foreach($category->childCategories as $sub)
                                           
-                                           <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->name}}</option>
+                                           <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
                                            @foreach($sub->childCategories as $subsub)
-                                               <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->name}}</option>
+                                               <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
                                           
 
                                            @foreach($subsub->childCategories as $subsubsub)
-                                           <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->name}}</option>
+                                           <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
                                            @endforeach 
                                            @endforeach 
                                            @endforeach 
