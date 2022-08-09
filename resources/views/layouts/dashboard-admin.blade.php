@@ -1070,5 +1070,7 @@
 		
 	</script>
 
+
+@stack('add-attribute')
 </body>
 </html>

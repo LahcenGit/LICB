@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AttributeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,4 +33,5 @@ Route::get('/dashboard-customer/orders', function () {
 });
 //admin route
 Route::resource('/dashboard-admin/categories',CategoryController::class);
+Route::resource('/dashboard-admin/attributes',AttributeController::class);
 Route::resource('/dashboard-admin/products',ProductController::class);

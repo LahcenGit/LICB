@@ -10,7 +10,7 @@
 					</ol>
                 </div>
 
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex ">
                     <div class="col-xl-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">

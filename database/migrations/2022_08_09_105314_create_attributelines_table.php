@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('attributelines', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class)->constrained()->onDelete('cascade');
-            $table->string('type');
+            $table->unsignedBigInteger('attribute_id')->nullable();
+            $table->string('value');
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('attributelines');
     }
 };
