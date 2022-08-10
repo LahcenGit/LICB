@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->string('value');
+            $table->string('Hex_color')->nullable();
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();
         });
