@@ -827,6 +827,15 @@
                             <li><a href="{{url('dashboard-admin/attributes')}}">Tous les attributs</a></li>
                         </ul>
                     </li>
+					<li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+							<i class="fas fa-file-alt"></i>
+							<span class="nav-text">Produits</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="./ui-accordion.html">Ajouter</a></li>
+                            <li><a href="./ui-alert.html">Tous les produits</a></li>
+                        </ul>
+                    </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-file-alt"></i>
 							<span class="nav-text">Commandes</span>
