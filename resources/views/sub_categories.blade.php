@@ -1,6 +1,8 @@
 <li>
-    <input  type="checkbox" value="">
-    {{ $sub_categories->designation }}
+    <div class="form-check mb-2">
+    <input type="checkbox" class="form-check-input" id="check1" value="" name="category">
+    <label class="form-check-label" for="check1">{{ $sub_categories->designation }}</label> 
+    </div>
 </li>
 @if ($sub_categories->categories)
     <ul style="margin-left: 1rem;">

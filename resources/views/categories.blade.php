@@ -2,8 +2,10 @@
     @if(count($categories) > 0)
     @foreach ($categories as $category)
         <li>
-            <input  type="checkbox" value="" name="category">
-            {{ $category->designation }}
+            <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="check1" value="" name="category">
+            <label class="form-check-label" for="check1">{{ $category->designation }}</label>
+            </div>
         </li>
         
         <ul style="margin-left: 1rem;">
