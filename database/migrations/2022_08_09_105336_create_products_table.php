@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->string('designation');
-            $table->longText('description')->nullable();
+            $table->longText('short_description')->nullable();
+            $table->longText('long_description')->nullable();
             $table->integer('is_brouillon');
             $table->string('note')->nullable();
             $table->integer('point')->nullable();

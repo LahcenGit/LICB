@@ -3,7 +3,7 @@
     @foreach ($categories as $category)
         <li>
             <div class="form-check mb-2">
-            <input type="checkbox" class="form-check-input" id="check1" value="" name="category">
+            <input type="checkbox" class="form-check-input" id="check1" value="" name="categories[]">
             <label class="form-check-label" for="check1">{{ $category->designation }}</label>
             </div>
         </li>

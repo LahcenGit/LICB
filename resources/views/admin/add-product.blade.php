@@ -30,17 +30,17 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Prix*:</label>
-                                                    <input type="number" class="form-control" placeholder="0.00" name="price">
+                                                    <input type="number" class="form-control" placeholder="0.00" name="price" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Promo:</label>
-                                                    <input type="number" class="form-control" placeholder="0.00" name="promo_price">
+                                                    <input type="number" class="form-control" placeholder="0.00" name="promo">
                                                 </div>
                                             </div> 
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Qte*:</label>
-                                                    <input type="number" class="form-control" placeholder="0" name="qte">
+                                                    <input type="number" class="form-control" placeholder="0" name="qte" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Points:</label>
@@ -50,7 +50,7 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                 <label class="form-label">Statut:</label>
-                                                    <select id="inputState" class="default-select form-control wide">
+                                                    <select id="inputState" class="default-select form-control wide" name="status">
                                                         <option>Nothing selected</option>
                                                         <option>New</option>
                                                         <option>Arrivage</option>
@@ -97,7 +97,7 @@
                                          <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                 <label class="form-label">Produits:</label>
-                                                <select  class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="products[]" multiple required>
+                                                <select  class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="relatedproducts[]" multiple required>
                                                     @foreach($products as $product)
                                                     <option>{{$product->designation}}</option>
                                                     @endforeach
