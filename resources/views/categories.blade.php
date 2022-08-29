@@ -2,7 +2,7 @@
     @if(count($categories) > 0)
     @foreach ($categories as $category)
         <li>
-            <input  type="checkbox" value="">
+            <input  type="checkbox" value="" name="category">
             {{ $category->designation }}
         </li>
         

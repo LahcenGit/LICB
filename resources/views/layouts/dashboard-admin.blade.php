@@ -14,17 +14,23 @@
 	<meta name="format-detection" content="telephone=no">
 	
 	<!-- PAGE TITLE HERE -->
-	<title>Workload Project Management</title>
+	<title>Licb Plus</title>
 	
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+	<link href="{{asset('dashboard/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+	<link href="{{asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/nouislider/nouislider.min.css')}}">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
 	<!-- Style css -->
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.css')}}">
+    <link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.date.css')}}">
+	<link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
+	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
 	
 </head>
 <body>
@@ -901,7 +907,7 @@
     <script src="{{asset('dashboard/vendor/global/global.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/chart.js/Chart.bundle.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
-	
+	<script src="{{asset('Dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 	<!-- Apex Chart -->
 	<script src="{{asset('dashboard/vendor/apexchart/apexchart.js')}}"></script>
 	
@@ -914,11 +920,17 @@
 	<script src="{{asset('dashboard/vendor/datatables/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('dashboard/js/plugins-init/datatables.init.j')}}s"></script>
 	<script src="{{asset('dashboard/vendor/owl-carousel/owl.carousel.js')}}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('dashboard/js/custom.min.js')}}"></script>
 	<script src="{{asset('dashboard/js/dlabnav-init.js')}}"></script>
-	
+	<script src="{{asset('dashboard/vendor/pickadate/picker.js')}}"></script>
+    <script src="{{asset('dashboard/vendor/pickadate/picker.time.js')}}"></script>
+    <script src="{{asset('dashboard/vendor/pickadate/picker.date.js')}}"></script>
+	<script src="{{asset('dashboard/js/plugins-init/bs-daterange-picker-init.js')}}"></script>
+	<script src="{{asset('dashboard/js/plugins-init/pickadate-init.js')}}"></script>
+	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
+	<script src="{{asset('dashboard/uploader/drop_uploader.js')}}"></script>
    
 	<script>
 		function cardsCenter()
@@ -975,6 +987,9 @@
 	</script>
 
 
-@stack('add-attribute')
+@stack('add-attribute-scripts')
+@stack('add-image-scripts')
+@stack('add-multiple-image-scripts')
+@stack('generate-attribute-scripts')
 </body>
 </html>

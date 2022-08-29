@@ -37,3 +37,4 @@ Route::resource('/dashboard-admin/categories',CategoryController::class);
 Route::resource('/dashboard-admin/attributes',AttributeController::class);
 Route::resource('/dashboard-admin/attributelines',AttributelineController::class);
 Route::resource('/dashboard-admin/products',ProductController::class);
+Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
