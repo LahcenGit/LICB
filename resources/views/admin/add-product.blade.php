@@ -1,6 +1,7 @@
 @extends('layouts.dashboard-admin')
 @section('content')
 
+
 <div class="content-body">
             <div class="container-fluid">
 				<div class="row page-titles">
@@ -53,7 +54,8 @@
                                                     <select id="inputState" class="default-select form-control wide" name="status">
                                                         <option>Nothing selected</option>
                                                         <option>New</option>
-                                                        <option>Arrivage</option>
+                                                        <option>Non</option>
+                                                        
                                                         
                                                     </select>
                                                 </div>
@@ -97,11 +99,11 @@
                                          <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                 <label class="form-label">Produits:</label>
-                                                <select  class="form-control" id="sel1"  class="selectpicker" data-live-search="true" name="relatedproducts[]" multiple required>
-                                                    @foreach($products as $product)
-                                                    <option>{{$product->designation}}</option>
-                                                    @endforeach
-                                                        
+                                                <select class="select2" name="relatedproducts[]" class="form-control" multiple="multiple">
+                                                    <option >1</option>
+                                                    <option >2</option>
+                                                    <option >3</option>
+                                                    <option >4</option>
                                                 </select>
                                              </div> 
                                         </div>
@@ -144,7 +146,7 @@
                                           <div  class="row">
                                                 <div class="mb-3 col-md-3">
                                                 <label class="form-label">Attribut:</label>
-                                                <select  class="form-control" id="select-content"  class="selectpicker" data-live-search="true" name="attributes[0]"  >
+                                                <select  id="select-content"  class="default-select form-control wide " name="attributes[0]"  >
                                                     <option value="0">Nothing Selected</option>
                                                     @foreach($attributes as $attr)
                                                     <option value="{{$attr->id}}">{{$attr->value}}</option>
@@ -152,8 +154,8 @@
                                                 </select>
                                                 </div> 
                                                 <div class="mb-3 col-md-3">
-                                                <label class="form-label">Choix:</label>
-                                                <select  class="form-control" id="select-choix"  class="selectpicker" data-live-search="true" name="choix[0]"  >
+                                                <label class="form-label">Valeur:</label>
+                                                <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
                                                     
                                                 </select>
                                                 </div> 
@@ -268,15 +270,14 @@
 			++i;
 			$html = '<span><div class="row">'+
 					'<div class="mb-3 col-md-3">'+
-					'<label for="" style="  display: block;">Attribute:</label>'+
-					'<select  name="attributes['+i+']" id="select-attribute"  data-live-search="true" data-width="100%" style="  display: block;">'+
+					'<label for="" >Attribute:</label>'+
+					'<select  name="attributes['+i+']" id="select-attribute" class="default-select form-control wide " >'+
 					 options +
 					'</select>'+
 					'</div>'+
                     '<div class="mb-3 col-md-3">'+
-					'<label for="" style="  display: block;">Choix:</label>'+
-					'<select name="choix['+i+']" id="select-attr'+i+'" class="selectpicker" data-live-search="true" data-width="100%" style="  display: block;">'+
-					 
+					'<label for="">Valeur:</label>'+
+					'<select name="choices['+i+']" id="select-attr'+i+'" class="default-select form-control wide ">'+
 					'</select>'+
 					'</div>'+
                     '<div class="mb-2 col-md-2">'+
@@ -292,7 +293,7 @@
                     '</div>	</div><span>';
 
 			$("#dynamicAddRemove").append($html);
-			$('.selectpicker').selectpicker();
+			$('select').niceSelect();
 
 		$(document).on('click', '#delete-attribute', function () {
                 $(this).parents('span').remove();
@@ -313,8 +314,8 @@
                         });
 
                         $('#select-attr'+i).html(data);
-                        $('#select-attr'+i).selectpicker('refresh');
-                        $('#select-attr'+i).selectpicker('refresh');
+                        $('#select-attr'+i).niceSelect('update');
+                        $('#select-attr'+i).niceSelect('update');
 
                     }
                 });
@@ -366,9 +367,9 @@
 				data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
 				});
 
-				$('#select-choix').html(data);
-				$('#select-choix').selectpicker('refresh');
-				$('#select-choix').selectpicker('refresh');
+				$('#select-value').html(data);
+				$('#select-value').niceSelect('update');
+				$('#select-value').niceSelect('update');
 
 			}
 		});
@@ -376,4 +377,7 @@
 	});
 </script>
 @endpush
+
+
+
 
