@@ -1,7 +1,5 @@
 @extends('layouts.dashboard-admin')
 @section('content')
-
-
 <div class="content-body">
             <div class="container-fluid">
 				<div class="row page-titles">
@@ -10,19 +8,30 @@
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Produits</a></li>
 					</ol>
                 </div>
-
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger" role="alert">
+                       Svp ! Corrigez les erreurs suivantes : 
+                       <div class="mb-2"></div>
+                    <div class="error">
+                        <ul class="ml-2">
+                            @foreach ($errors->all() as $error)
+                                <li style="font-weight:100; ">- {{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    </div>
+                @endif
+                <form action="{{url('dashboard-admin/products')}}" method="POST" enctype="multipart/form-data">
+                  @csrf
                 <div class="row ">
-                        <div class="col-xl-8 col-lg-8">
+                   <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Ajouter Produit</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="basic-form">
-                                        <form action="{{url('dashboard-admin/products')}}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                         
-                                            <div class="row">
+                                        <div class="row">
                                                 <div class="mb-3 col-md-12">
                                                     <label class="form-label">Designation*:</label>
                                                     <input type="text" class="form-control" placeholder="FORGE 12-3 RX65" name="designation" required>
@@ -55,8 +64,6 @@
                                                         <option>Nothing selected</option>
                                                         <option>New</option>
                                                         <option>Non</option>
-                                                        
-                                                        
                                                     </select>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
@@ -87,8 +94,8 @@
                                     </div>
                             </div>
                         </div>
-                </div>
-                <div class="row ">
+                
+               
                         <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
@@ -100,10 +107,9 @@
                                                 <div class="mb-3 col-md-6">
                                                 <label class="form-label">Produits:</label>
                                                 <select class="select2" name="relatedproducts[]" class="form-control" multiple="multiple">
-                                                    <option >1</option>
-                                                    <option >2</option>
-                                                    <option >3</option>
-                                                    <option >4</option>
+                                                    @foreach($products as $product)
+                                                    <option value="{{$product->id}}">{{$product->designation}}</option>
+                                                    @endforeach
                                                 </select>
                                              </div> 
                                         </div>
@@ -125,7 +131,7 @@
                                             <label for="file-upload" class="custom-file-upload">
                                                 <i class="fa fa-cloud-upload"></i> Ajouter l'image
                                             </label>
-                                            <input id="file-upload" class="upload-image" type="file" onchange="loadFile(event)" name="lien_photo" />
+                                            <input id="file-upload" class="upload-image" type="file" onchange="loadFile(event)" name="photoPrincipale" />
                                         </div>
                                         <img id="output">
                                     
@@ -133,8 +139,8 @@
                             </div>
                             </div>
                         </div>
-                </div>
-                <div class="row ">
+                
+                
                         <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
@@ -188,15 +194,15 @@
                                 <label>L'image principale du produit :</label>
                                     <div class="basic-form custom_file_input">
                                             <div class="input-group mb-3">
-                                                    <input type="file"  name="photo" accept="image/*" multiple >
+                                                    <input type="file"  name="photos[]" accept="image/*" multiple >
                                             </div>
                                     </div>
                             </div>
                             </div>
                         </div>
 
-                </div>
-                <div class="row ">
+                
+               
                         <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
@@ -206,7 +212,7 @@
                                     <div class="basic-form">
                                          <div class="row">
                                                 <div class="mb-3 col-md-12">
-                                                <textarea  class="form-control" name="description"></textarea>
+                                                <textarea  class="form-control" name="short_description"></textarea>
                                              </div> 
                                         </div>
                                     </div>
@@ -234,29 +240,30 @@
                                 </div>
                             </div>
                         </div>
-                </div>
-                <div class="row">
+               
+               
                     <div class="col-xl-8 col-xxl-8">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Description longue</h4>
                             </div>
                             <div class="card-body custom-ekeditor">
-								<input name="description" id="ckeditor" ></input>
+                            <textarea class="summernote" class="form-control "  name="long_description" >{{old('description')}}</textarea>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+                
+               
                     <div class="col-xl-12 col-lg-12">
                         <div class="card">
                         <div class="card-body text-center">
                             <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
                             </form>
                         </div>
-                        </div>
+                       </div>
                     </div>
                 </div>
+                
      </div>
 </div>
 

@@ -32,6 +32,7 @@
 	<link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
 	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
 	
 </head>
 <body>
@@ -932,7 +933,21 @@
 	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
 	<script src="{{asset('dashboard/uploader/drop_uploader.js')}}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-   
+	<script src="{{asset('dashboard/vendor/summernote/js/summernote.min.js')}}"></script>
+    <!-- Summernote init -->
+    <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
+    <script>
+		$(document).ready(function() {
+		$('.select2').select2();
+
+		$(".select2").select2({
+		placeholder: "  Choisissez les produits",
+		allowClear: true,
+		});
+
+		$("textarea").css("color", "#d7dae3");
+	});
+	 </script>
 	<script>
 		function cardsCenter()
 		{
@@ -987,6 +1002,38 @@
 		
 	</script>
 
+<script>
+	
+    $(document).ready(function(){
+    $('input[type=file]').drop_uploader({
+        uploader_text: 'Drop files to upload, or',
+        browse_text: 'Browse',
+        only_one_error_text: 'Only one file allowed',
+        not_allowed_error_text: 'File type is not allowed',
+        big_file_before_error_text: 'Files, bigger than',
+        big_file_after_error_text: 'is not allowed',
+        allowed_before_error_text: 'Only',
+        allowed_after_error_text: 'files allowed',
+        browse_css_class: 'button button-primary',
+        browse_css_selector: 'file_browse',
+        uploader_icon: '',
+        file_icon: '',
+        progress_color: '#4a90e2',
+        time_show_errors: 5,
+        layout: 'thumbnails',
+        method: 'normal',
+        chunk_size: 1000000, 
+        concurrent_uploads: 5, 
+        show_percentage: true, 
+        existing_files: false,
+        existing_files_removable: true,
+        send_existing_files: false,
+        url: 'ajax_upload.php',
+        delete_url: 'ajax_delete.php',
+    });
+});
+	
+    </script>
 
 @stack('add-attribute-scripts')
 @stack('add-image-scripts')

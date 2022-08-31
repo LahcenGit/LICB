@@ -6,9 +6,11 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Attributeline;
+use App\Models\Image;
 use App\Models\Productcategory;
 use App\Models\Productline;
 use App\Models\Relatedproduct;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -31,7 +33,10 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
-        $product->is_brouillon = $request->is_brouillon;
+        $product->is_brouillon = 0;
+        if($request->date){
+         $product->created_at = $request->date;
+        }
         $product->save();
         $productline = new Productline();
         $productline->product_id = $product->id;
@@ -40,8 +45,8 @@ class ProductController extends Controller
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
         $productline->save();
-        
-        for($i=0 ; $i<count($request->attribute) ; $i++){
+
+        for($i=0 ; $i<count($request->attributes) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->attributeline[$i];
@@ -52,17 +57,43 @@ class ProductController extends Controller
             $productline->save();
 
         }
+        if($request->relatedproducts){
         foreach($request->relatedproducts as $relatedproduct){
-            $relatedproduct = new Relatedproduct();
-            $relatedproduct->product_id = $product->id;
-            $relatedproduct->added_product_id = $relatedproduct;
-            $relatedproduct->save();
+            $productR = new Relatedproduct();
+            $productR->product_id = $product->id;
+            $productR->added_product_id = $relatedproduct;
+            $productR->save();
         }
+    }
         foreach($request->categories as $category){
-            $category = new Productcategory();
-            $category->product_id = $product->id;
-            $category->category_id= $category;
-            $category->save();
+          
+            $categoryproduct = new Productcategory();
+            $categoryproduct->product_id = $product->id;
+            $categoryproduct->category_id= $category;
+            $categoryproduct->save();
+        }
+        $hasFile = $request->hasFile('photoPrincipale');
+        $hasFileTwo = $request->hasFile('photos');
+        if($hasFile){
+                $destination = 'public/images/products';
+                $path = $request->file('photoPrincipale')->store($destination);
+                $storageName = basename($path);
+                $image = new Image();
+                $image->lien = $storageName;
+                $image->type = 1;
+                $product->images()->save($image);
+            }
+        
+        if($hasFileTwo){
+            foreach($request->file('photos') as $file){
+                $destination = 'public/images/products';
+                $path = $file->store($destination);
+                $storageName = basename($path);
+                $image = new Image();
+                $image->lien = $storageName;
+                $image->type = 2;
+                $product->images()->save($image);
+            } 
         }
     }
 
