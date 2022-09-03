@@ -40,7 +40,7 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Prix*:</label>
-                                                    <input type="number" class="form-control" placeholder="0.00" name="price" required>
+                                                    <input type="number" class="form-control"  placeholder="0.00" name="price" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Promo:</label>
@@ -106,10 +106,8 @@
                                          <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                 <label class="form-label">Produits:</label>
-                                                <select class="select2" name="relatedproducts[]" class="form-control" multiple="multiple">
-                                                    @foreach($products as $product)
-                                                    <option value="{{$product->id}}">{{$product->designation}}</option>
-                                                    @endforeach
+                                                <select class="select2" name="relatedproducts[]" id="search" class="form-control" multiple="multiple">
+                                                   
                                                 </select>
                                              </div> 
                                         </div>
@@ -144,22 +142,23 @@
                         <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Variation</h4>
+                                    <h4 class="card-title">Variation ?</h4>
+                                    <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body " id="variation" style="display: none;">
                                     <div class="basic-form" >
-                                        <div id="dynamicAddRemove">
+                                        <div id="dynamicAddRemove" >
                                           <div  class="row">
                                                 <div class="mb-3 col-md-3">
                                                 <label class="form-label">Attribut:</label>
-                                                <select  id="select-content"  class="default-select form-control wide " name="attributes[0]"  >
+                                                <select  id="select-content"  class="default-select form-control wide " name="as[0]"  >
                                                     <option value="0">Nothing Selected</option>
-                                                    @foreach($attributes as $attr)
-                                                    <option value="{{$attr->id}}">{{$attr->value}}</option>
+                                                    @foreach($attributes as $a)
+                                                    <option value="{{$a->id}}">{{$a->value}}</option>
                                                     @endforeach
                                                 </select>
                                                 </div> 
-                                                <div class="mb-3 col-md-3">
+                                                <div class="mb-2 col-md-2">
                                                 <label class="form-label">Valeur:</label>
                                                 <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
                                                     
@@ -171,9 +170,13 @@
                                                 </div>
                                                 <div class="mb-3 col-md-2">
                                                     <label class="form-label">Prix:</label>
-                                                    <input type="number" class="form-control" placeholder="0.00" name="prices[0]">
+                                                    <input type="number" class="form-control price" placeholder="0.00" name="prices[0]">
                                                 </div>
-                                                <div class="form-group col-md-2">
+                                                <div class="mb-3 col-md-2">
+                                                    <label class="form-label">Promo:</label>
+                                                    <input type="number" class="form-control price" placeholder="0.00" name="promos[0]">
+                                                </div>
+                                                <div class="form-group col-md-1">
                                                  <div class="d-flex">
                                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                  </div>	
@@ -219,27 +222,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Brouillon </h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="basic-form">
-                                         <div class="row">
-                                            <div class="form-check mb-2">
-                                                <input type="checkbox" class="form-check-input" id="check1" value="" >
-                                                <label class="form-check-label" for="check1">Oui</label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input type="checkbox" class="form-check-input" id="check1" value="" >
-                                                <label class="form-check-label" for="check1">Non</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                
                
                     <div class="col-xl-8 col-xxl-8">
@@ -252,7 +235,21 @@
                             </div>
                         </div>
                     </div>
-                
+                    <div class="col-xl-12 col-lg-12">
+                           
+                                <div class="card-body">
+                                    <div class="basic-form">
+                                         <div class="row">
+                                            <div class="form-check mb-2">
+                                            <label class="form-check-label" for="check1">Brouillon ?</label>
+                                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="brouillon">
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div>
                
                     <div class="col-xl-12 col-lg-12">
                         <div class="card">
@@ -278,13 +275,13 @@
 			$html = '<span><div class="row">'+
 					'<div class="mb-3 col-md-3">'+
 					'<label for="" >Attribute:</label>'+
-					'<select  name="attributes['+i+']" id="select-attribute" class="default-select form-control wide " >'+
+					'<select  name="as['+i+']" id="select-attribute" class="default-select form-control wide " >'+
 					 options +
 					'</select>'+
 					'</div>'+
-                    '<div class="mb-3 col-md-3">'+
+                    '<div class="mb-2 col-md-2">'+
 					'<label for="">Valeur:</label>'+
-					'<select name="choices['+i+']" id="select-attr'+i+'" class="default-select form-control wide ">'+
+					'<select name="values['+i+']" id="select-attr'+i+'" class="default-select form-control wide ">'+
 					'</select>'+
 					'</div>'+
                     '<div class="mb-2 col-md-2">'+
@@ -293,9 +290,13 @@
 				    '</div>'+
                     '<div class="mb-2 col-md-2">'+
 						'<label>Prix:</label>'+
-						'<input type="number" class="form-control" placeholder="0" name="qtes['+i+']">'+
+						'<input type="number" class="form-control " placeholder="0" name="prices['+i+']">'+
 				    '</div>'+
                     '<div class="mb-2 col-md-2">'+
+						'<label>Promo:</label>'+
+						'<input type="number" class="form-control " placeholder="0" name="promos['+i+']">'+
+				    '</div>'+
+                    '<div class="mb-1 col-md-1">'+
                     ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
                     '</div>	</div><span>';
 
@@ -383,6 +384,51 @@
 
 	});
 </script>
+@endpush
+
+
+@push('search-product-scripts')
+    
+    <script type="text/javascript">
+
+     $.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+        });
+        $('#search').change(function(){
+            alert(1);
+            var value=$(this).val();
+            var data ="";
+            $.ajax({
+            type : 'get',
+            url : '/search/'+ value,
+            
+            success:function(res){
+            $.each(res, function(i, res) {
+                data = data + '<option value="'+ res.id+ '" >'+ res.designation + '</option>';
+                });
+                $('#search').html(data);
+            }
+            });
+        })
+    </script>
+
+@endpush
+
+@push('show-variation-scripts')
+<script>
+ 
+   $("#check").on('change',function(){
+    if(this.checked) {
+        $("#variation").css("display", "block");
+    }
+    else{
+        $("#variation").css("display", "none");
+       } 
+    });
+    
+ </script>
 @endpush
 
 

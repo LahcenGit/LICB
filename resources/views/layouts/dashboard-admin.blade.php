@@ -840,8 +840,8 @@
 							<span class="nav-text">Produits</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Ajouter</a></li>
-                            <li><a href="./ui-alert.html">Tous les produits</a></li>
+                            <li><a href="{{url('dashboard-admin/products/create')}}">Ajouter</a></li>
+                            <li><a href="{{url('dashboard-admin/products')}}">Tous les produits</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -1034,11 +1034,26 @@
 });
 	
     </script>
+	 <script>
+		$(document).ready(function() {
+		$('.select2').select2();
+
+		$(".select2").select2({
+		placeholder: "  Choisissez les produits",
+		allowClear: true,
+		});
+
+		$("textarea").css("color", "#d7dae3");
+	});
+	 </script>
 
 @stack('add-attribute-scripts')
 @stack('add-image-scripts')
 @stack('add-multiple-image-scripts')
 @stack('generate-attribute-scripts')
 @stack('select-nice-scripts')
+@stack('fixe-price-scripts')
+@stack('search-product-scripts')
+@stack('show-variation-scripts')
 </body>
 </html>

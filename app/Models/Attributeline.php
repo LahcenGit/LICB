@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Attributeline extends Model
 {
     use HasFactory;
+
+ 
 }
