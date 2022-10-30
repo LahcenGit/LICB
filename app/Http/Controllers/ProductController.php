@@ -13,7 +13,7 @@ use App\Models\Relatedproduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     //
@@ -40,6 +40,7 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
+        $product->slug = str::slug($request->designation);
         if($request->brouillon == '1'){
             $product->is_brouillon = 1; 
         }

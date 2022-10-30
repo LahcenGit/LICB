@@ -35,6 +35,32 @@
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
 	
 </head>
+<style>
+	.note-editor.note-frame .note-editing-area .note-editable{
+		background-color: #202020;
+		color: #202020;
+	}
+	.select2{
+		line-height: 2.8125rem;
+		border-top-width: 0.0625rem;
+		border-right-width: 0.0625rem;
+		border-bottom-width: 0.0625rem;
+		border-left-width: 0.0625rem;
+		border-top-style: solid;
+		border-right-style: solid;
+		border-bottom-style: solid;
+		border-left-style: solid;
+		background-color: #161717;
+		border-color: #2B2B2B;
+		color: #fff;
+	  	box-shadow: none;
+        background: #fff;
+		padding-top: 0.3125rem;
+		padding-right: 1.25rem;
+		padding-bottom: 0.3125rem;
+		padding-left: 1.25rem;
+	}
+</style>
 <body>
 
     <!--*******************

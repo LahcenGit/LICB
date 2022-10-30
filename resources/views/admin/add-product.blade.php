@@ -40,7 +40,7 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Prix*:</label>
-                                                    <input type="number" class="form-control"  placeholder="0.00" name="price" >
+                                                    <input type="number" class="form-control"  placeholder="0.00" name="price">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Promo:</label>
@@ -125,11 +125,7 @@
                                     <label>L'image principale du produit :</label>
                                     <div class="basic-form custom_file_input">
                                         <div class="input-group mb-3">
-
-                                            <label for="file-upload" class="custom-file-upload">
-                                                <i class="fa fa-cloud-upload"></i> Ajouter l'image
-                                            </label>
-                                            <input id="file-upload" class="upload-image" type="file" onchange="loadFile(event)" name="photoPrincipale" />
+                                          <input id="file-upload" class="upload-image" type="file" onchange="loadFile(event)" name="photoPrincipale" />
                                         </div>
                                         <img id="output">
                                     
@@ -231,7 +227,7 @@
                                 <h4 class="card-title">Description longue</h4>
                             </div>
                             <div class="card-body custom-ekeditor">
-                            <textarea class="summernote" class="form-control "  name="long_description" >{{old('description')}}</textarea>
+                            <textarea class="summernote" class="form-control " style="background-color: #000000; color:#000000"  name="long_description" >{{old('description')}}</textarea>
                             </div>
                         </div>
                     </div>
