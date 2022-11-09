@@ -54,8 +54,12 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix product-price-cover">
-                                                <div class="product-price primary-color float-left">
-                                                    <span class="current-price text-brand">{{$product->productlines[0]->promo_price}} DA</span>
+                                                <div class="product-price primary-color float-left" >
+                                                    @if($min_price)
+                                                    <span class="current-price text-brand" >{{$min_price_promo}} Da</span>
+                                                    @else
+                                                    <span class="current-price text-brand">{{$min_price}} Da</span>
+                                                    @endif
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">26% Off</span>
                                                         <span class="old-price font-md ml-15">{{$product->productlines[0]->price}} DA</span>
@@ -66,13 +70,11 @@
                                                 <p class="font-lg">{{$product->short_description}}</p>
                                             </div>
                                             <div class="attr-detail attr-size mb-30">
-                                                <strong class="mr-10">Size / Weight: </strong>
+                                                <strong class="mr-10">Capacité: </strong>
                                                 <ul class="list-filter size-filter font-small">
-                                                    <li><a href="#">50g</a></li>
-                                                    <li class="active"><a href="#">60g</a></li>
-                                                    <li><a href="#">80g</a></li>
-                                                    <li><a href="#">100g</a></li>
-                                                    <li><a href="#">150g</a></li>
+                                                    @foreach($productlines as $productline)
+                                                    <li><a href="#">{{$productline->attributeLine->value}}</a></li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                             <div class="detail-extralink mb-50">

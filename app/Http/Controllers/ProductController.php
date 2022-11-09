@@ -141,7 +141,17 @@ class ProductController extends Controller
 
     public function detailProduct($slug){
         $product = Product::where('slug',$slug)->first();
-       $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
-        return view('detail-product',compact('product','first_image'));
+        $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
+        $countproductlines = Productline::where('product_id',$product->id)->count();
+        $productlines = Productline::where('product_id',$product->id)->get();
+        
+        if($countproductlines > 1){
+           $min_price = Productline::where('product_id',$product->id)->min('price');
+           $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
+        }
+        else{
+           $min_price = null;
+        }
+        return view('detail-product',compact('product','first_image','min_price','productlines','min_price_promo'));
     }
 }
