@@ -137,4 +137,11 @@ class ProductController extends Controller
         $product->delete();
         return redirect('dashboard-admin/products');
     }
+
+
+    public function detailProduct($slug){
+        $product = Product::where('slug',$slug)->first();
+       $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
+        return view('detail-product',compact('product','first_image'));
+    }
 }

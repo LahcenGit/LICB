@@ -39,3 +39,7 @@ Route::resource('/dashboard-admin/attributelines',AttributelineController::class
 Route::resource('/dashboard-admin/products',ProductController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
+
+Auth::routes();
+Route::get('/detail-product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

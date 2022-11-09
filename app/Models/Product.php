@@ -15,4 +15,13 @@ class Product extends Model
     {
         return $this->hasMany(Image::class);
     }
+    public function productlines()
+    {
+        return $this->hasMany(Productline::class);
+    }
+
+    public function secondaryImages(){
+        $images = Image::where('product_id',$this->id)->where('type',2)->get();
+        return $images;
+    }
 }
