@@ -34,7 +34,14 @@ class Productline extends Model
         $image= Image::where('product_id',$this->product_id)->where('type',1)->first();
         return $image;
     }
+
     public function attributeLine(){
-        return$this->belongsTo(Attributeline::class,'attributeline_id');
+
+        return $this->belongsTo(Attributeline::class,'attributeline_id');
+    }
+    
+    public function attribute(){
+
+        return $this->belongsTo(Attribute::class,'attribute_id');
     }
 }

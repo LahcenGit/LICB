@@ -58,25 +58,32 @@
                                                     @if($min_price)
                                                     <span class="current-price text-brand" >{{$min_price_promo}} Da</span>
                                                     @else
-                                                    <span class="current-price text-brand">{{$min_price}} Da</span>
+                                                    <span class="current-price text-brand">{{$min_price_promo}} Da</span>
                                                     @endif
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">26% Off</span>
-                                                        <span class="old-price font-md ml-15">{{$product->productlines[0]->price}} DA</span>
+                                                        <span class="old-price font-md ml-15">{{$min_price}} DA</span>
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="short-desc mb-30">
                                                 <p class="font-lg">{{$product->short_description}}</p>
                                             </div>
+                                            @foreach($productlines as $productline)
                                             <div class="attr-detail attr-size mb-30">
-                                                <strong class="mr-10">Capacité: </strong>
+                                                
                                                 <ul class="list-filter size-filter font-small">
-                                                    @foreach($productlines as $productline)
-                                                    <li><a href="#">{{$productline->attributeLine->value}}</a></li>
+                                                    @foreach($productline as $attr)
+
+                                                    @if($loop->iteration == 1)
+                                                    <strong class="mr-10">{{$attr->attribute->value}}: </strong>
+                                                    @endif
+                                                    <li><a href="#">{{$attr->attributeLine->value}}</a></li>
                                                     @endforeach
                                                 </ul>
+                                              
                                             </div>
+                                            @endforeach
                                             <div class="detail-extralink mb-50">
                                                 <div class="detail-qty border radius">
                                                     <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>

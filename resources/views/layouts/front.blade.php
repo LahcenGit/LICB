@@ -17,7 +17,11 @@
     <link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('front/assets/css/main.css?v=5.5')}}" />
 </head>
-
+<style>
+    .primary-color{
+        color: #BC221A !important  ;
+    }
+</style>
 <body>
     <!-- Modal -->
     

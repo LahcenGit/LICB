@@ -9,5 +9,12 @@ class Attributeline extends Model
 {
     use HasFactory;
 
+
+    public function attribute(){
+        return $this->belongsTo(Attribute::class,'attribute_id');
+    }
+
+
+
  
 }

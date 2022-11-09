@@ -66,6 +66,7 @@ class ProductController extends Controller
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
+            $productline->attribute_id = $request->as[$i];
             $productline->qte = $request->qtes[$i];
             $productline->price = $request->prices[$i];
             $productline->promo_price = $request->promos[$i];
@@ -148,10 +149,19 @@ class ProductController extends Controller
         if($countproductlines > 1){
            $min_price = Productline::where('product_id',$product->id)->min('price');
            $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
+
+           $countproductline = Productline::where('product_id',$product->id)
+           ->count();
+           $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
+                                        ->get()
+                                        ->groupBy('attribute_id');
+
+   
+           
         }
         else{
            $min_price = null;
         }
-        return view('detail-product',compact('product','first_image','min_price','productlines','min_price_promo'));
+        return view('detail-product',compact('product','first_image','min_price','productlines','min_price_promo','countproductline'));
     }
 }
