@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('attributeline_id')->nullable();
             $table->unsignedBigInteger('attribute_id')->nullable();
-            $table->float('price');
-            $table->float('promo_price');
+            $table->integer('price')->nullable();
+            $table->integer('promo_price')->nullable();
             $table->integer('qte');
             $table->string('status')->nullable();
             $table->string('slug')->nullable();

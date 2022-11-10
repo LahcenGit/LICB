@@ -24,4 +24,9 @@ class Product extends Model
         $images = Image::where('product_id',$this->id)->where('type',2)->get();
         return $images;
     }
+
+    public function minPrice(){
+        $min_price = Productline::where('product_id',$this->id)->min('price');
+        return $min_price;
+    }
 }

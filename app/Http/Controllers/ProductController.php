@@ -144,24 +144,36 @@ class ProductController extends Controller
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
-        $productlines = Productline::where('product_id',$product->id)->get();
+       
         
         if($countproductlines > 1){
            $min_price = Productline::where('product_id',$product->id)->min('price');
            $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
-
+           
            $countproductline = Productline::where('product_id',$product->id)
            ->count();
-           $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
-                                        ->get()
-                                        ->groupBy('attribute_id');
-
-   
-           
-        }
+           $attributes= Productline::with('attributeLine')->where('product_id',$product->id)
+                                    ->orderBy('price','asc')
+                                    ->get()
+                                    ->groupBy('attribute_id');
+                                        
+            $productline = null;
+           }
         else{
            $min_price = null;
+           $min_price_promo = null;
+           $productline = Productline::where('product_id',$product->id)->first();
+           $attributes = null;
         }
-        return view('detail-product',compact('product','first_image','min_price','productlines','min_price_promo','countproductline'));
+
+        $categories = Category::where('parent_id',null)->limit('5')->get();
+        $new_products = Product::orderBy('created_at','desc')->limit('3')->get();
+        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products'));
+    }
+
+
+    public function getPrice($id,$attributeline_id){
+        $product = Productline::where('attributeline_id',$attributeline_id)->where('id',$id)->first();
+        return $product;
     }
 }
