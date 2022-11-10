@@ -14,7 +14,7 @@
 	<meta name="format-detection" content="telephone=no">
 	
 	<!-- PAGE TITLE HERE -->
-	<title>Licb Plus</title>
+	<title>LICB+</title>
 	
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -108,8 +108,8 @@
 				</svg>
 
 				<div class="brand-title">
-					<h2 class="">Licbplus</h2>
-					<span class="brand-sub-title">Project Management Admin</span>
+					<h2 class="">LICB+</h2>
+					<span class="brand-sub-title">Panel Management Admin</span>
 				</div>
             </a>
             <div class="nav-control">
@@ -907,7 +907,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://dexignlab.com/" target="_blank">DexignLab</a> 2021</p>
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">LICB+</a> 2022</p>
             </div>
         </div>
         <!--**********************************
@@ -1058,8 +1058,9 @@
         delete_url: 'ajax_delete.php',
     });
 });
-	
     </script>
+
+
 	 <script>
 		$(document).ready(function() {
 		$('.select2').select2();
