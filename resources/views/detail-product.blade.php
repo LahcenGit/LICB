@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                    <span></span> <a href="shop-grid-right.html">Vegetables & tubers</a> <span></span> Seeds of Change Organic
+                    <span></span> <a href="shop-grid-right.html">Composants PC</a> <span></span> SSD
                 </div>
             </div>
         </div>
@@ -87,8 +87,11 @@
                                                     @if($loop->iteration == 1)
                                                     <strong class="mr-10">{{$a->attribute->value}}: </strong>
                                                     @endif
-                                                    <li><a href="#"  class="getAttribute" data-id="{{$a->attributeline_id}}" id="{{$a->id}}" >{{$a->attributeLine->value}}</a></li>
-                                                    <li><a href="#"  >{{$a->price}} Da</a></li>
+                                                    <li>
+                                                        <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$a->attributeline_id}}" id="{{$a->id}}" >{{$a->attributeLine->value}} <br> 
+                                                         <strong class="price-related" >{{$a->price}} Da </strong> 
+                                                        </a>
+                                                    </li>
                                                     @endforeach
                                                 </ul>
                                               
@@ -109,13 +112,13 @@
                                             </div>
                                             <div class="font-xs">
                                                 <ul class="mr-50 float-start">
-                                                    <li class="mb-5">Type: <span class="text-brand">Organic</span></li>
-                                                    <li class="mb-5">MFG:<span class="text-brand"> Jun 4.2022</span></li>
+                                                    <li class="mb-5">Type: <span class="text-brand">SSD</span></li>
+                                                    <li class="mb-5">MFG:<span class="text-brand"> 2022</span></li>
                                                     <li>LIFE: <span class="text-brand">70 days</span></li>
                                                 </ul>
                                                 <ul class="float-start">
                                                     <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
-                                                    <li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a href="#" rel="tag">Organic</a>, <a href="#" rel="tag">Brown</a></li>
+                                                    <li class="mb-5">Tags: <a href="#" rel="tag">M2</a>, <a href="#" rel="tag">PCIe </a>, <a href="#" rel="tag">NVMe</a></li>
                                                     <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
                                                 </ul>
                                             </div>
@@ -604,15 +607,17 @@
 			url: '/get-price/' + id +'/'+attributeline_id,
 			type: "GET",
             success: function (res) {
-                if(res.promo_price){
+               
+                if(res.promo != '0'){
+                    
                     var price_promo = $.number(res.promo_price); 
                     var price = $.number(res.price); 
                     $(".price-promo").text(price_promo +' Da');
                     $(".price").text(price + ' Da');
                 }
                 else{
-                    var price = $.number( res.price);
-                    $(".price-promo").text(price +' Da');
+                 
+                    $(".price-promo").text(res.price +' Da');
                 }
                
 				

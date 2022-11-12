@@ -19,7 +19,14 @@
 </head>
 <style>
     .primary-color{
-        color: #BC221A !important  ;
+        color: #BC221A !important;
+    }
+
+    .price-related{
+        color: #BC221A !important;
+    }
+    .price-related:hover{
+        color: #ffffff !important;
     }
 </style>
 <body>

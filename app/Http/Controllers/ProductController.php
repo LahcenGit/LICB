@@ -174,6 +174,13 @@ class ProductController extends Controller
 
     public function getPrice($id,$attributeline_id){
         $product = Productline::where('attributeline_id',$attributeline_id)->where('id',$id)->first();
-        return $product;
+
+        $data = array(
+            "price" => number_format($product->price),
+            "promo" => number_format($product->promo_price)
+          );
+
+        
+        return $data;
     }
 }
