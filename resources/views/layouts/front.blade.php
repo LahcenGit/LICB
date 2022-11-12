@@ -1057,6 +1057,7 @@
     <script src="{{asset('front/assets/js/main.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.min.js')}}"></script>
+    <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
 </body>
 
 </html>

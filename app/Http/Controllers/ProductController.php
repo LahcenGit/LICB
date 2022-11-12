@@ -167,8 +167,10 @@ class ProductController extends Controller
         }
 
         $categories = Category::where('parent_id',null)->limit('5')->get();
-        $new_products = Product::orderBy('created_at','desc')->limit('3')->get();
-        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products'));
+        $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
+        $category = Productcategory::where('product_id',$product->id)->first();
+        $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products'));
     }
 
 
