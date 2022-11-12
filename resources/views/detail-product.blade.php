@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="container mb-30">
-            <div class="row">
+            <div class="row product-data">
                 <div class="col-xl-11 col-lg-12 m-auto">
                     <div class="row">
                         <div class="col-xl-9">
@@ -66,11 +66,15 @@
                                                      <span class="current-price text-brand price-promo" >{{number_format($min_price)}} Da</span>
                                                      @endif
                                                     @else
+                                                    @if($productline->promo_price)
                                                     <span class="current-price text-brand">{{number_format($productline->promo_price)}} Da</span>
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">26% Off</span>
                                                         <span class="old-price font-md ml-15 price">{{number_format($productline->price)}} DA</span>
                                                     </span>
+                                                    @else
+                                                    <span class="current-price text-brand">{{number_format($productline->price)}} Da</span>
+                                                    @endif
                                                     @endif
                                                 </div>
                                             </div>
@@ -98,14 +102,29 @@
                                             </div>
                                             @endforeach
                                             @endif
+                                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                                                  <div class="toast-header">
+                                                    <img src="..." class="rounded me-2" alt="...">
+                                                    <strong class="me-auto">Bootstrap</strong>
+                                                    <small>11 mins ago</small>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="toast-body">
+                                                    Hello, world! This is a toast message.
+                                                  </div>
+                                                </div>
+                                            </div>
                                             <div class="detail-extralink mb-50">
                                                 <div class="detail-qty border radius">
+                                                    <input type="hidden" value="{{$productline->id}}" class="product_id">
+                                                    <input type="hidden" value="{{$productline->price}}" class="price">
                                                     <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
                                                     <input type="text" name="quantity" class="qty-val" value="1" min="1">
                                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                                 </div>
                                                 <div class="product-extra-link2">
-                                                    <button type="submit" class="button button-add-to-cart"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
+                                                    <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
                                                     <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
@@ -542,4 +561,56 @@
 		});
 });
 </script> 
+@endpush
+@push('add-cart-scripts')
+<script>
+$( ".addToCartBtn" ).click(function(e) {
+    e.preventDefault();
+    var product_id = $(this).closest('.product-data').find('.product_id').val();
+    var qte = $(this).closest('.product-data').find('.qty-val').val();
+    var price = $(this).closest('.product-data').find('.price').val();
+    
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $.ajax({
+                url: '/add-to-cart',
+                type: "POST",
+                data:{
+                    'product_id' : product_id,
+                    'qte' :qte,
+                    'price':price,
+                },
+                success: function (res) {
+
+                    $("#liveToast").show();
+                    $(".nbr_product").text(res.nbr_cart);
+                    if(res.qtes == 0){
+                        $data =  '<li>'+
+                                    '<div class="shopping-cart-img">'+
+                                        '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                    '</div>'+
+                                    '<div class="shopping-cart-title">'+
+                                        '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
+                                        '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
+                                    '</div>'+
+                                    '<div class="shopping-cart-delete">'+
+                                        '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
+                                    '</div>'+
+                            '</li>';
+
+                        $('.cart-list').append($data);
+                    }
+                    else{
+                        $(".qte").text(res.qtes +'x' );
+                    }
+                    $(".total").text(res.total +' Da');
+                
+                }
+                });
+               
+});
+</script>
 @endpush

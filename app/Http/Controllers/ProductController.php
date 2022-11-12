@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Attributeline;
+use App\Models\Cart;
 use App\Models\Image;
 use App\Models\Productcategory;
 use App\Models\Productline;
@@ -157,7 +158,7 @@ class ProductController extends Controller
                                     ->get()
                                     ->groupBy('attribute_id');
                                         
-            $productline = null;
+            $productline = Productline::where('product_id',$product->id)->first();
            }
         else{
            $min_price = null;
@@ -170,7 +171,10 @@ class ProductController extends Controller
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
-        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products'));
+        $cart_products = Cart::all();
+        $total = Cart::selectRaw('sum(qte * price) as sum')->first();
+        $nbr_product = Cart::count();
+        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products','cart_products','total','nbr_product'));
     }
 
 

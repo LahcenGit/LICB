@@ -11,9 +11,11 @@
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
     <meta property="og:image" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('front/assets/imgs/theme/favicon.svg')}}" />
     <!-- Template CSS -->
+    <link rel="stylesheet" href="{{asset('front/assets/css/vendors/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('front/assets/css/main.css?v=5.5')}}" />
 </head>
@@ -254,39 +256,29 @@
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="shop-cart.html">
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
-                                        <span class="pro-count blue">2</span>
+                                        <span class="pro-count blue nbr_product">{{$nbr_product}}</span>
                                     </a>
                                     <a href="shop-cart.html"><span class="lable">Cart</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
                                         <ul>
-                                            <li>
+                                            @foreach($cart_products as $cart_product)
+                                            <li class="cart-list">
                                                 <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="{{asset('front/assets/imgs/shop/thumbnail-3.jpg')}}" /></a>
+                                                    <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cart_product->getImage()->lien)}}" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Daisy Casual Bag</a></h4>
-                                                    <h4><span>1 × </span>$800.00</h4>
+                                                    <h4><a href="shop-product-right.html">{{$cart_product->getName()->designation}}</a></h4>
+                                                    <h4><span class="qte">{{$cart_product->qte}} × </span>{{number_format($cart_product->productline->price)}} Da</h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
                                                     <a href="#"><i class="fi-rs-cross-small"></i></a>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="{{asset('front/assets/imgs/shop/thumbnail-2.jpg')}}" /></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html">Corduroy Shirts</a></h4>
-                                                    <h4><span>1 × </span>$3200.00</h4>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                         <div class="shopping-cart-footer">
                                             <div class="shopping-cart-total">
-                                                <h4>Total <span>$4000.00</span></h4>
+                                                <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
                                             </div>
                                             <div class="shopping-cart-button">
                                                 <a href="shop-cart.html" class="outline">View cart</a>
@@ -1058,7 +1050,9 @@
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.min.js')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
+
+    @stack('get-price-script')
+    @stack('add-cart-scripts')
 </body>
 
 </html>
-@stack('get-price-script')
