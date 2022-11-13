@@ -24,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cart_products = Cart::all();
-        return view('welcome',compact('cart_products'));
+       return view('welcome');
     }
 }

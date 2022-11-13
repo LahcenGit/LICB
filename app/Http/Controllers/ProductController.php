@@ -171,10 +171,10 @@ class ProductController extends Controller
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
-        $cart_products = Cart::all();
-        $total = Cart::selectRaw('sum(qte * price) as sum')->first();
-        $nbr_product = Cart::count();
-        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products','cart_products','total','nbr_product'));
+       // $cart_products = Cart::all();
+       // $total = Cart::selectRaw('sum(qte * price) as sum')->first();
+       // $nbr_product = Cart::count();
+        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products'));
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -41,6 +42,14 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function redirectTo(){
+        return '/';
+      }
+    public function showRegistrationForm(){
+       
+        return view('auth.register');
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -50,10 +59,28 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required','unique:users'],
+            'first_name' => ['required' ,'string' ,'max:255'],
+            'last_name' => ['required','string' ,'max:255'],
+            'username' => ['required' , 'unique:users', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+        [
+            'password.min' => 'Le mot de passe doit comporter au moins 8 caractères.',
+            'email.unique' => 'Ce email existe déja',
+            'email.email' => 'e-mail doit être une adresse e-mail valide.',
+            'username.unique' => 'Ce username existe déja',
+            'phone.unique' => 'Ce numéro existe déja',
+            'phone.required' =>'Ce champ est obligatoire',
+            'password.required'=>'le mot de passe est obligatoire',
+            'first_name.required' => 'Ce champ est obligatoire',
+            'last_name.required' => 'Ce champ est obligatoire',
+            'email.required' => 'Ce champ est obligatoire',
+            'username.required' => 'Ce champ est obligatoire',
+            'phone.required' => 'Ce champ est obligatoire',
+        ]
+    );
     }
 
     /**
@@ -64,10 +91,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
             'email' => $data['email'],
+            'username' => $data['username'],
+            'phone' => $data['phone'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'type' => 'customer',
             'password' => Hash::make($data['password']),
         ]);
+        $cart = new Cart();
+        $cart->user_id = $user->id;
+        $cart->save();
+        return $user;
     }
 }
