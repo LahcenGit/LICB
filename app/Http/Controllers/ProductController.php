@@ -153,20 +153,24 @@ class ProductController extends Controller
            
            $countproductline = Productline::where('product_id',$product->id)
            ->count();
-           $attributes= Productline::with('attributeLine')->where('product_id',$product->id)
+
+           $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
                                     ->orderBy('price','asc')
                                     ->get()
                                     ->groupBy('attribute_id');
                                         
-            $productline = Productline::where('product_id',$product->id)->first();
+            $product_line = Productline::where('product_id',$product->id)->first();
+            $attributes = null;
            }
         else{
+
            $min_price = null;
            $min_price_promo = null;
-           $productline = Productline::where('product_id',$product->id)->first();
+           $product_line = Productline::where('product_id',$product->id)->first();
+           $productlines = null;
            $attributes = null;
+           
         }
-
         $categories = Category::where('parent_id',null)->limit('5')->get();
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
@@ -174,7 +178,7 @@ class ProductController extends Controller
        // $cart_products = Cart::all();
        // $total = Cart::selectRaw('sum(qte * price) as sum')->first();
        // $nbr_product = Cart::count();
-        return view('detail-product',compact('product','first_image','min_price','attributes','min_price_promo','countproductlines','productline','categories','new_products','related_products'));
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line'));
     }
 
 
@@ -187,6 +191,23 @@ class ProductController extends Controller
           );
 
         
+        return $data;
+    }
+
+
+    public function getProduct($id){
+        $product = Product::find($id);
+        $countproductlines = Productline::where('product_id',$product->id)->count();
+        if($countproductlines >1){
+            $productlines = null;
+        }
+        else{
+            $productlines = Productline::where('product_id',$product->id)->first();
+        }
+        $data = array(
+            "countproductlines" => $countproductlines,
+            "productlines" => $productlines
+          );
         return $data;
     }
 }

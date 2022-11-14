@@ -66,14 +66,14 @@
                                                      <span class="current-price text-brand price-promo" >{{number_format($min_price)}} Da</span>
                                                      @endif
                                                     @else
-                                                    @if($productline->promo_price)
-                                                    <span class="current-price text-brand">{{number_format($productline->promo_price)}} Da</span>
+                                                    @if($product_line->promo_price)
+                                                    <span class="current-price text-brand promo">{{number_format($product_line->promo_price)}} Da</span>
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">26% Off</span>
-                                                        <span class="old-price font-md ml-15 price">{{number_format($productline->price)}} DA</span>
+                                                        <span class="old-price font-md ml-15 price">{{number_format($product_line->price)}} DA</span>
                                                     </span>
                                                     @else
-                                                    <span class="current-price text-brand">{{number_format($productline->price)}} Da</span>
+                                                    <span class="current-price text-brand pricep">{{number_format($product_line->price)}} Da</span>
                                                     @endif
                                                     @endif
                                                 </div>
@@ -81,21 +81,22 @@
                                             <div class="short-desc mb-30">
                                                 <p class="font-lg">{!! $product->long_description !!}</p>
                                             </div>
-                                            @if($attributes)
-                                            @foreach($attributes as $attribute)
+                                            @if($productlines)
+                                            @foreach($productlines as $productline)
                                             <div class="attr-detail attr-size mb-30">
                                                 
-                                                <ul class="list-filter size-filter font-small">
-                                                    @foreach($attribute as $a)
-
-                                                    @if($loop->iteration == 1)
-                                                    <strong class="mr-10">{{$a->attribute->value}}: </strong>
-                                                    @endif
-                                                    <li>
-                                                        <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$a->attributeline_id}}" id="{{$a->id}}" >{{$a->attributeLine->value}} <br> 
-                                                         <strong class="price-related" >{{$a->price}} Da </strong> 
-                                                        </a>
-                                                    </li>
+                                                <ul class="list-filter size-filter font-small" id="list-line">
+                                                    @foreach($productline as $item)
+                                                       
+                                                            @if($loop->iteration == 1)
+                                                            <strong class="mr-10">{{$item->attribute->value}}: </strong>
+                                                            @endif
+                                                            <li value-id="{{$item->id}}">
+                                                            <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br> 
+                                                                <strong class="price-related" >{{$item->price}} Da </strong> 
+                                                                </a>
+                                                            </li>
+                                                        
                                                     @endforeach
                                                 </ul>
                                               
@@ -117,8 +118,9 @@
                                             </div>
                                             <div class="detail-extralink mb-50">
                                                 <div class="detail-qty border radius">
-                                                    <input type="hidden" value="{{$productline->id}}" class="product_id">
-                                                    <input type="hidden" value="{{$productline->price}}" class="price">
+
+                                                    <input type="hidden" value="{{$product->id}}" class="product_id">
+                                                    <input type="hidden" value="{{$product_line->id}}" class="product_line_id">
                                                     <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
                                                     <input type="text" name="quantity" class="qty-val" value="1" min="1">
                                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
@@ -564,52 +566,108 @@
 @endpush
 @push('add-cart-scripts')
 <script>
-$( ".addToCartBtn" ).click(function(e) {
-    e.preventDefault();
-    var product_id = $(this).closest('.product-data').find('.product_id').val();
-    var qte = $(this).closest('.product-data').find('.qty-val').val();
-    var price = $(this).closest('.product-data').find('.price').val();
-    
-        $.ajaxSetup({
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
+        
+    $( ".addToCartBtn" ).click(function(e) {
+        e.preventDefault();
+       
+        var product_id = $(this).closest('.product-data').find('.product_id').val();
+        var qte = $(this).closest('.product-data').find('.qty-val').val();
+        
         $.ajax({
-                url: '/add-to-cart',
-                type: "POST",
-                data:{
-                    'product_id' : product_id,
-                    'qte' :qte,
-                    'price':price,
-                },
+                url: '/get-product/' + product_id ,
+                type: "GET",
                 success: function (res) {
-
-                    $("#liveToast").show();
-                    $(".nbr_product").text(res.nbr_cart);
-                    if(res.qtes == 0){
-                        $data =  '<li>'+
-                                    '<div class="shopping-cart-img">'+
-                                        '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
-                                    '</div>'+
-                                    '<div class="shopping-cart-title">'+
-                                        '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
-                                        '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
-                                    '</div>'+
-                                    '<div class="shopping-cart-delete">'+
-                                        '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
-                                    '</div>'+
-                            '</li>';
-
-                        $('.cart-list').append($data);
-                    }
-                    else{
-                        $(".qte").text(res.qtes +'x' );
-                    }
-                    $(".total").text(res.total +' Da');
                 
+                if(res.countproductlines > 1){
+                    var id = $('#list-line li.active').attr('value-id');
+                    $.ajax({
+                            url: '/add-to-cart',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                                'qte' :qte,
+                            },
+                            success: function (res) {
+
+                                $("#liveToast").show();
+                                $(".nbr_product").text(res.nbr_cart);
+                                if(res.qtes == 0){
+                                    $data =  '<li>'+
+                                                '<div class="shopping-cart-img">'+
+                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-title">'+
+                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
+                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-delete">'+
+                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
+                                                '</div>'+
+                                        '</li>';
+
+                                    $('.cart-list').append($data);
+                                }
+                                else{
+                                    $(".qte").text(res.qtes +'x' );
+                                }
+                                $(".total").text(res.total +' Da');
+                            
+                            }
+                            });
+                         }
+                         else{
+                            var id = res.productlines.id;
+                           
+                            $.ajax({
+                            url: '/add-to-cart',
+                            type: "POST",
+                            data:{
+                                'id' : id,
+                                'qte' :qte,
+                            },
+                            success: function (res) {
+
+                                $("#liveToast").show();
+                                $(".nbr_product").text(res.nbr_cart);
+                                if(res.qtes == 0){
+                                    $data =  '<li>'+
+                                                '<div class="shopping-cart-img">'+
+                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-title">'+
+                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
+                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
+                                                '</div>'+
+                                                '<div class="shopping-cart-delete">'+
+                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
+                                                '</div>'+
+                                        '</li>';
+
+                                    $('.cart-list').append($data);
+                                }
+                                else{
+                                    $(".qte").text(res.qtes +'x' );
+                                }
+                                $(".total").text(res.total +' Da');
+                            
+                            }
+                            });
+                         }
+                
+                    
                 }
-                });
+            });
+
+    
+    
+    
+        
+       
                
 });
 </script>
