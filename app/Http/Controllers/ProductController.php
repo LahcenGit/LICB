@@ -7,11 +7,13 @@ use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Attributeline;
 use App\Models\Cart;
+use App\Models\Cartitem;
 use App\Models\Image;
 use App\Models\Productcategory;
 use App\Models\Productline;
 use App\Models\Relatedproduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -175,10 +177,20 @@ class ProductController extends Controller
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
-       // $cart_products = Cart::all();
-       // $total = Cart::selectRaw('sum(qte * price) as sum')->first();
-       // $nbr_product = Cart::count();
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line'));
+        if(Auth::user()){
+            $cart = Cart::where('user_id',Auth::user()->id)->first();
+            $cartitems = $cart->cartitems;
+            $nbr_cartitem = $cart->cartitems->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+        
+        }
+        else{
+        $cart= session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        }
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total'));
     }
 
 

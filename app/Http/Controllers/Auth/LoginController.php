@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cartitem;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -55,6 +56,11 @@ class LoginController extends Controller
                 ->with('error','Email-Address And Password Are Wrong.');
         }
           
+    }
+    public function showLoginForm(){
+        $cart= session('cart_id');
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        return view('auth.login',compact('nbr_cartitem'));
     }
 
     /**

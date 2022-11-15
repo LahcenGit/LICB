@@ -9,7 +9,7 @@ class Cartitem extends Model
 {
     use HasFactory;
     public function productline(){
-        return $this->belongsTo(Productline::class,'product_id');
+        return $this->belongsTo(Productline::class,'productline_id');
     }
 
     public function getName(){
@@ -22,5 +22,9 @@ class Cartitem extends Model
         $productline = Productline::where('id',$this->productline_id)->first();
         $image = Image::where('product_id',$productline->product_id)->where('type',1)->first();
         return $image;
+    }
+
+    public function cart(){
+        return $this->belongsTo(Cart::class,'cart_id');
     }
 }

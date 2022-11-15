@@ -599,7 +599,7 @@
                                 if(res.qtes == 0){
                                     $data =  '<li>'+
                                                 '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image+')}}" /></a>'+
                                                 '</div>'+
                                                 '<div class="shopping-cart-title">'+
                                                     '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+

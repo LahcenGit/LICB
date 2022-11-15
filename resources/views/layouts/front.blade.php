@@ -253,32 +253,33 @@
                                     </a>
                                     <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
                                 </div>
+                                
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="shop-cart.html">
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
-                                        <span class="pro-count blue nbr_product">3</span>
+                                        <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
                                     </a>
                                     <a href="shop-cart.html"><span class="lable">Cart</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
                                         <ul>
-                                           
+                                           @foreach($cartitems as $cartitem)
                                             <li class="cart-list">
                                                 <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="" /></a>
+                                                    <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html"></a>Name</h4>
-                                                    <h4><span class="qte">2 × </span> Price Da</h4>
+                                                    <h4><a href="shop-product-right.html"></a>{{$cartitem->productline->product->designation}}</h4>
+                                                    <h4><span class="qte">{{$cartitem->qte}} × </span> {{number_format($cartitem->price)}} Da</h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
                                                     <a href="#"><i class="fi-rs-cross-small"></i></a>
                                                 </div>
                                             </li>
-                                           
+                                           @endforeach
                                         </ul>
                                         <div class="shopping-cart-footer">
                                             <div class="shopping-cart-total">
-                                                <h4>Total <span class="total">15000 Da</span></h4>
+                                                <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
                                             </div>
                                             <div class="shopping-cart-button">
                                                 <a href="shop-cart.html" class="outline">View cart</a>
@@ -287,6 +288,7 @@
                                         </div>
                                     </div>
                                 </div>
+                               
                                 <div class="header-action-icon-2">
                                     <a href="page-account.html">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
