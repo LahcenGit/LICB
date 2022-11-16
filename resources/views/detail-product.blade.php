@@ -574,6 +574,7 @@
         
     $( ".addToCartBtn" ).click(function(e) {
         e.preventDefault();
+        
        
         var product_id = $(this).closest('.product-data').find('.product_id').val();
         var qte = $(this).closest('.product-data').find('.qty-val').val();
@@ -586,16 +587,17 @@
                 if(res.countproductlines > 1){
                     var id = $('#list-line li.active').attr('value-id');
                     $.ajax({
-                            url: '/add-to-cart',
+                            url: '/carts',
                             type: "POST",
                             data:{
                                 'id' : id,
                                 'qte' :qte,
                             },
                             success: function (res) {
-
+                            
                                 $("#liveToast").show();
                                 $(".nbr_product").text(res.nbr_cart);
+                                
                                 if(res.qtes == 0){
                                     $data =  '<li>'+
                                                 '<div class="shopping-cart-img">'+
@@ -613,25 +615,25 @@
                                     $('.cart-list').append($data);
                                 }
                                 else{
-                                    $(".qte").text(res.qtes +'x' );
+                                    alert("Le produit existe déja dans votre panier");
                                 }
                                 $(".total").text(res.total +' Da');
+                               }
                             
-                            }
                             });
                          }
                          else{
                             var id = res.productlines.id;
                            
                             $.ajax({
-                            url: '/add-to-cart',
+                            url: '/carts',
                             type: "POST",
                             data:{
                                 'id' : id,
                                 'qte' :qte,
                             },
                             success: function (res) {
-
+                                
                                 $("#liveToast").show();
                                 $(".nbr_product").text(res.nbr_cart);
                                 if(res.qtes == 0){
@@ -651,7 +653,7 @@
                                     $('.cart-list').append($data);
                                 }
                                 else{
-                                    $(".qte").text(res.qtes +'x' );
+                                    alert("Le produit existe déja dans votre panier");
                                 }
                                 $(".total").text(res.total +' Da');
                             
@@ -663,12 +665,6 @@
                 }
             });
 
-    
-    
-    
-        
-       
-               
 });
 </script>
 @endpush

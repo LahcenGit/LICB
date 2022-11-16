@@ -12,28 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     //
-    public function addToCart(Request $request) {
+    public function store(Request $request) {
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             
             $product_exist = Cartitem::where('productline_id',$request->input('id'))->where('cart_id',$cart->id)->first();
             if($product_exist){
-                $product_exist->qte = $product_exist->qte + $request->input('qte');
-                if($product_exist->promo_price){
-                $product_exist->total = $product_exist->total +($request->input('qte')*$product_exist->promo_price);
-                }
-                else{
-                $product_exist->total = $product_exist->total +($request->input('qte')*$product_exist->price);
-                }
-                
-                $product_exist->save();
-                $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->first();
                 $data = array(
-                    'nbr_cart' => $nbr_cart,
-                    'total' => number_format($total->sum),
-                    'qtes' => $product_exist->qte,
+                   'qtes' => 1,
                 );
                 return $data;
             }
@@ -170,5 +157,22 @@ class CartController extends Controller
 
         }
         }
+  }
+
+  public function index(){
+    if(Auth::user()){
+        $cart = Cart::where('user_id',Auth::user()->id)->first();
+        $cartitems = $cart->cartitems;
+        $nbr_cartitem = $cart->cartitems->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+        return view('carts',compact('cartitems','nbr_cartitem','total'));
+    }
+    else{
+        $cart= session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        return view('carts',compact('cartitems','nbr_cartitem','total'));
+    }
   }
 }

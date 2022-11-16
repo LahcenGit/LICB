@@ -260,33 +260,41 @@
                                         <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
                                     </a>
                                     <a href="shop-cart.html"><span class="lable">Cart</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
-                                        <ul>
-                                           @foreach($cartitems as $cartitem)
-                                            <li class="cart-list">
-                                                <div class="shopping-cart-img">
-                                                    <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
+                                    @if($nbr_cartitem > 0)
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
+                                            <ul>
+                                            @foreach($cartitems as $cartitem)
+                                                <li class="cart-list">
+                                                    <div class="shopping-cart-img">
+                                                        <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
+                                                    </div>
+                                                    <div class="shopping-cart-title">
+                                                        <h4><a href="shop-product-right.html"></a>{{$cartitem->productline->product->designation}}</h4>
+                                                        <h4><span class="qte">{{$cartitem->qte}} × </span> {{number_format($cartitem->price)}} Da</h4>
+                                                    </div>
+                                                    <div class="shopping-cart-delete">
+                                                        <a href="#"><i class="fi-rs-cross-small"></i></a>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                            </ul>
+                                            <div class="shopping-cart-footer">
+                                                <div class="shopping-cart-total">
+                                                    <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
                                                 </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="shop-product-right.html"></a>{{$cartitem->productline->product->designation}}</h4>
-                                                    <h4><span class="qte">{{$cartitem->qte}} × </span> {{number_format($cartitem->price)}} Da</h4>
+                                                <div class="shopping-cart-button">
+                                                    <a href="{{asset('/carts')}}" class="outline">Voir le panier</a>
+                                                    <a href="shop-checkout.html">Validation</a>
                                                 </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                           @endforeach
-                                        </ul>
-                                        <div class="shopping-cart-footer">
-                                            <div class="shopping-cart-total">
-                                                <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
-                                            </div>
-                                            <div class="shopping-cart-button">
-                                                <a href="shop-cart.html" class="outline">View cart</a>
-                                                <a href="shop-checkout.html">Checkout</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
+                                            <div class="d-flex justify-content-center">
+                                               <p style="font-size: 20px;">Votre panier est vide </p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                                
                                 <div class="header-action-icon-2">
@@ -1052,7 +1060,7 @@
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.min.js')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @stack('get-price-script')
     @stack('add-cart-scripts')
 </body>

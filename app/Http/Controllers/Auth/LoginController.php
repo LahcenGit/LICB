@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -58,9 +59,20 @@ class LoginController extends Controller
           
     }
     public function showLoginForm(){
-        $cart= session('cart_id');
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        return view('auth.login',compact('nbr_cartitem'));
+        if(Auth::user()){
+            $cart = Cart::where('user_id',Auth::user()->id)->first();
+            $cartitems = $cart->cartitems;
+            $nbr_cartitem = $cart->cartitems->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+        }
+        else{
+            $cart= session('cart_id');
+            $cartitems = Cartitem::where('cart_id',$cart)->get();
+            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        }
+        
+        return view('auth.login',compact('nbr_cartitem','cartitems','total'));
     }
 
     /**
