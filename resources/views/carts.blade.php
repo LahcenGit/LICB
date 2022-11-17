@@ -11,6 +11,9 @@
         </div>
     </div>
     <div class="container mb-80 mt-50">
+        <form action="{{url('carts/'.$cart->id)}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_method" value="PUT">
+            @csrf
         <div class="row">
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Votre panier</h1>
@@ -39,7 +42,7 @@
                         </thead>
                         <tbody>
                             @foreach($cartitems as $item)
-                            <tr class="pt-30">
+                            <tr class="pt-30 item" >
                                 <td class="custome-checkbox pl-30">
                                     <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
                                     <label class="form-check-label" for="exampleCheckbox1"></label>
@@ -62,15 +65,18 @@
                                     <div class="detail-extralink mr-15">
                                         <div class="detail-qty border radius">
                                             <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                            <input type="text" name="quantity" class="qty-val" value="{{$item->qte}}" min="1">
+                                            <input type="text" name="qtes[]" class="qty-val" value="{{$item->qte}}" min="1">
                                             <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="item[]" value="{{$item->id}}">
                                 </td>
                                 <td class="price" data-title="Price">
                                     <h4 class="text-brand">{{number_format($item->total)}} Da</h4>
                                 </td>
-                                <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+                                
+                                <td class="action text-center" data-title="Remove"><a class="text-body delete-item" data-id="{{$item->id}}"><i class="fi-rs-trash"></i></a></td>
+                                
                             </tr>
                             @endforeach
                             
@@ -80,8 +86,9 @@
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
                     <a class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a>
-                    <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Mettre à jour le panier</a>
+                    <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Mettre à jour le panier</button>
                 </div>
+            </form>
                 <div class="row mt-50">
                     <div class="col-lg-7">
                         <div class="calculate-shiping p-40 border-radius-15 border">
@@ -417,3 +424,23 @@
     </div>
 </main>
 @endsection
+@push('delete-item')
+<script>
+    $( ".delete-item" ).click(function() {
+        var id = $(this).attr("data-id");
+        var token = $("meta[name='csrf-token']").attr("content");
+        $.ajax({
+			url: '/carts/'+id ,
+			type: 'DELETE',
+            data: {
+            "id": id,
+            "_token": token,
+        },
+            success: function (res) {
+              $(".item").css("display", "none");
+               
+             }
+		});
+});
+</script>
+@endpush

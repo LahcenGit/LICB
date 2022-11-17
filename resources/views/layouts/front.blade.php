@@ -1063,6 +1063,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @stack('get-price-script')
     @stack('add-cart-scripts')
+    @stack('delete-item')
 </body>
 
 </html>

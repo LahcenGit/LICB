@@ -165,14 +165,70 @@ class CartController extends Controller
         $cartitems = $cart->cartitems;
         $nbr_cartitem = $cart->cartitems->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-        return view('carts',compact('cartitems','nbr_cartitem','total'));
+        return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
     }
     else{
         $cart= session('cart_id');
         $cartitems = Cartitem::where('cart_id',$cart)->get();
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        return view('carts',compact('cartitems','nbr_cartitem','total'));
+        return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+    }
+  }
+
+  public function update(Request $request , $id){
+    for($i=0 ; $i < count($request->qtes); $i++){
+        $cartitem = Cartitem::find($request->item[$i]);
+        if(Auth::user()){
+                $cart = Cart::where('user_id',Auth::user()->id)->first();
+                if($cartitem->cart_id == $cart->id){
+                    $cartitem->qte = $request->qtes[$i];
+                    $cartitem->total = $cartitem->price * $request->qtes[$i];
+                    $cartitem->save();
+                    return redirect('/carts');
+                }
+                else{
+                    abort(404, 'Page not found');
+                }
+            }
+        else{
+            $cart= session('cart_id');
+            if($cartitem->cart_id == $cart->id){
+                $cartitem->qte = $request->qtes[$i];
+                $cartitem->total = $cartitem->price * $request->qtes[$i];
+                $cartitem->save();
+                return redirect('/carts');
+            }
+            else{
+                abort(404, 'Page not found');
+            }
+        }
+     
+    }
+  }
+
+  public function destroy($id){
+    $cartitem = Cartitem::find($id);
+    if(Auth::user()){
+        $cart = Cart::where('user_id',Auth::user()->id)->first();
+        if($cartitem->cart_id == $cart->id){
+            $cartitem->delete();
+            return true;
+        }
+        else{
+            abort(404, 'Page not found');
+        }
+    }
+    else{
+        $cart= session('cart_id');
+        if($cartitem->cart_id == $cart->id){
+            $cartitem->delete();
+            return true;
+        }
+        else{
+            abort(404, 'Page not found');
+        }
+       
     }
   }
 }
