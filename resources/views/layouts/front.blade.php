@@ -261,10 +261,10 @@
                                     </a>
                                     <a href="shop-cart.html"><span class="lable">Cart</span></a>
                                     @if($nbr_cartitem > 0)
-                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <ul>
                                             @foreach($cartitems as $cartitem)
-                                                <li class="cart-list">
+                                                <li class="cart-list" id="list{{$cartitem->id}}">
                                                     <div class="shopping-cart-img">
                                                         <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
                                                     </div>
@@ -289,7 +289,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 ">
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <div class="d-flex justify-content-center">
                                                <p style="font-size: 20px;">Votre panier est vide </p>
                                             </div>

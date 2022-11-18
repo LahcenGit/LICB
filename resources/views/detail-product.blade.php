@@ -447,7 +447,7 @@
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
                                                             <a href="shop-product-right.html" tabindex="0">
-                                                                <img class="default-img" src="{{asset('storage/images/products/'.$related_product->getImage()->lien)}}" alt="" />
+                                                                <img class="default-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="" />
                                                                 
                                                             </a>
                                                         </div>
@@ -574,8 +574,6 @@
         
     $( ".addToCartBtn" ).click(function(e) {
         e.preventDefault();
-        
-       
         var product_id = $(this).closest('.product-data').find('.product_id').val();
         var qte = $(this).closest('.product-data').find('.qty-val').val();
         

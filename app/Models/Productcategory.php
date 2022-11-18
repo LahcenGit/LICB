@@ -30,8 +30,5 @@ class Productcategory extends Model
        
     }
 
-    public function getImage(){
-        $image = Image::where('product_id',$this->product_id)->where('type',1)->first();
-        return $image;
-    }
+    
 }

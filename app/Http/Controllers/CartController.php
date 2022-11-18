@@ -193,7 +193,7 @@ class CartController extends Controller
             }
         else{
             $cart= session('cart_id');
-            if($cartitem->cart_id == $cart->id){
+            if($cartitem->cart_id == $cart){
                 $cartitem->qte = $request->qtes[$i];
                 $cartitem->total = $cartitem->price * $request->qtes[$i];
                 $cartitem->save();
@@ -213,7 +213,13 @@ class CartController extends Controller
         $cart = Cart::where('user_id',Auth::user()->id)->first();
         if($cartitem->cart_id == $cart->id){
             $cartitem->delete();
-            return true;
+            $nbr_cartitem = $cart->cartitems->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+            $data = array(
+                'nbr_cartitem' => $nbr_cartitem,
+                'total' => number_format($total->sum),
+            );
+            return $data;
         }
         else{
             abort(404, 'Page not found');
@@ -221,7 +227,7 @@ class CartController extends Controller
     }
     else{
         $cart= session('cart_id');
-        if($cartitem->cart_id == $cart->id){
+        if($cartitem->cart_id == $cart){
             $cartitem->delete();
             return true;
         }
@@ -229,6 +235,27 @@ class CartController extends Controller
             abort(404, 'Page not found');
         }
        
+    }
+  }
+
+  public function deleteCartItems(){
+    if(Auth::user()){
+        $cart = Cart::where('user_id',Auth::user()->id)->first();
+        $cartitems = $cart->cartitems;
+        foreach($cartitems as $cartitem){
+            $cartitem->delete();
+        }
+        
+        return redirect('/carts');
+    }
+    else{
+        $cart = session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        foreach($cartitems as $cartitem){
+            $cartitem->delete();
+        }
+        
+        return redirect('/carts');
     }
   }
 }

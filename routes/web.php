@@ -43,6 +43,7 @@ Route::resource('/dashboard-admin/products',ProductController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
 Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
+Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
 Route::resource('/carts',CartController::class);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::get('/get-price/{id}/{attributeline_id}', [App\Http\Controllers\ProductController::class, 'getPrice']);

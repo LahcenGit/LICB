@@ -19,7 +19,7 @@
                 <h1 class="heading-2 mb-10">Votre panier</h1>
                 <div class="d-flex justify-content-between">
                     <h6 class="text-body">Vous avez <span class="text-brand"> {{$nbr_cartitem}} </span> produit(s) dans votre panier</h6>
-                    <h6 class="text-body"><a href="#" class="text-muted"><i class="fi-rs-trash mr-5"></i>Vider le panier</a></h6>
+                    <h6 class="text-body"><a href="{{url('/delete-cartitems')}}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Vider le panier</a></h6>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                             @foreach($cartitems as $item)
-                            <tr class="pt-30 item" >
+                            <tr class="pt-30" id="item{{$item->id}}">
                                 <td class="custome-checkbox pl-30">
                                     <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
                                     <label class="form-check-label" for="exampleCheckbox1"></label>
@@ -428,6 +428,7 @@
 <script>
     $( ".delete-item" ).click(function() {
         var id = $(this).attr("data-id");
+        var item = $('#item'+id).val();
         var token = $("meta[name='csrf-token']").attr("content");
         $.ajax({
 			url: '/carts/'+id ,
@@ -437,8 +438,14 @@
             "_token": token,
         },
             success: function (res) {
-              $(".item").css("display", "none");
+                
+              $("#item"+id).css("display", "none");
                
+                    $("#list"+id).css("display", "none");
+                    $(".nbr_product").text(res.nbr_cartitem); 
+                    $(".total").text(res.total +' Da');
+                
+                
              }
 		});
 });
