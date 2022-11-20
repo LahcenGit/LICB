@@ -55,6 +55,8 @@ class ProductController extends Controller
          $product->created_at = $request->date;
         }
         $product->save();
+
+        //product has no attribute
         if($request->check != 'oui'){
         $productline = new Productline();
         $productline->product_id = $product->id;
@@ -64,6 +66,7 @@ class ProductController extends Controller
         $productline->status = $request->status;
         $productline->save();
         }
+        //product has many attribute 
         else{
         for($i=0 ; $i<count($request->as) ; $i++){
             $productline = new Productline();
@@ -78,6 +81,7 @@ class ProductController extends Controller
 
         }
     }
+       //product has related products
         if($request->relatedproducts){
         foreach($request->relatedproducts as $relatedproduct){
             $productR = new Relatedproduct();
@@ -86,6 +90,7 @@ class ProductController extends Controller
             $productR->save();
         }
     }
+       //categories product
         foreach($request->categories as $category){
           
             $categoryproduct = new Productcategory();
@@ -93,6 +98,8 @@ class ProductController extends Controller
             $categoryproduct->category_id= $category;
             $categoryproduct->save();
         }
+        // product images 
+        //first_image
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
         if($hasFile){
@@ -104,7 +111,7 @@ class ProductController extends Controller
                 $image->type = 1;
                 $product->images()->save($image);
             }
-        
+        // secondary images
         if($hasFileTwo){
             foreach($request->file('photos') as $file){
                 $destination = 'public/images/products';
@@ -148,22 +155,22 @@ class ProductController extends Controller
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
        
-        
+        //product has many attribute 
         if($countproductlines > 1){
+           // recover the minimum price
            $min_price = Productline::where('product_id',$product->id)->min('price');
+           //recover the minimum price_promo
            $min_price_promo = Productline::where('product_id',$product->id)->min('promo_price');
-           
-           $countproductline = Productline::where('product_id',$product->id)
-           ->count();
-
+           //recover the productlines groupby attribute
            $productlines = Productline::with('attributeLine')->where('product_id',$product->id)
                                     ->orderBy('price','asc')
                                     ->get()
                                     ->groupBy('attribute_id');
-                                        
+            //first productline                           
             $product_line = Productline::where('product_id',$product->id)->first();
             $attributes = null;
            }
+          //product has no attribute 
         else{
 
            $min_price = null;
@@ -174,6 +181,7 @@ class ProductController extends Controller
            
         }
         $categories = Category::where('parent_id',null)->limit('5')->get();
+        // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category = Productcategory::where('product_id',$product->id)->first();
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();

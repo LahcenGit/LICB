@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('attributelines', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('attribute_id')->nullable();
-            $table->string('value');
+            $table->string('value')->nullable();
+            $table->string('code')->nullable();
             $table->string('Hex_color')->nullable();
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('promo_price')->nullable();
             $table->integer('qte');
             $table->string('status')->nullable();
+            $table->string('attribute_image')->nullable();
+            $table->string('attribute_icone')->nullable();
             $table->string('slug')->nullable();
             $table->string('flug')->nullable();
             $table->string('bare_code')->nullable();
