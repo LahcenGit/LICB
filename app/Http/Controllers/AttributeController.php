@@ -32,14 +32,14 @@ class AttributeController extends Controller
             $attributeline->value = $request->attr;
             $attributeline->save();
         }
-        
-        return redirect('dashboard-admin/attributes');
+
+        return redirect('admin/attributes');
     }
 
     public function edit($id){
         $attribute = Attribute::find($id);
         $attributes = Attribute::all();
-       
+
         return view('admin.edit-attribute',compact('attribute','attributes'));
     }
 
@@ -47,14 +47,14 @@ class AttributeController extends Controller
         $attribute = Attribute::find($id);
         $attribute->value = $request->attr;
         $attribute->save();
-    
-        return redirect('dashboard-admin/attributes');
+
+        return redirect('admin/attributes');
     }
 
     public function destroy($id){
         $attribute = Attribute::find($id);
         $attribute->delete();
-        return redirect('dashboard-admin/attributes');
+        return redirect('admin/attributes');
     }
-    
+
 }

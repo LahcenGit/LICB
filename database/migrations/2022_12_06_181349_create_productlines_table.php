@@ -21,16 +21,19 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->integer('promo_price')->nullable();
             $table->integer('qte');
+            $table->float('weight')->nullable();
+            $table->string('dimension')->nullable();
             $table->string('status')->nullable();
             $table->string('attribute_image')->nullable();
             $table->string('attribute_icone')->nullable();
             $table->string('slug')->nullable();
-            $table->string('flug')->nullable();
+            $table->tinyInteger('flug')->nullable();
             $table->string('bare_code')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('attributeline_id')->references('id')->on('attributelines')->onDelete('cascade');
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

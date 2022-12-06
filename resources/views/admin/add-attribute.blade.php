@@ -23,7 +23,7 @@
                                          <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label>Attribut* :</label>
-                                                    <input type="text" class="form-control input-default  @error('type') is-invalid @enderror"  name="attr" placeholder="attribut" required>
+                                                    <input type="text" class="form-control input-default  @error('attr') is-invalid @enderror"  name="attr" placeholder="attribut" required>
                                                         @error('attr')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

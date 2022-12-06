@@ -9,12 +9,13 @@ use App\Models\Attributeline;
 use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Image;
+use App\Models\Mark;
 use App\Models\Productcategory;
 use App\Models\Productline;
 use App\Models\Relatedproduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class ProductController extends Controller
@@ -32,25 +33,27 @@ class ProductController extends Controller
                                 ->get();
         $products = Product::all();
         $attributes = Attribute::all();
-        return view('admin.add-product',compact('categories','products','attributes'));
+        $marks = Mark::all();
+        return view('admin.add-product',compact('categories','products','attributes','marks'));
     }
 
 
     public function store(Request $request){
-        
+
         $product = new Product();
         $product->designation = $request->designation;
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
+        $product->mark_id = $request->mark;
         $product->slug = str::slug($request->designation);
         if($request->brouillon == '1'){
-            $product->is_brouillon = 1; 
+            $product->is_brouillon = 1;
         }
         else{
             $product->is_brouillon = 0;
         }
-       
+
         if($request->date){
          $product->created_at = $request->date;
         }
@@ -66,7 +69,7 @@ class ProductController extends Controller
         $productline->status = $request->status;
         $productline->save();
         }
-        //product has many attribute 
+        //product has many attribute
         else{
         for($i=0 ; $i<count($request->as) ; $i++){
             $productline = new Productline();
@@ -92,13 +95,13 @@ class ProductController extends Controller
     }
        //categories product
         foreach($request->categories as $category){
-          
+
             $categoryproduct = new Productcategory();
             $categoryproduct->product_id = $product->id;
             $categoryproduct->category_id= $category;
             $categoryproduct->save();
         }
-        // product images 
+        // product images
         //first_image
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
@@ -121,9 +124,9 @@ class ProductController extends Controller
                 $image->lien = $storageName;
                 $image->type = 2;
                 $product->images()->save($image);
-            } 
+            }
         }
-        return redirect('dashboard-admin/products');
+        return redirect('admin/products');
     }
 
 
@@ -142,11 +145,11 @@ class ProductController extends Controller
     public function destroy($id){
         $product = Product::find($id);
         $image = Image::where('product_id', $id)->where('type',1)->first();
-      
+
          File::delete('storage/images/products/'.$image->lien);
-    
+
         $product->delete();
-        return redirect('dashboard-admin/products');
+        return redirect('admin/products');
     }
 
 
@@ -154,8 +157,8 @@ class ProductController extends Controller
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
-       
-        //product has many attribute 
+
+        //product has many attribute
         if($countproductlines > 1){
            // recover the minimum price
            $min_price = Productline::where('product_id',$product->id)->min('price');
@@ -166,11 +169,11 @@ class ProductController extends Controller
                                     ->orderBy('price','asc')
                                     ->get()
                                     ->groupBy('attribute_id');
-            //first productline                           
+            //first productline
             $product_line = Productline::where('product_id',$product->id)->first();
             $attributes = null;
            }
-          //product has no attribute 
+          //product has no attribute
         else{
 
            $min_price = null;
@@ -178,7 +181,7 @@ class ProductController extends Controller
            $product_line = Productline::where('product_id',$product->id)->first();
            $productlines = null;
            $attributes = null;
-           
+
         }
         $categories = Category::where('parent_id',null)->limit('5')->get();
         // 3 new products
@@ -190,7 +193,7 @@ class ProductController extends Controller
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-        
+
         }
         else{
         $cart= session('cart_id');
@@ -210,7 +213,7 @@ class ProductController extends Controller
             "promo" => number_format($product->promo_price)
           );
 
-        
+
         return $data;
     }
 

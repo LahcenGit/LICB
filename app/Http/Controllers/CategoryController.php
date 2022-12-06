@@ -13,7 +13,7 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        
+
         $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
         $countcategory = Category::count();
         return view('admin/categories',compact('categories','countcategory'));
@@ -35,7 +35,7 @@ class CategoryController extends Controller
              $category->parent_id = $request['category'];
          }
          $category->save();
-         return redirect('dashboard-admin/categories');
+         return redirect('dadmin/categories');
     }
 
     public function edit($id){
@@ -48,21 +48,21 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id){
         $category = Category::find($id);
-      
+
         $category->designation=$request['name'];
         $category->description = $request['description'];
-       
+
         if($request['category'] == 0){
-           
+
          $category->parent_id = NULL;
-        
+
          $category->save();
         }
         else{
             $category->parent_id = $request['category'];
         }
         $category->save();
-        return redirect('dashboard-admin/categories')->with('success','Category updated successfully');
+        return redirect('admin/categories')->with('success','Category updated successfully');
     }
 
 
@@ -76,9 +76,9 @@ class CategoryController extends Controller
         }
         $category->delete();
 
-               
-       return redirect('dashboard-admin/categories');  
-       
+
+       return redirect('admin/categories');
+
 
    }
 }

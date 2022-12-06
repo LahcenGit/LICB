@@ -12,10 +12,10 @@
 	<meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
 	<meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
 	<meta name="format-detection" content="telephone=no">
-	
+
 	<!-- PAGE TITLE HERE -->
 	<title>LICB+</title>
-	
+
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 	<link href="{{asset('dashboard/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
@@ -24,7 +24,7 @@
 	<link href="{{asset('dashboard/vendor/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/nouislider/nouislider.min.css')}}">
-	
+
 	<!-- Style css -->
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.css')}}">
@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
-	
+
 </head>
 <style>
 	.note-editor.note-frame .note-editing-area .note-editable{
@@ -121,7 +121,7 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-		
+
 		<!--**********************************
             Chat box start
         ***********************************-->
@@ -348,7 +348,7 @@
 								<div>
 									<h6 class="mb-1">Chat with Khelesh</h6>
 									<p class="mb-0 text-success">Online</p>
-								</div>							
+								</div>
 								<div class="dropdown">
 									<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
 									<ul class="dropdown-menu dropdown-menu-end">
@@ -623,7 +623,7 @@
 		<!--**********************************
             Chat box End
         ***********************************-->
-		
+
 		<!--**********************************
             Header start
         ***********************************-->
@@ -733,9 +733,9 @@
 								</svg>
 									<span class="badge light text-white bg-secondary rounded-circle">27</span>
                                 </a>
-							</li>	
-							
-							
+							</li>
+
+
 							<li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link " href="javascript:void(0);" data-bs-toggle="dropdown">
 									<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -837,19 +837,28 @@
         <div class="dlabnav">
             <div class="dlabnav-scroll">
 				<ul class="metismenu" id="menu">
-                    <li><a href="{{url('dashboard-admin')}}" aria-expanded="false">
+                    <li><a href="{{url('admin')}}" aria-expanded="false">
 							<i class="fas fa-home"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
                     </li>
-					
+
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-file-alt"></i>
 							<span class="nav-text">Catégories</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('dashboard-admin/categories/create')}}">Ajouter</a></li>
-							<li><a href="{{url('dashboard-admin/categories')}}">Toutes les catégories</a></li>
+                            <li><a href="{{url('admin/categories/create')}}">Ajouter</a></li>
+							<li><a href="{{url('admin/categories')}}">Toutes les catégories</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+						<i class="fas fa-file-alt"></i>
+							<span class="nav-text">Marques</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{url('admin/marks/create')}}">Ajouter</a></li>
+							<li><a href="{{url('admin/marks')}}">Toutes les catégories</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -857,8 +866,8 @@
 							<span class="nav-text">Attributs</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('dashboard-admin/attributes/create')}}">Ajouter</a></li>
-                            <li><a href="{{url('dashboard-admin/attributes')}}">Tous les attributs</a></li>
+                            <li><a href="{{url('admin/attributes/create')}}">Ajouter</a></li>
+                            <li><a href="{{url('admin/attributes')}}">Tous les attributs</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -866,8 +875,8 @@
 							<span class="nav-text">Produits</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('dashboard-admin/products/create')}}">Ajouter</a></li>
-                            <li><a href="{{url('dashboard-admin/products')}}">Tous les produits</a></li>
+                            <li><a href="{{url('admin/products/create')}}">Ajouter</a></li>
+                            <li><a href="{{url('admin/products')}}">Tous les produits</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -879,9 +888,9 @@
                             <li><a href="./ui-alert.html">Toutes les commandes</a></li>
                         </ul>
                     </li>
-                    
-                 
-                   
+
+
+
                 </ul>
 				<div class="plus-box">
 					<div class="text-center">
@@ -889,7 +898,7 @@
 						<a href="javascript:void(0);" class="btn btn-primary btn-rounded">Learn more <i class="fas fa-caret-right"></i></a>
 					</div>
 				</div>
-				
+
 				<div class="copyright">
 					<p><strong>Workload Project Management</strong> © 2021 All Rights Reserved</p>
 					<p class="fs-12">Made with <span class="heart"></span> by DexignLab</p>
@@ -917,7 +926,7 @@
 		<!--**********************************
            Support ticket button start
         ***********************************-->
-		
+
         <!--**********************************
            Support ticket button end
         ***********************************-->
@@ -938,9 +947,9 @@
 	<script src="{{asset('Dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 	<!-- Apex Chart -->
 	<script src="{{asset('dashboard/vendor/apexchart/apexchart.js')}}"></script>
-	
+
 	<script src="{{asset('dashboard/vendor/chart.js/Chart.bundle.min.js')}}"></script>
-	
+
 	<!-- Chart piety plugin files -->
     <script src="{{asset('dashboard/vendor/peity/jquery.peity.min.js')}}"></script>
 	<!-- Dashboard 1 -->
@@ -977,11 +986,11 @@
 	<script>
 		function cardsCenter()
 		{
-			
+
 			/*  testimonial one function by = owl.carousel.js */
-			
-	
-			
+
+
+
 			jQuery('.card-slider').owlCarousel({
 				loop:true,
 				margin:10,
@@ -997,10 +1006,10 @@
 					},
 					576:{
 						items:2
-					},	
+					},
 					800:{
 						items:2
-					},			
+					},
 					991:{
 						items:2
 					},
@@ -1013,11 +1022,11 @@
 				}
 			})
 		}
-		
+
 		jQuery(window).on('load',function(){
 			setTimeout(function(){
 				cardsCenter();
-			}, 1000); 
+			}, 1000);
 		});
 		jQuery(document).ready(function(){
 			setTimeout(function(){
@@ -1025,13 +1034,13 @@
 				new dlabSettings(dlabSettingsOptions);
 			},1500)
 		});
-		
+
 	</script>
 
 <script>
-	
+
     $(document).ready(function(){
-    $('input[type=file]').drop_uploader({
+    $('.file').drop_uploader({
         uploader_text: 'Drop files to upload, or',
         browse_text: 'Browse',
         only_one_error_text: 'Only one file allowed',
@@ -1048,9 +1057,9 @@
         time_show_errors: 5,
         layout: 'thumbnails',
         method: 'normal',
-        chunk_size: 1000000, 
-        concurrent_uploads: 5, 
-        show_percentage: true, 
+        chunk_size: 1000000,
+        concurrent_uploads: 5,
+        show_percentage: true,
         existing_files: false,
         existing_files_removable: true,
         send_existing_files: false,
@@ -1082,5 +1091,6 @@
 @stack('fixe-price-scripts')
 @stack('search-product-scripts')
 @stack('show-variation-scripts')
+@stack('add-image-icone-scripts')
 </body>
 </html>

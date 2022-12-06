@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('mark_id');
             $table->string('designation');
             $table->longText('short_description')->nullable();
             $table->longText('long_description')->nullable();
@@ -23,9 +24,8 @@ return new class extends Migration
             $table->integer('point')->nullable();
             $table->string('slug')->nullable();
             $table->string('flug')->nullable();
+            $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
             $table->timestamps();
-            
-
         });
     }
 
