@@ -77,9 +77,33 @@ class ProductController extends Controller
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->as[$i];
             $productline->qte = $request->qtes[$i];
-            $productline->price = $request->prices[$i];
-            $productline->promo_price = $request->promos[$i];
+            if($request->price){
+                $productline->price = $request->price;
+            }
+            else{
+                $productline->price = $request->prices[$i];
+            }
+            if($request->promo){
+                $productline->promo_price = $request->promo;
+            }
+            else{
+                $productline->promo_price = $request->promos[$i];
+            }
             $productline->status = $request->status;
+
+            if($request->icons){
+                $destination = 'public/icones/productlines';
+                $path = $request->icons[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_icone = $storageName;
+            }
+
+            if($request->images){
+                $destination = 'public/images/productlines';
+                $path = $request->images[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_image = $storageName;
+             }
             $productline->save();
 
         }
