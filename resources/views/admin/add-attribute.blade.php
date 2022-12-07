@@ -30,8 +30,18 @@
                                                         </span>
                                                         @enderror
                                             </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label>Code :</label>
+                                                    <input type="text" class="form-control input-default  @error('code') is-invalid @enderror"  name="code" placeholder="#fff" >
+                                                        @error('code')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                            </div>
                                          </div>
-                                        
+
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label">type:</label>
@@ -42,9 +52,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        
+
                                         </div>
-                                        
+
                                         <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
                                     </form>
                                 </div>

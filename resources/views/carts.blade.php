@@ -11,7 +11,11 @@
         </div>
     </div>
     <div class="container mb-80 mt-50">
+        @if(Auth::user())
         <form action="{{url('carts/'.$cart->id)}}" method="POST" enctype="multipart/form-data">
+        @else
+        <form action="{{url('carts/'.$cart)}}" method="POST" enctype="multipart/form-data">
+        @endif
         <input type="hidden" name="_method" value="PUT">
             @csrf
         <div class="row">
@@ -74,12 +78,12 @@
                                 <td class="price" data-title="Price">
                                     <h4 class="text-brand">{{number_format($item->total)}} Da</h4>
                                 </td>
-                                
+
                                 <td class="action text-center" data-title="Remove"><a class="text-body delete-item" data-id="{{$item->id}}"><i class="fi-rs-trash"></i></a></td>
-                                
+
                             </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -438,14 +442,14 @@
             "_token": token,
         },
             success: function (res) {
-                
+
               $("#item"+id).css("display", "none");
-               
+
                     $("#list"+id).css("display", "none");
-                    $(".nbr_product").text(res.nbr_cartitem); 
+                    $(".nbr_product").text(res.nbr_cartitem);
                     $(".total").text(res.total +' Da');
-                
-                
+
+
              }
 		});
 });

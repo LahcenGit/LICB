@@ -29,6 +29,7 @@ class AttributeController extends Controller
         else{
             $attributeline = new Attributeline();
             $attributeline->attribute_id = $request->type;
+            $attributeline->code = $request->code;
             $attributeline->value = $request->attr;
             $attributeline->save();
         }

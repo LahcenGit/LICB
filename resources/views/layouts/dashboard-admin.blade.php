@@ -31,34 +31,16 @@
     <link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.date.css')}}">
 	<link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
 	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
-	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ asset('dashboard/vendor/select2/css/select2.min.css') }}">
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/toastr/css/toastr.min.css') }}">
 
 </head>
 <style>
+    <style>
 	.note-editor.note-frame .note-editing-area .note-editable{
 		background-color: #202020;
 		color: #202020;
-	}
-	.select2{
-		line-height: 2.8125rem;
-		border-top-width: 0.0625rem;
-		border-right-width: 0.0625rem;
-		border-bottom-width: 0.0625rem;
-		border-left-width: 0.0625rem;
-		border-top-style: solid;
-		border-right-style: solid;
-		border-bottom-style: solid;
-		border-left-style: solid;
-		background-color: #161717;
-		border-color: #2B2B2B;
-		color: #fff;
-	  	box-shadow: none;
-        background: #fff;
-		padding-top: 0.3125rem;
-		padding-right: 1.25rem;
-		padding-bottom: 0.3125rem;
-		padding-left: 1.25rem;
 	}
 </style>
 <body>
@@ -858,7 +840,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="{{url('admin/marks/create')}}">Ajouter</a></li>
-							<li><a href="{{url('admin/marks')}}">Toutes les catégories</a></li>
+							<li><a href="{{url('admin/marks')}}">Toutes les marques</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
@@ -944,7 +926,7 @@
     <script src="{{asset('dashboard/vendor/global/global.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/chart.js/Chart.bundle.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
-	<script src="{{asset('Dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
+	<script src="{{asset('dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 	<!-- Apex Chart -->
 	<script src="{{asset('dashboard/vendor/apexchart/apexchart.js')}}"></script>
 
@@ -967,22 +949,16 @@
 	<script src="{{asset('dashboard/js/plugins-init/pickadate-init.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
 	<script src="{{asset('dashboard/uploader/drop_uploader.js')}}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('dashboard/vendor/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/plugins-init/select2-init.js') }}"></script>
+    <script src="{{ asset('dashboard/vendor/toastr/js/toastr.min.js') }}"></script>
+
+    <!-- All init script -->
+    <script src="{{ asset('dashboard/js/plugins-init/toastr-init.js') }}"></script>
 	<script src="{{asset('dashboard/vendor/summernote/js/summernote.min.js')}}"></script>
     <!-- Summernote init -->
     <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
-    <script>
-		$(document).ready(function() {
-		$('.select2').select2();
 
-		$(".select2").select2({
-		placeholder: "  Choisissez les produits",
-		allowClear: true,
-		});
-
-		$("textarea").css("color", "#d7dae3");
-	});
-	 </script>
 	<script>
 		function cardsCenter()
 		{
@@ -1070,18 +1046,11 @@
     </script>
 
 
-	 <script>
-		$(document).ready(function() {
-		$('.select2').select2();
-
-		$(".select2").select2({
-		placeholder: "  Choisissez les produits",
-		allowClear: true,
-		});
-
-		$("textarea").css("color", "#d7dae3");
-	});
-	 </script>
+<script>
+    $(document).ready(function() {
+    $("textarea").css("color", "#202020");
+});
+ </script>
 
 @stack('add-attribute-scripts')
 @stack('add-image-scripts')
@@ -1092,5 +1061,9 @@
 @stack('search-product-scripts')
 @stack('show-variation-scripts')
 @stack('add-image-icone-scripts')
+@stack('show-modal-scripts')
+@stack('store-attribute-scripts')
+@stack('show-modal-add-mark-scripts')
+@stack('store-mark-scripts')
 </body>
 </html>

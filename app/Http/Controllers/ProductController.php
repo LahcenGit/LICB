@@ -67,6 +67,7 @@ class ProductController extends Controller
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
+        $productline->weight = $request->weight;
         $productline->save();
         }
         //product has many attribute
@@ -77,6 +78,7 @@ class ProductController extends Controller
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->as[$i];
             $productline->qte = $request->qtes[$i];
+            $productline->weight = $request->weight;
             if($request->price){
                 $productline->price = $request->price;
             }
@@ -214,10 +216,16 @@ class ProductController extends Controller
         $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
+            if($cart){
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-
+            }
+            else{
+                $cartitems = null;
+                $nbr_cartitem = 0;
+                $total = 0;
+            }
         }
         else{
         $cart= session('cart_id');
@@ -256,5 +264,14 @@ class ProductController extends Controller
             "productlines" => $productlines
           );
         return $data;
+    }
+
+    public function showModal(){
+        $attributes = Attribute::all();
+        return view('admin.modal-add-attribute',compact('attributes'));
+    }
+
+    public function showModalAddMark(){
+        return view('admin.modal-add-mark');
     }
 }

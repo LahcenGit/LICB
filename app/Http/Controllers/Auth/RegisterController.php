@@ -46,8 +46,8 @@ class RegisterController extends Controller
         return '/';
       }
     public function showRegistrationForm(){
-       
-        return view('auth.register');
+        $nbr_cartitem = 0;
+        return view('auth.register',compact('nbr_cartitem'));
     }
 
     /**

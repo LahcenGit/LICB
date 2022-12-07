@@ -16,46 +16,47 @@ class CartController extends Controller
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
-            
-            $product_exist = Cartitem::where('productline_id',$request->input('id'))->where('cart_id',$cart->id)->first();
-            if($product_exist){
-                $data = array(
-                   'qtes' => 1,
-                );
-                return $data;
-            }
-            else{
-                $productline = Productline::where('id',$request->input('id'))->first(); 
-            
-                $cart_item = new Cartitem();
-                $cart_item->cart_id = $cart->id;
-                $cart_item->productline_id = $request->input('id');
-                $cart_item->qte = $request->input('qte');
-                
-                if($productline->promo_price){
-                $cart_item->price = $productline->promo_price;
-                $cart_item->total = $productline->promo_price * $request->input('qte');
+            if($cart){
+             $product_exist = Cartitem::where('productline_id',$request->input('id'))->where('cart_id',$cart->id)->first();
+                if($product_exist){
+                    $data = array(
+                    'qtes' => 1,
+                    );
+                    return $data;
                 }
                 else{
-                $cart_item->price = $productline->price;
-                $cart_item->total = $productline->price * $request->input('qte');
+                    $productline = Productline::where('id',$request->input('id'))->first();
+
+                    $cart_item = new Cartitem();
+                    $cart_item->cart_id = $cart->id;
+                    $cart_item->productline_id = $request->input('id');
+                    $cart_item->qte = $request->input('qte');
+
+                    if($productline->promo_price){
+                    $cart_item->price = $productline->promo_price;
+                    $cart_item->total = $productline->promo_price * $request->input('qte');
+                    }
+                    else{
+                    $cart_item->price = $productline->price;
+                    $cart_item->total = $productline->price * $request->input('qte');
+                    }
+
+                    $cart_item->save();
+
+                    $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
+                    $total = Cartitem::selectRaw('sum(total) as sum')->first();
+                    $data = array(
+                        'nbr_cart' => $nbr_cart,
+                        'name' => $cart_item->getName()->designation,
+                        'image' => $cart_item->getImage()->lien,
+                        'qte' => $cart_item->qte,
+                        'price' => number_format($cart_item->price),
+                        'total' => number_format($total->sum),
+                        'qtes' => 0,
+                    );
+
+                    return $data;
                 }
-
-                $cart_item->save();
-
-                $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->first();
-                $data = array(
-                    'nbr_cart' => $nbr_cart,
-                    'name' => $cart_item->getName()->designation,
-                    'image' => $cart_item->getImage()->lien,
-                    'qte' => $cart_item->qte,
-                    'price' => number_format($cart_item->price),
-                    'total' => number_format($total->sum),
-                    'qtes' => 0,
-                );
-                
-                return $data;
             }
         }
 
@@ -63,8 +64,8 @@ class CartController extends Controller
 
             $cart = session()->get('cart_id');
             if($cart){
-                 
-                    $productline = Productline::where('id',$request->input('id'))->first(); 
+
+                    $productline = Productline::where('id',$request->input('id'))->first();
                     $product_exist = Cartitem::where('productline_id',$request->input('id'))->where('cart_id',$cart)->first();
                     if($product_exist){
                         $product_exist->qte = $product_exist->qte + $request->input('qte');
@@ -74,7 +75,7 @@ class CartController extends Controller
                         else{
                         $product_exist->total = $product_exist->total +($request->input('qte')*$product_exist->price);
                         }
-                        
+
                         $product_exist->save();
                         $nbr_cart = Cartitem::where('cart_id',$cart)->count();
                         $total = Cartitem::selectRaw('sum(total) as sum')->first();
@@ -89,7 +90,7 @@ class CartController extends Controller
                     $cart_item->cart_id = $cart;
                     $cart_item->productline_id = $request->input('id');
                     $cart_item->qte = $request->input('qte');
-                    
+
                     if($productline->promo_price){
                     $cart_item->price = $productline->promo_price;
                     $cart_item->total = $productline->promo_price * $request->input('qte');
@@ -98,9 +99,9 @@ class CartController extends Controller
                     $cart_item->price = $productline->price;
                     $cart_item->total = $productline->price * $request->input('qte');
                     }
-        
+
                     $cart_item->save();
-        
+
                     $nbr_cart = Cartitem::where('cart_id',$cart)->count();
                     $total = Cartitem::selectRaw('sum(total) as sum')->first();
                     $data = array(
@@ -112,22 +113,22 @@ class CartController extends Controller
                         'total' => number_format($total->sum),
                         'qtes' => 0,
                     );
-                    
+
                     session()->put('cart_id', $cart);
-                    
+
                     return $data;
                 }
 
             else{
                 $cart = new Cart();
                 $cart->save();
-                $productline = Productline::where('id',$request->input('id'))->first(); 
-                
+                $productline = Productline::where('id',$request->input('id'))->first();
+
                 $cart_item = new Cartitem();
                 $cart_item->cart_id = $cart->id;
                 $cart_item->productline_id = $request->input('id');
                 $cart_item->qte = $request->input('qte');
-                
+
                 if($productline->promo_price){
                 $cart_item->price = $productline->promo_price;
                 $cart_item->total = $productline->promo_price * $request->input('qte');
@@ -150,9 +151,9 @@ class CartController extends Controller
                     'total' => number_format($total->sum),
                     'qtes' => 0,
                 );
-                
+
                 session()->put('cart_id', $cart->id);
-                
+
                 return $data;
 
         }
@@ -162,10 +163,13 @@ class CartController extends Controller
   public function index(){
     if(Auth::user()){
         $cart = Cart::where('user_id',Auth::user()->id)->first();
+        if($cart){
         $cartitems = $cart->cartitems;
         $nbr_cartitem = $cart->cartitems->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+
         return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+        }
     }
     else{
         $cart= session('cart_id');
@@ -203,7 +207,7 @@ class CartController extends Controller
                 abort(404, 'Page not found');
             }
         }
-     
+
     }
   }
 
@@ -234,7 +238,7 @@ class CartController extends Controller
         else{
             abort(404, 'Page not found');
         }
-       
+
     }
   }
 
@@ -245,7 +249,7 @@ class CartController extends Controller
         foreach($cartitems as $cartitem){
             $cartitem->delete();
         }
-        
+
         return redirect('/carts');
     }
     else{
@@ -254,7 +258,7 @@ class CartController extends Controller
         foreach($cartitems as $cartitem){
             $cartitem->delete();
         }
-        
+
         return redirect('/carts');
     }
   }

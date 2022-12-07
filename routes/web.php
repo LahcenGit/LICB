@@ -49,7 +49,9 @@ Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'de
 Route::resource('/carts',CartController::class);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::get('/get-price/{id}/{attributeline_id}', [App\Http\Controllers\ProductController::class, 'getPrice']);
-
+Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
+Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Auth::routes();
-Route::get('/detail-product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
+Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+

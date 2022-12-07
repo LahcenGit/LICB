@@ -1,5 +1,7 @@
 @extends('layouts.dashboard-admin')
 @section('content')
+
+
 <div class="content-body">
             <div class="container-fluid">
 				<div class="row page-titles">
@@ -21,7 +23,7 @@
                     </div>
                     </div>
                 @endif
-                <form action="{{url('dashboard-admin/products')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
                   @csrf
                 <div class="row ">
                    <div class="col-xl-8 col-lg-8">
@@ -43,7 +45,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Prix*:</label>
+                                                    <label class="form-label">Prix:</label>
                                                     <input type="number" class="form-control"  placeholder="0.00" name="price">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
@@ -53,8 +55,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Qte*:</label>
-                                                    <input type="number" class="form-control" placeholder="0" name="qte" required>
+                                                    <label class="form-label">Qte:</label>
+                                                    <input type="number" class="form-control" placeholder="0" name="qte" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Points:</label>
@@ -86,47 +88,38 @@
                                     <h4 class="card-title">Catégories</h4>
                                 </div>
                                     <div class="card-body">
-                                        <div class="basic-form">
-                                            <form>
-                                                <div class="mb-3">
+                                        <div class="mb-3">
                                                 <div class="categories overflow-auto" style="max-width: 260px; max-height:300px;">
                                                     @include('categories')
                                                 </div>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                             </div>
                         </div>
-                        <div class="col-xl-8 col-lg-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Produits Associés </h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="basic-form">
-                                         <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                <label class="form-label">Produits:</label>
-                                                <select class="select2" name="relatedproducts[]" id="search" class="form-control" multiple="multiple">
-
-                                                </select>
-                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
+                         <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Produits associés</h4>
+                            </div>
+                            <div class="card-body">
+                                <label>Séléctionnez des produits :</label>
+                                <select class="multi-select" name="relatedproducts[]" multiple="multiple">
+                                    <option value="AL">Alabama</option>
+                                    <option value="WY">Wyoming</option>
+                                    <option value="UI">dlf</option>
+                                </select>
                             </div>
                         </div>
+                    </div>
 
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Marques</h4>
+                                    <a style="cursor: pointer" class="btn btn-success add-mark  " style="background-color: #006e40; border-color:#006e40;">Ajouter</a>
                                 </div>
                                     <div class="card-body">
-                                        <div class="basic-form">
-                                            <form>
-                                                <div class="mb-3">
+                                        <div class="mb-3">
                                                 <div class="categories overflow-auto" style="max-width: 260px; max-height:300px;">
                                                     <ul style="line-height: 1.69230769;">
                                                         @foreach ($marks as $mark)
@@ -139,8 +132,6 @@
                                                         @endforeach
                                                     <ul>
                                                 </div>
-                                                </div>
-                                            </form>
                                         </div>
                                     </div>
                             </div>
@@ -184,7 +175,7 @@
                                     <h4 class="card-title">Description longue</h4>
                                 </div>
                                 <div class="card-body custom-ekeditor">
-                                <textarea class="summernote" class="form-control " style="background-color: #000000; color:#000000"  name="long_description" >{{old('description')}}</textarea>
+                                <textarea class="summernote" class="form-control " style="background-color: #202020; color:##202020"  name="long_description" >{{old('description')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -211,9 +202,12 @@
                                     <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
                                 </div>
                                 <div class="card-body " id="variation" style="display: none;">
+                                    <div class="text-center">
+                                        <a style="cursor: pointer" class="btn btn-success add-attribute  " style="background-color: #006e40; border-color:#006e40;">Gérer les attributs</a>
+                                    </div>
                                     <div class="basic-form" >
                                         <div id="dynamicAddRemove" >
-                                        <div class="row ">
+                                        <div class="row mt-4">
                                                 <div style="width: 200px; margin-right:10px;">
                                                 <label class="form-label">Attribut:</label>
                                                 <select  id="select-content"  class="default-select form-control wide " name="as[0]"  >
@@ -291,7 +285,10 @@
 
      </div>
 </div>
-
+<div id="modal-add-attribute">
+</div>
+<div id="modal-add-mark">
+</div>
 
 @endsection
 @push('add-attribute-scripts')
@@ -503,6 +500,158 @@
 </script>
 @endpush
 
+@push('show-modal-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
+  $(".add-attribute").on('click',function() {
 
+    $.ajax({
+      url: '/show-modal',
+      type: "GET",
+      success: function (res) {
+
+        $('#modal-add-attribute').html(res);
+        $('#modal-add-attribute').find("#type").niceSelect();
+        $("#exampleModal").modal('show');
+      }
+    });
+
+  });
+  </script>
+@endpush
+
+@push('store-attribute-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    $("#modal-add-attribute").on('click','.storeAttribute',function(e){
+          e.preventDefault();
+          let attr = $('#attr').val();
+          let type = $('#type').val();
+          let code = $('#code').val();
+          $.ajax({
+            type:"Post",
+            url: '/admin/attributes',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              attr:attr,
+              type:type,
+              code:code,
+            },
+            success:function(res){
+
+              $('#exampleModal').modal('hide');
+              toastr.success("Attribut ajouté avec succès", "Succès", {
+                positionClass: "toast-bottom-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+
+            }
+
+        )
+             },
+
+            });
+
+     });
+  </script>
+@endpush
+
+@push('show-modal-add-mark-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(".add-mark").on('click',function() {
+
+    $.ajax({
+      url: '/show-modal-add-mark',
+      type: "GET",
+      success: function (res) {
+
+        $('#modal-add-mark').html(res);
+        $("#exampleModal1").modal('show');
+      }
+    });
+
+  });
+  </script>
+@endpush
+@push('store-mark-scripts')
+<script>
+    $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    $("#modal-add-mark").on('click','.storeMark',function(e){
+          e.preventDefault();
+
+          let designation = $('#designation').val();
+          $.ajax({
+            type:"Post",
+            url: '/admin/marks',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              designation:designation,
+
+            },
+            success:function(res){
+
+              $('#exampleModal1').modal('hide');
+
+                toastr.success("Marque ajouté avec succès", "Succès", {
+                    timeOut: 500000000,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+
+            }
+
+        )
+             },
+
+            });
+
+     });
+  </script>
+@endpush
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Nest - Multipurpose eCommerce HTML Template</title>
+    <title>Licb+ - Leader Informatique, Communication</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +33,7 @@
 </style>
 <body>
     <!-- Modal -->
-    
+
     <!-- Quick view -->
     <div class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -196,25 +196,22 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                        <a href="index.html"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
                                 <select class="select-active">
-                                    <option>All Categories</option>
-                                    <option>Milks and Dairies</option>
-                                    <option>Wines & Alcohol</option>
-                                    <option>Clothing & Beauty</option>
-                                    <option>Pet Foods & Toy</option>
-                                    <option>Fast food</option>
-                                    <option>Baking material</option>
-                                    <option>Vegetables</option>
-                                    <option>Fresh Seafood</option>
-                                    <option>Noodles & Rice</option>
-                                    <option>Ice cream</option>
+                                    <option>Toutes les catégories</option>
+                                    <option>Pc</option>
+                                    <option>Composants pc</option>
+                                    <option>Périphérique PC</option>
+                                    <option>Imprimante, Scanner et Fax</option>
+                                    <option>Logiciels</option>
+                                    <option>Consommable</option>
+
                                 </select>
-                                <input type="text" placeholder="Search for items..." />
+                                <input type="text" placeholder="Je cherche sur..." />
                             </form>
                         </div>
                         <div class="header-action-right">
@@ -222,7 +219,7 @@
                                 <div class="search-location">
                                     <form action="#">
                                         <select class="select-active">
-                                            <option>Your Location</option>
+                                            <option>Votre Location</option>
                                             <option>Alabama</option>
                                             <option>Alaska</option>
                                             <option>Arizona</option>
@@ -239,21 +236,15 @@
                                         </select>
                                     </form>
                                 </div>
-                                <div class="header-action-icon-2">
-                                    <a href="shop-compare.html">
-                                        <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-compare.svg')}}" />
-                                        <span class="pro-count blue">3</span>
-                                    </a>
-                                    <a href="shop-compare.html"><span class="lable ml-0">Compare</span></a>
-                                </div>
+
                                 <div class="header-action-icon-2">
                                     <a href="shop-wishlist.html">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-heart.svg')}}" />
                                         <span class="pro-count blue">6</span>
                                     </a>
-                                    <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
+                                    <a href="shop-wishlist.html"><span class="lable">Favoris</span></a>
                                 </div>
-                                
+
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="shop-cart.html">
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
@@ -296,34 +287,40 @@
                                         </div>
                                     @endif
                                 </div>
-                               
+
                                 <div class="header-action-icon-2">
                                     <a href="page-account.html">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
                                     </a>
-                                    <a href="page-account.html"><span class="lable ml-0">Account</span></a>
+                                    @if(Auth::user())
+                                    <a href="page-account.html"><span class="lable ml-0">Compte</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>My Account</a>
+                                                <a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>Mon Compte</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
+                                                <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Suivi de commande</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>My Voucher</a>
+                                                <a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>Mon bon</a>
                                             </li>
                                             <li>
-                                                <a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a>
+                                                <a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>Mes favoris</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
+                                                <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
                                             </li>
                                             <li>
-                                                <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a>
+                                                <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Déconnexion</a>
                                             </li>
                                         </ul>
                                     </div>
+
+                                    @else
+                                    <a href="page-account.html"><span class="lable ml-0">Connexion</span></a>
+                                    <a href="page-account.html"><span class="lable ml-0">Inscription</span></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -347,36 +344,36 @@
                                 <div class="d-flex categori-dropdown-inner">
                                     <ul>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-1.svg" alt="" />Milks and Dairies</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-1.svg" alt="" />Pc</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-2.svg" alt="" />Clothing & beauty</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-2.svg" alt="" />Composants PC</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-3.svg" alt="" />Pet Foods & Toy</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-3.svg" alt="" />Périphérique PC</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-4.svg" alt="" />Baking material</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-4.svg" alt="" />Imprimante, Scanner et Fax</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-5.svg" alt="" />Fresh Fruit</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-5.svg" alt="" />Logiciels</a>
                                         </li>
                                     </ul>
                                     <ul class="end">
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-6.svg" alt="" />Wines & Drinks</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-6.svg" alt="" />Consommable</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-7.svg" alt="" />Fresh Seafood</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-7.svg" alt="" />Réseau</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-8.svg" alt="" />Fast food</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-8.svg" alt="" />Tablette</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-9.svg" alt="" />Vegetables</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-9.svg" alt="" />Téléphonie</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-10.svg" alt="" />Bread and Juice</a>
+                                            <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/category-10.svg" alt="" />Projection</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -384,23 +381,23 @@
                                     <div class="d-flex categori-dropdown-inner">
                                         <ul>
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-1.svg" alt="" />Milks and Dairies</a>
+                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-1.svg" alt="" />Tablette</a>
                                             </li>
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-2.svg" alt="" />Clothing & beauty</a>
+                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-2.svg" alt="" />Téléphonie</a>
                                             </li>
                                         </ul>
                                         <ul class="end">
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-3.svg" alt="" />Wines & Drinks</a>
+                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-3.svg" alt="" />Projection</a>
                                             </li>
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-4.svg" alt="" />Fresh Seafood</a>
+                                                <a href="shop-grid-right.html"> <img src="assets/imgs/theme/icons/icon-4.svg" alt="" />Réseau</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Show more...</span></div>
+                                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Voir plus...</span></div>
                             </div>
                         </div>
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
@@ -408,21 +405,17 @@
                                 <ul>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.svg')}}" alt="hot deals" /><a href="shop-grid-right.html">Deals</a></li>
                                     <li>
-                                        <a class="active" href="index.html">Home <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
-                                            <li><a href="index-3.html">Home 3</a></li>
-                                            <li><a href="index-4.html">Home 4</a></li>
-                                            <li><a href="index-5.html">Home 5</a></li>
-                                            <li><a href="index-6.html">Home 6</a></li>
-                                        </ul>
+                                        <a  href="{{ asset('/') }}">Accueil </a>
+
                                     </li>
                                     <li>
-                                        <a href="page-about.html">About</a>
+                                        <a href="page-about.html">Qui sommes-nous?</a>
                                     </li>
                                     <li>
-                                        <a href="shop-grid-right.html">Shop <i class="fi-rs-angle-down"></i></a>
+                                        <a href="page-about.html">Atelier LICB+</a>
+                                    </li>
+                                    <li>
+                                        <a href="shop-grid-right.html">Catégories <i class="fi-rs-angle-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
                                             <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
@@ -529,41 +522,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a href="blog-category-grid.html">Blog <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
-                                            <li><a href="blog-category-list.html">Blog Category List</a></li>
-                                            <li><a href="blog-category-big.html">Blog Category Big</a></li>
-                                            <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
-                                            <li>
-                                                <a href="#">Single Post <i class="fi-rs-angle-right"></i></a>
-                                                <ul class="level-menu level-menu-modify">
-                                                    <li><a href="blog-post-left.html">Left Sidebar</a></li>
-                                                    <li><a href="blog-post-right.html">Right Sidebar</a></li>
-                                                    <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="page-about.html">About Us</a></li>
-                                            <li><a href="page-contact.html">Contact</a></li>
-                                            <li><a href="page-account.html">My Account</a></li>
-                                            <li><a href="page-login.html">Login</a></li>
-                                            <li><a href="page-register.html">Register</a></li>
-                                            <li><a href="page-forgot-password.html">Forgot password</a></li>
-                                            <li><a href="page-reset-password.html">Reset password</a></li>
-                                            <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-                                            <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-                                            <li><a href="page-terms.html">Terms of Service</a></li>
-                                            <li><a href="page-404.html">404 Page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="page-contact.html">Contact</a>
+                                     <a href="page-contact.html">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -922,51 +881,41 @@
                     <div class="col">
                         <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                             <div class="logo mb-30">
-                                <a href="index.html" class="mb-15"><img src="{{asset('front/assets/imgs/theme/logo.svg')}}" alt="logo" /></a>
+                                <a href="index.html" class="mb-15"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
                                 <p class="font-lg text-heading">Awesome grocery store website template</p>
                             </div>
                             <ul class="contact-infor">
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-location.svg')}}" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-contact.svg')}}" alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-email-2.svg')}}" alt="" /><strong>Email:</strong><span>sale@Nest.com</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-clock.svg')}}" alt="" /><strong>Hours:</strong><span>10:00 - 18:00, Mon - Sat</span></li>
+                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-location.svg')}}" alt="" /><span>B1 N°1 Salef el Adraa En face Djezzy (Kiffane)
+                                    Tlemcen, Algérie</span></li>
+                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-contact.svg')}}" alt="" /><span>(+123) 43 267 669/71</span></li>
+                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-email-2.svg')}}" alt="" />service.marketing@licbplus.com</span></li>
+                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-clock.svg')}}" alt="" /><span>Du samedi au mercredi: de 9h30 à 18h
+                                    Jeudi : de 9h30 à 13h30</span></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s>
-                        <h4 class=" widget-title">Company</h4>
-                        <ul class="footer-list mb-sm-5 mb-md-0">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Delivery Information</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms &amp; Conditions</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Support Center</a></li>
-                            <li><a href="#">Careers</a></li>
-                        </ul>
-                    </div>
+
                     <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                        <h4 class="widget-title">Account</h4>
+                        <h4 class="widget-title">Services</h4>
                         <ul class="footer-list mb-sm-5 mb-md-0">
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help Ticket</a></li>
-                            <li><a href="#">Shipping Details</a></li>
-                            <li><a href="#">Compare products</a></li>
+                            <li><a href="#">Accueil</a></li>
+                            <li><a href="#">Qui somme-nous</a></li>
+                            <li><a href="#">Atelier licb+</a></li>
+                            <li><a href="#">Confirmation du versement</a></li>
+                            <li><a href="#">Tutoriel licb+</a></li>
+
                         </ul>
                     </div>
                     <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                        <h4 class="widget-title">Corporate</h4>
+                        <h4 class="widget-title">Catégories</h4>
                         <ul class="footer-list mb-sm-5 mb-md-0">
-                            <li><a href="#">Become a Vendor</a></li>
-                            <li><a href="#">Affiliate Program</a></li>
-                            <li><a href="#">Farm Business</a></li>
-                            <li><a href="#">Farm Careers</a></li>
-                            <li><a href="#">Our Suppliers</a></li>
-                            <li><a href="#">Accessibility</a></li>
-                            <li><a href="#">Promotions</a></li>
+                            <li><a href="#">Pc</a></li>
+                            <li><a href="#">Composants Pc</a></li>
+                            <li><a href="#">Périphérique PC</a></li>
+                            <li><a href="#">Imprimante, Scanner et Fax</a></li>
+                            <li><a href="#">Consommable</a></li>
+                            <li><a href="#">Logiciels</a></li>
+                            <li><a href="#">Téléphonie</a></li>
                         </ul>
                     </div>
                     <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
@@ -1015,9 +964,7 @@
                     <div class="mobile-social-icon">
                         <h6>Follow Us</h6>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-facebook-white.svg')}}" alt="" /></a>
-                        <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-twitter-white.svg')}}" alt="" /></a>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-instagram-white.svg')}}" alt="" /></a>
-                        <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-pinterest-white.svg')}}" alt="" /></a>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-youtube-white.svg')}}" alt="" /></a>
                     </div>
                     <p class="font-sm">Up to 15% discount on your first subscribe</p>
@@ -1060,6 +1007,7 @@
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.min.js')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @stack('get-price-script')
     @stack('add-cart-scripts')

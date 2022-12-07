@@ -30,7 +30,7 @@
                                                 <img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" />
                                                 </figure>
                                                 @endforeach
-                                                
+
                                             </div>
                                             <!-- THUMBNAILS -->
                                             <div class="slider-nav-thumbnails">
@@ -84,22 +84,22 @@
                                             @if($productlines)
                                             @foreach($productlines as $productline)
                                             <div class="attr-detail attr-size mb-30">
-                                                
+
                                                 <ul class="list-filter size-filter font-small" id="list-line">
                                                     @foreach($productline as $item)
-                                                       
+
                                                             @if($loop->iteration == 1)
                                                             <strong class="mr-10">{{$item->attribute->value}}: </strong>
                                                             @endif
                                                             <li value-id="{{$item->id}}">
-                                                            <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br> 
-                                                                <strong class="price-related" >{{$item->price}} Da </strong> 
+                                                            <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
+                                                                <strong class="price-related" >{{$item->price}} Da </strong>
                                                                 </a>
                                                             </li>
-                                                        
+
                                                     @endforeach
                                                 </ul>
-                                              
+
                                             </div>
                                             @endforeach
                                             @endif
@@ -168,8 +168,8 @@
                                                 <div class="">
                                                     <hr class="wp-block-separator is-style-dots" />
                                                     <p>{!! $product->long_description !!}</p>
-                                                </div> 
-                                            </div> 
+                                                </div>
+                                            </div>
                                             <div class="tab-pane fade" id="Additional-info">
                                                 <table class="font-md">
                                                     <tbody>
@@ -259,7 +259,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>    
+                                            </div>
                                             <div class="tab-pane fade" id="Vendor-info">
                                                 <div class="vendor-logo d-flex mb-30">
                                                     <img src="assets/imgs/vendor/vendor-18.svg" alt="" />
@@ -448,7 +448,7 @@
                                                         <div class="product-img product-img-zoom">
                                                             <a href="shop-product-right.html" tabindex="0">
                                                                 <img class="default-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="" />
-                                                                
+
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1">
@@ -457,7 +457,7 @@
                                                             <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                         </div>
                                                         <div class="product-badges product-badges-position product-badges-mrg">
-                                                         
+
                                                             <span class="new">New</span>
                                                         </div>
                                                     </div>
@@ -495,7 +495,7 @@
                                 </ul>
                             </div>
                             <!-- Fillter By Price -->
-                            
+
                             <!-- Product sidebar Widget -->
                             <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
                                 <h5 class="section-title style-1 mb-30">Nouveaux produits</h5>
@@ -513,7 +513,7 @@
                                     </div>
                                 </div>
                                @endforeach
-                               
+
                             </div>
                             <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
                                 <img src="assets/imgs/banner/banner-11.png" alt="" />
@@ -545,24 +545,24 @@
 			url: '/get-price/' + id +'/'+attributeline_id,
 			type: "GET",
             success: function (res) {
-               
+
                 if(res.promo != '0'){
-                    
-                    var price_promo = $.number(res.promo_price); 
-                    var price = $.number(res.price); 
+
+                    var price_promo = $.number(res.promo_price);
+                    var price = $.number(res.price);
                     $(".price-promo").text(price_promo +' Da');
                     $(".price").text(price + ' Da');
                 }
                 else{
-                 
+
                     $(".price-promo").text(res.price +' Da');
                 }
-               
-				
+
+
 			}
 		});
 });
-</script> 
+</script>
 @endpush
 @push('add-cart-scripts')
 <script>
@@ -571,17 +571,17 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-        
+
     $( ".addToCartBtn" ).click(function(e) {
         e.preventDefault();
         var product_id = $(this).closest('.product-data').find('.product_id').val();
         var qte = $(this).closest('.product-data').find('.qty-val').val();
-        
+
         $.ajax({
                 url: '/get-product/' + product_id ,
                 type: "GET",
                 success: function (res) {
-                
+
                 if(res.countproductlines > 1){
                     var id = $('#list-line li.active').attr('value-id');
                     $.ajax({
@@ -592,10 +592,10 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                            
+
                                 $("#liveToast").show();
                                 $(".nbr_product").text(res.nbr_cart);
-                                
+
                                 if(res.qtes == 0){
                                     $data =  '<li>'+
                                                 '<div class="shopping-cart-img">'+
@@ -617,12 +617,12 @@
                                 }
                                 $(".total").text(res.total +' Da');
                                }
-                            
+
                             });
                          }
                          else{
                             var id = res.productlines.id;
-                           
+
                             $.ajax({
                             url: '/carts',
                             type: "POST",
@@ -631,7 +631,7 @@
                                 'qte' :qte,
                             },
                             success: function (res) {
-                                
+
                                 $("#liveToast").show();
                                 $(".nbr_product").text(res.nbr_cart);
                                 if(res.qtes == 0){
@@ -654,12 +654,12 @@
                                     alert("Le produit existe déja dans votre panier");
                                 }
                                 $(".total").text(res.total +' Da');
-                            
+
                             }
                             });
                          }
-                
-                    
+
+
                 }
             });
 
