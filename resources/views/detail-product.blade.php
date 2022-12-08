@@ -1,6 +1,12 @@
 @extends('layouts.front')
 @section('content')
 
+<style>
+    .carre {
+    width: 40px;
+    height: 40px;
+}
+</style>
 <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
@@ -22,21 +28,40 @@
                                             <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                             <!-- MAIN SLIDES -->
                                             <div class="product-image-slider">
-                                                <figure class="border-radius-10">
-                                                <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" />
-                                                </figure>
-                                                @foreach($product->secondaryImages() as $img)
-                                                <figure class="border-radius-10">
-                                                <img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" />
-                                                </figure>
-                                                @endforeach
+                                                @if($first_image)
+                                                    <figure class="border-radius-10">
+                                                    <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" />
+                                                    </figure>
+                                                @endif
+                                                @if($images_attributes)
+                                                    @foreach($images_attributes as $image_attribute)
+                                                    <figure class="border-radius-10">
+                                                    <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
+                                                    </figure>
+                                                    @endforeach
+                                                @else
+                                                    @foreach($secondary_images as $secondary_image)
+                                                    <figure class="border-radius-10">
+                                                    <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="product image" />
+                                                    </figure>
+                                                    @endforeach
+                                                @endif
 
                                             </div>
                                             <!-- THUMBNAILS -->
                                             <div class="slider-nav-thumbnails">
-                                                @foreach($product->images as $img)
-                                                <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
-                                                @endforeach
+                                                @if($images_attributes)
+                                                    @if($first_image)
+                                                    <div><img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" /></div>
+                                                    @endif
+                                                    @foreach($images_attributes as $image_attribute)
+                                                    <div id="{{'related-img-'.$image_attribute->id}}"><img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product image" /></div>
+                                                    @endforeach
+                                                @else
+                                                    @foreach($product->images as $img)
+                                                    <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
                                         <!-- End Gallery -->
@@ -79,24 +104,32 @@
                                                 </div>
                                             </div>
                                             <div class="short-desc mb-30">
-                                                <p class="font-lg">{!! $product->long_description !!}</p>
+                                                <p class="font-lg">{{ $product->short_description}}</p>
                                             </div>
                                             @if($productlines)
                                             @foreach($productlines as $productline)
-                                            <div class="attr-detail attr-size mb-30">
+                                            <div class="attr-detail attr-size mb-30 color-option">
 
-                                                <ul class="list-filter size-filter font-small" id="list-line">
+                                                <ul class="list-filter size-filter font-small color-categories" id="list-line">
                                                     @foreach($productline as $item)
 
                                                             @if($loop->iteration == 1)
                                                             <strong class="mr-10">{{$item->attribute->value}}: </strong>
                                                             @endif
-                                                            <li value-id="{{$item->id}}">
-                                                            <a style="height: auto; line-height: 20px;" href="#"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
-                                                                <strong class="price-related" >{{$item->price}} Da </strong>
-                                                                </a>
-                                                            </li>
 
+                                                            @if($item->attribute->value != 'Couleur')
+                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
+                                                            <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
+                                                                <strong class="price-related" >{{$item->price}} Da </strong>
+                                                            </a>
+                                                            </li>
+                                                            @else
+                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
+                                                            <div class="carre" style="background-color: {{$item->attributeLine->code}}">
+                                                                <a  href="#" class="select-color"title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                            </div>
+                                                            </li>
+                                                            @endif
                                                     @endforeach
                                                 </ul>
 
@@ -664,5 +697,16 @@
             });
 
 });
+</script>
+@endpush
+@push('select-color-indice')
+<script>
+    $(".select-color").click(function() {
+        $('.color-categories li').removeAttr('class');
+        var title = $(this).attr('title');
+        id = $(this).attr('id');
+        $("#li-"+id).addClass("selected-color");
+        $('#related-img-'+id).trigger('click');
+    });
 </script>
 @endpush

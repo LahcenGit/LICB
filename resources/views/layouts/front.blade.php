@@ -1012,6 +1012,7 @@
     @stack('get-price-script')
     @stack('add-cart-scripts')
     @stack('delete-item')
+    @stack('select-color-indice')
 </body>
 
 </html>

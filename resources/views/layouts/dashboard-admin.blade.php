@@ -1065,5 +1065,6 @@
 @stack('store-attribute-scripts')
 @stack('show-modal-add-mark-scripts')
 @stack('store-mark-scripts')
+
 </body>
 </html>

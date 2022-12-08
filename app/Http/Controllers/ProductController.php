@@ -198,6 +198,13 @@ class ProductController extends Controller
             //first productline
             $product_line = Productline::where('product_id',$product->id)->first();
             $attributes = null;
+
+            $images = $product->images;
+            $images_attributes = $product->productlines;
+
+            if($images){
+                $secondary_images = $images->where('type',2);
+            }
            }
           //product has no attribute
         else{
@@ -207,6 +214,9 @@ class ProductController extends Controller
            $product_line = Productline::where('product_id',$product->id)->first();
            $productlines = null;
            $attributes = null;
+           $images = $product->images;
+           $secondary_images = $images->where('type',2);
+           $images_attributes = null;
 
         }
         $categories = Category::where('parent_id',null)->limit('5')->get();
@@ -233,7 +243,7 @@ class ProductController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total'));
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images'));
     }
 
 

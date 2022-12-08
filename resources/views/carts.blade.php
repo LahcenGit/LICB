@@ -12,12 +12,15 @@
     </div>
     <div class="container mb-80 mt-50">
         @if(Auth::user())
-        <form action="{{url('carts/'.$cart->id)}}" method="POST" enctype="multipart/form-data">
-        @else
-        <form action="{{url('carts/'.$cart)}}" method="POST" enctype="multipart/form-data">
-        @endif
-        <input type="hidden" name="_method" value="PUT">
+            <form action="{{url('carts/'.$cart->id)}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
             @csrf
+        @else
+            <form action="{{url('carts/'.$cart)}}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
+            @csrf
+        @endif
+
         <div class="row">
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Votre panier</h1>
@@ -53,7 +56,7 @@
                                 </td>
                                 <td class="image product-thumbnail pt-40"><img src="{{asset('storage/images/products/'.$item->productline->product->images[0]->lien)}}" alt="#"></td>
                                 <td class="product-des product-name">
-                                    <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">{{$item->productline->product->designation}}</a></h6>
+                                    <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">{{$item->productline->product->designation}} @if($item->productline->attributeLine)-{{ $item->productline->attributeLine->value }}@endif</a></h6>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width:90%">

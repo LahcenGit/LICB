@@ -44,7 +44,7 @@ class CartController extends Controller
                     $cart_item->save();
 
                     $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
-                    $total = Cartitem::selectRaw('sum(total) as sum')->first();
+                    $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
                     $data = array(
                         'nbr_cart' => $nbr_cart,
                         'name' => $cart_item->getName()->designation,
@@ -68,21 +68,8 @@ class CartController extends Controller
                     $productline = Productline::where('id',$request->input('id'))->first();
                     $product_exist = Cartitem::where('productline_id',$request->input('id'))->where('cart_id',$cart)->first();
                     if($product_exist){
-                        $product_exist->qte = $product_exist->qte + $request->input('qte');
-                        if($product_exist->promo_price){
-                        $product_exist->total = $product_exist->total +($request->input('qte')*$product_exist->promo_price);
-                        }
-                        else{
-                        $product_exist->total = $product_exist->total +($request->input('qte')*$product_exist->price);
-                        }
-
-                        $product_exist->save();
-                        $nbr_cart = Cartitem::where('cart_id',$cart)->count();
-                        $total = Cartitem::selectRaw('sum(total) as sum')->first();
                         $data = array(
-                            'nbr_cart' => $nbr_cart,
-                            'total' => number_format($total->sum),
-                            'qtes' => $product_exist->qte,
+                        'qtes' => 1,
                         );
                         return $data;
                     }
@@ -103,7 +90,7 @@ class CartController extends Controller
                     $cart_item->save();
 
                     $nbr_cart = Cartitem::where('cart_id',$cart)->count();
-                    $total = Cartitem::selectRaw('sum(total) as sum')->first();
+                    $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
                     $data = array(
                         'nbr_cart' => $nbr_cart,
                         'name' => $cart_item->getName()->designation,
@@ -181,6 +168,7 @@ class CartController extends Controller
   }
 
   public function update(Request $request , $id){
+
     for($i=0 ; $i < count($request->qtes); $i++){
         $cartitem = Cartitem::find($request->item[$i]);
         if(Auth::user()){
@@ -189,7 +177,7 @@ class CartController extends Controller
                     $cartitem->qte = $request->qtes[$i];
                     $cartitem->total = $cartitem->price * $request->qtes[$i];
                     $cartitem->save();
-                    return redirect('/carts');
+
                 }
                 else{
                     abort(404, 'Page not found');
@@ -208,7 +196,9 @@ class CartController extends Controller
             }
         }
 
+
     }
+    return redirect('/carts');
   }
 
   public function destroy($id){
@@ -233,7 +223,13 @@ class CartController extends Controller
         $cart= session('cart_id');
         if($cartitem->cart_id == $cart){
             $cartitem->delete();
-            return true;
+            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+            $data = array(
+                'nbr_cartitem' => $nbr_cartitem,
+                'total' => number_format($total->sum),
+            );
+            return $data;
         }
         else{
             abort(404, 'Page not found');
