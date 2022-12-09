@@ -31,10 +31,10 @@ class ProductController extends Controller
                                 ->with('childCategories')
                                 ->orderby('description', 'asc')
                                 ->get();
-        $products = Product::all();
+        $productlines = Productline::all();
         $attributes = Attribute::all();
         $marks = Mark::all();
-        return view('admin.add-product',compact('categories','products','attributes','marks'));
+        return view('admin.add-product',compact('categories','productlines','attributes','marks'));
     }
 
 
@@ -115,7 +115,7 @@ class ProductController extends Controller
         foreach($request->relatedproducts as $relatedproduct){
             $productR = new Relatedproduct();
             $productR->product_id = $product->id;
-            $productR->added_product_id = $relatedproduct;
+            $productR->added_productline_id = $relatedproduct;
             $productR->save();
         }
     }
@@ -183,6 +183,7 @@ class ProductController extends Controller
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
+        $added_products = $product->relatedproducts;
 
         //product has many attribute
         if($countproductlines > 1){
@@ -243,7 +244,7 @@ class ProductController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images'));
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products'));
     }
 
 

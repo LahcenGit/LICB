@@ -19,6 +19,10 @@ class Product extends Model
     {
         return $this->hasMany(Productline::class);
     }
+    public function relatedproducts()
+    {
+        return $this->hasMany(Relatedproduct::class);
+    }
 
     public function secondaryImages(){
         $images = Image::where('product_id',$this->id)->where('type',2)->get();

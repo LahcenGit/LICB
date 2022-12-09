@@ -96,21 +96,22 @@
                                     </div>
                             </div>
                         </div>
-                         <div class="col-xl-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Produits associés</h4>
-                            </div>
-                            <div class="card-body">
-                                <label>Séléctionnez des produits :</label>
-                                <select class="multi-select" name="relatedproducts[]" multiple="multiple">
-                                    <option value="AL">Alabama</option>
-                                    <option value="WY">Wyoming</option>
-                                    <option value="UI">dlf</option>
-                                </select>
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Produits associés</h4>
+                                </div>
+                                <div class="card-body">
+                                    <label>Séléctionnez des produits :</label>
+                                    <select class="multi-select" id="search" name="relatedproducts[]" multiple="multiple">
+                                            @foreach($productlines as $productline)
+                                            <option value="{{ $productline->id }}">{{ $productline->product->designation }}@if($productline->attributeLine)-{{ $productline->attributeLine->value }}@endif</option>
+                                            @endforeach
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
@@ -435,7 +436,7 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		}
         });
-        $('#search').change(function(){
+        $('#search').select2(function(){
             alert(1);
             var value=$(this).val();
             var data ="";

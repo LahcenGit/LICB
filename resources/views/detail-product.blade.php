@@ -58,9 +58,11 @@
                                                     <div id="{{'related-img-'.$image_attribute->id}}"><img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product image" /></div>
                                                     @endforeach
                                                 @else
+                                                  @if($product->images->count() > 1)
                                                     @foreach($product->images as $img)
                                                     <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
                                                     @endforeach
+                                                  @endif
                                                 @endif
                                             </div>
                                         </div>
@@ -109,32 +111,45 @@
                                             @if($productlines)
                                             @foreach($productlines as $productline)
                                             <div class="attr-detail attr-size mb-30 color-option">
-
                                                 <ul class="list-filter size-filter font-small color-categories" id="list-line">
                                                     @foreach($productline as $item)
+                                                        @if($loop->iteration == 1)
+                                                        <strong class="mr-10">{{$item->attribute->value}}: </strong>
+                                                        @endif
 
-                                                            @if($loop->iteration == 1)
-                                                            <strong class="mr-10">{{$item->attribute->value}}: </strong>
-                                                            @endif
-
-                                                            @if($item->attribute->value != 'Couleur')
-                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
-                                                            <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
-                                                                <strong class="price-related" >{{$item->price}} Da </strong>
-                                                            </a>
-                                                            </li>
-                                                            @else
-                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
-                                                            <div class="carre" style="background-color: {{$item->attributeLine->code}}">
-                                                                <a  href="#" class="select-color"title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
-                                                            </div>
-                                                            </li>
-                                                            @endif
+                                                        @if($item->attribute->value != 'Couleur')
+                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
+                                                        <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
+                                                            <strong class="price-related" >{{$item->price}} Da </strong>
+                                                        </a>
+                                                        </li>
+                                                        @else
+                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
+                                                            <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                        </li>
+                                                        @endif
                                                     @endforeach
                                                 </ul>
 
                                             </div>
                                             @endforeach
+                                            @endif
+                                            @if($added_products)
+                                                <div class="attr-detail attr-size mb-30 color-option">
+                                                    <ul class="list-filter size-filter font-small color-categories" id="list-line">
+                                                        @foreach($added_products as $added_product)
+                                                            @if($loop->iteration == 1)
+                                                            <strong class="mr-10">Options à ajouter: </strong>
+                                                            @endif
+                                                            <li value-id="{{$added_product->id}}">
+                                                            <a style="height: auto; line-height: 20px;" href="#" title=""  >{{$added_product->productAdded->product->designation}} <br>
+                                                                <strong class="price-related" >@if($added_product->productAdded->price_promo){{ number_format($added_product->productAdded->price_promo) }} Da @else {{ number_format($added_product->productAdded->price) }} Da @endif</strong>
+                                                            </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+
+                                                </div>
                                             @endif
                                             <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
                                                 <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -702,10 +717,10 @@
 @push('select-color-indice')
 <script>
     $(".select-color").click(function() {
-        $('.color-categories li').removeAttr('class');
         var title = $(this).attr('title');
         id = $(this).attr('id');
-        $("#li-"+id).addClass("selected-color");
+        $('.color-categories li ').removeAttr('class');
+        $("#li-"+id).addClass("li-selected");
         $('#related-img-'+id).trigger('click');
     });
 </script>
