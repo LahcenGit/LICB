@@ -90,17 +90,17 @@
                                                             <span class="old-price font-md ml-15 price">{{number_format($min_price)}} DA</span>
                                                         </span>
                                                      @else
-                                                     <span class="current-price text-brand price-promo" >{{number_format($min_price)}} Da</span>
+                                                     <span class="current-price text-brand price" >{{number_format($min_price)}} Da</span>
                                                      @endif
                                                     @else
                                                     @if($product_line->promo_price)
-                                                    <span class="current-price text-brand promo">{{number_format($product_line->promo_price)}} Da</span>
+                                                    <span class="current-price text-brand price_promo">{{number_format($product_line->promo_price)}} Da</span>
                                                     <span>
                                                         <span class="save-price font-md color3 ml-15">26% Off</span>
                                                         <span class="old-price font-md ml-15 price">{{number_format($product_line->price)}} DA</span>
                                                     </span>
                                                     @else
-                                                    <span class="current-price text-brand pricep">{{number_format($product_line->price)}} Da</span>
+                                                    <span class="current-price text-brand price">{{number_format($product_line->price)}} Da</span>
                                                     @endif
                                                     @endif
                                                 </div>
@@ -111,14 +111,14 @@
                                             @if($productlines)
                                             @foreach($productlines as $productline)
                                             <div class="attr-detail attr-size mb-30 color-option">
-                                                <ul class="list-filter size-filter font-small color-categories" id="list-line">
+                                                <ul class="list-filter size-filter font-small color-categories" id="list-line-li">
                                                     @foreach($productline as $item)
                                                         @if($loop->iteration == 1)
                                                         <strong class="mr-10">{{$item->attribute->value}}: </strong>
                                                         @endif
 
                                                         @if($item->attribute->value != 'Couleur')
-                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}">
+                                                        <li value-id="{{$item->id}}"  class="li-selected">
                                                         <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
                                                             <strong class="price-related" >{{$item->price}} Da </strong>
                                                         </a>
@@ -130,9 +130,14 @@
                                                         @endif
                                                     @endforeach
                                                 </ul>
-
                                             </div>
                                             @endforeach
+                                            @else
+                                                <ul class="list-filter size-filter font-small color-categories" id="list-line-li">
+                                                    <li value-id="{{$product_line->id}}"  class="li-selected active">
+                                                        <a href="#"  class="getAttribute"  id="{{$product_line->id}}" > <br></a>
+                                                    </li>
+                                                </ul>
                                             @endif
                                             @if($added_products)
                                                 <div class="attr-detail attr-size mb-30 color-option">
@@ -142,8 +147,8 @@
                                                             <strong class="mr-10">Options à ajouter: </strong>
                                                             @endif
                                                             <li value-id="{{$added_product->id}}">
-                                                            <a style="height: auto; line-height: 20px;" href="#" title=""  >{{$added_product->productAdded->product->designation}} <br>
-                                                                <strong class="price-related" >@if($added_product->productAdded->price_promo){{ number_format($added_product->productAdded->price_promo) }} Da @else {{ number_format($added_product->productAdded->price) }} Da @endif</strong>
+                                                            <a style="height: auto; line-height: 20px;" href="#" title="" class="added-product" id="{{$added_product->id}}" data-id = "{{$product->id}}" >{{ $added_product->productLine->product->designation }} <br>
+                                                                <strong class="price-related" >@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
                                                             </a>
                                                             </li>
                                                         @endforeach
@@ -550,7 +555,7 @@
                                 @foreach($new_products as $new_product)
                                 <div class="single-post clearfix">
                                     <div class="image">
-                                        <img src="{{asset('storage/images/products/'.$new_product->images[0]->lien)}}" alt="#" />
+                                        <img src="{{asset('storage/images/products/')}}" alt="#" />
                                     </div>
                                     <div class="content pt-10">
                                         <h5><a href="shop-product-detail.html">{{$new_product->designation}}</a></h5>
@@ -603,11 +608,31 @@
                 }
                 else{
 
-                    $(".price-promo").text(res.price +' Da');
+                    $(".price").text(res.price +' Da');
                 }
 
 
 			}
+		});
+});
+</script>
+@endpush
+@push('get-price-product-added-script')
+<script>
+    $( ".added-product" ).click(function() {
+        var id = $(this).attr("id");
+        var product_id = $('.li-selected.active').attr('value-id');
+        $.ajax({
+			url: '/get-price-product-added/' + id +'/'+product_id,
+			type: "GET",
+            success: function (res) {
+               if(res.productline.price_promo){
+                $(".price_promo").text(res.price +' Da');
+               }
+               else{
+                $(".price").text(res.price +' Da');
+               }
+            }
 		});
 });
 </script>

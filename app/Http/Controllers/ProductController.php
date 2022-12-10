@@ -285,4 +285,31 @@ class ProductController extends Controller
     public function showModalAddMark(){
         return view('admin.modal-add-mark');
     }
+
+
+    public function getPriceProductAdded($id,$product_id){
+     $related_product = Relatedproduct::find($id);
+     $productlineadded = $related_product->productLine;
+     $productline = Productline::where('id',$product_id)->first();
+     if($productline->promo_price){
+        if($productlineadded->promo_price){
+            $price = number_format($productline->promo_price + $productlineadded->promo_price);
+        }
+        else{
+            $price = number_format($productline->promo_price + $productlineadded->price);
+        }
+       }
+    else{
+        if($productlineadded->promo_price){
+            $price = number_format($productline->price + $productlineadded->promo_price);
+        }
+        else{
+            $price = number_format($productline->price + $productlineadded->price);
+        }
+    }
+    return array(
+        "productline" => $productline,
+        "price" => $price,
+    );
+    }
 }

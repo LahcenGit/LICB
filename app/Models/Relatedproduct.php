@@ -12,7 +12,7 @@ class Relatedproduct extends Model
     {
         return $this->belongsTo(Product::class,'product_id');
     }
-    public function productAdded()
+    public function productLine()
     {
         return $this->belongsTo(Productline::class,'added_productline_id');
     }
