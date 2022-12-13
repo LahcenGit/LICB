@@ -48,7 +48,7 @@ Route::get('/dashboard-customer/orders', function () {
     return view('customer.orders');
 });
 //admin route
-Route::resource('/admin',AdminController::class);
+
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
@@ -66,5 +66,6 @@ Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showM
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Auth::routes();
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
+Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 

@@ -139,8 +139,8 @@
                                             </div>
                                             @endforeach
                                             @else
-                                                <ul class="list-filter size-filter font-small color-categories" id="list-line-li">
-                                                    <li value-id="{{$product_line->id}}"  class="li-selected active">
+                                                <ul class="list-filter size-filter font-small color-categories " style=" display:none; " id="list-line-li">
+                                                    <li value-id="{{$product_line->id}}"  class="li-selected active ">
                                                         <a href="#"  class="getAttribute"  id="{{$product_line->id}}" > <br></a>
                                                     </li>
                                                 </ul>
