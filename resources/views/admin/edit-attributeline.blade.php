@@ -18,17 +18,17 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form action="{{url('dashboard-admin/attributelines/'.$attributeline->id)}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{url('admin/attributelines/'.$attributeline->id)}}" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="PUT">
                                          @csrf
                                          <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label>Attribut* :</label>
                                                     <input type="text" class="form-control input-default " value="{{$attributeline->value}}"  name="attr"  required>
-                                                       
+
                                             </div>
                                          </div>
-                                        
+
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label">type:</label>
@@ -39,9 +39,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        
+
                                         </div>
-                                        
+
                                         <button type="submit"  class="btn btn-primary mt-3">Enregistrer</button>
                                     </form>
                                 </div>

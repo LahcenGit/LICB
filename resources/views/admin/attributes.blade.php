@@ -31,37 +31,37 @@
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$attr->value}}</td>
-                                                
+
                                                 <td>
-                                                    <form action="{{url('dashboard-admin/attributes/'.$attr->id)}}" method="post">
+                                                    <form action="{{url('admin/attributes/'.$attr->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
                                                     <div class="d-flex">
-                                                        <a href="{{url('dashboard-admin/attributes/'.$attr->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a href="{{url('admin/attributes/'.$attr->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                         <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                                     </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>  
+                                                    </form>
+                                                </td>
+                                            </tr>
                                             @foreach($attributelines as $attributeline)
                                             @if($attributeline->attribute_id == $attr->id)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>--{{$attributeline->value}}</td>
                                                 <td>
-                                                    <form action="{{url('dashboard-admin/attributelines/'.$attributeline->id)}}" method="post">
+                                                    <form action="{{url('admin/attributelines/'.$attributeline->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
                                                     <div class="d-flex">
-                                                        <a href="{{url('dashboard-admin/attributelines/'.$attributeline->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a href="{{url('admin/attributelines/'.$attributeline->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                         <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                                     </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>  
+                                                    </form>
+                                                </td>
+                                            </tr>
                                             @endif
                                             @endforeach
-                                            @endforeach      
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

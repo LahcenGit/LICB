@@ -25,17 +25,17 @@
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
                                             <h1 class="mb-5">Connexion</h1>
-                                            <p class="mb-30">Vous n'avez pas de compte ? <a href="page-register.html">Créer un compte maintenant</a></p>
+                                            <p class="mb-30">Vous n'avez pas de compte ? <a href="#">Créer un compte maintenant</a></p>
                                         </div>
                                         <form method="POST" action="{{ route('login') }}">
                                          @csrf
                                             <div class="form-group">
-                                                <input type="text" required name="username" placeholder="Username or Email *" />
+                                                <input type="text" required name="username" placeholder="Email ou Nom d'utilisateur  *" />
                                             </div>
                                             <div class="form-group">
-                                                <input required="" type="password" name="password" placeholder="Your password *" />
+                                                <input required="" type="password" name="password" placeholder="Mot de passe*" />
                                             </div>
-                                           
+
                                             <div class="login_footer form-group mb-50">
                                                 <div class="chek-form">
                                                     <div class="custome-checkbox">
@@ -46,7 +46,7 @@
                                                 <a class="text-muted" href="#">Mot de passe oublié?</a>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-heading btn-block hover-up" name="login">Connectez</button>
+                                                <button type="submit" class="btn btn-heading btn-block hover-up" style="background-color: #BC221A;" name="login">Connectez</button>
                                             </div>
                                         </form>
                                     </div>

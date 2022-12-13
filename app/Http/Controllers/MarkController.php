@@ -25,4 +25,25 @@ class MarkController extends Controller
         $mark->save();
         return redirect('admin/marks');
     }
+
+    public function edit($id){
+        $mark = Mark::find($id);
+        return view('admin.edit-mark',compact('mark'));
+    }
+
+    public function update(Request $request , $id){
+        $mark = Mark::find($id);
+        $mark->designation = $request->designation;
+        $mark->slug = str::slug($request->designation);
+        $mark->save();
+        return redirect('admin/marks');
+    }
+
+    public function destroy($id){
+        $mark = Mark::find($id);
+        $mark->delete();
+
+        return redirect('admin/marks');
+    }
+
 }

@@ -22,7 +22,7 @@ class ProductController extends Controller
 {
     //
     public function index(){
-        $products = Productline::all();
+        $products = Product::all();
         return view('admin.products',compact('products'));
     }
 
@@ -223,8 +223,9 @@ class ProductController extends Controller
         $categories = Category::where('parent_id',null)->limit('5')->get();
         // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
-        $category = Productcategory::where('product_id',$product->id)->first();
-        $related_products = Productcategory::where('category_id',$category->category_id)->where('product_id','!=',$product->id)->get();
+        $category_product = Productcategory::where('product_id',$product->id)->first();
+
+        $related_products = Productcategory::where('category_id',$category_product->category_id)->where('product_id','!=',$product->id)->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             if($cart){

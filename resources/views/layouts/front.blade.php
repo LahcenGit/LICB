@@ -259,7 +259,7 @@
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
                                         <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
                                     </a>
-                                    <a href="shop-cart.html"><span class="lable">Cart</span></a>
+                                    <a href="shop-cart.html"><span class="lable">Panier</span></a>
                                     @if($nbr_cartitem > 0)
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <ul>
@@ -298,37 +298,41 @@
                                 </div>
 
                                 <div class="header-action-icon-2">
-                                    <a href="page-account.html">
+                                    <a href="{{ asset('/admin') }}">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
                                     </a>
                                     @if(Auth::user())
-                                    <a href="page-account.html"><span class="lable ml-0">Compte</span></a>
+                                    <a href="{{ asset('/admin') }}l"><span class="lable ml-0">Compte</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>Mon Compte</a>
+                                                <a href="{{ asset('/admin') }}"><i class="fi fi-rs-user mr-10"></i>Mon Compte</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Suivi de commande</a>
+                                                <a href="#"><i class="fi fi-rs-location-alt mr-10"></i>Suivi de commande</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>Mon bon</a>
+                                                <a href="#"><i class="fi fi-rs-label mr-10"></i>Mon bon</a>
                                             </li>
                                             <li>
-                                                <a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>Mes favoris</a>
+                                                <a href="#"><i class="fi fi-rs-heart mr-10"></i>Mes favoris</a>
                                             </li>
                                             <li>
-                                                <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
+                                                <a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
                                             </li>
                                             <li>
-                                                <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Déconnexion</a>
+                                                <a href="{{route('logout')}}" class="dropdown-item ai-icon" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <i class="fi fi-rs-sign-out mr-10"></i>Déconnexion</a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    @csrf
+                                                </form>
                                             </li>
                                         </ul>
                                     </div>
 
                                     @else
-                                    <a href="page-account.html"><span class="lable ml-0">Connexion</span></a>
-                                    <a href="page-account.html"><span class="lable ml-0">Inscription</span></a>
+                                    <a href="{{ asset('/login') }}"><span class="lable ml-0">Connexion</span></a>
+
                                     @endif
                                 </div>
                             </div>

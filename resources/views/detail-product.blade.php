@@ -11,7 +11,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                    <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
                     <span></span> <a href="shop-grid-right.html">Composants PC</a> <span></span> SSD
                 </div>
             </div>
@@ -114,7 +114,7 @@
                                                 <ul class="list-filter size-filter font-small color-categories" id="list-line-li">
                                                     @foreach($productline as $item)
                                                         @if($loop->iteration == 1)
-                                                        <strong class="mr-10">{{$item->attribute->value}}: </strong>
+                                                        <strong class="mr-10">{{$item->attribute->value}}: @if($item->attribute->value == 'Couleur')<span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span><br>@endif </strong>
                                                         @endif
 
                                                         @if($item->attribute->value != 'Couleur')
@@ -124,12 +124,18 @@
                                                         </a>
                                                         </li>
                                                         @else
-                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
-                                                            <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
-                                                        </li>
+                                                            @if($item[0])
+                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" class="mt-2" style=" border: 1px solid #000!important; border-radius: 15% !important;">
+                                                                <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                            </li>
+                                                            @else
+                                                                <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" class="mt-2" >
+                                                                    <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                                </li>
+                                                            @endif
                                                         @endif
                                                     @endforeach
-                                                </ul>
+                                                 </ul>
                                             </div>
                                             @endforeach
                                             @else
@@ -179,9 +185,9 @@
                                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                                 </div>
                                                 <div class="product-extra-link2">
-                                                    <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
-                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                                                    <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Ajouter au panier</button>
+                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
+
                                                 </div>
                                             </div>
                                             <div class="font-xs">
@@ -207,13 +213,13 @@
                                                 <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">Description</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">Additional info</a>
+                                                <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">Informations</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab" href="#Vendor-info">Vendor</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Reviews (3)</a>
+                                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Commentaires (3)</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content shop_info_tab entry-main-content">
@@ -226,90 +232,19 @@
                                             <div class="tab-pane fade" id="Additional-info">
                                                 <table class="font-md">
                                                     <tbody>
-                                                        <tr class="stand-up">
-                                                            <th>Stand Up</th>
-                                                            <td>
-                                                                <p>35″L x 24″W x 37-45″H(front to back wheel)</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="folded-wo-wheels">
-                                                            <th>Folded (w/o wheels)</th>
-                                                            <td>
-                                                                <p>32.5″L x 18.5″W x 16.5″H</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="folded-w-wheels">
-                                                            <th>Folded (w/ wheels)</th>
-                                                            <td>
-                                                                <p>32.5″L x 24″W x 18.5″H</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="door-pass-through">
-                                                            <th>Door Pass Through</th>
-                                                            <td>
-                                                                <p>24</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="frame">
-                                                            <th>Frame</th>
-                                                            <td>
-                                                                <p>Aluminum</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="weight-wo-wheels">
-                                                            <th>Weight (w/o wheels)</th>
-                                                            <td>
-                                                                <p>20 LBS</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="weight-capacity">
-                                                            <th>Weight Capacity</th>
-                                                            <td>
-                                                                <p>60 LBS</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="width">
-                                                            <th>Width</th>
-                                                            <td>
-                                                                <p>24″</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="handle-height-ground-to-handle">
-                                                            <th>Handle height (ground to handle)</th>
-                                                            <td>
-                                                                <p>37-45″</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="wheels">
-                                                            <th>Wheels</th>
-                                                            <td>
-                                                                <p>12″ air / wide track slick tread</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="seat-back-height">
-                                                            <th>Seat back height</th>
-                                                            <td>
-                                                                <p>21.5″</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="head-room-inside-canopy">
-                                                            <th>Head room (inside canopy)</th>
-                                                            <td>
-                                                                <p>25″</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="pa_color">
-                                                            <th>Color</th>
-                                                            <td>
-                                                                <p>Black, Blue, Red, White</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="pa_size">
-                                                            <th>Size</th>
-                                                            <td>
-                                                                <p>M, S</p>
-                                                            </td>
-                                                        </tr>
+                                                        @if($productlines)
+                                                            @foreach($productlines as $productline)
+                                                            <tr class="stand-up">
+                                                                <th>{{ $productline[$loop->iteration]->attribute->value }}</th>
+                                                                <td>
+                                                                    <p> @foreach($productline as $item)
+                                                                        {{$item->attributeLine->value}},
+                                                                        @endforeach
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        @endif
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -499,15 +434,13 @@
                                                 <div class="product-cart-wrap hover-up">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html" tabindex="0">
+                                                            <a href="{{ asset('product/'.$related_product->product->slug) }}" tabindex="0">
                                                                 <img class="default-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="" />
 
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                            <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                            <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
+                                                           <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
                                                         </div>
                                                         <div class="product-badges product-badges-position product-badges-mrg">
 
@@ -515,7 +448,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
-                                                        <h2><a href="shop-product-right.html" tabindex="0">{{$related_product->product->designation}}</a></h2>
+                                                        <h2><a href={{ asset('product/'.$related_product->product->slug) }}>{{$related_product->product->designation}}</a></h2>
                                                         <div class="rating-result" title="90%">
                                                             <span> </span>
                                                         </div>
@@ -542,7 +475,7 @@
                                 <ul>
                                     @foreach($categories as $category)
                                     <li>
-                                        <a href="shop-grid-right.html"> <img src="" alt="" />{{$category->designation}}</a><span class="count">30</span>
+                                        <a href="#"> <img src="" alt="" />{{$category->designation}}</a><span class="count" style="color: #fff">30</span>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -558,7 +491,7 @@
                                         <img src="{{asset('storage/images/products/')}}" alt="#" />
                                     </div>
                                     <div class="content pt-10">
-                                        <h5><a href="shop-product-detail.html">{{$new_product->designation}}</a></h5>
+                                        <h5><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h5>
                                         <p class="price mb-0 mt-5">{{number_format($new_product->minPrice())}} Da</p>
                                         <div class="product-rate">
                                             <div class="product-rating" style="width: 90%"></div>
@@ -743,6 +676,7 @@
 <script>
     $(".select-color").click(function() {
         var title = $(this).attr('title');
+        $('.color-title b').html(title);
         id = $(this).attr('id');
         $('.color-categories li ').removeAttr('class');
         $("#li-"+id).addClass("li-selected");

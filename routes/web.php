@@ -20,8 +20,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
+});
+*/
+
+Route::get('/', function () {
+
+    if(Auth::guest()){
+        return redirect('/login');
+    }
+    else{
+        return redirect('/admin');
+    }
+
 });
 
 Route::get('/admin', function () {
@@ -54,5 +66,5 @@ Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showM
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Auth::routes();
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
