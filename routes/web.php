@@ -7,6 +7,7 @@ use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -36,9 +37,7 @@ Route::get('/', function () {
 
 });
 
-Route::get('/admin', function () {
-    return view('admin.dashboard-admin');
-});
+
 Route::get('/dashboard-customer', function () {
     return view('customer.dashboard-customer');
 });
@@ -49,6 +48,7 @@ Route::get('/dashboard-customer/orders', function () {
     return view('customer.orders');
 });
 //admin route
+Route::resource('/admin',AdminController::class);
 Route::resource('/admin/categories',CategoryController::class);
 Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
