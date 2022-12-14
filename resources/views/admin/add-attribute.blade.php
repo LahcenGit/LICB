@@ -18,7 +18,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form action="{{url('dashboard-admin/attributes')}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{url('admin/attributes')}}" method="POST" enctype="multipart/form-data">
                                          @csrf
                                          <div class="row">
                                             <div class="mb-3 col-md-6">
