@@ -18,7 +18,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <form action="{{url('dashboard-admin/categories')}}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{url('admin/categories')}}" method="POST" enctype="multipart/form-data">
                                          @csrf
                                         <div class="mb-3">
                                             <label> Désignation*: </label>
@@ -32,26 +32,26 @@
                                         <div class="mb-3">
                                         <label>Liste des categories :</label>
                                         <select class="form-control " id="sel1"  class="selectpicker" data-live-search="true" name="category">
-                                       
+
                                           <option value=0>Nothing selected</option>
-                                     
+
                                            @foreach($categories as $category)
-                                          
+
                                            <option value="{{$category->id}}" @if (old('category') == $category->id ) selected @endif >{{$category->designation}}</option>
                                            @foreach($category->childCategories as $sub)
-                                          
+
                                            <option  value="{{$sub->id}}" @if (old('category') == $sub->id ) selected @endif> &nbsp &nbsp{{$sub->designation}}</option>
                                            @foreach($sub->childCategories as $subsub)
                                                <option value="{{$subsub->id}}"  @if (old('category') == $subsub->id ) selected @endif>  &nbsp  &nbsp  &nbsp &nbsp{{$subsub->designation}}</option>
-                                          
+
 
                                            @foreach($subsub->childCategories as $subsubsub)
                                            <option value="{{$subsubsub->id}}"  @if (old('category') == $subsubsub->id ) selected @endif>  &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp{{$subsubsub->designation}}</option>
-                                           @endforeach 
-                                           @endforeach 
-                                           @endforeach 
                                            @endforeach
- 
+                                           @endforeach
+                                           @endforeach
+                                           @endforeach
+
                                         </select>
                                         </div>
                                         <div class="mb-3">
