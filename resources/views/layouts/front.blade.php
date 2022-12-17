@@ -24,13 +24,6 @@
         color: #BC221A !important;
     }
 
-    .price-related{
-        color: #BC221A !important;
-    }
-    .price-related:hover{
-        color: #ffffff !important;
-    }
-
     .li-selected{
         border: 1px solid #000!important;
         border-radius: 15%;

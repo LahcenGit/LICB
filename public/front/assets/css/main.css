@@ -1064,16 +1064,16 @@ button.submit, button[type='submit'] {
   color: #ffffff;
   border: none;
   background-color: #BC221A;
-  border: 1px solid #29A56C;
+  border: 1px solid #DD0B1B;
   border-radius: 10px;
 }
 
 button.submit:hover, button[type='submit']:hover {
-  background-color: #29A56C !important;
+  background-color: #DD0B1B !important;
 }
 
 .btn-brand:hover {
-  background-color: #29A56C !important;
+  background-color: #DD0B1B !important;
 }
 
 .btn-login {
@@ -4912,7 +4912,7 @@ table .product-thumbnail img {
 }
 
 .slider-nav-thumbnails .slick-slide.slick-current img {
-  border: 2px solid #a2d2c9;
+  border: 1px solid #BC221A;
 }
 
 .slider-nav-thumbnails div.slick-slide {
@@ -5043,10 +5043,10 @@ table .product-thumbnail img {
 
 .size-filter.list-filter li a:hover,
 .size-filter.list-filter li.active a {
-  color: #fff;
-  background-color: #BC221A;
-  border-color: #BC221A;
+  color: #fff!important;
+  background-color: #C4C4C4;
 }
+
 
 .detail-qty {
   max-width: 80px;
@@ -5064,7 +5064,7 @@ table .product-thumbnail img {
 }
 
 .detail-qty > a:hover {
-  color: #29A56C;
+  color: #DD0B1B;
 }
 
 .detail-qty > a.qty-up {
@@ -6359,7 +6359,7 @@ h6.post-title {
 }
 
 .invoice-content .btn-download:after {
-  background: #29A56C;
+  background: #DD0B1B;
 }
 
 .invoice-content .btn-print {
@@ -8384,7 +8384,7 @@ h6.post-title {
 }
 
 .header-style-1 .main-categori-wrap > a:hover {
-  background-color: #29A56C;
+  background-color: #DD0B1B;
 }
 
 .header-style-1 .main-menu.main-menu-light-white > nav > ul > li > a {
