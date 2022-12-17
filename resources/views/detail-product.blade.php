@@ -149,11 +149,11 @@
                                             @endif
                                             @if($added_products)
                                                 <div class="attr-detail attr-size mb-30 color-option">
-                                                  
+
                                                     <ul class="list-filter size-filter font-small list-option" id="list-line">
                                                         <div class="mb-4 attribut-section">
-                                                            <strong >Options: <span class="product-text"></span></strong> 
-                                                        </div> 
+                                                            <strong >Options: <span class="product-text"></span></strong>
+                                                        </div>
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
                                                             <a style="height: auto; line-height: 23px; " href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
@@ -218,9 +218,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">Informations</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="Vendor-info-tab" data-bs-toggle="tab" href="#Vendor-info">Vendor</a>
-                                            </li>
+
                                             <li class="nav-item">
                                                 <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Commentaires (3)</a>
                                             </li>
@@ -251,116 +249,81 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="tab-pane fade" id="Vendor-info">
-                                                <div class="vendor-logo d-flex mb-30">
-                                                    <img src="assets/imgs/vendor/vendor-18.svg" alt="" />
-                                                    <div class="vendor-name ml-15">
-                                                        <h6>
-                                                            <a href="vendor-details-2.html">Noodles Co.</a>
-                                                        </h6>
-                                                        <div class="product-rate-cover text-end">
-                                                            <div class="product-rate d-inline-block">
-                                                                <div class="product-rating" style="width: 90%"></div>
-                                                            </div>
-                                                            <span class="font-small ml-5 text-muted"> (32 reviews)</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <ul class="contact-infor mb-50">
-                                                    <li><img src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined Kent, Utah 53127 United States</span></li>
-                                                    <li><img src="assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Contact Seller:</strong><span>(+91) - 540-025-553</span></li>
-                                                </ul>
-                                                <div class="d-flex mb-55">
-                                                    <div class="mr-30">
-                                                        <p class="text-brand font-xs">Rating</p>
-                                                        <h4 class="mb-0">92%</h4>
-                                                    </div>
-                                                    <div class="mr-30">
-                                                        <p class="text-brand font-xs">Ship on time</p>
-                                                        <h4 class="mb-0">100%</h4>
-                                                    </div>
-                                                    <div>
-                                                        <p class="text-brand font-xs">Chat response</p>
-                                                        <h4 class="mb-0">89%</h4>
-                                                    </div>
-                                                </div>
-                                                <p>
-                                                    Noodles & Company is an American fast-casual restaurant that offers international and American noodle dishes and pasta in addition to soups and salads. Noodles & Company was founded in 1995 by Aaron Kennedy and is headquartered in Broomfield, Colorado. The company went public in 2013 and recorded a $457 million revenue in 2017.In late 2018, there were 460 Noodles & Company locations across 29 states and Washington, D.C.
-                                                </p>
-                                            </div>
+
                                             <div class="tab-pane fade" id="Reviews">
                                                 <!--Comments-->
                                                 <div class="comments-area">
                                                     <div class="row">
                                                         <div class="col-lg-8">
-                                                            <h4 class="mb-30">Customer questions & answers</h4>
+                                                            <h4 class="mb-30">Avis des clients</h4>
                                                             <div class="comment-list">
                                                                 <div class="single-comment justify-content-between d-flex mb-30">
                                                                     <div class="user justify-content-between d-flex">
                                                                         <div class="thumb text-center">
-                                                                            <img src="assets/imgs/blog/author-2.png" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">Sienna</a>
+                                                                            <img src="{{ asset('front/assets/imgs/blog/author-2.png') }}" alt="" />
+                                                                            <a href="#" class="font-heading text-brand">NODHAR BOUCHAREB</a>
                                                                         </div>
                                                                         <div class="desc">
                                                                             <div class="d-flex justify-content-between mb-10">
                                                                                 <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">December 4, 2022 at 3:12 pm </span>
+                                                                                    <span class="font-xs text-muted">December 4, 2022 13h:15 </span>
                                                                                 </div>
                                                                                 <div class="product-rate d-inline-block">
                                                                                     <div class="product-rating" style="width: 100%"></div>
                                                                                 </div>
                                                                             </div>
-                                                                            <p class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi repudiandae minus ab deleniti totam officia id incidunt? <a href="#" class="reply">Reply</a></p>
+                                                                            <p class="mb-10">Great shop..great costumer service..and most importently great interaction with content creators such as me..Very fast delivery and competitive prices. </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="single-comment justify-content-between d-flex mb-30 ml-30">
+                                                                <div class="single-comment justify-content-between d-flex mb-30">
                                                                     <div class="user justify-content-between d-flex">
                                                                         <div class="thumb text-center">
-                                                                            <img src="assets/imgs/blog/author-3.png" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">Brenna</a>
+                                                                            <img src="{{ asset('front/assets/imgs/blog/author-2.png') }}" alt="" />
+                                                                            <a href="#" class="font-heading text-brand">Abderahim</a>
                                                                         </div>
                                                                         <div class="desc">
                                                                             <div class="d-flex justify-content-between mb-10">
                                                                                 <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">December 4, 2022 at 3:12 pm </span>
+                                                                                    <span class="font-xs text-muted">Septembre 3, 2022 at 10h:20 </span>
                                                                                 </div>
                                                                                 <div class="product-rate d-inline-block">
-                                                                                    <div class="product-rating" style="width: 80%"></div>
+                                                                                    <div class="product-rating" style="width: 100%"></div>
                                                                                 </div>
                                                                             </div>
-                                                                            <p class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi repudiandae minus ab deleniti totam officia id incidunt? <a href="#" class="reply">Reply</a></p>
+                                                                            <p class="mb-10">I like the diversity of your products, also good communication. </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="single-comment justify-content-between d-flex">
                                                                     <div class="user justify-content-between d-flex">
                                                                         <div class="thumb text-center">
-                                                                            <img src="assets/imgs/blog/author-4.png" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">Gemma</a>
+                                                                            <img src="{{ asset('front/assets/imgs/blog/author-4.png') }}" alt="" />
+                                                                            <a href="#" class="font-heading text-brand">zako </a>
                                                                         </div>
                                                                         <div class="desc">
                                                                             <div class="d-flex justify-content-between mb-10">
                                                                                 <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">December 4, 2022 at 3:12 pm </span>
+                                                                                    <span class="font-xs text-muted">juillet 14, 2022 at 17h:30</span>
                                                                                 </div>
                                                                                 <div class="product-rate d-inline-block">
                                                                                     <div class="product-rating" style="width: 80%"></div>
                                                                                 </div>
                                                                             </div>
-                                                                            <p class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus, suscipit exercitationem accusantium obcaecati quos voluptate nesciunt facilis itaque modi commodi dignissimos sequi repudiandae minus ab deleniti totam officia id incidunt? <a href="#" class="reply">Reply</a></p>
+                                                                            <p class="mb-10">Fast shipping and excellent prices with a great costumers services .Thanks licb </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-4">
-                                                            <h4 class="mb-30">Customer reviews</h4>
+
                                                             <div class="d-flex mb-30">
                                                                 <div class="product-rate d-inline-block mr-15">
                                                                     <div class="product-rating" style="width: 90%"></div>
                                                                 </div>
-                                                                <h6>4.8 out of 5</h6>
+                                                                <h6>4,8 sur 5</h6>
                                                             </div>
                                                             <div class="progress">
                                                                 <span>5 star</span>
@@ -382,13 +345,13 @@
                                                                 <span>1 star</span>
                                                                 <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
                                                             </div>
-                                                            <a href="#" class="font-xs text-muted">How are ratings calculated?</a>
+                                                            <a href="#" class="font-xs text-muted">Comment les notes sont-elles calculées ?</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--comment form-->
                                                 <div class="comment-form">
-                                                    <h4 class="mb-15">Add a review</h4>
+                                                    <h4 class="mb-15">Ajouter un commentaire</h4>
                                                     <div class="product-rate d-inline-block mb-30"></div>
                                                     <div class="row">
                                                         <div class="col-lg-8 col-md-12">
@@ -396,12 +359,12 @@
                                                                 <div class="row">
                                                                     <div class="col-12">
                                                                         <div class="form-group">
-                                                                            <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                                                            <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Commentaire"></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
-                                                                            <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
+                                                                            <input class="form-control" name="name" id="name" type="text" placeholder="Nom et prenom" />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6">
@@ -409,14 +372,10 @@
                                                                             <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-12">
-                                                                        <div class="form-group">
-                                                                            <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
-                                                                        </div>
-                                                                    </div>
+
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <button type="submit" class="button button-contactForm">Submit Review</button>
+                                                                    <button type="submit" class="button button-contactForm">Envoyer</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -442,9 +401,7 @@
 
                                                             </a>
                                                         </div>
-                                                        <div class="product-action-1">
-                                                           <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                        </div>
+
                                                         <div class="product-badges product-badges-position product-badges-mrg">
 
                                                             <span class="new">New</span>
@@ -478,7 +435,7 @@
                                 <ul>
                                     @foreach($categories as $category)
                                     <li>
-                                        <a href="#"> <img src="" alt="" />{{$category->designation}}</a><span class="count" style="color: #fff">30</span>
+                                        <a href="#">{{$category->designation}}</a><span class="count" style="color: #fff">30</span>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -505,7 +462,7 @@
 
                             </div>
                             <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-                                <img src="assets/imgs/banner/banner-11.png" alt="" />
+                                <img src="{{ asset('front/assets/imgs/banner/banner-11.png') }}" alt="" />
                                 <div class="banner-text">
                                     <span>Oganic</span>
                                     <h4>
@@ -570,7 +527,7 @@
             var product_id = $(this).data("product");
             var product_added = $(this).data("added");
             $(".product-text").text($(this).attr('title'));
-        
+
             $.ajax({
                 url: '/get-price-product-added/' + product_added +'/'+product_id,
                 type: "GET",
@@ -584,7 +541,7 @@
                 }
             });
         }
-        
+
 });
 </script>
 @endpush
