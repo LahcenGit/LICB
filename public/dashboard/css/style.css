@@ -12800,7 +12800,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   --primary-light: #00d47a;
   --primary-hover: #006e40;
   --primary-dark: #000805;
-  --rgba-primary-1: rgba(0, 161, 93, 0.1);
+  --rgba-primary-1: rgba(154, 160, 157, 0.1);
   --rgba-primary-2: rgba(0, 161, 93, 0.2);
   --rgba-primary-3: rgba(0, 161, 93, 0.3);
   --rgba-primary-4: rgba(0, 161, 93, 0.4);
@@ -12849,7 +12849,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     } */ }
   [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li.mm-active > a {
     font-weight: 600;
-    background: var(--rgba-primary-1);
+    background: rgba(234, 234, 234, 0.1);
     border-radius: 3.875rem; }
     [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li.mm-active > a:before {
       width: 0.563rem; }

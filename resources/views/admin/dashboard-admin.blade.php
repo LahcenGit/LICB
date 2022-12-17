@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="temp-body">
+
 <!--**********************************
             Content body start
         ***********************************-->
@@ -18,7 +20,7 @@
 											<div class="card-header border-0 pb-0 flex-wrap">
 												<div>
 													<span class="mb-3 d-block fs-16">Current Balance</span>
-													<h4 class="fs-24 font-w700 mb-3">$ 24,567.33</h4>
+													<h4 class="fs-24 font-w700 mb-3">160.000 Da</h4>
 													<span><small class="text-success">+2.7%</small>  than last week</span>
 												</div>
 												<div class="current-icon">
@@ -444,144 +446,7 @@
 											<a href="javascript:void(0);" class="btn btn-primary btn-rounded">+New Messages</a>
 										</div>
 									</div>
-									<div class="card-body px-0">
-										<div class="msg-bx d-flex justify-content-between align-items-center">
-											<div class="msg d-flex align-items-center w-100">
-												<div class="image-box active">
-													<img src="images/profile/small/pic6.jpg" alt="">
-												</div>
-												<div class="ms-3 w-100 ">
-													<h4 class="fs-18 font-w600">Maren Rosser</h4>
-													<div class="d-flex justify-content-between">
-														<span class="me-auto">Hei, dont forget to clear server cache!</span>
-														<span class="me-4 fs-12">25min ago</span>
-													</div>
-												</div>
-												
-											</div>
-											<div class="dropdown">
-												<div class="btn-link" data-bs-toggle="dropdown">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"/>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0)">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0)">Edit</a>
-												</div>
-											</div>
-										</div>
-										<div class="msg-bx d-flex justify-content-between align-items-center">
-											<div class="msg d-flex align-items-center w-100">
-												<div class="image-box">
-													<img src="images/profile/small/pic7.jpg" alt="">
-												</div>	
-												<div class="ms-3 w-100">
-													<h4 class="fs-18 font-w600">Kaiya Bergson</h4>
-													<div class="d-flex justify-content-between">
-														<span class="me-auto">I remember that project due is tomorrow.</span>
-														<span class="me-4 fs-12">Yesterday, 8:24 AM</span>
-													</div>
-												</div>
-											</div>
-											<div class="dropdown">
-												<div class="btn-link" data-bs-toggle="dropdown">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"/>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0)">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0)">Edit</a>
-												</div>
-											</div>
-										</div>
-										<div class="msg-bx d-flex justify-content-between align-items-center">
-											<div class="msg d-flex align-items-center w-100">
-												<div class="image-box active">
-													<img src="images/profile/small/pic4.jpg" alt="">
-												</div>	
-												<div class="ms-3 w-100">
-													<h4 class="fs-18 font-w600">Ruben Press</h4>
-													<div class="d-flex justify-content-between">
-														<span class="me-auto">Ok sir. I will fix it as soon as possible</span>
-														<span class="me-4 fs-12">December 12th, 2020  10:24 AM</span>
-													</div>
-												</div>
-											</div>
-											<div class="dropdown">
-												<div class="btn-link" data-bs-toggle="dropdown">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"/>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0)">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0)">Edit</a>
-												</div>
-											</div>
-										</div>
-										<div class="msg-bx d-flex justify-content-between align-items-center">
-											<div class="msg d-flex align-items-center w-100">
-												<div class="image-box active">
-													<img src="images/profile/small/pic3.jpg" alt="">
-												</div>	
-												<div class="ms-3 w-100">
-													<h4 class="fs-18 font-w600">Cristofer Torff</h4>
-													<div class="d-flex justify-content-between">
-														<span class="me-auto">Maybe we should schedule that meeting</span>
-														<span class="me-4 fs-12">December 12th, 2020  10:24 AM</span>
-													</div>
-												</div>
-											</div>
-											<div class="dropdown">
-												<div class="btn-link" data-bs-toggle="dropdown">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"/>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0)">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0)">Edit</a>
-												</div>
-											</div>
-										</div>
-										<div class="msg-bx d-flex justify-content-between align-items-center">
-											<div class="msg d-flex align-items-center w-100">
-												<div class="image-box active">
-													<img src="images/profile/small/pic5.jpg" alt="">
-												</div>	
-												<div class="ms-3 w-100">
-													<h4 class="fs-18 font-w600">Ann Rosser</h4>
-													<div class="d-flex justify-content-between">
-														<span class="me-auto">I dont’t know where that files saved dude.</span>
-														<span class="me-4 fs-12">Yesterday, 8:24 AM</span>
-													</div>
-												</div>
-											</div>
-											<div class="dropdown">
-												<div class="btn-link" data-bs-toggle="dropdown">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<circle cx="12.4999" cy="3.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="11.5" r="2.5" fill="#A5A5A5"/>
-														<circle cx="12.4999" cy="19.5" r="2.5" fill="#A5A5A5"/>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0)">Delete</a>
-													<a class="dropdown-item" href="javascript:void(0)">Edit</a>
-												</div>
-											</div>
-										</div>
-									</div>
+									
 								</div>
 							</div>
 						</div>	
@@ -592,4 +457,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
+
+</div>
 @endsection
