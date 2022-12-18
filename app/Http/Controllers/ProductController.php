@@ -206,7 +206,16 @@ class ProductController extends Controller
             if($images){
                 $secondary_images = $images->where('type',2);
             }
-           }
+
+            $productattribute = $product_line->attribute->value;
+            if($productattribute == 'Couleur'){
+                $has_color = true;
+            }
+            else{
+                $has_color = false;
+            }
+
+        }
           //product has no attribute
         else{
 
@@ -218,6 +227,7 @@ class ProductController extends Controller
            $images = $product->images;
            $secondary_images = $images->where('type',2);
            $images_attributes = null;
+           $has_color = false;
 
         }
         $categories = Category::where('parent_id',null)->limit('5')->get();
@@ -245,7 +255,7 @@ class ProductController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products'));
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products','has_color'));
     }
 
 
