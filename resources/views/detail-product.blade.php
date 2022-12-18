@@ -147,7 +147,7 @@
                                                     </li>
                                                 </ul>
                                             @endif
-                                            
+
                                             @if($added_products)
                                                 <div class="attr-detail attr-size mb-30 color-option">
 
@@ -449,7 +449,7 @@
                                 @foreach($new_products as $new_product)
                                 <div class="single-post clearfix">
                                     <div class="image">
-                                        <img src="{{asset('storage/images/products/')}}" alt="#" />
+                                        <img src="{{asset('storage/images/products/'.$new_product->images[0]->lien)}}" alt="#" />
                                     </div>
                                     <div class="content pt-10">
                                         <h5><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h5>
