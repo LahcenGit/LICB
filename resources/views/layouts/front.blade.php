@@ -13,7 +13,7 @@
     <meta property="og:image" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('front/assets/imgs/theme/favicon.svg')}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('dashboard/images/favicon.png')}}" />
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('front/assets/css/vendors/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.min.css')}}" />
@@ -170,13 +170,13 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="index.html"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
+                        <a href="#"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
                                 <select class="select-active">
-                                    <option>Toutes les catégories</option>
+                                    <option>Catégories</option>
                                     <option>Pc</option>
                                     <option>Composants pc</option>
                                     <option>Périphérique PC</option>
@@ -190,28 +190,7 @@
                         </div>
                         <div class="header-action-right">
                             <div class="header-action-2">
-                                <div class="search-location">
-                                    <form action="#">
-                                        <select class="select-active">
-                                            <option>Votre Location</option>
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>Arizona</option>
-                                            <option>Delaware</option>
-                                            <option>Florida</option>
-                                            <option>Georgia</option>
-                                            <option>Hawaii</option>
-                                            <option>Indiana</option>
-                                            <option>Maryland</option>
-                                            <option>Nevada</option>
-                                            <option>New Jersey</option>
-                                            <option>New Mexico</option>
-                                            <option>New York</option>
-                                        </select>
-                                    </form>
-                                </div>
-
-                                <div class="header-action-icon-2">
+                             <div class="header-action-icon-2">
                                     <a href="#">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-heart.svg')}}" />
                                         <span class="pro-count blue">6</span>
@@ -310,12 +289,12 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                        <a href="#"><img src="{{ asset('front/logo.png') }}" alt="logo" /></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
                             <a class="categories-button-active" href="#">
-                                <span class="fi-rs-apps"></span> <span class="et">Parcourir </span> toutes les catégories
+                                <span class="fi-rs-apps"></span> <span class="et">Catégories</span>
                                 <i class="fi-rs-angle-down"></i>
                             </a>
                             <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
@@ -407,7 +386,7 @@
                     </div>
                     <div class="hotline d-none d-lg-flex">
                         <img src="{{asset('front/assets/imgs/theme/icons/icon-headphone.svg')}}" alt="hotline" />
-                        <p>1900 - 888<span>24/7 Support Center</span></p>
+                        <p>043 267 669<span>Appelez-Nous</span></p>
                     </div>
                     <div class="header-action-icon-2 d-block d-lg-none">
                         <div class="burger-icon burger-icon-white">
@@ -475,7 +454,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="#"><img src="assets/imgs/theme/logo.svg" alt="logo" /></a>
+                    <a href="#"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -549,13 +528,13 @@
                         <div class="position-relative newsletter-inner">
                             <div class="newsletter-content">
                                 <h2 class="mb-20">
-                                    Stay home & get your daily <br />
-                                    needs from our shop
+                                    Inscrivez-vous  <br />à notre newsletter !
+
                                 </h2>
-                                <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Nest Mart</span></p>
+                                <p class="mb-45">Inscrivez-vous gratuitement à la Newsletter pour bénéficier d'offres spéciales, être informé des nouveautés de  <span class="text-brand">LICB+</span></p>
                                 <form class="form-subcriber d-flex">
-                                    <input type="email" placeholder="Your emaill address" />
-                                    <button class="btn" type="submit">Subscribe</button>
+                                    <input type="email" placeholder="Votre email" />
+                                    <button class="btn" type="submit">S'inscrir</button>
                                 </form>
                             </div>
                             <img src="{{asset('front/assets/imgs/banner/banner-9.png')}}" alt="newsletter" />
@@ -648,7 +627,7 @@
                             <ul class="contact-infor">
                                 <li><img src="{{asset('front/assets/imgs/theme/icons/icon-location.svg')}}" alt="" /><span>B1 N°1 Salef el Adraa En face Djezzy (Kiffane)
                                     Tlemcen, Algérie</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-contact.svg')}}" alt="" /><span>(+123) 43 267 669/71</span></li>
+                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-contact.svg')}}" alt="" /><span>043 267 669</span></li>
                                 <li><img src="{{asset('front/assets/imgs/theme/icons/icon-email-2.svg')}}" alt="" />service.marketing@licbplus.com</span></li>
                                 <li><img src="{{asset('front/assets/imgs/theme/icons/icon-clock.svg')}}" alt="" /><span>Du samedi au mercredi: de 9h30 à 18h
                                     Jeudi : de 9h30 à 13h30</span></li>
@@ -662,7 +641,7 @@
                             <li><a href="#">Accueil</a></li>
                             <li><a href="#">Qui somme-nous</a></li>
                             <li><a href="#">Atelier licb+</a></li>
-                            <li><a href="#">Confirmation du versement</a></li>
+                            <li><a href="#">Tracking</a></li>
                             <li><a href="#">Tutoriel licb+</a></li>
 
                         </ul>

@@ -36,7 +36,7 @@
                                                     <?php $dash=''; ?>
                                                     <td>{{$_SESSION['i']}}</td>
                                                     <td>{{$category->designation}}</td>
-                                                   
+
                                                     <td>
                                                         @if(isset($category->parent_id))
                                                             {{$category->childCategories->name}}
@@ -45,15 +45,15 @@
                                                         @endif
                                                     </td>
                                                      <td>
-                                                    <form action="{{url('dashboard-admin/categories/'.$category->id)}}" method="post">
+                                                    <form action="{{url('admin/categories/'.$category->id)}}" method="post">
                                                         {{csrf_field()}}
                                                         {{method_field('DELETE')}}
                                                     <div class="d-flex">
-                                                        <a href="{{url('dashboard-admin/categories/'.$category->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a href="{{url('admin/categories/'.$category->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                                                         <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
                                                     </div>
-                                                    </form>												
-                                                </td>	
+                                                    </form>
+                                                </td>
                                                         </tr>
                                                     @if(count($category->childCategories))
                                                         @include('sub-category-list',['subcategories' => $category->childCategories])

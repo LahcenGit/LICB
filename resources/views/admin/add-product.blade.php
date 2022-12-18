@@ -153,21 +153,20 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Photo principale</h4>
                                 </div>
                                 <div class="card-body">
-                                    <label>L'image principale du produit :</label>
+                                <label>L'image' principale du produit :</label>
                                     <div class="basic-form custom_file_input">
-                                        <div class="input-group mb-3">
-                                          <input id="file-upload" class="upload-image" type="file" class="file" onchange="loadFile(event)" name="photoPrincipale" />
-                                        </div>
-                                        <img id="output">
-
+                                            <div class="input-group mb-3">
+                                                <input type="file" class="file" name="photoPrincipale" accept="image/*" >
+                                            </div>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xl-8 col-xxl-8">
@@ -184,10 +183,10 @@
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Photos</h4>
+                                    <h4 class="card-title">Photos secondaires</h4>
                                 </div>
                                 <div class="card-body">
-                                <label>L'image principale du produit :</label>
+                                <label>Les images secondaires du produit :</label>
                                     <div class="basic-form custom_file_input">
                                             <div class="input-group mb-3">
                                                 <input type="file" class="file" name="photos[]" accept="image/*" multiple >

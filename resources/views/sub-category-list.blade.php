@@ -6,15 +6,15 @@
         <td>{{$dash}}{{$subcategory->designation}}</td>
         <td>{{$subcategory->parent->designation}}</td>
         <td>
-            <form action="{{url('dashboard-admin/categories/'.$subcategory->id)}}" method="post">
+            <form action="{{url('admin/categories/'.$subcategory->id)}}" method="post">
                 {{csrf_field()}}
                 {{method_field('DELETE')}}
             <div class="d-flex">
-                <a href="{{url('dashboard-admin/categories/'.$subcategory->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                <a href="{{url('admin/categories/'.$subcategory->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
                 <button class="  btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-            </div>		
-            </form>										
-        </td>	
+            </div>
+            </form>
+        </td>
     </tr>
     @if(count($subcategory->childCategories))
         @include('sub-category-list',['subcategories' => $subcategory->childCategories])

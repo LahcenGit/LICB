@@ -35,7 +35,7 @@
 </head>
 
 <style>
-   
+
 	.note-editor.note-frame .note-editing-area .note-editable{
 		background-color: #202020;
 		color: #202020;
@@ -57,6 +57,8 @@
 		z-index: 999;
 		pointer-events: none;/* This will do all the magic !*/
 	}
+
+
 </style>
 
 <body>
@@ -118,7 +120,7 @@
 						<a class="nav-link active" data-bs-toggle="tab" href="#chat">Chat</a>
 					</li>
 				</ul>
-				
+
 			</div>
 		</div>
 		<!--**********************************
@@ -155,13 +157,13 @@
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div id="DZ_W_Notification1" class="widget-media dlab-scroll p-3" style="height:380px;">
 										<ul class="timeline">
-											
+
 										</ul>
 									</div>
                                     <a class="all-notification" href="javascript:void(0);">En cours...  <i class="ti-arrow-end"></i></a>
                                 </div>
                             </li>
-						
+
 							<li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                     <img src="{{ asset('dashboard/images/user.jpg') }}" width="20" height="20" alt=""/>
@@ -247,8 +249,8 @@
 							<span class="nav-text">Commandes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Ajouter</a></li>
-                            <li><a href="./ui-alert.html">Toutes les commandes</a></li>
+                            <li><a href="#">Ajouter</a></li>
+                            <li><a href="#">Toutes les commandes</a></li>
                         </ul>
                     </li>
 
@@ -389,8 +391,8 @@
 
     $(document).ready(function(){
     $('.file').drop_uploader({
-        uploader_text: 'Drop files to upload, or',
-        browse_text: 'Browse',
+        uploader_text: 'Déposez les fichiers à télécharger, ou ',
+        browse_text: 'Parcourez',
         only_one_error_text: 'Only one file allowed',
         not_allowed_error_text: 'File type is not allowed',
         big_file_before_error_text: 'Files, bigger than',

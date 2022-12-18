@@ -43,24 +43,24 @@
                                                     </form>
                                                 </td>
                                             </tr>
-                                            @foreach($attributelines as $attributeline)
-                                            @if($attributeline->attribute_id == $attr->id)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>--{{$attributeline->value}}</td>
-                                                <td>
-                                                    <form action="{{url('admin/attributelines/'.$attributeline->id)}}" method="post">
-                                                        {{csrf_field()}}
-                                                        {{method_field('DELETE')}}
-                                                    <div class="d-flex">
-                                                        <a href="{{url('admin/attributelines/'.$attributeline->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                            @if($attr->attributelines)
+                                                @foreach($attr->attributelines as $attributeline)
+                                                <tr>
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>--{{$attributeline->value}}</td>
+                                                    <td>
+                                                        <form action="{{url('admin/attributelines/'.$attributeline->id)}}" method="post">
+                                                            {{csrf_field()}}
+                                                            {{method_field('DELETE')}}
+                                                        <div class="d-flex">
+                                                            <a href="{{url('admin/attributelines/'.$attributeline->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                            <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
+                                                        </div>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
                                             @endif
-                                            @endforeach
                                             @endforeach
                                         </tbody>
                                     </table>
