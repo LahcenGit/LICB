@@ -110,21 +110,21 @@
                                             </div>
                                             @if($productlines)
                                             @foreach($productlines as $productline)
-                                            <div class="attr-detail attr-size mb-10 color-option">
-                                                <ul class="list-filter size-filter font-small color-categories" id="list-line-li">
+                                            <div class="attr-detail attr-size mb-10 ">
+                                                <ul class="font-small attribut-section" >
                                                     @foreach($productline as $item)
                                                         @if($loop->iteration == 1)
-                                                            <div class="mb-4 attribut-section">
+                                                            <div class="mb-4 ">
                                                                 <strong >{{$item->attribute->value}}: @if($item->attribute->value == 'Couleur')<span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span><br>@endif </strong>
                                                             </div>
                                                         @endif
 
                                                         @if($item->attribute->value != 'Couleur')
-                                                        <li value-id="{{$item->id}}"  class="li-selected">
-                                                        <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
-                                                            <strong class="price-related" >{{$item->price}} Da </strong>
-                                                        </a>
-                                                        </li>
+                                                            <li value-id="{{$item->id}}" >
+                                                                <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
+                                                                    <strong class="price-related" >{{$item->price}} Da </strong>
+                                                                </a>
+                                                            </li>
                                                         @else
                                                             @if($item[0])
                                                             <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
@@ -137,7 +137,7 @@
                                                             @endif
                                                         @endif
                                                     @endforeach
-                                                 </ul>
+                                                </ul>
                                             </div>
                                             @endforeach
                                             @else
@@ -147,6 +147,7 @@
                                                     </li>
                                                 </ul>
                                             @endif
+                                            
                                             @if($added_products)
                                                 <div class="attr-detail attr-size mb-30 color-option">
 
@@ -156,7 +157,7 @@
                                                         </div>
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
-                                                            <a style="height: auto; line-height: 23px; " href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
+                                                            <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
                                                                 <strong >@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
                                                             </a>
                                                             </li>

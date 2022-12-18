@@ -35,7 +35,7 @@ class CategoryController extends Controller
              $category->parent_id = $request['category'];
          }
          $category->save();
-         return redirect('dadmin/categories');
+         return redirect('admin/categories');
     }
 
     public function edit($id){
