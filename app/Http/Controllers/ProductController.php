@@ -155,7 +155,6 @@ class ProductController extends Controller
         return redirect('admin/products');
     }
 
-
     public function getAttribute($id){
         $attributes = Attributeline::where('attribute_id',$id)->get();
         return $attributes;
@@ -170,14 +169,173 @@ class ProductController extends Controller
 
     public function destroy($id){
         $product = Product::find($id);
-        $image = Image::where('product_id', $id)->where('type',1)->first();
+        $images = Image::where('product_id', $id)->get();
+        $productlines = Productline::where('product_id',$id)->get();
+        foreach($images as $image){
+          File::delete('storage/images/products/'.$image->lien);
+        }
 
-         File::delete('storage/images/products/'.$image->lien);
-
+        foreach($productlines as $productline){
+          $productline->delete();
+        }
         $product->delete();
         return redirect('admin/products');
     }
 
+    public function edit($id){
+        $product = Product::find($id);
+        $categories = Category::whereNull('parent_id')
+                                ->with('childCategories')
+                                ->orderby('description', 'asc')
+                                ->get();
+        $images = Image::where('product_id', $id)->where('type',2)->get();
+        $all_productlines = Productline::all();
+        $attributes = Attribute::all();
+        $marks = Mark::all();
+        $productlines = Productline::where('product_id',$id)->get();
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images'));
+    }
+
+
+    public function update(Request $request , $id){
+        $product = Product::find($id);
+        $images = Image::where('product_id', $id)->get();
+        $productlines = Productline::where('product_id',$id)->get();
+        $product_categories = Productcategory::where('product_id',$id)->get();
+        $related_products = Relatedproduct::where('product_id',$id)->get();
+        foreach($images as $image){
+            File::delete('storage/images/products/'.$image->lien);
+            $image->delete();
+        }
+        foreach($productlines as $productline){
+            if($productline->attribute_image){
+                File::delete('storage/images/productlines/'.$productline->attribute_image);
+            }
+            if($productline->attribute_icone){
+                File::delete('storage/icones/productlines/'.$productline->attribute_image);
+            }
+            $productline->delete();
+        }
+        foreach($product_categories as $product_category){
+            $product_category->delete();
+        }
+        foreach($related_products as $related_product){
+            $related_product->delete();
+        }
+
+        $product->designation = $request->designation;
+        $product->short_description = $request->short_description;
+        $product->long_description = $request->long_description;
+        $product->point = $request->point;
+        $product->mark_id = $request->mark;
+        $product->slug = str::slug($request->designation);
+        if($request->brouillon == '1'){
+            $product->is_brouillon = 1;
+        }
+        else{
+            $product->is_brouillon = 0;
+        }
+
+        if($request->date){
+         $product->created_at = $request->date;
+        }
+        $product->save();
+
+        //product has no attribute
+        if($request->check != 'oui'){
+        $productline = new Productline();
+        $productline->product_id = $product->id;
+        $productline->qte = $request->qte;
+        $productline->price = $request->price;
+        $productline->promo_price = $request->promo;
+        $productline->status = $request->status;
+        $productline->weight = $request->weight;
+        $productline->save();
+        }
+        //product has many attribute
+        else{
+        for($i=0 ; $i<count($request->as) ; $i++){
+            $productline = new Productline();
+            $productline->product_id = $product->id;
+            $productline->attributeline_id = $request->values[$i];
+            $productline->attribute_id = $request->as[$i];
+            $productline->qte = $request->qtes[$i];
+            $productline->weight = $request->weight;
+            if($request->price){
+                $productline->price = $request->price;
+            }
+            else{
+                $productline->price = $request->prices[$i];
+            }
+            if($request->promo){
+                $productline->promo_price = $request->promo;
+            }
+            else{
+                $productline->promo_price = $request->promos[$i];
+            }
+            $productline->status = $request->status;
+
+            if($request->icons){
+                $destination = 'public/icones/productlines';
+                $path = $request->icons[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_icone = $storageName;
+            }
+
+            if($request->images){
+                $destination = 'public/images/productlines';
+                $path = $request->images[$i]->store($destination);
+                $storageName = basename($path);
+                $productline->attribute_image = $storageName;
+             }
+            $productline->save();
+
+        }
+    }
+       //product has related products
+        if($request->relatedproducts){
+        foreach($request->relatedproducts as $relatedproduct){
+            $productR = new Relatedproduct();
+            $productR->product_id = $product->id;
+            $productR->added_productline_id = $relatedproduct;
+            $productR->save();
+        }
+    }
+       //categories product
+        foreach($request->categories as $category){
+
+            $categoryproduct = new Productcategory();
+            $categoryproduct->product_id = $product->id;
+            $categoryproduct->category_id= $category;
+            $categoryproduct->save();
+        }
+        // product images
+        //first_image
+        $hasFile = $request->hasFile('photoPrincipale');
+        $hasFileTwo = $request->hasFile('photos');
+        if($hasFile){
+                $destination = 'public/images/products';
+                $path = $request->file('photoPrincipale')->store($destination);
+                $storageName = basename($path);
+                $image = new Image();
+                $image->lien = $storageName;
+                $image->type = 1;
+                $product->images()->save($image);
+            }
+        // secondary images
+        if($hasFileTwo){
+            foreach($request->file('photos') as $file){
+                $destination = 'public/images/products';
+                $path = $file->store($destination);
+                $storageName = basename($path);
+                $image = new Image();
+                $image->lien = $storageName;
+                $image->type = 2;
+                $product->images()->save($image);
+            }
+        }
+        return redirect('admin/products');
+    }
 
     public function detailProduct($slug){
         $product = Product::where('slug',$slug)->first();

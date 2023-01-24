@@ -34,13 +34,13 @@
 
 												<td>{{$product->designation}}</td>
 
-                                                <form action="{{url('dashboard-admin/products/'.$product->id)}}" method="post">
+                                                <form action="{{url('admin/products/'.$product->id)}}" method="post">
                                                     {{csrf_field()}}
                                                     {{method_field('DELETE')}}
                                                 <td>
 													<div class="d-flex">
                                                         <a href="{{ asset('product/'.$product->slug) }}" class="btn btn-secondary shadow btn-xs sharp me-1"><i class="fas fa-eye"></i></a>
-														<a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+														<a href="{{url('admin/products/'.$product->id.'/edit')}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
 														<button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
 
 													</div>
