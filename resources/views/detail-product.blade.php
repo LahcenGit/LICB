@@ -5,14 +5,16 @@
     .carre {
     width: 40px;
     height: 40px;
-}
+    }
 </style>
+
+
 <main class="main">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
-                    <span></span> <a href="shop-grid-right.html">Composants PC</a> <span></span> SSD
+                    <span></span> <a href="shop-grid-right.html">Composants PC</a> <span></span> {{$category_product->category->designation}}
                 </div>
             </div>
         </div>
@@ -109,37 +111,53 @@
                                                 <p class="font-lg">{{ $product->short_description}}</p>
                                             </div>
                                             @if($productlines)
-                                            @foreach($productlines as $productline)
-                                            <div class="attr-detail attr-size mb-10 ">
-                                                <ul class="font-small attribut-section" >
-                                                    @foreach($productline as $item)
-                                                        @if($loop->iteration == 1)
-                                                            <div class="mb-4 ">
-                                                                <strong >{{$item->attribute->value}}: @if($item->attribute->value == 'Couleur')<span class="color-title"> <b>{{ $item->attributeLine->value }} </b> </span><br>@endif </strong>
+                                                {{--if product has color--}}
+                                                @if($has_color)
+                                                    <div class="attr-detail attr-size mb-10 ">
+                                                        <ul class="font-small attribut-color-section" >
+                                                            <div class="mb-4">
+                                                                <strong >Couleur : <span class="attribut-title"></span></strong>
                                                             </div>
-                                                        @endif
+                                                            @foreach($productlines as $productline)
+                                                                @foreach($productline as $item)
+                                                                    @if($item[0])
+                                                                    <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
+                                                                        <a  href="javascript:void(0)" class="select-attribut" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                                    </li>
+                                                                    @else
+                                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
+                                                                            <a  href="javascript:void(0)" class="select-attribut" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endforeach
+                                                        </ul>
+                                                   </div>  
+                                                @else
+                                                    <div class="attr-detail attr-size mb-10 ">
+                                                        <ul class="font-small attribut-section" >
+                                                            <div class="mb-4">
+                                                                <strong >Stockage : <span class="attribut-title"></span></strong>
+                                                            </div>
+                                                            @foreach($productlines as $productline)
+                                                                @foreach($productline as $item)
+                                                                    @if($item[0])
+                                                                    <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
+                                                                        <a  href="javascript:void(0)" class="select-attribut" style=" margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}">{{$item->attributeLine->value}}</a>
+                                                                    </li>
+                                                                    @else
+                                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" >
+                                                                            <a  href="javascript:void(0)" class="select-attribut" style="margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}" data-added="{{$item->id}}" data-product="{{$product->id}}">
+                                                                                {{$item->attributeLine->value}}
+                                                                            </a>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endforeach
+                                                        </ul>
+                                                  </div>  
+                                                @endif
 
-                                                        @if($item->attribute->value != 'Couleur')
-                                                            <li value-id="{{$item->id}}" >
-                                                                <a style="height: auto; line-height: 20px;" href="#" title="{{$item->attributeLine->value}}"  class="getAttribute" data-id="{{$item->attributeline_id}}" id="{{$item->id}}" >{{$item->attributeLine->value}} <br>
-                                                                    <strong class="price-related" >{{$item->price}} Da </strong>
-                                                                </a>
-                                                            </li>
-                                                        @else
-                                                            @if($item[0])
-                                                            <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
-                                                                <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
-                                                            </li>
-                                                            @else
-                                                                <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
-                                                                    <a  href="#" class="select-color" style="background-color: {{$item->attributeLine->code}}; margin:2px!important; " title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
-                                                                </li>
-                                                            @endif
-                                                        @endif
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            @endforeach
                                             @else
                                                 <ul class="list-filter size-filter font-small color-categories " style=" display:none; " id="list-line-li">
                                                     <li value-id="{{$product_line->id}}"  class="li-selected active ">
@@ -150,11 +168,11 @@
 
                                             @if($added_products)
                                                 <div class="attr-detail attr-size mb-30 color-option">
-
                                                     <ul class="list-filter size-filter font-small list-option" id="list-line">
                                                         <div class="mb-4 attribut-section">
                                                             <strong >Options: <span class="product-text"></span></strong>
                                                         </div>
+                                                        
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
                                                             <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
@@ -163,7 +181,6 @@
                                                             </li>
                                                         @endforeach
                                                     </ul>
-
                                                 </div>
                                             @endif
                                             <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -196,13 +213,13 @@
                                             </div>
                                             <div class="font-xs">
                                                 <ul class="mr-50 float-start">
-                                                    <li class="mb-5">Type: <span class="text-brand">SSD</span></li>
-                                                    <li class="mb-5">MFG:<span class="text-brand"> 2022</span></li>
+                                                    <li class="mb-5">Type: <span class="text-brand">{{$category_product->category->designation}}</span></li>
+                                                    <li class="mb-5">MFG:<span class="text-brand"> 2023</span></li>
                                                     <li>LIFE: <span class="text-brand">70 days</span></li>
                                                 </ul>
                                                 <ul class="float-start">
                                                     <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
-                                                    <li class="mb-5">Tags: <a href="#" rel="tag">M2</a>, <a href="#" rel="tag">PCIe </a>, <a href="#" rel="tag">NVMe</a></li>
+                                                    <li class="mb-5">Tags: <a href="#" rel="tag">M2</a></li>
                                                     <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
                                                 </ul>
                                             </div>
@@ -486,6 +503,7 @@
 @push('get-price-script')
 <script>
     $( ".getAttribute" ).click(function() {
+    
         var attributeline_id = $(this).attr("data-id");
         var id = $(this).attr("id");
         $.ajax({
@@ -516,11 +534,11 @@
     var origin_price = $(".origin-price").text();
     var origin_price_promo = $(".origin-price-promo").text();
 
-    $( ".added-product" ).click(function() {
+    $( ".added-product").click(function() {
 
         if($(this).parent().hasClass("active")){
             $(".product-text").text('');
-            $(".origin-price").text( origin_price );
+            $(".origin-price").text(origin_price);
             $(".origin-price-promo").text(origin_price_promo);
         }
 
@@ -543,8 +561,34 @@
             });
         }
 
-});
+    });
+
+
+    var color_test = "{{ $has_color }}";
+    if(!color_test){
+
+        $( ".select-attribut").click(function() {
+
+            var product_id = $(this).data("product");
+            var product_added = $(this).data("added");
+
+            $.ajax({
+                url: '/get-price-product-added/' + product_added +'/'+product_id,
+                type: "GET",
+                success: function (res) {
+                if(res.productline.price_promo){
+                    $(".origin-price-promo").text(res.price +' Da');
+                }
+                else{
+                    $(".origin-price").text(res.price +' Da');
+                }
+                }
+            });
+        });
+    }
 </script>
+
+
 @endpush
 @push('add-cart-scripts')
 <script>
@@ -650,12 +694,15 @@
 @endpush
 @push('select-color-indice')
 <script>
-    $(".select-color").click(function() {
+    $(".select-attribut").click(function() {
         var title = $(this).attr('title');
-        $('.color-title b').html(title);
+        $('.attribut-title').html(title);
         id = $(this).attr('id');
-        $('.color-categories li ').removeAttr('class');
-        $("#li-"+id).addClass("li-selected");
+
+        $('.attribut-color-section li').removeAttr('class');
+        $('.attribut-section li').removeAttr('class');
+
+        $("#li-"+id).addClass("li-color-selected");
         $('#related-img-'+id).trigger('click');
     });
 </script>

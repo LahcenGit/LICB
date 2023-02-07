@@ -40,28 +40,36 @@
                                                     <input type="text" class="form-control" value="{{ $product->designation }}" name="designation" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Poids*:</label>
+                                                    <label class="form-label">Poids:</label>
                                                     <input type="text" class="form-control" value="{{ $product->weight }}" name="weight" required>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Prix:</label>
-                                                    <input type="number" class="form-control"  value="{{ $product->price }}" name="price">
+                                                    @if($productlines->count() == 1)
+                                                    <input type="text" class="form-control"  value="{{ $productlines[0]->price }}" name="price">
+                                                    @else
+                                                    <input type="text" class="form-control"  value="" name="price">
+                                                    @endif
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Promo:</label>
-                                                    <input type="number" class="form-control" value="{{ $product->promo }}" name="promo">
+                                                    @if($productlines->count() == 1)
+                                                    <input type="text" class="form-control" value="{{  $productlines[0]->promo }}" name="promo">
+                                                    @else
+                                                    <input type="text" class="form-control" value="{{ $product->promo }}" name="promo">
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Qte:</label>
-                                                    <input type="number" class="form-control" value="{{ $product->qte }}" name="qte" >
+                                                    <input type="text" class="form-control" value="{{ $product->qte }}" name="qte" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Points:</label>
-                                                    <input type="number" class="form-control" value="{{ $product->point }}" name="point">
+                                                    <input type="text" class="form-control" value="{{ $product->point }}" name="point">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -190,12 +198,12 @@
                                 <div class="card-body">
                                 <label>Les images secondaires du produit :</label>
                                     <div class="basic-form custom_file_input">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="file" name="photos[]" accept="image/*" multiple >
-                                                @foreach($images as $image)
-                                                <img src="{{asset('storage/images/products/'.$image->lien)}}" width="243px " height="126px">
-                                                @endforeach
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="file" name="photos[]" accept="image/*" multiple >
+                                            @foreach($images as $image)
+                                            <img src="{{asset('storage/images/products/'.$image->lien)}}" width="243px " height="126px">
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -212,67 +220,69 @@
                                     </div>
                                     <div class="basic-form" >
                                             <div id="dynamicAddRemove" >
-                                                @foreach($productlines as $productline)
-                                                    <span>
-                                                    <div class="row mt-4">
-                                                        <div style="width: 200px; margin-right:10px;">
-                                                        <label class="form-label">Attribut:</label>
-                                                        <select  id="select-content"  class="default-select form-control wide " name="as[]"  >
-                                                            <option value="0">Nothing Selected</option>
-                                                            @foreach($attributes as $a)
-                                                            <option value="{{$a->id}}" @if($productline->attribute_id == $a->id) selected @endif>{{$a->value}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                @if($productlines->count() != 1)
+                                                    @foreach($productlines as $productline)
+                                                        <span>
+                                                        <div class="row mt-4">
+                                                            <div style="width: 200px; margin-right:10px;">
+                                                            <label class="form-label">Attribut:</label>
+                                                            <select  id="select-content"  class="default-select form-control wide " name="as[]"  >
+                                                                <option value="0">Nothing Selected</option>
+                                                                @foreach($attributes as $a)
+                                                                <option value="{{$a->id}}" @if($productline->attribute_id == $a->id) selected @endif>{{$a->value}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            </div>
+                                                            <div style="width: 200px; margin-right:10px;">
+                                                            <label class="form-label">Valeur:</label>
+                                                            <select  id="select-value" class="default-select form-control wide " name="values[]"  >
+                                                                @foreach($productline->attribute->attributelines as $attributeline)
+                                                                <option value="{{ $attributeline->id }}" @if($productline->attributeline_id == $attributeline->id)selected @endif>{{ $attributeline->value }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            </div>
+                                                            <div style="width: 200px; margin-right:10px;">
+                                                                <label class="form-label">Qte:</label>
+                                                                <input type="number" class="form-control" value="{{ $productline->qte }}" name="qtes[]">
+                                                            </div>
+                                                            <div style="width: 200px; margin-right:10px;">
+                                                                <label class="form-label">Prix:</label>
+                                                                <input type="number" class="form-control price" value="{{ $productline->price }}" name="prices[]">
+                                                            </div>
+                                                            <div style="width: 200px; margin-right:10px;">
+                                                                <label class="form-label">Promo:</label>
+                                                                <input type="number" class="form-control price" value="{{ $productline->promo_price }}" name="promos[]">
+                                                            </div>
+                                                            <div style="width: 100px; ">
+                                                                <label >icon : </label> <br>
+                                                                <label for="icon-0" style="cursor: pointer;">
+                                                                    @if($productline->attribute_icone)
+                                                                    <img id="icon-show-0" src="{{asset('storage/icones/productlines/'.$productline->attribute_icone)}}" width="50" height="50" alt="" >
+                                                                    @else
+                                                                    <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                                                    @endif
+                                                                </label>
+                                                                <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            </div>
+                                                            <div style="width: 100px; margin-right:10px;">
+                                                                <label >image : </label> <br>
+                                                                <label for="image-0" style="cursor: pointer;">
+                                                                    <img id="image-show-0" src="{{asset('storage/images/productlines/'.$productline->attribute_image)}}" width="100" height="100" alt="" >
+                                                                </label>
+                                                                <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            </div>
+                                                            @if ($loop->last)
+                                                            <div style="width: 50px; margin-right:10px;">
+                                                                <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
+                                                            </div>
+                                                            @endif
+                                                            <div style="width: 50px; margin-right:10px;">
+                                                                <button type="button" class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>
+                                                            </div>
                                                         </div>
-                                                        <div style="width: 200px; margin-right:10px;">
-                                                        <label class="form-label">Valeur:</label>
-                                                        <select  id="select-value" class="default-select form-control wide " name="values[]"  >
-                                                            @foreach($productline->attribute->attributelines as $attributeline)
-                                                            <option value="{{ $attributeline->id }}" @if($productline->attributeline_id == $attributeline->id)selected @endif>{{ $attributeline->value }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        </div>
-                                                        <div style="width: 200px; margin-right:10px;">
-                                                            <label class="form-label">Qte:</label>
-                                                            <input type="number" class="form-control" value="{{ $productline->qte }}" name="qtes[]">
-                                                        </div>
-                                                        <div style="width: 200px; margin-right:10px;">
-                                                            <label class="form-label">Prix:</label>
-                                                            <input type="number" class="form-control price"value="{{ $productline->price }}" name="prices[]">
-                                                        </div>
-                                                        <div style="width: 200px; margin-right:10px;">
-                                                            <label class="form-label">Promo:</label>
-                                                            <input type="number" class="form-control price" value="{{ $productline->promo_price }}" name="promos[]">
-                                                        </div>
-                                                        <div style="width: 100px; ">
-                                                            <label >icon : </label> <br>
-                                                            <label for="icon-0" style="cursor: pointer;">
-                                                                @if($productline->attribute_icone)
-                                                                <img id="icon-show-0" src="{{asset('storage/icones/productlines/'.$productline->attribute_icone)}}" width="50" height="50" alt="" >
-                                                                @else
-                                                                <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
-                                                                @endif
-                                                            </label>
-                                                            <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
-                                                        </div>
-                                                        <div style="width: 100px; margin-right:10px;">
-                                                            <label >image : </label> <br>
-                                                            <label for="image-0" style="cursor: pointer;">
-                                                                <img id="image-show-0" src="{{asset('storage/images/productlines/'.$productline->attribute_image)}}" width="100" height="100" alt="" >
-                                                            </label>
-                                                            <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
-                                                        </div>
-                                                        @if ($loop->last)
-                                                        <div style="width: 50px; margin-right:10px;">
-                                                            <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
-                                                        </div>
-                                                        @endif
-                                                        <div style="width: 50px; margin-right:10px;">
-                                                             <button type="button" class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                                @endforeach
+                                                    </span>
+                                                    @endforeach
+                                                @endif
                                         </div>
                                     </div>
                             </div>
@@ -311,6 +321,15 @@
 
 @endsection
 @push('add-attribute-scripts')
+<script>
+     let category_checked ={!! $array_checked !!};
+
+     $.each(category_checked, function (index, value) {
+        $('input[value="'+value+'"]' ).prop( "checked", true );
+    });
+
+</script>
+
 <script type="text/javascript">
 
     $(document).on('click', '.delete-attribute', function () {

@@ -1,4 +1,75 @@
 @extends('layouts.dashboard-admin')
+
+<style>
+    
+
+.custom-file-upi {
+  display: inline-block;
+  position: relative;
+}
+
+.file-input-button {
+  background-color: red;
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 10px 20px;
+}
+
+#fileInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+        
+.delete {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 16px;
+  cursor: pointer;
+
+}
+
+.delete::before {
+  content: "×";
+}
+
+.img-container img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.img-container {
+  display: inline-block;
+  margin-right: 10px;
+  border: 1px dotted gray;
+}
+
+.browse-btn {
+  background-color: #202020;
+  border: 1px solid #BC221A;
+  border-radius: 10px;
+  color: #BC221A;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px 20px;
+
+}
+
+
+
+</style>
 @section('content')
 
 
@@ -23,7 +94,8 @@
                     </div>
                     </div>
                 @endif
-                <form action="{{url('admin/products')}}" method="POST" enctype="multipart/form-data">
+
+                <form action="{{url('admin/products')}}"   method="POST" enctype="multipart/form-data">
                   @csrf
                 <div class="row ">
                    <div class="col-xl-8 col-lg-8">
@@ -39,18 +111,18 @@
                                                     <input type="text" class="form-control" placeholder="FORGE 12-3 RX65" name="designation" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Poids*:</label>
-                                                    <input type="text" class="form-control" placeholder="1" name="weight" required>
+                                                    <label>Points:</label>
+                                                    <input type="text" class="form-control" placeholder="0" name="point">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Prix:</label>
-                                                    <input type="number" class="form-control"  placeholder="0.00" name="price">
+                                                    <input type="text" class="form-control"  placeholder="0.00" name="price">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Promo:</label>
-                                                    <input type="number" class="form-control" placeholder="0.00" name="promo">
+                                                    <input type="text" class="form-control" placeholder="0.00" name="promo">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -59,9 +131,10 @@
                                                     <input type="number" class="form-control" placeholder="0" name="qte" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label>Points:</label>
-                                                    <input type="number" class="form-control" placeholder="0" name="point">
+                                                    <label class="form-label">Poids:</label>
+                                                    <input type="text" class="form-control" placeholder="1" name="weight" >
                                                 </div>
+                                               
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
@@ -160,12 +233,9 @@
                                     <h4 class="card-title">Photo principale</h4>
                                 </div>
                                 <div class="card-body">
-                                <label>L'image' principale du produit :</label>
-                                    <div class="basic-form custom_file_input">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="file" name="photoPrincipale" accept="image/*" >
-                                            </div>
+                                    <div class="input-photoPrincipale">
                                     </div>
+                                 
                                 </div>
                             </div>
                         </div>
@@ -175,7 +245,7 @@
                                     <h4 class="card-title">Description longue</h4>
                                 </div>
                                 <div class="card-body custom-ekeditor">
-                                <textarea class="summernote" class="form-control " style="background-color: #202020; color:##202020"  name="long_description" >{{old('description')}}</textarea>
+                                <textarea class="summernote" class="form-control " style="background-color: #202020; color:##202020" name="long_description" >{{old('description')}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -186,11 +256,7 @@
                                     <h4 class="card-title">Photos secondaires</h4>
                                 </div>
                                 <div class="card-body">
-                                <label>Les images secondaires du produit :</label>
-                                    <div class="basic-form custom_file_input">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="file" name="photos[]" accept="image/*" multiple >
-                                            </div>
+                                    <div class="input-photos">
                                     </div>
                                 </div>
                             </div>
@@ -203,11 +269,67 @@
                                 </div>
                                 <div class="card-body " id="variation" style="display: none;">
                                     <div class="text-center">
-                                        <a style="cursor: pointer" class="btn btn-success add-attribute  " style="background-color: #006e40; border-color:#006e40;">Gérer les attributs</a>
+                                        <a style="cursor: pointer" class="btn btn-success add-attribute " style="background-color: #006e40; border-color:#006e40;">Gérer les attributs</a>
                                     </div>
-                                    <div class="basic-form" >
-                                        <div id="dynamicAddRemove" >
-                                        <div class="row mt-4">
+                                    <div class="basic-form d-flex justify-content-center" >
+                                        <div class="col-md-10">
+                                            <table class="table table-bordered mt-3 ">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Attribut</th>
+                                                        <th scope="col">Valeur</th>
+                                                        <th scope="col">Qte</th>
+                                                        <th scope="col">Prix</th>
+                                                        <th scope="col">Promo</th>
+                                                        <th scope="col">Icon</th>
+                                                        <th scope="col">Image</th>
+                                                        <th scope="col">#</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="dynamicAddRemove"  >
+                                                        <tr>
+                                                            <td style="width: 15%">
+                                                                <select  id="select-content"  class="default-select form-control wide " name="as[0]"  >
+                                                                    <option value="0">Nothing Selected</option>
+                                                                    @foreach($attributes as $a)
+                                                                    <option value="{{$a->id}}">{{$a->value}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </td>
+                                                            <td style="width: 15%">
+                                                                <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
+                                                                </select>
+                                                            </td>
+                                                            <td style="width:  10%">
+                                                                <input type="text" class="form-control" placeholder="0" name="qtes[0]">
+                                                            </td>
+                                                            <td  style="width: 15%">
+                                                                <input type="text" class="form-control price" placeholder="0.00" name="prices[0]">
+                                                            </td>
+                                                            <td style="width: 15%">
+                                                                <input type="text" class="form-control price" placeholder="0.00" name="promos[0]">
+                                                            </td>
+                                                            <td>
+                                                                <label for="icon-0" style="cursor: pointer;">
+                                                                    <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                                                </label>
+                                                                <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            </td>
+                                                            <td>
+                                                                <label for="image-0" style="cursor: pointer;">
+                                                                    <img id="image-show-0" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
+                                                                </label>
+                                                                <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                         </div>
+                                     {{-- <div class="row mt-4">
                                                 <div style="width: 200px; margin-right:10px;">
                                                 <label class="form-label">Attribut:</label>
                                                 <select  id="select-content"  class="default-select form-control wide " name="as[0]"  >
@@ -252,9 +374,7 @@
                                                 <div style="width: 50px; margin-right:10px;">
                                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                 </div>
-
-                                        </div>
-                                        </div>
+                                        </div>--}}  
                                     </div>
                                 </div>
                             </div>
@@ -297,7 +417,43 @@
 		$("#add-attribute").click(function () {
 			var options = $('#select-content').html();
 			++i;
-			$html = '<span><div class="row">'+
+            $html = '<tr>'+
+                        '<td style="width: 15%">'+
+                            '<select   class="default-select form-control wide select-attribute " name="as['+i+']">'+
+                                options +
+                            '</select>'+
+                        '</td>'+
+                        '<td style="width: 15%">'+
+                            '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values['+i+']">'+
+                            '</select>'+
+                        '</td>'+
+                        '<td style="width:  10%">'+
+                            '<input type="text" class="form-control" placeholder="0" name="qtes['+i+']">'+
+                        '</td>'+
+                        '<td  style="width: 15%">'+
+                            '<input type="text" class="form-control price" placeholder="0.00" name="prices['+i+']">'+
+                        '</td>'+
+                        '<td style="width: 15%">'+
+                            '<input type="text" class="form-control price" placeholder="0.00" name="promos['+i+']">'+
+                        '</td>'+
+                        '<td>'+
+                            '<label for="icon-'+i+'" style="cursor: pointer;">'+
+                               '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
+                            '</label>'+
+                            '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                        '</td>'+
+                        '<td>'+
+                           ' <label for="image-'+i+'" style="cursor: pointer;">'+
+                                '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >'+
+                           ' </label>'+
+                            '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                        '</td>'+
+                        '<td>'+
+                           ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
+                        '</td>'+
+                    '</tr>'
+
+			$html_temp = '<span><div class="row">'+
 					'<div style="width: 200px; margin-right:10px;">'+
 					'<label for="" >Attribute:</label>'+
 					'<select  name="as['+i+']" id="select-attribute" class="default-select form-control wide " >'+
@@ -343,10 +499,10 @@
 			$('select').niceSelect();
 
 		$(document).on('click', '#delete-attribute', function () {
-                $(this).parents('span').remove();
+                $(this).parents('tr').remove();
             });
 
-        $(document).on('change', '#select-attribute', function () {
+        $(document).on('change', '.select-attribute', function () {
                 var id = $(this).val();
                 var data ="";
 

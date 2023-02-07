@@ -26,11 +26,18 @@
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.date.css')}}">
-	<link rel="stylesheet" href="{{asset('dashboard/uploader/pe-icon-7-stroke.css')}}">
-	<link rel="stylesheet" href="{{asset('dashboard/uploader/drop_uploader.css')}}">
+	
 	<link rel="stylesheet" href="{{ asset('dashboard/vendor/select2/css/select2.min.css') }}">
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/toastr/css/toastr.min.css') }}">
+
+	<link rel="stylesheet" href="{{asset('plugins/image-master/image-uploader.min.css')}}">
+	
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+
+
+
 
 </head>
 
@@ -327,7 +334,8 @@
 	<script src="{{asset('dashboard/js/plugins-init/bs-daterange-picker-init.js')}}"></script>
 	<script src="{{asset('dashboard/js/plugins-init/pickadate-init.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
-	<script src="{{asset('dashboard/uploader/drop_uploader.js')}}"></script>
+	 <!-- All init script -->
+	
     <script src="{{ asset('dashboard/vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/plugins-init/select2-init.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/toastr/js/toastr.min.js') }}"></script>
@@ -337,6 +345,12 @@
 	<script src="{{asset('dashboard/vendor/summernote/js/summernote.min.js')}}"></script>
     <!-- Summernote init -->
     <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
+    <script src="{{asset('plugins/image-master/image-uploader.min.js')}}"></script>
+	
+	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
+
+	
 
 	<script>
 		function cardsCenter()
@@ -387,44 +401,24 @@
 
 	</script>
 
-<script>
 
-    $(document).ready(function(){
-    $('.file').drop_uploader({
-        uploader_text: 'Déposez les fichiers à télécharger, ou ',
-        browse_text: 'Parcourez',
-        only_one_error_text: 'Only one file allowed',
-        not_allowed_error_text: 'File type is not allowed',
-        big_file_before_error_text: 'Files, bigger than',
-        big_file_after_error_text: 'is not allowed',
-        allowed_before_error_text: 'Only',
-        allowed_after_error_text: 'files allowed',
-        browse_css_class: 'button button-primary',
-        browse_css_selector: 'file_browse',
-        uploader_icon: '',
-        file_icon: '',
-        progress_color: '#4a90e2',
-        time_show_errors: 5,
-        layout: 'thumbnails',
-        method: 'normal',
-        chunk_size: 1000000,
-        concurrent_uploads: 5,
-        show_percentage: true,
-        existing_files: false,
-        existing_files_removable: true,
-        send_existing_files: false,
-        url: 'ajax_upload.php',
-        delete_url: 'ajax_delete.php',
-    });
-});
-    </script>
 
 
 <script>
     $(document).ready(function() {
     $("textarea").css("color", "#202020");
-});
+	});
  </script>
+
+
+<script>
+	$('.input-photoPrincipale').imageUploader({
+		imagesInputName: "photoPrincipale",
+	});
+	$('.input-photos').imageUploader({
+		imagesInputName: "photos",
+	});
+</script>
 
 @stack('add-attribute-scripts')
 @stack('add-image-scripts')

@@ -24,9 +24,8 @@
         color: #BC221A !important;
     }
 
-    .li-selected{
-        border: 1px solid #000!important;
-        border-radius: 15%;
+    .li-color-selected{
+        border: 1px solid red!important;
     }
     .color-categories li:hover{
         border: 1px solid #000!important;

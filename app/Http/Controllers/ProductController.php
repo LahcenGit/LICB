@@ -40,6 +40,7 @@ class ProductController extends Controller
 
     public function store(Request $request){
 
+
         $product = new Product();
         $product->designation = $request->designation;
         $product->short_description = $request->short_description;
@@ -132,13 +133,13 @@ class ProductController extends Controller
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
         if($hasFile){
-                $destination = 'public/images/products';
-                $path = $request->file('photoPrincipale')->store($destination);
-                $storageName = basename($path);
-                $image = new Image();
-                $image->lien = $storageName;
-                $image->type = 1;
-                $product->images()->save($image);
+                    $destination = 'public/images/products';
+                    $path = $request->file('photoPrincipale')[0]->store($destination);
+                    $storageName = basename($path);
+                    $image = new Image();
+                    $image->lien = $storageName;
+                    $image->type = 1;
+                    $product->images()->save($image);
             }
         // secondary images
         if($hasFileTwo){
@@ -183,17 +184,30 @@ class ProductController extends Controller
     }
 
     public function edit($id){
+        $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
                                 ->with('childCategories')
                                 ->orderby('description', 'asc')
                                 ->get();
+        $categories_checked = Productcategory::where('product_id', $product->id)->get();
+        //make an arrray to checked category 
+        foreach($categories_checked as $checked){
+           
+            array_push($array_checked,$checked->category_id);
+        }
+        $array_checked = json_encode($array_checked);
         $images = Image::where('product_id', $id)->where('type',2)->get();
         $all_productlines = Productline::all();
         $attributes = Attribute::all();
         $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images'));
+
+       
+
+        
+
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked'));
     }
 
 
@@ -392,7 +406,7 @@ class ProductController extends Controller
         // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category_product = Productcategory::where('product_id',$product->id)->first();
-
+      //  $category_product_name = Category::find($category_product->id);
         $related_products = Productcategory::where('category_id',$category_product->category_id)->where('product_id','!=',$product->id)->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
@@ -413,7 +427,7 @@ class ProductController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products','has_color'));
+        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products','has_color','category_product'));
     }
 
 
