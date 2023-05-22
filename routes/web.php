@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/welcome', function () {
-<<<<<<< Updated upstream
+
     if(Auth::user()){
         $cart = Cart::where('user_id',Auth::user()->id)->first();
         $cartitems = $cart->cartitems;
@@ -38,9 +38,7 @@ Route::get('/welcome', function () {
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
     }
     return view('welcome',compact('nbr_cartitem','cartitems','total'));
-=======
-    return view('welcome');
->>>>>>> Stashed changes
+
 });
 
 
