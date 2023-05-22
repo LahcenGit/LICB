@@ -39,7 +39,7 @@
 
                                                     <td>
                                                         @if(isset($category->parent_id))
-                                                            {{$category->childCategories->name}}
+                                                            {{$category->childrenCategories->name}}
                                                         @else
                                                             None
                                                         @endif
@@ -55,8 +55,8 @@
                                                     </form>
                                                 </td>
                                                         </tr>
-                                                    @if(count($category->childCategories))
-                                                        @include('sub-category-list',['subcategories' => $category->childCategories])
+                                                    @if(count($category->childrenCategories))
+                                                        @include('sub-category-list',['subcategories' => $category->childrenCategories])
                                                     @endif
 
                                                 @endforeach

@@ -15,6 +15,7 @@ use App\Models\Productline;
 use App\Models\Relatedproduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,7 +29,7 @@ class ProductController extends Controller
 
     public function create(){
         $categories = Category::whereNull('parent_id')
-                                ->with('childCategories')
+                                ->with('childrenCategories')
                                 ->orderby('description', 'asc')
                                 ->get();
         $productlines = Productline::all();
@@ -184,6 +185,7 @@ class ProductController extends Controller
     }
 
     public function edit($id){
+
         $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
@@ -198,16 +200,18 @@ class ProductController extends Controller
         }
         $array_checked = json_encode($array_checked);
         $images = Image::where('product_id', $id)->where('type',2)->get();
+
+
+        $images_preload = Image::where('product_id', $id)->where('type',2)
+        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
+        ->get();
+
         $all_productlines = Productline::all();
         $attributes = Attribute::all();
         $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-
-       
-
-        
-
-        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked'));
+   
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload'));
     }
 
 
@@ -217,6 +221,9 @@ class ProductController extends Controller
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
+
+     
+
         foreach($images as $image){
             File::delete('storage/images/products/'.$image->lien);
             $image->delete();
@@ -379,6 +386,8 @@ class ProductController extends Controller
                 $secondary_images = $images->where('type',2);
             }
 
+           
+
             $productattribute = $product_line->attribute->value;
             if($productattribute == 'Couleur'){
                 $has_color = true;
@@ -431,8 +440,8 @@ class ProductController extends Controller
     }
 
 
-    public function getPrice($id,$attributeline_id){
-        $product = Productline::where('attributeline_id',$attributeline_id)->where('id',$id)->first();
+    public function getPrice($id){
+        $product = Productline::find($id);
 
         $data = array(
             "price" => number_format($product->price),
@@ -473,7 +482,9 @@ class ProductController extends Controller
     public function getPriceProductAdded($id,$product_id){
      $related_product = Relatedproduct::find($id);
      $productlineadded = $related_product->productLine;
-     $productline = Productline::where('id',$product_id)->first();
+
+     $productline = Productline::where('product_id',$product_id)->first();
+     
      if($productline->promo_price){
         if($productlineadded->promo_price){
             $price = number_format($productline->promo_price + $productlineadded->promo_price);

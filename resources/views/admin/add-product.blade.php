@@ -95,7 +95,7 @@
                     </div>
                 @endif
 
-                <form action="{{url('admin/products')}}"   method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/products')}}" id="addProduct"  method="POST" enctype="multipart/form-data">
                   @csrf
                 <div class="row ">
                    <div class="col-xl-8 col-lg-8">
@@ -412,12 +412,32 @@
 
 @endsection
 @push('add-attribute-scripts')
+
+<script>
+
+    $( "#check" ).prop( "checked", false );
+    $("#check").on('change',function(){
+    
+     if(this.checked) {
+         $("#variation").css("display", "block");
+         $("#select-content").prop('required',true);
+     }
+     else{
+         $("#select-content").prop('required',false);
+         $("#variation").css("display", "none");
+         $('.tradded').remove();
+         }
+     });
+ 
+  </script>
+
+  
 <script type="text/javascript">
 		var i = 0;
 		$("#add-attribute").click(function () {
 			var options = $('#select-content').html();
 			++i;
-            $html = '<tr>'+
+            $html = '<tr class="tradded">'+
                         '<td style="width: 15%">'+
                             '<select   class="default-select form-control wide select-attribute " name="as['+i+']">'+
                                 options +
@@ -451,7 +471,7 @@
                         '<td>'+
                            ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
                         '</td>'+
-                    '</tr>'
+                    '</tr>';
 
 			$html_temp = '<span><div class="row">'+
 					'<div style="width: 200px; margin-right:10px;">'+
@@ -547,6 +567,29 @@
 
 
 @push('generate-attribute-scripts')
+
+<script>
+    $(document).ready(function() {
+        $("#addProduct").validate({
+            rules: {
+                designation: "required",
+                'categories[]': {
+                    required: true,
+                    maxlength: 1
+                 },
+                 
+            },
+            messages: {
+                designation: {
+                    required: "La designation est obligatoire",
+                },
+                'categories[]': {
+                    required: "Selectionnez une categorie",
+                 },
+            },
+        });
+    });
+ </script>
 
 <script>
 	$.ajaxSetup({

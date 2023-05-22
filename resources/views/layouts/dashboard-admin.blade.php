@@ -64,6 +64,10 @@
 		z-index: 999;
 		pointer-events: none;/* This will do all the magic !*/
 	}
+	
+	.error {
+        color: #B31810;
+	}
 
 
 </style>
@@ -349,6 +353,8 @@
 	
 	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
 
 	
 
@@ -415,9 +421,12 @@
 	$('.input-photoPrincipale').imageUploader({
 		imagesInputName: "photoPrincipale",
 	});
+	
 	$('.input-photos').imageUploader({
 		imagesInputName: "photos",
 	});
+
+	
 </script>
 
 @stack('add-attribute-scripts')

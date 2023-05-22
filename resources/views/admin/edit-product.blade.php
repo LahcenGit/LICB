@@ -26,6 +26,8 @@
                 <form action="{{url('admin/products/'.$product->id)}}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="PUT">
                 @csrf
+
+                <input type="hidden" id="laravelVariable" value="{{ $images_preload }}">
                 <div class="row ">
                    <div class="col-xl-8 col-lg-8">
                             <div class="card">
@@ -169,13 +171,10 @@
                                     <h4 class="card-title">Photo principale</h4>
                                 </div>
                                 <div class="card-body">
-                                <label>L'image' principale du produit :</label>
-                                    <div class="basic-form custom_file_input">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="file" name="photoPrincipale" accept="image/*" >
-                                                <img src="{{asset('storage/images/products/'.$product->images[0]->lien)}}" width="230px " height="120px">
-                                            </div>
+
+                                    <div class="input-photoPrincipale">
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -196,15 +195,10 @@
                                     <h4 class="card-title">Photos secondaires</h4>
                                 </div>
                                 <div class="card-body">
-                                <label>Les images secondaires du produit :</label>
-                                    <div class="basic-form custom_file_input">
-                                        <div class="input-group mb-3">
-                                            <input type="file" class="file" name="photos[]" accept="image/*" multiple >
-                                            @foreach($images as $image)
-                                            <img src="{{asset('storage/images/products/'.$image->lien)}}" width="243px " height="126px">
-                                            @endforeach
-                                        </div>
+
+                                    <div class="input-photos-pre">
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -415,6 +409,9 @@
 
 @endpush
 @push('add-image-scripts')
+
+
+
 <script>
     var loadFile = function(event) {
     var output = document.getElementById('output');
@@ -426,6 +423,24 @@
         URL.revokeObjectURL(output.src) // free memory
     }
     };
+</script>
+
+<script>
+    var images =  JSON.parse($('#laravelVariable').val()); 
+
+  
+
+    let preloaded = images;
+
+
+	$('.input-photos-pre').imageUploader({
+		preloaded: preloaded,
+		imagesInputName: 'photos',
+		preloadedInputName: 'old',
+		maxSize: 2 * 1024 * 1024,
+		maxFiles: 10
+	});
+
 </script>
 @endpush
 

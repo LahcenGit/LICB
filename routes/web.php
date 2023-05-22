@@ -60,7 +60,7 @@ Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToC
 Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
 Route::resource('/carts',CartController::class);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
-Route::get('/get-price/{id}/{attributeline_id}', [App\Http\Controllers\ProductController::class, 'getPrice']);
+Route::get('/get-price/{id}', [App\Http\Controllers\ProductController::class, 'getPrice']);
 Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\ProductController::class, 'getPriceProductAdded']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);

@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
-                    <span></span> <a href="shop-grid-right.html">Composants PC</a> <span></span> {{$category_product->category->designation}}
+                    <span></span> <a href="#">Composants PC</a> <span></span> {{$category_product->category->designation}}
                 </div>
             </div>
         </div>
@@ -36,11 +36,19 @@
                                                     </figure>
                                                 @endif
                                                 @if($images_attributes)
-                                                    @foreach($images_attributes as $image_attribute)
-                                                    <figure class="border-radius-10">
-                                                    <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
-                                                    </figure>
-                                                    @endforeach
+                                                    @if($images_attributes[0]->attribute_image)
+                                                        @foreach($images_attributes as $image_attribute)
+                                                            <figure class="border-radius-10">
+                                                            <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
+                                                            </figure>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach($secondary_images as $secondary_image)
+                                                        <figure class="border-radius-10">
+                                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="product image" />
+                                                        </figure>
+                                                        @endforeach
+                                                    @endif
                                                 @else
                                                     @foreach($secondary_images as $secondary_image)
                                                     <figure class="border-radius-10">
@@ -53,12 +61,15 @@
                                             <!-- THUMBNAILS -->
                                             <div class="slider-nav-thumbnails">
                                                 @if($images_attributes)
-                                                    @if($first_image)
-                                                    <div><img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" /></div>
+                                                    @if($images_attributes[0]->attribute_image)
+                                                        @foreach($images_attributes as $image_attribute)
+                                                        <div id="{{'related-img-'.$image_attribute->id}}"><img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product image" /></div>
+                                                        @endforeach
+                                                    @else
+                                                        @foreach($product->images as $img)
+                                                        <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
+                                                        @endforeach
                                                     @endif
-                                                    @foreach($images_attributes as $image_attribute)
-                                                    <div id="{{'related-img-'.$image_attribute->id}}"><img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product image" /></div>
-                                                    @endforeach
                                                 @else
                                                   @if($product->images->count() > 1)
                                                     @foreach($product->images as $img)
@@ -141,13 +152,13 @@
                                                             </div>
                                                             @foreach($productlines as $productline)
                                                                 @foreach($productline as $item)
-                                                                    @if($item[0])
+                                                                    @if($productline->count() == 1)
                                                                     <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
-                                                                        <a  href="javascript:void(0)" class="select-attribut" style=" margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}">{{$item->attributeLine->value}}</a>
+                                                                        <a  href="javascript:void(0)" class="select-attribut getAttribute" style=" margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}">{{$item->attributeLine->value}}</a>
                                                                     </li>
                                                                     @else
                                                                         <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}" >
-                                                                            <a  href="javascript:void(0)" class="select-attribut" style="margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}" data-added="{{$item->id}}" data-product="{{$product->id}}">
+                                                                            <a  href="javascript:void(0)" class="select-attribut getAttribute"  style="margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}" >
                                                                                 {{$item->attributeLine->value}}
                                                                             </a>
                                                                         </li>
@@ -166,7 +177,7 @@
                                                 </ul>
                                             @endif
 
-                                            @if($added_products)
+                                            @if(count($added_products) != 0)
                                                 <div class="attr-detail attr-size mb-30 color-option">
                                                     <ul class="list-filter size-filter font-small list-option" id="list-line">
                                                         <div class="mb-4 attribut-section">
@@ -504,10 +515,9 @@
 <script>
     $( ".getAttribute" ).click(function() {
     
-        var attributeline_id = $(this).attr("data-id");
         var id = $(this).attr("id");
         $.ajax({
-			url: '/get-price/' + id +'/'+attributeline_id,
+			url: '/get-price/' + id ,
 			type: "GET",
             success: function (res) {
 
@@ -515,12 +525,12 @@
 
                     var price_promo = $.number(res.promo_price);
                     var price = $.number(res.price);
+
                     $(".price-promo").text(price_promo +' Da');
-                    $(".price").text(price + ' Da');
+                    $(".current-price").text(price + ' Da');
                 }
                 else{
-
-                    $(".price").text(res.price +' Da');
+                    $(".current-price").text(res.price +' Da');
                 }
 
 

@@ -1,5 +1,4 @@
 <ul style="line-height: 1.69230769;">
-    @if(count($categories) > 0)
     @foreach ($categories as $category)
         <li>
             <div class="form-check mb-2">
@@ -9,14 +8,10 @@
         </li>
         
         <ul style="margin-left: 1rem;">
-            @if(count($category->childCategories))
-                @foreach ($category->childCategories as $subCategories)
-                    @include('sub_categories', ['sub_categories' => $subCategories])
-                @endforeach
-            @endif
+            @foreach ($category->childrenCategories as $childCategory)
+                @include('child_category', ['child_category' => $childCategory])
+            @endforeach
         </ul>
     @endforeach
-    @endif
-   
   
 <ul>

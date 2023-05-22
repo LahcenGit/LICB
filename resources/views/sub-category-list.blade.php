@@ -16,7 +16,7 @@
             </form>
         </td>
     </tr>
-    @if(count($subcategory->childCategories))
-        @include('sub-category-list',['subcategories' => $subcategory->childCategories])
+    @if(count($subcategory->childrenCategories))
+        @include('sub-category-list',['subcategories' => $subcategory->childrenCategories])
     @endif
 @endforeach
