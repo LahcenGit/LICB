@@ -189,7 +189,7 @@ class ProductController extends Controller
         $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
-                                ->with('childrenCategories')
+                                ->with('childCategories')
                                 ->orderby('description', 'asc')
                                 ->get();
         $categories_checked = Productcategory::where('product_id', $product->id)->get();

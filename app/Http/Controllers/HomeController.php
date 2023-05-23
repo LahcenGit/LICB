@@ -39,7 +39,8 @@ class HomeController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        
+
+
         return view('welcome',compact('nbr_cartitem','cartitems','total'));
     }
 }
