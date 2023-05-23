@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,7 +42,15 @@ class HomeController extends Controller
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
 
+        $categories = Category::where('parent_id',NULL)->get();
+        $last_products = Product::latest()->take(10)->get();
+        $products = Product::orderBy('created_at','desc')->get();
 
-        return view('welcome',compact('nbr_cartitem','cartitems','total'));
+        $total = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total / 2);
+        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total - $moitie)->where('parent_id',NULL)->get();
+        $new_products = Product::orderBy('created_at','desc')->limit(3)->get();
+        return view('welcome',compact('nbr_cartitem','cartitems','total','categories','last_products','products','first_part_categories','last_part_categories','new_products'));
     }
 }

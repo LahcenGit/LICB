@@ -8,8 +8,8 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
-use App\Models\Cart;
-use App\Models\Cartitem;
+use App\Http\Controllers\HomeController;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -23,24 +23,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/welcome', function () {
 
-    if(Auth::user()){
-        $cart = Cart::where('user_id',Auth::user()->id)->first();
-        $cartitems = $cart->cartitems;
-        $nbr_cartitem = $cart->cartitems->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-    }
-    else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-    }
-    return view('welcome',compact('nbr_cartitem','cartitems','total'));
-
-
-});
 
 
 Route::get('/', function () {
@@ -86,3 +69,4 @@ Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'd
 Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
+Route::resource('/welcome',HomeController::class);

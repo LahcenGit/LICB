@@ -175,14 +175,9 @@
                         <div class="search-style-2">
                             <form action="#">
                                 <select class="select-active">
-                                    <option>Catégories</option>
-                                    <option>Pc</option>
-                                    <option>Composants pc</option>
-                                    <option>Périphérique PC</option>
-                                    <option>Imprimante, Scanner et Fax</option>
-                                    <option>Logiciels</option>
-                                    <option>Consommable</option>
-
+                                    @foreach($categories as $category)
+                                    <option>{{ $category->designation }}</option>
+                                    @endforeach
                                 </select>
                                 <input type="text" placeholder="Je cherche sur..." />
                             </form>
@@ -299,60 +294,21 @@
                             <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                                 <div class="d-flex categori-dropdown-inner">
                                     <ul>
+                                        @foreach($first_part_categories as $first_part_category)
                                         <li>
-                                            <a href="#">Pc</a>
+                                            <a href="#">{{ $first_part_category->designation }}</a>
                                         </li>
-                                        <li>
-                                            <a href="#"> Composants PC</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> Périphérique PC</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> Imprimante, Scanner et Fax</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> Logiciels</a>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                     <ul class="end">
+                                        @foreach($last_part_categories as $last_part_category)
                                         <li>
-                                            <a href="#"> Consommable</a>
+                                            <a href="#"> {{ $last_part_category->designation }}</a>
                                         </li>
-                                        <li>
-                                            <a href="#"> Réseau</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Tablette</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Téléphonie</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"> Projection</a>
-                                        </li>
+                                        @endforeach
                                     </ul>
                                 </div>
-                                <div class="more_slide_open" style="display: none">
-                                    <div class="d-flex categori-dropdown-inner">
-                                        <ul>
-                                            <li>
-                                                <a href="#"> Tablette</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> Téléphonie</a>
-                                            </li>
-                                        </ul>
-                                        <ul class="end">
-                                            <li>
-                                                <a href="#"> Projection</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> Réseau</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+
                                 <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Voir plus...</span></div>
                             </div>
                         </div>
