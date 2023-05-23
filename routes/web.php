@@ -39,6 +39,7 @@ Route::get('/welcome', function () {
     }
     return view('welcome',compact('nbr_cartitem','cartitems','total'));
 
+
 });
 
 
