@@ -27,7 +27,9 @@
                 <input type="hidden" name="_method" value="PUT">
                 @csrf
 
-                <input type="hidden" id="laravelVariable" value="{{ $images_preload }}">
+                <input type="hidden" id="preloaded-images" value="{{ $images_preload }}">
+                <input type="hidden" id="preloaded-image-p" value="{{ $image_preload_p }}">
+
                 <div class="row ">
                    <div class="col-xl-8 col-lg-8">
                             <div class="card">
@@ -43,7 +45,7 @@
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Poids:</label>
-                                                    <input type="text" class="form-control" value="{{ $product->weight }}" name="weight" required>
+                                                    <input type="text" class="form-control" value="0" name="weight" required>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -288,7 +290,7 @@
                                     <div class="row">
                                         <div class="form-check mb-2">
                                         <label class="form-check-label" for="check1">Brouillon ?</label>
-                                        <input type="checkbox" class="form-check-input" id="check1" @if($product->is_brouillon == 1)checked @endif value="1" name="brouillon">
+                                        <input type="checkbox" class="form-check-input" id="check1" @if($product->is_brouillon == 1)checked @endif  name="brouillon">
                                         </div>
 
                                     </div>
@@ -426,20 +428,31 @@
 </script>
 
 <script>
-    var images =  JSON.parse($('#laravelVariable').val()); 
 
-  
+    var images =  JSON.parse($('#preloaded-images').val()); 
+    var image_p =  JSON.parse($('#preloaded-image-p').val()); 
 
+    let preloaded_p = image_p;
     let preloaded = images;
+    
+
+
+	$('.input-photoPrincipale').imageUploader({
+		preloaded: preloaded_p,
+		imagesInputName: 'photoPrincipale',
+		maxSize: 2 * 1024 * 1024,
+		maxFiles: 1
+	});
 
 
 	$('.input-photos-pre').imageUploader({
 		preloaded: preloaded,
 		imagesInputName: 'photos',
-		preloadedInputName: 'old',
 		maxSize: 2 * 1024 * 1024,
 		maxFiles: 10
 	});
+
+	
 
 </script>
 @endpush

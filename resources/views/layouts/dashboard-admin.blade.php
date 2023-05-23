@@ -418,10 +418,7 @@
 
 
 <script>
-	$('.input-photoPrincipale').imageUploader({
-		imagesInputName: "photoPrincipale",
-	});
-	
+
 	$('.input-photos').imageUploader({
 		imagesInputName: "photos",
 	});

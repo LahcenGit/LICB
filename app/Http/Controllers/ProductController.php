@@ -201,17 +201,21 @@ class ProductController extends Controller
         $array_checked = json_encode($array_checked);
         $images = Image::where('product_id', $id)->where('type',2)->get();
 
+        $image_preload_p = Image::where('product_id', $id)->where('type',1)
+        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
+        ->get();
 
         $images_preload = Image::where('product_id', $id)->where('type',2)
         ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
         ->get();
 
+
         $all_productlines = Productline::all();
         $attributes = Attribute::all();
         $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-   
-        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload'));
+           
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
     }
 
 
@@ -222,7 +226,6 @@ class ProductController extends Controller
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
 
-     
 
         foreach($images as $image){
             File::delete('storage/images/products/'.$image->lien);
@@ -333,6 +336,8 @@ class ProductController extends Controller
         // product images
         //first_image
         $hasFile = $request->hasFile('photoPrincipale');
+
+
         $hasFileTwo = $request->hasFile('photos');
         if($hasFile){
                 $destination = 'public/images/products';
