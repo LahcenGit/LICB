@@ -506,8 +506,8 @@
                                                 <div class="product-img product-img-zoom">
                                                     <a href="shop-product-right.html">
 
-                                                        <img class="default-img" src="" alt="" />
-                                                        <img class="hover-img" src="" alt="" />
+                                                        <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
+                                                        <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
 
                                                     </a>
                                                 </div>
