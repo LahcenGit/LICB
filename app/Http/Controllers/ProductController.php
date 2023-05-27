@@ -185,7 +185,7 @@ class ProductController extends Controller
     }
 
     public function edit($id){
-
+        
         $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
@@ -201,12 +201,14 @@ class ProductController extends Controller
         $array_checked = json_encode($array_checked);
         $images = Image::where('product_id', $id)->where('type',2)->get();
 
+
+
         $image_preload_p = Image::where('product_id', $id)->where('type',1)
-        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
         ->get();
 
         $images_preload = Image::where('product_id', $id)->where('type',2)
-        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
         ->get();
 
 
@@ -220,17 +222,65 @@ class ProductController extends Controller
 
 
     public function update(Request $request , $id){
+
+
+       
+       
         $product = Product::find($id);
         $images = Image::where('product_id', $id)->get();
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
+         
+
+        //traitement images
+        //---1er cas : aucun ajout avec supression photo
+        if( !$request->hasFile('photoPrincipale') && !$request->hasFile('photos') ){
+            if(count($request->old) !=  $images->count()){
+                //capter les images supprimer
+                $deleted_images = Image::where('product_id', $id)->whereNotIn('id', $request->old)->get('id');
+                foreach(  $deleted_images as $image){
+                    File::delete('storage/images/products/'.$image->lien);
+                    $image->delete();
+                }
+            }
+        }
+        else{
+            if($request->hasFile('photoPrincipale')){
+
+                //supprimer la principale
+                $deleted_image = Image::where('product_id', $id)->whereNotIn('id', $request->old)->where('type',1)->first();
+                File::delete('storage/images/products/'.$deleted_image->lien);
+                $deleted_image->delete();
+                //go head
+                $destination = 'public/images/products';
+                $path = $request->file('photoPrincipale')[0]->store($destination);
+                $storageName = basename($path);
+                $image = new Image();
+                $image->lien = $storageName;
+                $image->type = 1;
+                $product->images()->save($image);
+            }
+
+            if($request->hasFile('photos')){
+                foreach($request->file('photos') as $file){
+                    $destination = 'public/images/products';
+                    $path = $file->store($destination);
+                    $storageName = basename($path);
+                    $image = new Image();
+                    $image->lien = $storageName;
+                    $image->type = 2;
+                    $product->images()->save($image);
+                }
+            }
+        }
 
 
-        foreach($images as $image){
+      /*  foreach($images as $image){
             File::delete('storage/images/products/'.$image->lien);
             $image->delete();
-        }
+        }*/
+
         foreach($productlines as $productline){
             if($productline->attribute_image){
                 File::delete('storage/images/productlines/'.$productline->attribute_image);
@@ -335,7 +385,7 @@ class ProductController extends Controller
         }
         // product images
         //first_image
-        $hasFile = $request->hasFile('photoPrincipale');
+       /* $hasFile = $request->hasFile('photoPrincipale');
 
 
         $hasFileTwo = $request->hasFile('photos');
@@ -359,11 +409,13 @@ class ProductController extends Controller
                 $image->type = 2;
                 $product->images()->save($image);
             }
-        }
+        }*/
         return redirect('admin/products');
     }
 
     public function detailProduct($slug){
+
+        
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
@@ -441,7 +493,18 @@ class ProductController extends Controller
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('detail-product',compact('product','first_image','min_price','attributes','productlines','min_price_promo','countproductlines','categories','new_products','related_products','product_line','nbr_cartitem','cartitems','total' ,'images_attributes','secondary_images','added_products','has_color','category_product'));
+
+
+       
+
+        $total = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total / 2);
+        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total - $moitie)->where('parent_id',NULL)->get();
+        return view('detail-product',compact('product','first_image','min_price','attributes',
+        'productlines','min_price_promo','countproductlines','categories','new_products',
+        'related_products','product_line','nbr_cartitem','cartitems','total'
+         ,'images_attributes','secondary_images','added_products','has_color','category_product','first_part_categories','last_part_categories'));
     }
 
 

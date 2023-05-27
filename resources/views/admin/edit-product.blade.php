@@ -69,7 +69,7 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Qte:</label>
-                                                    <input type="text" class="form-control" value="{{ $product->qte }}" name="qte" >
+                                                    <input type="text" class="form-control" value="1" name="qte" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label>Points:</label>
@@ -440,6 +440,7 @@
 	$('.input-photoPrincipale').imageUploader({
 		preloaded: preloaded_p,
 		imagesInputName: 'photoPrincipale',
+        preloadedInputName: 'old',
 		maxSize: 2 * 1024 * 1024,
 		maxFiles: 1
 	});
@@ -448,6 +449,7 @@
 	$('.input-photos-pre').imageUploader({
 		preloaded: preloaded,
 		imagesInputName: 'photos',
+        preloadedInputName: 'old',
 		maxSize: 2 * 1024 * 1024,
 		maxFiles: 10
 	});
