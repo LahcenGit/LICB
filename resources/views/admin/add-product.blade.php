@@ -141,8 +141,8 @@
                                                 <label class="form-label">Statut:</label>
                                                     <select id="inputState" class="default-select form-control wide" name="status">
                                                         <option>Nothing selected</option>
-                                                        <option>New</option>
-                                                        <option>Non</option>
+                                                        <option value="new">New</option>
+                                                        <option value="old">Non</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
@@ -233,7 +233,7 @@
                                     <h4 class="card-title">Photo principale</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="input-photoPrincipale">
+                                    <div class="input-photoPrincipale-add">
                                     </div>
                                  
                                 </div>
@@ -414,7 +414,13 @@
 @push('add-attribute-scripts')
 
 <script>
+    $('.input-photoPrincipale-add').imageUploader({
+		maxFiles: 1,
+        imagesInputName: 'photoPrincipale',
+	});
+</script>
 
+<script>
     $( "#check" ).prop( "checked", false );
     $("#check").on('change',function(){
     
@@ -428,8 +434,7 @@
          $('.tradded').remove();
          }
      });
- 
-  </script>
+</script>
 
   
 <script type="text/javascript">
@@ -551,6 +556,7 @@
 
 @endpush
 @push('add-image-scripts')
+
 <script>
     var loadFile = function(event) {
     var output = document.getElementById('output');
