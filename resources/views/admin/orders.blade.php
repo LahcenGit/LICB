@@ -34,92 +34,100 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Client</th>
-                                                <th>Date</th>
-                                                <th>Montant</th>
-                                                <th>Status</th>
+                                                <th>Wilaya</th>
+                                                <th>Adresse</th>
+                                                <th>Téléphone</th>
+                                                <th>Code Tracking</th>
+                                                <th>Statut</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($orders as $order)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Mohammed Abdellah</td>
-                                                <td>18-03-2022</td>
-                                                <td>20000.00 DA</td>
-                                                <td><span class="badge bg-warning text-dark">En Attente</span></td>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$order->first_name}} {{ $order->last_name }}</td>
+                                                <td>{{ $order->wilaya }}</td>
+                                                <td>{{ $order->address }}</td>
+                                                <td>{{ $order->phone }}</td>
+                                                @if($order->tracking_code)
+                                                <td>{{ $order->tracking_code }}</td>
+                                                @else
+                                                <td><i class="fas fa-minus"></i></td>
+                                                @endif
+                                                @if($order->status == 0)
+                                                <td><span class="badge badge-warning">En attente</span></td>
+                                                @elseif($order->status == 1)
+                                                <td><span class="badge badge-info">Livraison...</span></td>
+                                                @elseif($order->status == 2)
+                                                <td><span class="badge badge-success">Livré</span></td>
+                                                @elseif($order->status == 3)
+                                                <td><span class="badge badge-danger">Annulé</span></td>
+                                                @else
+                                                <td><span class="badge badge-primary">En attente de paiement</span></td>
+                                                @endif
                                                 <td>
-                                                    <form action="" method="post">
-                                                        {{csrf_field()}}
-                                                        {{method_field('DELETE')}}
-                                                    <div class="d-flex">
-                                                        <a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Ahmed Kissi</td>
-                                                <td>20-03-2022</td>
-                                                <td>30000.00 DA</td>
-                                                 <td><span class="badge send-order">Envoyé</span></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        {{csrf_field()}}
-                                                        {{method_field('DELETE')}}
-                                                    <div class="d-flex">
-                                                        <a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Karim Abdellah</td>
-                                                <td>20-03-2022</td>
-                                                <td>2500.00 DA</td>
-                                                 <td><span class="badge bg-danger">Annulé</span></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        {{csrf_field()}}
-                                                        {{method_field('DELETE')}}
-                                                    <div class="d-flex">
-                                                        <a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Meriem Benahbib</td>
-                                                <td>21-03-2022</td>
-                                                <td>40000.00 DA</td>
-                                                 <td><span class="badge valid-order">Recu</span></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        {{csrf_field()}}
-                                                        {{method_field('DELETE')}}
-                                                    <div class="d-flex">
-                                                        <a href="" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
-                                                        <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
-                                                    </div>
-                                                    </form>												
-                                                </td>	
-                                            </tr>
-                                          
-                                        </tbody>
+                                                   <div class="d-flex">
+                                                        <a href="{{ asset('admin/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 order-details"><i class="fas fa-eye"></i></a>
+                                                        <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp me-1 add-order-to-yalidine"><i class="fas fa-plus"></i></button>
 
-                               </table>
+                                                        <a href="#" class="btn btn-warning shadow btn-xs sharp me-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
+                                                        <form action="{{url('admin/orders/'.$order->id)}}" method="post">
+                                                            {{csrf_field()}}
+                                                            {{method_field('DELETE')}}
+                                                            <button class="btn btn-danger shadow btn-xs sharp" onclick="return confirm('Vous voulez vraiment supprimer?')"><i class="fa fa-trash"></i></button>
+                                                       </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                   
-                </div>
+                    </div>
             </div>
 
             </div>
 </div>
+<div id="modal-order">
+
+</div>
 @endsection
+
+@push('order-scripts')
+<script>
+$(".add-order-to-yalidine").click(function() {
+  var id = $(this).data('id');
+ $.ajax({
+        url: '/add-order-to-yalidine/'+id ,
+        type: "GET",
+        success: function (res) {
+        $('#modal-order').html(res);
+        $("#orderModal").modal('show');
+        }
+    });
+
+});
+
+$("#modal-order").on('click','.storeOrder',function(e){
+   e.preventDefault();
+   var id = $('#order').val();
+
+   $.ajax({
+     url: '/store-parcel/'+id,
+     type:"GET",
+     success:function(response){
+
+       $('#orderModal').modal('hide');
+
+       console.log(response);
+       location.reload();
+     }
+
+     });
+
+});
+</script>
+@endpush

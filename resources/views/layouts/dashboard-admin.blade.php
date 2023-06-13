@@ -26,13 +26,13 @@
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.date.css')}}">
-	
+
 	<link rel="stylesheet" href="{{ asset('dashboard/vendor/select2/css/select2.min.css') }}">
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/toastr/css/toastr.min.css') }}">
 
 	<link rel="stylesheet" href="{{asset('plugins/image-master/image-uploader.min.css')}}">
-	
+
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
 
@@ -64,7 +64,7 @@
 		z-index: 999;
 		pointer-events: none;/* This will do all the magic !*/
 	}
-	
+
 	.error {
         color: #B31810;
 	}
@@ -261,7 +261,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="#">Ajouter</a></li>
-                            <li><a href="#">Toutes les commandes</a></li>
+                            <li><a href="{{ asset('admin/orders') }}">Toutes les commandes</a></li>
                         </ul>
                     </li>
 
@@ -339,7 +339,7 @@
 	<script src="{{asset('dashboard/js/plugins-init/pickadate-init.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/ckeditor/ckeditor.js')}}"></script>
 	 <!-- All init script -->
-	
+
     <script src="{{ asset('dashboard/vendor/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('dashboard/js/plugins-init/select2-init.js') }}"></script>
     <script src="{{ asset('dashboard/vendor/toastr/js/toastr.min.js') }}"></script>
@@ -350,13 +350,13 @@
     <!-- Summernote init -->
     <script src="{{asset('dashboard/js/plugins-init/summernote-init.js')}}"></script>
     <script src="{{asset('plugins/image-master/image-uploader.min.js')}}"></script>
-	
+
 	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 
 
-	
+
 
 	<script>
 		function cardsCenter()
@@ -423,7 +423,7 @@
 		imagesInputName: "photos",
 	});
 
-	
+
 </script>
 
 @stack('add-attribute-scripts')
@@ -439,6 +439,6 @@
 @stack('store-attribute-scripts')
 @stack('show-modal-add-mark-scripts')
 @stack('store-mark-scripts')
-
+@stack('order-scripts')
 </body>
 </html>

@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -54,6 +55,7 @@ Route::resource('/admin/attributes',AttributeController::class);
 Route::resource('/admin/attributelines',AttributelineController::class);
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/marks',MarkController::class);
+Route::resource('/admin/orders',OrderController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
 Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
@@ -64,6 +66,11 @@ Route::get('/get-price/{id}', [App\Http\Controllers\ProductController::class, 'g
 Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\ProductController::class, 'getPriceProductAdded']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
+
+//yalidine route
+Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);
+Route::get('/store-parcel/{id}',[App\Http\Controllers\OrderController::class, 'storeOrderToYalidine']);
+
 Auth::routes();
 Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'detailProduct']);
 Route::resource('/admin',AdminController::class);
