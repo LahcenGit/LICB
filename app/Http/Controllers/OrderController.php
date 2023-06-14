@@ -74,10 +74,11 @@ class OrderController extends Controller
         );
 
         $result = curl_exec($ch);
+        //dd($result);
         curl_close($ch);
         $order->status = 1;
         $response_array = json_decode($result,true);
-        $order->tracking_code = $response_array[1]['tracking'];
+        $order->tracking_code = $response_array['2']['tracking'];
         $order->save();
 
         return true;
