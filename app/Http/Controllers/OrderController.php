@@ -74,6 +74,7 @@ class OrderController extends Controller
         );
 
         $result = curl_exec($ch);
+
         //dd($result);
         curl_close($ch);
         $order->status = 1;
