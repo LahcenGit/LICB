@@ -143,7 +143,7 @@
                                                                 @endforeach
                                                             @endforeach
                                                         </ul>
-                                                   </div>  
+                                                   </div>
                                                 @else
                                                     <div class="attr-detail attr-size mb-10 ">
                                                         <ul class="font-small attribut-section" >
@@ -166,7 +166,7 @@
                                                                 @endforeach
                                                             @endforeach
                                                         </ul>
-                                                  </div>  
+                                                  </div>
                                                 @endif
 
                                             @else
@@ -183,7 +183,7 @@
                                                         <div class="mb-4 attribut-section">
                                                             <strong >Options: <span class="product-text"></span></strong>
                                                         </div>
-                                                        
+
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
                                                             <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
@@ -194,19 +194,7 @@
                                                     </ul>
                                                 </div>
                                             @endif
-                                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                                                  <div class="toast-header">
-                                                    <img src="..." class="rounded me-2" alt="...">
-                                                    <strong class="me-auto">Bootstrap</strong>
-                                                    <small>11 mins ago</small>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                                  </div>
-                                                  <div class="toast-body">
-                                                    Hello, world! This is a toast message.
-                                                  </div>
-                                                </div>
-                                            </div>
+
                                             <div class="detail-extralink mb-50">
                                                 <div class="detail-qty border radius">
 
@@ -514,7 +502,7 @@
 @push('get-price-script')
 <script>
     $( ".getAttribute" ).click(function() {
-    
+
         var id = $(this).attr("id");
         $.ajax({
 			url: '/get-price/' + id ,
@@ -629,13 +617,14 @@
                             },
                             success: function (res) {
 
-                                $("#liveToast").show();
+                                toastr.success('Produit ajouté avec success');
                                 $(".nbr_product").text(res.nbr_cart);
 
                                 if(res.qtes == 0){
+                                    var $path = '{{asset("storage/images/products/")}}';
                                     $data =  '<li>'+
                                                 '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image+')}}" /></a>'+
+                                                    '<a href="shop-product-right.html"><img src="'+ $path + '/'+res.image + '" alt="product"></a>'+
                                                 '</div>'+
                                                 '<div class="shopping-cart-title">'+
                                                     '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
@@ -668,12 +657,13 @@
                             },
                             success: function (res) {
 
-                                $("#liveToast").show();
+                                toastr.success('Produit ajouté avec success');
                                 $(".nbr_product").text(res.nbr_cart);
                                 if(res.qtes == 0){
+                                    var $path = '{{asset("storage/images/products/")}}';
                                     $data =  '<li>'+
                                                 '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.'+res.image')}}" /></a>'+
+                                                    '<a href="shop-product-right.html"><img src="'+ $path + '/'+res.image + '" alt="product"></a>'+
                                                 '</div>'+
                                                 '<div class="shopping-cart-title">'+
                                                     '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+

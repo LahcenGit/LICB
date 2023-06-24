@@ -185,7 +185,7 @@ class ProductController extends Controller
     }
 
     public function edit($id){
-        
+
         $array_checked = array();
         $product = Product::find($id);
         $categories = Category::whereNull('parent_id')
@@ -193,9 +193,9 @@ class ProductController extends Controller
                                 ->orderby('description', 'asc')
                                 ->get();
         $categories_checked = Productcategory::where('product_id', $product->id)->get();
-        //make an arrray to checked category 
+        //make an arrray to checked category
         foreach($categories_checked as $checked){
-           
+
             array_push($array_checked,$checked->category_id);
         }
         $array_checked = json_encode($array_checked);
@@ -216,7 +216,7 @@ class ProductController extends Controller
         $attributes = Attribute::all();
         $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-           
+
         return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
     }
 
@@ -224,14 +224,14 @@ class ProductController extends Controller
     public function update(Request $request , $id){
 
 
-       
-       
+
+
         $product = Product::find($id);
         $images = Image::where('product_id', $id)->get();
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
-         
+
 
         //traitement images
         //---1er cas : aucun ajout avec supression photo
@@ -415,7 +415,7 @@ class ProductController extends Controller
 
     public function detailProduct($slug){
 
-        
+
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
@@ -443,7 +443,7 @@ class ProductController extends Controller
                 $secondary_images = $images->where('type',2);
             }
 
-           
+
 
             $productattribute = $product_line->attribute->value;
             if($productattribute == 'Couleur'){
@@ -494,13 +494,10 @@ class ProductController extends Controller
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
 
-
-       
-
-        $total = Category::where('parent_id', NULL)->count();
-        $moitie = ceil($total / 2);
+        $total_category = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-        $last_part_categories = Category::skip($moitie)->take($total - $moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
         'related_products','product_line','nbr_cartitem','cartitems','total'
@@ -552,7 +549,7 @@ class ProductController extends Controller
      $productlineadded = $related_product->productLine;
 
      $productline = Productline::where('product_id',$product_id)->first();
-     
+
      if($productline->promo_price){
         if($productlineadded->promo_price){
             $price = number_format($productline->promo_price + $productlineadded->promo_price);

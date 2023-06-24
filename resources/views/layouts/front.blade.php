@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('front/assets/css/vendors/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('front/assets/css/main.css?v=5.5')}}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 </head>
 <style>
     .primary-color{
@@ -677,7 +678,7 @@
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.min.js')}}"></script>
     <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @stack('get-price-script')
     @stack('add-cart-scripts')

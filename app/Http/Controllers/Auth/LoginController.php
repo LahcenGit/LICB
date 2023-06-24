@@ -75,10 +75,10 @@ class LoginController extends Controller
 
         $categories = Category::where('parent_id',NULL)->get();
 
-        $total = Category::where('parent_id', NULL)->count();
-        $moitie = ceil($total / 2);
+        $total_category = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-        $last_part_categories = Category::skip($moitie)->take($total - $moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
 
         return view('auth.login',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories'));
     }

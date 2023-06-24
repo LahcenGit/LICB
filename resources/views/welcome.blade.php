@@ -140,8 +140,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
-
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -188,7 +189,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                                @endif
 
                                             </a>
                                         </div>
@@ -235,8 +238,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
-
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -282,8 +286,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
-
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -329,8 +334,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
-
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -376,7 +382,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                                @endif
 
                                             </a>
                                         </div>
@@ -424,7 +432,9 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                                @endif
 
                                             </a>
                                         </div>
@@ -557,8 +567,8 @@
                                                 <div class="product-img product-img-zoom">
                                                     <a href="shop-product-right.html">
 
-                                                        <img class="default-img" src="" alt="" />
-                                                        <img class="hover-img" src="" alt="" />
+                                                        <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
+                                                        <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
 
                                                     </a>
                                                 </div>
@@ -607,8 +617,8 @@
                                                 <div class="product-img product-img-zoom">
                                                     <a href="shop-product-right.html">
 
-                                                        <img class="default-img" src="" alt="" />
-                                                        <img class="hover-img" src="" alt="" />
+                                                        <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
+                                                        <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
 
                                                     </a>
                                                 </div>

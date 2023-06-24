@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Category;
 use App\Models\Productline;
 
 use Illuminate\Http\Request;
@@ -148,6 +149,13 @@ class CartController extends Controller
   }
 
   public function index(){
+
+    $total_category = Category::where('parent_id', NULL)->count();
+    $moitie = ceil($total_category / 2);
+    $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
+    $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
+    $categories = Category::where('parent_id',null)->limit('5')->get();
+
     if(Auth::user()){
         $cart = Cart::where('user_id',Auth::user()->id)->first();
         if($cart){
@@ -155,7 +163,7 @@ class CartController extends Controller
         $nbr_cartitem = $cart->cartitems->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
 
-        return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
         }
     }
     else{
@@ -163,7 +171,7 @@ class CartController extends Controller
         $cartitems = Cartitem::where('cart_id',$cart)->get();
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        return view('carts',compact('cartitems','nbr_cartitem','total','cart'));
+        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
     }
   }
 
