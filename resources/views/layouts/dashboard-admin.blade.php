@@ -264,9 +264,12 @@
                             <li><a href="{{ asset('admin/orders') }}">Toutes les commandes</a></li>
                         </ul>
                     </li>
-
-
-
+                   <li>
+                        <a href="{{url('admin/delivery-costs')}}" aria-expanded="false">
+                            <i class="fas fa-truck"></i>
+                            <span class="nav-text">Livraison</span>
+                        </a>
+                   </li>
                 </ul>
 				<div class="plus-box">
 					<div class="text-center">
@@ -440,5 +443,6 @@
 @stack('show-modal-add-mark-scripts')
 @stack('store-mark-scripts')
 @stack('order-scripts')
+@stack('check-delivery-cost-script')
 </body>
 </html>

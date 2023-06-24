@@ -10,6 +10,7 @@ use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DeliverycostController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -66,6 +67,8 @@ Route::get('/get-price/{id}', [App\Http\Controllers\ProductController::class, 'g
 Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\ProductController::class, 'getPriceProductAdded']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
+Route::resource('/admin/delivery-costs',DeliverycostController::class);
+Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 
 //yalidine route
 Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);
