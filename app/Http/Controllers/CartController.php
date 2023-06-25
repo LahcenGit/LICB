@@ -158,20 +158,22 @@ class CartController extends Controller
 
     if(Auth::user()){
         $cart = Cart::where('user_id',Auth::user()->id)->first();
+        $cart_id = $cart->id;
         if($cart){
         $cartitems = $cart->cartitems;
         $nbr_cartitem = $cart->cartitems->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
 
-        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
+        return view('carts',compact('cartitems','cart_id','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
         }
     }
     else{
         $cart= session('cart_id');
+        $cart_id = $cart;
         $cartitems = Cartitem::where('cart_id',$cart)->get();
         $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
+        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories','cart_id'));
     }
   }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -47,7 +48,12 @@ class RegisterController extends Controller
       }
     public function showRegistrationForm(){
         $nbr_cartitem = 0;
-        return view('auth.register',compact('nbr_cartitem'));
+        $total_category = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total_category / 2);
+        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
+        $categories = Category::where('parent_id',null)->limit('5')->get();
+        return view('auth.register',compact('nbr_cartitem','first_part_categories','last_part_categories','categories'));
     }
 
     /**

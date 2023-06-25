@@ -634,7 +634,7 @@
                                                     '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
                                                 '</div>'+
                                         '</li>';
-
+                                    $(".cart-empty").css("display", "none");
                                     $('.cart-list').append($data);
                                 }
                                 else{
@@ -673,7 +673,7 @@
                                                     '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
                                                 '</div>'+
                                         '</li>';
-
+                                    $(".cart-empty").css("display", "none");
                                     $('.cart-list').append($data);
                                 }
                                 else{

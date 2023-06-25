@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('note')->nullable();
-            $table->string('payment_method');
+            $table->string('payment_method')->nullable();
             $table->double('total');
             $table->double('total_f');
             $table->double('value')->nullable();

@@ -198,7 +198,7 @@
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
                                         <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
                                     </a>
-                                    <a href="shop-cart.html"><span class="lable">Panier</span></a>
+                                    <a href="{{ asset('/carts') }}"><span class="lable">Panier</span></a>
                                     @if($nbr_cartitem > 0)
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <ul>
@@ -228,7 +228,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 cart-empty ">
                                             <div class="d-flex justify-content-center">
                                                <p style="font-size: 20px;">Votre panier est vide </p>
                                             </div>
@@ -685,6 +685,7 @@
     @stack('delete-item')
     @stack('select-color-indice')
     @stack('get-price-product-added-script')
+    @stack('shipping-script')
 </body>
 
 </html>

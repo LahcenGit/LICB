@@ -80,3 +80,10 @@ Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::resource('/welcome',HomeController::class);
+
+//chekout
+Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
+Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
+Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
+Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
+Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);
