@@ -333,7 +333,7 @@
                                         <a href="#">Atelier LICB+</a>
                                     </li>
                                     <li>
-                                        <a href="#">Tracking</a>
+                                        <a href="{{ asset('/tracking') }}">Tracking</a>
                                     </li>
                                     <li>
                                         <a href="#">Tutoriel Licb+</a>
