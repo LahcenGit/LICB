@@ -87,3 +87,7 @@ Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::cla
 Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
 Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
 Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);
+
+//tracking
+Route::get('/tracking', [App\Http\Controllers\TrackingController::class, 'tracking']);
+Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'trackingResult']);

@@ -165,11 +165,15 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="#">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
@@ -215,11 +219,15 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
                                             </div>
                                         </div>
                                     </div>
@@ -263,11 +271,15 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
                                             </div>
                                         </div>
                                     </div>
@@ -311,8 +323,12 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
                                             </div>
                                             <div class="add-cart">
                                                 <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
@@ -358,12 +374,14 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
-                                            </div>
+                                            @if($last_product->getPricePromo())
+                                            <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                            <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                            @else
+                                            <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                            @endif
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit</a>
                                             </div>
                                         </div>
                                     </div>
@@ -407,12 +425,14 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div class="product-card-bottom">
-                                            <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
-                                            </div>
+                                            @if($last_product->getPricePromo())
+                                            <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                            <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                            @else
+                                            <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                            @endif
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
                                             </div>
                                         </div>
                                     </div>
@@ -458,11 +478,16 @@
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
-                                                <span>$28.85</span>
-                                                <span class="old-price">$32.8</span>
+                                                @if($last_product->getPricePromo())
+                                                    <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                    @else
+                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
+
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
                                             </div>
                                         </div>
                                     </div>

@@ -32,6 +32,11 @@
         border: 1px solid #000!important;
         border-radius: 15%;
     }
+    .alert-success-licb{
+        color: #BC221A;
+        background-color: #ffffff;
+        border-color: #BC221A;
+    }
 </style>
 <body>
     <!-- Modal -->

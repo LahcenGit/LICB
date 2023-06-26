@@ -23,15 +23,6 @@
             @csrf
             <div class="row">
                 <div class="col-lg-7">
-                    <div class="row mb-50">
-                    <div class="col-lg-6">
-                            <form method="post" class="apply-coupon">
-                                <input type="text" placeholder="Entrer code coupon...">
-                                <button class="btn  btn-md" name="login">Valider</button>
-                            </form>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <h4 class="mb-30">Détails de la facturation</h4>
                         <form method="post">
@@ -54,7 +45,7 @@
                             <div class="row shipping_calculator">
                                 <div class="form-group col-lg-6">
                                     <div class="custom_select">
-                                        <select class="form-control select-active" id="wilayas" name="wilaya">
+                                        <select class="form-control select-active" id="wilayas" name="wilayas">
                                             <option value="">Wilayas...</option>
                                             @foreach ($wilayas as $wilaya)
                                                 <option value="{{$wilaya->wilaya}}">{{$wilaya->wilaya}}</option>
@@ -64,7 +55,7 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <div class="custom_select">
-                                        <select class="form-control select-active" id="communes" name="commune">
+                                        <select class="form-control select-active" id="communes" name="communes">
                                             <option value="">Communes...</option>
 
                                         </select>
@@ -74,7 +65,7 @@
                             <div class="row shipping_calculator">
                                 <div class="form-group col-lg-6">
                                     <div class="custom_select">
-                                        <select class="form-control select-active" id="centers" name="center">
+                                        <select class="form-control select-active" id="centers" name="centers">
                                             <option value="">Centres...</option>
 
                                         </select>
@@ -165,13 +156,13 @@
                                 <input class="form-check-input" required type="radio" name="payment_option" id="exampleRadios3" checked>
                                 <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Paiement à la livraison</label>
                             </div>
-
+                            <button type="submit" class="btn btn-fill-out btn-block mt-30">Commander<i class="fi-rs-sign-out ml-15"></i></button>
                         </div>
-
-                        <button type="submit" class="btn btn-fill-out btn-block mt-30">Commander<i class="fi-rs-sign-out ml-15"></i></button>
                     </div>
                 </div>
+
             </div>
+
         </form>
     </div>
 </main>
@@ -199,7 +190,7 @@
                     data = data + '<option value="'+ res.commune+ '" >'+ res.commune+ '</option>';
                 });
                 $('#communes').html(data);
-                $('#communes').niceSelect('update');
+
             }
 
         });
@@ -213,7 +204,7 @@
                     datacenter = datacenter + '<option value="'+ center.center_id+ '" >'+ center.name+ '</option>';
                 });
                 $('#centers').html(datacenter);
-                $('#centers').niceSelect('update');
+
             }
 
         });

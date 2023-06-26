@@ -49,16 +49,15 @@ class CheckoutController extends Controller
         $cart = Cart::where('user_id',Auth::user()->id)->first();
         $total = Cartitem::where('cart_id',$cart->id)->sum('total');
         $date = Carbon::now()->format('y');
-        dd($request->wilaya);
-        $delivery_cost = Deliverycost::where('wilaya',$request->wilaya)->where('commune',$request->commune)->first();
+        $delivery_cost = Deliverycost::where('wilaya',$request->wilayas)->where('commune',$request->communes)->first();
         $name = $request->first_name.' '.$request->last_name;
         $order = new Order();
         $order->user_id = Auth::user()->id;
         $order->first_name = $request->first_name;
         $order->last_name = $request->last_name;
         $order->status = 0 ;
-        $order->wilaya = $request->wilaya;
-        $order->commune = $request->commune;
+        $order->wilaya = $request->wilayas;
+        $order->commune = $request->communes;
         $order->address = $request->address;
         $order->phone = $request->phone;
         $order->note = $request->ordernote;
@@ -69,7 +68,7 @@ class CheckoutController extends Controller
             $total_f = $total + $delivery_cost->price_b;
             $order->delivery_cost =  $delivery_cost->price_b;
             $order->is_stopdesk = true;
-            $order->stopdesk_id= $request->center;
+            $order->stopdesk_id= $request->centers;
          }
          if($request->shipping == "domicile"){
              $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
@@ -90,7 +89,11 @@ class CheckoutController extends Controller
         $orderline->save();
         $item->delete();
      }
-     $categories = Category::where('parent_id',null)->orderby('designation', 'asc')->get();
+        $total_category = Category::where('parent_id', NULL)->count();
+        $moitie = ceil($total_category / 2);
+        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
+        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
+        $categories = Category::where('parent_id',null)->limit('5')->get();
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             $cartitems = $cart->cartitems;
@@ -112,7 +115,7 @@ class CheckoutController extends Controller
             $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
-        return view('success-order',compact('cartitems','nbr_cartitem','total','categories'));
+        return view('success-order',compact('cartitems','nbr_cartitem','total','categories','last_part_categories','first_part_categories'));
     }
 
 }
