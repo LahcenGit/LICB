@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Deliverycost;
 use App\Models\Order;
+use App\Models\Orderline;
+use App\Models\Productline;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -86,5 +91,102 @@ class OrderController extends Controller
         $order->save();
 
         return true;
+     }
+
+     public function addOrderStepOne(){
+        $productlines = Productline::orderBy('created_at','desc')->get();
+        $customers = User::where('type','customer')->get();
+        $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
+        return view('admin.add-order-step-one',compact('productlines','customers','wilayas'));
+     }
+
+     public function addOrderSteptwo(Request $request){
+
+        $ids = $request->product;
+        $firstName = $request->input('first_name');
+        $lastName = $request->input('last_name');
+        $address = $request->input('address');
+        $wilaya = $request->input('wilaya');
+        $commune = $request->input('commune');
+        $center = $request->input('center');
+        $phone = $request->input('phone');
+        // Enregistrez les détails du client dans une session
+        session()->put('customer', [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'address' => $address,
+            'wilaya' => $wilaya,
+            'commune' => $commune,
+            'center' => $center,
+            'phone' => $phone,
+        ]);
+        $customer = session('customer');
+
+        $products = Productline::whereIn('id', $ids)->get()->sortBy(function ($item) use ($ids) {
+            return array_search($item, $ids);
+        });
+
+        $ids = $products->pluck('id');
+        $qte = $request->qte;
+        $shipping = $request->shipping;
+        $resultatsCalcul = (new CalculateTotalController)->calculerTotal($ids , $wilaya , $commune , $shipping , $qte);
+        $total = $resultatsCalcul['total'];
+        $total_f = $resultatsCalcul['total_f'];
+        $delivery_cost = $resultatsCalcul['delivery_cost'];
+       return view('admin.add-order-step-two',compact('products','qte','total','total_f','delivery_cost','customer','shipping'));
+     }
+     public function storeOrder(Request $request){
+        $products = $request->product;
+        $qte = $request->qte;
+        $wilaya = $request->wilaya;
+        $commune = $request->commune;
+        $shipping = $request->shipping;
+        $resultatsCalcul = (new CalculateTotalController)->calculerTotal($products , $wilaya , $commune , $shipping , $qte);
+
+        //store order
+        $order = new Order();
+        $order->user_id = Auth::user()->id;
+        $order->first_name = $request->first_name;
+        $order->last_name = $request->last_name;
+        $order->status = 0 ;
+        $order->wilaya = $wilaya;
+        $order->commune = $commune;
+        $order->address = $request->address;
+        $order->phone = $request->phone;
+        $order->payment_method = 'cash';
+        $order->total = $resultatsCalcul['total'];
+        $order->total_f =  $resultatsCalcul['total_f'];
+        $order->delivery_cost = $resultatsCalcul['delivery_cost'];
+        if($shipping == 'bureau'){
+            $order->is_stopdesk = true;
+            $order->stopdesk_id = $request->center;
+        }
+        else{
+            $order->is_stopdesk = false;
+        }
+
+        $date = Carbon::now()->format('y');
+        $order->code = 'ck'.'-'.$date.'-'.$order->id;
+
+        $order->save();
+
+        for($i=0 ; $i<count($products) ;$i++){
+            $orderline = new Orderline();
+            $orderline->order_id = $order->id;
+            $orderline->productline_id = $products[$i];
+            $orderline->qte = $qte[$i];
+            $productline = Productline::where('id',$request->product[$i])->first();
+            if($productline->promo_price){
+                $orderline->price = $productline->promo_price;
+                $orderline->total = $productline->promo_price * $request->qte[$i];
+            }
+            else{
+                $orderline->price = $productline->price;
+                $orderline->total = $productline->price * $request->qte[$i];
+            }
+
+               $orderline->save();
+        }
+        return redirect('admin/orders');
      }
 }

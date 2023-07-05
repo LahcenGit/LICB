@@ -23,11 +23,12 @@
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/nouislider/nouislider.min.css')}}">
 
 	<!-- Style css -->
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/select2/css/select2.min.css') }}">
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.css')}}">
     <link rel="stylesheet" href="{{asset('dashboard/vendor/pickadate/themes/default.date.css')}}">
 
-	<link rel="stylesheet" href="{{ asset('dashboard/vendor/select2/css/select2.min.css') }}">
+
 	<link href="{{asset('dashboard/vendor/summernote/summernote.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/toastr/css/toastr.min.css') }}">
 
@@ -444,5 +445,6 @@
 @stack('store-mark-scripts')
 @stack('order-scripts')
 @stack('check-delivery-cost-script')
+@stack('add-order-script')
 </body>
 </html>

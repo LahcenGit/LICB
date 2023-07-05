@@ -69,6 +69,9 @@ Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showM
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Route::resource('/admin/delivery-costs',DeliverycostController::class);
 Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
+Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::class, 'addOrderStepOne']);
+Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
+Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
 
 //yalidine route
 Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);
