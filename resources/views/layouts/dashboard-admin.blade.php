@@ -261,7 +261,7 @@
 							<span class="nav-text">Commandes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Ajouter</a></li>
+                            <li><a href="{{ asset('/admin/add-order-step-one') }}">Ajouter</a></li>
                             <li><a href="{{ asset('admin/orders') }}">Toutes les commandes</a></li>
                         </ul>
                     </li>
@@ -358,7 +358,7 @@
 	<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-
+    <script src="{{asset('/print/printThis.js')}}"></script>
 
 
 
@@ -446,5 +446,6 @@
 @stack('order-scripts')
 @stack('check-delivery-cost-script')
 @stack('add-order-script')
+@stack('order-detail-scripts')
 </body>
 </html>

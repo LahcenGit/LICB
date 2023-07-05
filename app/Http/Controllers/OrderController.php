@@ -164,10 +164,9 @@ class OrderController extends Controller
         else{
             $order->is_stopdesk = false;
         }
-
+        $order->save();
         $date = Carbon::now()->format('y');
-        $order->code = 'ck'.'-'.$date.'-'.$order->id;
-
+        $order->code = 'licb'.'-'.$date.'-'.$order->id;
         $order->save();
 
         for($i=0 ; $i<count($products) ;$i++){
@@ -189,4 +188,10 @@ class OrderController extends Controller
         }
         return redirect('admin/orders');
      }
+
+     public function orderDetail($id){
+        $order = Order::find($id);
+        $orderlines = Orderline::where('order_id',$id)->get();
+        return view('admin.detail-order',compact('order','orderlines'));
+    }
 }
