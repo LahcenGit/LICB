@@ -40,7 +40,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard-customer', function () {
+Route::get('/customer', function () {
     return view('customer.dashboard-customer');
 });
 Route::get('/dashboard-admin/orders', function () {

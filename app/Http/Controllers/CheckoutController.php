@@ -16,11 +16,17 @@ use Illuminate\Support\Facades\Auth;
 class CheckoutController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request){
         $cart = Cart::find($request->cart_id);
-
         $cartitems = Cartitem::where('cart_id',$request->cart_id)->get();
         $nbr_cartitem = $cartitems->count();
+        if($nbr_cartitem == 0){
+            return redirect('/');
+        }
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$request->cart_id)->first();
         $total_category = Category::where('parent_id', NULL)->count();
         $moitie = ceil($total_category / 2);

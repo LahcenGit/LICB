@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -43,9 +43,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function redirectTo(){
-        return '/';
-      }
+
     public function showRegistrationForm(){
         $nbr_cartitem = 0;
         $total_category = Category::where('parent_id', NULL)->count();
