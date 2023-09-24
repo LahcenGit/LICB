@@ -1,5 +1,19 @@
 @extends('layouts.front')
 @section('content')
+<style>
+    .nav-tabs .nav-link:first-child{
+        padding-left: 24px!important;
+    }
+    .nav-tabs .nav-link.active {
+        color: #ffff;
+        background-color: #BC221A;
+    }
+    .nav-tabs .nav-link:hover {
+        color: #ffff;
+        background-color: #BC221A;
+    }
+</style>
+
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -100,7 +114,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="border p-md-4 cart-totals ml-30">
-                    <form action="{{url('checkout')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('checkout')}}" id="form-checkout"  method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="table-responsive">
                             <table class="table no-border">
@@ -121,14 +135,68 @@
                                 </tbody>
                             </table>
                         </div>
-                        <input type="hidden"value="{{ $cart_id }}" name="cart_id">
-                      <button type="submit" class="btn mb-20 w-100">Procéder au paiement<i class="fi-rs-sign-out ml-15"></i></button>
+                        <input type="hidden" value="{{ $cart_id }}" name="cart_id">
+                      <button type="submit" class="btn mb-20 w-100">Payer<i class="fi-rs-sign-out ml-15"></i></button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </main>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered justify-content-center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="connexion-tab" data-bs-toggle="tab" href="#connexion" role="tab" aria-controls="connexion" aria-selected="true">Se Connecter</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="inscription-tab" data-bs-toggle="tab" href="#inscription" role="tab" aria-controls="inscription" aria-selected="false">S'Inscrire</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenu des onglets -->
+                <div class="tab-content" id="myTabsContent">
+                    <div class="tab-pane fade show active" id="connexion" role="tabpanel" aria-labelledby="connexion-tab">
+                        <div class="mb-3 p-2 ">
+                            <b style="font-weight: 500">Connectez-vous dès maintenant pour accéder à toutes les fonctionnalités</b>
+                        </div>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                               <div class="form-group">
+                                   <input type="text" required name="username" placeholder="Email ou Nom d'utilisateur  *" />
+                               </div>
+                               <div class="form-group">
+                                   <input required="" type="password" name="password" placeholder="Mot de passe*" />
+                               </div>
+                               <div class="form-group ">
+                                  <p class="text-center"> <a href="#" >Mot de passe oublié?</a></p>
+                               </div>
+                               <div class="d-flex justify-content-center">
+                                    <input  type="hidden" name="routeToCheckout" value="1" />
+                                    <button type="submit" class="btn btn-primary ">Connexion</button>
+                                </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="inscription" role="tabpanel" aria-labelledby="inscription-tab">
+                        <!-- Contenu du panneau d'inscription -->
+                        <!-- Ajoutez votre formulaire d'inscription ici -->
+                    </div>
+                    
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+  
+
 @endsection
 @push('delete-item')
 <script>
@@ -155,5 +223,30 @@
              }
 		});
 });
+</script>
+@endpush
+
+@push('checkout-registration')
+<script>
+     $('#form-checkout').on('submit', function(e) {
+        e.preventDefault(); 
+        var formData = $(this).serialize(); 
+        $('#monBouton').prop('disabled', true);
+        $.ajax({
+            url: '/check-auth', 
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                if (data.isLoggedIn) {
+                    this.submit(); 
+                } else {
+                    $('#exampleModal').modal('show');
+                } 
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
 </script>
 @endpush
