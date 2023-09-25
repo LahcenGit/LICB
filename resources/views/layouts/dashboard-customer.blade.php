@@ -12,10 +12,10 @@
 	<meta property="og:description" content="Workload : Workload Project Management Admin  Bootstrap 5 Template" />
 	<meta property="og:image" content="https:/workload.dexignlab.com/xhtml/social-image.png" />
 	<meta name="format-detection" content="telephone=no">
-	
+
 	<!-- PAGE TITLE HERE -->
-	<title>Workload Project Management</title>
-	
+	<title>LICB+ | Dashboard</title>
+
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
 	<link href="{{asset('dashboard/vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	<!-- Style css -->
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
-	
+
 </head>
 <body>
 
@@ -74,7 +74,7 @@
 				</svg>
 
 				<div class="brand-title">
-					<h2 class="">Workload</h2>
+					<h2 class="">Dashboard</h2>
 					<span class="brand-sub-title">Project Management Admin</span>
 				</div>
             </a>
@@ -87,7 +87,7 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-		
+
 		<!--**********************************
             Chat box start
         ***********************************-->
@@ -314,7 +314,7 @@
 								<div>
 									<h6 class="mb-1">Chat with Khelesh</h6>
 									<p class="mb-0 text-success">Online</p>
-								</div>							
+								</div>
 								<div class="dropdown">
 									<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg></a>
 									<ul class="dropdown-menu dropdown-menu-end">
@@ -589,7 +589,7 @@
 		<!--**********************************
             Chat box End
         ***********************************-->
-		
+
 		<!--**********************************
             Header start
         ***********************************-->
@@ -699,9 +699,9 @@
 								</svg>
 									<span class="badge light text-white bg-secondary rounded-circle">27</span>
                                 </a>
-							</li>	
-							
-							
+							</li>
+
+
 							<li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link " href="javascript:void(0);" data-bs-toggle="dropdown">
 									<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -803,30 +803,30 @@
         <div class="dlabnav">
             <div class="dlabnav-scroll">
 				<ul class="metismenu" id="menu">
-                   
-				 <li><a href="widget-basic.html" class="" aria-expanded="false">
+
+				 <li><a href="{{ asset('customer/orders') }}" class="" aria-expanded="false">
 							<i class="fas fa-table"></i>
 							<span class="nav-text">Commandes</span>
 						</a>
-                     
+
                     </li>
-                   
-                    <li><a href="widget-basic.html" class="" aria-expanded="false">
+
+                    <li><a href="#" class="" aria-expanded="false">
 							<i class="fas fa-file-alt"></i>
 							<span class="nav-text">Mes Coupons</span>
 						</a>
                     </li>
-                  
-                    <li><a href="widget-basic.html" class="" aria-expanded="false">
+
+                    <li><a href="{{ asset('customer/profil') }}" class="" aria-expanded="false">
 							<i class="fas fa-user-check"></i>
 							<span class="nav-text">Profil</span>
 						</a>
 					</li>
                 </ul>
-				
-				
+
+
 				<div class="copyright">
-					<p><strong>Workload Project Management</strong> © 2021 All Rights Reserved</p>
+					<p>Copyright © Developed by <a href="#" target="_blank">LICB+</a> 2022</p>
 					<p class="fs-12">Made with <span class="heart"></span> by DexignLab</p>
 				</div>
 			</div>
@@ -852,7 +852,7 @@
 		<!--**********************************
            Support ticket button start
         ***********************************-->
-		
+
         <!--**********************************
            Support ticket button end
         ***********************************-->
@@ -870,12 +870,12 @@
     <script src="{{asset('dashboard/vendor/global/global.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/chart.js/Chart.bundle.min.js')}}"></script>
 	<script src="{{asset('dashboard/vendor/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
-	
+
 	<!-- Apex Chart -->
 	<script src="{{asset('dashboard/vendor/apexchart/apexchart.js')}}"></script>
-	
+
 	<script src="{{asset('dashboard/vendor/chart.js/Chart.bundle.min.js')}}"></script>
-	
+
 	<!-- Chart piety plugin files -->
     <script src="{{asset('dashboard/vendor/peity/jquery.peity.min.js')}}"></script>
 	<!-- Dashboard 1 -->
@@ -887,15 +887,15 @@
     <script src="{{asset('dashboard/js/custom.min.js')}}"></script>
 	<script src="{{asset('dashboard/js/dlabnav-init.js')}}"></script>
 
-   
+
 	<script>
 		function cardsCenter()
 		{
-			
+
 			/*  testimonial one function by = owl.carousel.js */
-			
-	
-			
+
+
+
 			jQuery('.card-slider').owlCarousel({
 				loop:true,
 				margin:10,
@@ -911,10 +911,10 @@
 					},
 					576:{
 						items:2
-					},	
+					},
 					800:{
 						items:2
-					},			
+					},
 					991:{
 						items:2
 					},
@@ -927,11 +927,11 @@
 				}
 			})
 		}
-		
+
 		jQuery(window).on('load',function(){
 			setTimeout(function(){
 				cardsCenter();
-			}, 1000); 
+			}, 1000);
 		});
 		jQuery(document).ready(function(){
 			setTimeout(function(){
@@ -939,7 +939,7 @@
 				new dlabSettings(dlabSettingsOptions);
 			},1500)
 		});
-		
+
 	</script>
 
 </body>
