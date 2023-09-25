@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 
-Route::get('/', function () {
+/*Route::get('/', function () {
 
     if(Auth::guest()){
         return redirect('/login');
@@ -37,7 +37,7 @@ Route::get('/', function () {
         return redirect('/admin');
     }
 
-});
+});*/
 
 
 Route::get('/customer', function () {
@@ -83,7 +83,7 @@ Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'd
 Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::resource('/welcome',HomeController::class);
+Route::resource('/',HomeController::class);
 
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
@@ -92,6 +92,11 @@ Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::clas
 Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
 Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);
 
+
 //tracking
 Route::get('/tracking', [App\Http\Controllers\TrackingController::class, 'tracking']);
 Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'trackingResult']);
+
+
+//authcheck
+Route::get('/check-auth', [App\Http\Controllers\HomeController::class, 'checkAuth']);

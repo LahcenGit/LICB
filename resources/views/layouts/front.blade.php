@@ -691,6 +691,7 @@
     @stack('select-color-indice')
     @stack('get-price-product-added-script')
     @stack('shipping-script')
+    @stack('checkout-registration')
 </body>
 
 </html>

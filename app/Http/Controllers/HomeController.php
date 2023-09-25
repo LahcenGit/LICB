@@ -29,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
             $cartitems = $cart->cartitems;
@@ -54,5 +55,10 @@ class HomeController extends Controller
 
         $new_products = Product::orderBy('created_at','desc')->limit(3)->get();
         return view('welcome',compact('nbr_cartitem','cartitems','total','categories','last_products','products','first_part_categories','last_part_categories','new_products'));
+    }
+
+    public function checkAuth() {
+        $isLoggedIn = Auth::check();
+        return response()->json(['isLoggedIn' => $isLoggedIn]);
     }
 }

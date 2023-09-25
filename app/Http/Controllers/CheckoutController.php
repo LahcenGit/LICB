@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\Auth;
 class CheckoutController extends Controller
 {
     //
+
     public function __construct()
     {
         $this->middleware('auth');
     }
+
     public function index(Request $request){
         $cart = Cart::find($request->cart_id);
         $cartitems = Cartitem::where('cart_id',$request->cart_id)->get();
@@ -123,5 +125,8 @@ class CheckoutController extends Controller
         }
         return view('success-order',compact('cartitems','nbr_cartitem','total','categories','last_part_categories','first_part_categories'));
     }
+
+
+    
 
 }

@@ -14,6 +14,7 @@ class CartController extends Controller
 {
     //
     public function store(Request $request) {
+        
 
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
