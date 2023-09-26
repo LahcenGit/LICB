@@ -8,10 +8,12 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DeliverycostController;
-
+use App\Http\Controllers\OrderCustomerController;
+use App\Http\Controllers\ProfilCustomerController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -40,15 +42,8 @@ use Illuminate\Support\Facades\Auth;
 });*/
 
 
-Route::get('/customer', function () {
-    return view('customer.dashboard-customer');
-});
-Route::get('/dashboard-admin/orders', function () {
-    return view('admin.orders');
-});
-Route::get('/dashboard-customer/orders', function () {
-    return view('customer.orders');
-});
+
+
 //admin route
 
 Route::resource('/admin/categories',CategoryController::class);
@@ -73,6 +68,16 @@ Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::c
 Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
 Route::get('admin/order-detail/{id}', [OrderController::class, 'orderDetail']);
+
+
+// customer route
+Route::resource('/customer/orders',OrderCustomerController::class);
+Route::get('customer/order-detail/{id}', [OrderCustomerController::class, 'orderDetail']);
+Route::get('customer/cancel-order/{id}', [OrderCustomerController::class, 'cancelOrder']);
+Route::get('/modal-convert-points', [CustomerController::class, 'modalConvertPoint']);
+Route::get('/convert-point/{point}', [CustomerController::class, 'convertPoint']);
+Route::get('/customer', [CustomerController::class, 'dashboard']);
+Route::resource('/customer/profil',ProfilCustomerController::class);
 
 //yalidine route
 Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);

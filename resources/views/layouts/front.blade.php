@@ -242,41 +242,59 @@
                                 </div>
 
                                 <div class="header-action-icon-2">
-                                    <a href="{{ asset('/admin') }}">
+                                    @if(Auth::user())
+                                        @if(Auth::user()->type == 'customer')
+                                        <a href="{{ asset('/customer') }}">
+                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
+                                        </a>
+                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">Compte</span></a>
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ asset('/customer') }}"><i class="fi fi-rs-user mr-10"></i>Dashboard</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ asset('/tracking') }}"><i class="fi fi-rs-location-alt mr-10"></i>Suivi de commande</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fi fi-rs-label mr-10"></i>Mon bon</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fi fi-rs-heart mr-10"></i>Mes favoris</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{route('logout')}}" class="dropdown-item ai-icon" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                    <i class="fi fi-rs-sign-out mr-10"></i>Déconnexion</a>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @elseif(Auth::user()->type == 'admin')
+                                        <a href="{{ asset('/customer') }}">
+                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
+                                        </a>
+                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">Compte</span></a>
+                                        <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ asset('/admin') }}"><i class="fi fi-rs-user mr-10"></i>Dashboard</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        @endif
+                                    @else
+                                    <a href="{{ asset('/login') }}">
                                         <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
                                     </a>
-                                    @if(Auth::user())
-                                    <a href="{{ asset('/admin') }}l"><span class="lable ml-0">Compte</span></a>
-                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-                                        <ul>
-                                            <li>
-                                                <a href="{{ asset('/admin') }}"><i class="fi fi-rs-user mr-10"></i>Mon Compte</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fi fi-rs-location-alt mr-10"></i>Suivi de commande</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fi fi-rs-label mr-10"></i>Mon bon</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fi fi-rs-heart mr-10"></i>Mes favoris</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Paramètres</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{route('logout')}}" class="dropdown-item ai-icon" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                <i class="fi fi-rs-sign-out mr-10"></i>Déconnexion</a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    @else
                                     <a href="{{ asset('/login') }}"><span class="lable ml-0">Connexion</span></a>
-
                                     @endif
                                 </div>
                             </div>

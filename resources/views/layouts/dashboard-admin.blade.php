@@ -97,7 +97,7 @@
             Nav header start
         ***********************************-->
 		<div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="{{ asset('/admin') }}" class="brand-logo">
 				<img src="{{asset('dashboard/logo-dashboard.png')}}" alt="">
 
 				<div class="brand-title">
@@ -275,7 +275,7 @@
 				<div class="plus-box">
 					<div class="text-center">
 						<h4 class="fs-18 font-w600 mb-4">Page d'Accueil</h4>
-						<a href="javascript:void(0);" class="btn btn-primary btn-rounded">Accéder <i class="fas fa-caret-right"></i></a>
+						<a href="{{ asset('/') }}" class="btn btn-primary btn-rounded">Accéder <i class="fas fa-caret-right"></i></a>
 					</div>
 				</div>
 

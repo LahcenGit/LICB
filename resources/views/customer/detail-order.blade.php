@@ -3,14 +3,7 @@
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
-            <div class="d-flex align-items-center flex-wrap text-nowrap">
-              <button type="button" class="btn btn-primary mt-3 printMe" >
-                <i class="btn-icon-prepend " data-feather="printer"></i>
-                Imprimer
-              </button>
-            </div>
-        </div>
+
     <div class="row mt-3">
         <div class="col-md-12 grid-margin">
             <div class="card">
