@@ -56,15 +56,15 @@
                                                 <td><i class="fas fa-minus"></i></td>
                                                 @endif
                                                 @if($order->status == 0)
-                                                <td><span class="badge badge-warning">En attente</span></td>
+                                                <td><span class="badge light badge-warning">En attente</span></td>
                                                 @elseif($order->status == 1)
-                                                <td><span class="badge badge-info">Livraison...</span></td>
+                                                <td><span class="badge badge-primary light">Livraison...</span></td>
                                                 @elseif($order->status == 2)
-                                                <td><span class="badge badge-success">Livré</span></td>
+                                                <td><span class="badge light badge-success">Livré</span></td>
                                                 @elseif($order->status == 3)
-                                                <td><span class="badge badge-danger">Annulé</span></td>
+                                                <td><span class="badge light badge-danger">Annulé</span></td>
                                                 @else
-                                                <td><span class="badge badge-primary">En attente de paiement</span></td>
+                                                <td><span class="badge badge-dark light">En attente de paiement</span></td>
                                                 @endif
                                                 <td>
                                                    <div class="d-flex">

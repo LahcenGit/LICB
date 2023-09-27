@@ -247,7 +247,7 @@
                                         <a href="{{ asset('/customer') }}">
                                             <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
                                         </a>
-                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">Compte</span></a>
+                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">{{ucfirst(Auth::user()->last_name)}}</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
                                                 <li>
@@ -278,7 +278,7 @@
                                         <a href="{{ asset('/customer') }}">
                                             <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
                                         </a>
-                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">Compte</span></a>
+                                        <a href="{{ asset('/customer') }}"><span class="lable ml-0">{{ucfirst(Auth::user()->last_name)}}</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <ul>
                                                 <li>

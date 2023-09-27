@@ -592,7 +592,7 @@
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
                                     <img src="{{ asset('dashboard/images/user.jpg') }}" width="20" alt=""/>
 									<div class="header-info ms-3">
-                                        <span class="fs-18 font-w500">{{ Auth::user()->last_name }}.</span>
+                                        <span class="fs-18 font-w500">{{ ucfirst(Auth::user()->last_name) }}.</span>
                                         <small class="fs-12 font-w400">Vous avez <b>50</b> points</small>
 									</div>
                                 </a>
@@ -768,6 +768,6 @@
 
 	</script>
 @stack('convert-points')
-
+@stack('image-script')
 </body>
 </html>

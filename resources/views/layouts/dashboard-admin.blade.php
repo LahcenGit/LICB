@@ -447,5 +447,6 @@
 @stack('check-delivery-cost-script')
 @stack('add-order-script')
 @stack('order-detail-scripts')
+@stack('point-scripts')
 </body>
 </html>

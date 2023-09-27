@@ -52,7 +52,6 @@
                                             @else
                                             <td><span class="badge badge-dark light">En attente de paiement</span></td>
                                             @endif
-                                            </td>
                                             <td>
                                                 <div class="d-flex">
                                                     <a href="{{ asset('customer/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 order-details"><i class="fas fa-eye"></i></a>

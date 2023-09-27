@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class CustomerController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function dashboard(){
         $points = Auth::user()->point;
         $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->limit(5)->get();

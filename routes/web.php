@@ -13,6 +13,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DeliverycostController;
 use App\Http\Controllers\OrderCustomerController;
+use App\Http\Controllers\PointAdminController;
 use App\Http\Controllers\ProfilCustomerController;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,6 +53,7 @@ Route::resource('/admin/attributelines',AttributelineController::class);
 Route::resource('/admin/products',ProductController::class);
 Route::resource('/admin/marks',MarkController::class);
 Route::resource('/admin/orders',OrderController::class);
+Route::resource('/admin/points-management',PointAdminController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
 Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
@@ -68,6 +70,8 @@ Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::c
 Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
 Route::get('admin/order-detail/{id}', [OrderController::class, 'orderDetail']);
+Route::get('/edit-status/{id}', [PointAdminController::class, 'showModal']);
+Route::get('/update-status/{id}/{status}', [PointAdminController::class, 'updateModal']);
 
 
 // customer route
@@ -78,7 +82,9 @@ Route::get('/modal-convert-points', [CustomerController::class, 'modalConvertPoi
 Route::get('/convert-point/{point}', [CustomerController::class, 'convertPoint']);
 Route::get('/customer', [CustomerController::class, 'dashboard']);
 Route::resource('/customer/profil',ProfilCustomerController::class);
-
+Route::get('/customer/coupons', function () {
+   return view('customer.coupons');
+});
 //yalidine route
 Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);
 Route::get('/store-parcel/{id}',[App\Http\Controllers\OrderController::class, 'storeOrderToYalidine']);

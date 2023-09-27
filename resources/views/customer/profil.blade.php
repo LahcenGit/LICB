@@ -1,33 +1,28 @@
 @extends('layouts.dashboard-customer')
 
 <style>
-
     .image-preview{
-
       border : 1px solid #29324C !important;
       margin: 10px 10px 10px 0px;
+      margin-left: auto;
+      margin-right: auto;
       display : flex;
       align-items: center;
       justify-content: center;
       overflow:hidden;
       border-radius:100px;
-        width:150px;
-        height:150px;
-
-
-    }
+      width:150px;
+      height:150px;
+}
 
     .image-preview-image{
-
      width: 100%;
      height: 100%;
      border-radius:50px;
 
      border-radius:50px;
-
-
-    }
-    </style>
+}
+</style>
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -45,14 +40,14 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form ">
-                        <div class="image-preview">
-                        <img id="blah"  src="{{asset('/dashboard/images/user.jpg')}}" class="image-preview-image"lt="profile">
+                        <div class="image-preview ">
+                        <img id="image-preview"  src="{{asset('/dashboard/images/user.jpg')}}" class="image-preview-image"lt="profile">
                         </div>
                             <form class="form-horizontal form-material" action="{{url('/dashboard-professionel/profil/'.$user->id)}}" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="PUT">
                                 @csrf
-                                <div class="wrapper user mb-4 mt-2">
-                                        <input type="file" id="input-photo" name="image" class="my-file" >
+                                <div class="wrapper user mb-4 mt-2 d-flex justify-content-center">
+                                    <input type="file" id="input-photo" name="image" class="my-file" >
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
@@ -97,3 +92,22 @@
 </div>
 @endsection
 
+@push('image-script')
+<script>
+    $(document).ready(function () {
+        // Lorsque le champ de fichier change
+        $('#input-photo').change(function () {
+            var input = this;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#image-preview').attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    });
+</script>
+@endpush
