@@ -219,7 +219,6 @@
 							<span class="nav-text">Dashboard</span>
 						</a>
                     </li>
-
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-layer-group"></i>
 							<span class="nav-text">Catégories</span>
@@ -265,12 +264,18 @@
                             <li><a href="{{ asset('admin/orders') }}">Toutes les commandes</a></li>
                         </ul>
                     </li>
-                   <li>
-                        <a href="{{url('admin/delivery-costs')}}" aria-expanded="false">
-                            <i class="fas fa-truck"></i>
-                            <span class="nav-text">Livraison</span>
+                    <li>
+                            <a href="{{url('admin/delivery-costs')}}" aria-expanded="false">
+                                <i class="fas fa-truck"></i>
+                                <span class="nav-text">Livraison</span>
+                            </a>
+                    </li>
+                    <li>
+                        <a href="{{url('admin/point-management')}}" aria-expanded="false">
+                            <i class="fas-sharp fas-solid fa-hundred-points"></i>
+                            <span class="nav-text">Les points</span>
                         </a>
-                   </li>
+                    </li>
                 </ul>
 				<div class="plus-box">
 					<div class="text-center">
@@ -448,5 +453,6 @@
 @stack('add-order-script')
 @stack('order-detail-scripts')
 @stack('point-scripts')
+@stack('coupon-script')
 </body>
 </html>

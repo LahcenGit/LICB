@@ -8,6 +8,7 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CouponAdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -72,6 +73,8 @@ Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 
 Route::get('admin/order-detail/{id}', [OrderController::class, 'orderDetail']);
 Route::get('/edit-status/{id}', [PointAdminController::class, 'showModal']);
 Route::get('/update-status/{id}/{status}', [PointAdminController::class, 'updateModal']);
+Route::get('/add-coupon/{id}', [CouponAdminController::class, 'showModal']);
+Route::post('/store-coupon', [CouponAdminController::class, 'storeCoupon']);
 
 
 // customer route

@@ -55,7 +55,9 @@
                                         <td>
                                             <div class="d-flex">
                                                 @if($point->status == 1)
-                                                 <button data-id="{{ $point->id }}" class="btn btn-success shadow btn-xs sharp me-1 add-coupon"><i class="fas fa-plus"></i></button>
+                                                    @if($point->countCoupon())
+                                                    <button data-id="{{ $point->id }}" class="btn btn-success shadow btn-xs sharp me-1 add-coupon"><i class="fas fa-plus"></i></button>
+                                                    @endif
                                                 @endif
                                                 <button data-id="{{ $point->id }}" class="btn btn-warning shadow btn-xs sharp me-1 edit-status"><i class="fas fa-pencil-alt"></i></button>
                                             </div>
@@ -71,9 +73,13 @@
         </div>
     </div>
 </div>
+<div id="modal-add-coupon">
+
+</div>
 <div id="modal-point">
 
 </div>
+
 @endsection
 @push('point-scripts')
 <script>
@@ -102,6 +108,47 @@ $("#modal-point").on('click','.updateStatus',function(e){
        location.reload();
      }
 });
+
+});
+</script>
+@endpush
+
+@push('coupon-script')
+<script>
+$(".add-coupon").click(function() {
+    var id = $(this).data('id');
+    $.ajax({
+          url: '/add-coupon/'+id ,
+          type: "GET",
+          success: function (res) {
+          $('#modal-add-coupon').html(res);
+          $("#addCouponModal").modal('show');
+          }
+      });
+  });
+$("#modal-add-coupon").on('click','.storeCoupon',function(e){
+   e.preventDefault();
+   let code = $('#code').val();
+   let value =  $('#value').val();
+   let date =  $('#date').val();
+   let point =  $('#point').val();
+   $.ajax({
+            type:"Post",
+            url: '/store-coupon',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              code:code,
+              value:value,
+              date:date,
+              point:point,
+            },
+            success:function(res){
+             $('#modal-add-coupon').modal('hide');
+             console.log(res);
+             location.reload();
+            },
+
+        });
 
 });
 </script>
