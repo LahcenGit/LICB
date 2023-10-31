@@ -15,6 +15,7 @@
 								<div class="row">
                                     <div class="col-xl-12 col-sm-12">
                                         <div class="card">
+                                            @if($points)
                                             <div class="card-body d-flex px-4  justify-content-between">
                                                 <div>
                                                     <div class="">
@@ -25,6 +26,15 @@
                                                 <div id="NewCustomers"></div>
                                                 <button  class="btn btn-primary mt-3 convert-points">Convertir vos points</button>
                                             </div>
+                                            @else
+                                            <div class="card-body d-flex px-4  justify-content-between">
+                                                <div>
+                                                    <div class="">
+                                                       <span class="fs-18 font-w500 d-block"><b>{{ Auth::user()->last_name }}</b>,vous n'avez actuellement aucun point à votre compte.</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
 								</div>
