@@ -24,6 +24,12 @@ class Product extends Model
         return $this->hasMany(Relatedproduct::class);
     }
 
+
+    public function mark()
+    {
+        return $this->belongsTo(Mark::class,'mark_id');
+    }
+
     public function secondaryImages(){
         $images = Image::where('product_id',$this->id)->where('type',2)->get();
         return $images;

@@ -146,9 +146,8 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -173,14 +172,13 @@
                                                 @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#">Voir plus</a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
-
                         </div>
                         <!--End product-grid-4-->
                     </div>
@@ -196,13 +194,11 @@
                                                 @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
-
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -227,7 +223,7 @@
                                                 @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
@@ -252,9 +248,8 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -279,14 +274,14 @@
                                                 @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
-                         </div>
+                        </div>
                         <!--End product-grid-4-->
                     </div>
                     <!--En tab three-->
@@ -304,9 +299,8 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -331,7 +325,7 @@
                                                 @endif
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
@@ -356,9 +350,8 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -374,14 +367,16 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div class="product-card-bottom">
-                                            @if($last_product->getPricePromo())
-                                            <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                            <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
-                                            @else
-                                            <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
-                                            @endif
+                                            <div class="product-price">
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
+                                            </div>
                                             <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit</a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
@@ -403,65 +398,11 @@
                                                 @if($last_product->images)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
-
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="hot">New</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-
-                                        <h2><a href="{{ asset('product/'.$last_product->slug) }}">{{ $last_product->designation }}</a></h2>
-                                        <div class="product-rate-cover">
-                                            <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
-                                            </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                        </div>
-                                        <div class="product-card-bottom">
-                                            @if($last_product->getPricePromo())
-                                            <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                            <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
-                                            @else
-                                            <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
-                                            @endif
-                                            <div class="add-cart">
-                                                <a class="add" href="#"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                        <!--End product-grid-4-->
-                    </div>
-                    <!--En tab six-->
-                    <div class="tab-pane fade" id="tab-seven" role="tabpanel" aria-labelledby="tab-seven">
-                        <div class="row product-grid-4">
-                            @foreach($last_products as $last_product)
-                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
-                                                <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
-                                                @endif
-
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                            <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">New</span>
@@ -479,22 +420,71 @@
                                         <div class="product-card-bottom">
                                             <div class="product-price">
                                                 @if($last_product->getPricePromo())
-                                                    <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
-                                                    @else
-                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
                                                 @endif
-
                                             </div>
                                             <div class="add-cart">
-                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Voir le produit </a>
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
+                        </div>
+                        <!--End product-grid-4-->
+                    </div>
+                    <!--En tab six-->
+                    <div class="tab-pane fade" id="tab-seven" role="tabpanel" aria-labelledby="tab-seven">
+                        <div class="row product-grid-4">
+                            @foreach($last_products as $last_product)
+                            <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
+                                    <div class="product-img-action-wrap">
+                                        <div class="product-img product-img-zoom">
+                                            <a href="{{ asset('product/'.$last_product->slug) }}">
+                                                @if($last_product->images)
+                                                <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="product-action-1">
+                                            <a aria-label="Ajouter au favoris" class="action-btn" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Voir le produit" class="action-btn" data-bs-toggle="modal" href="{{ asset('product/'.$last_product->slug) }}" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                        </div>
+                                        <div class="product-badges product-badges-position product-badges-mrg">
+                                            <span class="hot">New</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-content-wrap">
 
+                                        <h2><a href="{{ asset('product/'.$last_product->slug) }}">{{ $last_product->designation }}</a></h2>
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width: 90%"></div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                        </div>
+                                        <div class="product-card-bottom">
+                                            <div class="product-price">
+                                                @if($last_product->getPricePromo())
+                                                <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                @else
+                                                <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                @endif
+                                            </div>
+                                            <div class="add-cart">
+                                                <a class="add" href="{{ asset('product/'.$last_product->slug) }}">Voir plus</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
                         <!--End product-grid-4-->
                     </div>
@@ -510,13 +500,10 @@
                     <h3 class="">Produits</h3>
                     <ul class="nav nav-tabs links" id="myTab-2" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
+                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Populaire</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Popular</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-three-1" data-bs-toggle="tab" data-bs-target="#tab-three-1" type="button" role="tab" aria-controls="tab-three" aria-selected="false">New added</button>
+                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">nouveau ajouté</button>
                         </li>
                     </ul>
                 </div>
@@ -552,32 +539,37 @@
                                                     <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Save 15%</span>
+                                                    <span class="hot">New</span>
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Hodo Foods</a>
+                                                    <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
                                                 </div>
                                                 <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
                                                 </div>
                                                 <div class="product-price mt-10">
-                                                    <span>$238.85 </span>
-                                                    <span class="old-price">$245.8</span>
+                                                    @if($last_product->getPricePromo())
+                                                    <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                    @else
+                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                    @endif
                                                 </div>
+                                                <!--
                                                 <div class="sold mt-15 mb-15">
                                                     <div class="progress mb-5">
                                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     <span class="font-xs text-heading"> Sold: 90/120</span>
                                                 </div>
-                                                <a href="shop-cart.html" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
+                                                -->
+                                                <a href="shop-cart.html" class="btn w-100 hover-up">Voir le produit</a>
                                             </div>
                                         </div>
                                         @endforeach
-
                                     </div>
                                 </div>
                             </div>
@@ -603,86 +595,41 @@
                                                     <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Save 15%</span>
+                                                    <span class="hot">New</span>
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Hodo Foods</a>
+                                                    <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
                                                 </div>
                                                 <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
                                                 </div>
                                                 <div class="product-price mt-10">
-                                                    <span>$238.85 </span>
-                                                    <span class="old-price">$245.8</span>
+                                                    @if($last_product->getPricePromo())
+                                                    <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                    @else
+                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                    @endif
                                                 </div>
+                                                <!--
                                                 <div class="sold mt-15 mb-15">
                                                     <div class="progress mb-5">
                                                         <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                     <span class="font-xs text-heading"> Sold: 90/120</span>
                                                 </div>
-                                                <a href="shop-cart.html" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
+                                                -->
+                                                <a href="shop-cart.html" class="btn w-100 hover-up">Voir le produit</a>
                                             </div>
                                         </div>
                                         @endforeach
-
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-three-1" role="tabpanel" aria-labelledby="tab-three-1">
-                                <div class="carausel-4-columns-cover arrow-center position-relative">
-                                    <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-3-arrows"></div>
-                                    <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns-3">
-                                        @foreach($products as $product)
-                                        <div class="product-cart-wrap">
-                                            <div class="product-img-action-wrap">
-                                                <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
-
-                                                        <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
-                                                        <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
-
-                                                    </a>
-                                                </div>
-                                                <div class="product-action-1">
-                                                    <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"> <i class="fi-rs-eye"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                                </div>
-                                                <div class="product-badges product-badges-position product-badges-mrg">
-                                                    <span class="hot">Save 15%</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-content-wrap">
-                                                <div class="product-category">
-                                                    <a href="shop-grid-right.html">Hodo Foods</a>
-                                                </div>
-                                                <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
-                                                <div class="product-rate d-inline-block">
-                                                    <div class="product-rating" style="width: 80%"></div>
-                                                </div>
-                                                <div class="product-price mt-10">
-                                                    <span>$238.85 </span>
-                                                    <span class="old-price">$245.8</span>
-                                                </div>
-                                                <div class="sold mt-15 mb-15">
-                                                    <div class="progress mb-5">
-                                                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                    <span class="font-xs text-heading"> Sold: 90/120</span>
-                                                </div>
-                                                <a href="shop-cart.html" class="btn w-100 hover-up"><i class="fi-rs-shopping-cart mr-5"></i>Add To Cart</a>
-                                            </div>
-                                        </div>
-                                        @endforeach
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                         </div>
                         <!--End tab-content-->
                     </div>
                     <!--End Col-lg-9-->
