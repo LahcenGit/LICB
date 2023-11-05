@@ -341,7 +341,7 @@
                                 <ul>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.svg')}}" alt="hot deals" /><a href="#">Promo</a></li>
                                     <li>
-                                        <a  href="{{ asset('/login') }}">Accueil </a>
+                                        <a  href="{{ asset('/') }}">Accueil </a>
 
                                     </li>
                                     <li>
