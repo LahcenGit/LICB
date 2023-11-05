@@ -6,32 +6,18 @@
             <div class="container">
                 <div class="home-slide-cover mt-30">
                     <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                        <div class="single-hero-slider single-animation-wrap" style="background-image: url(assets/imgs/slider/slider-1.png)">
+                        <div class="single-hero-slider single-animation-wrap" style="background-image: url(front/assets/imgs/slider/slider-0.jpg)">
                             <div class="slider-content">
-                                <h1 class="display-2 mb-40">
-                                    Don’t miss amazing<br />
-                                    grocery deals
+                                <h1 class="text-white" style="font-size: 50px; line-height:40px">
+                                    Aures Gaming <br> Accessories
                                 </h1>
-                                <p class="mb-65">Sign up for the daily newsletter</p>
-                                <form class="form-subcriber d-flex">
-                                    <input type="email" placeholder="Your emaill address" />
-                                    <button class="btn" type="submit">Subscribe</button>
-                                </form>
+                                <h1 class=" mb-40 mt-3 text-white" style="font-size: 30px;">
+                                    Promo with free shipping
+                                </h1>
+                                    <button class="btn" type="submit">Enjoy !</button>
                             </div>
                         </div>
-                        <div class="single-hero-slider single-animation-wrap" style="background-image: url(assets/imgs/slider/slider-2.png)">
-                            <div class="slider-content">
-                                <h1 class="display-2 mb-40">
-                                    Fresh Vegetables<br />
-                                    Big discount
-                                </h1>
-                                <p class="mb-65">Save up to 50% off on your first order</p>
-                                <form class="form-subcriber d-flex">
-                                    <input type="email" placeholder="Your emaill address" />
-                                    <button class="btn" type="submit">Subscribe</button>
-                                </form>
-                            </div>
-                        </div>
+                      
                     </div>
                     <div class="slider-arrow hero-slider-1-arrow"></div>
                 </div>
@@ -69,9 +55,9 @@
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
                             <img src="{{ asset('front/assets/imgs/banner/banner-1.png') }}" alt="" />
                             <div class="banner-text">
-                                <h4>
-                                    Everyday Fresh & <br />Clean with Our<br />
-                                    Products
+                                <h4 class="text-white">
+                                    LICB+ <br />
+                                    Gaming PC
                                 </h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
@@ -81,9 +67,9 @@
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                             <img src="{{ asset('front/assets/imgs/banner/banner-2.png') }}" alt="" />
                             <div class="banner-text">
-                                <h4>
-                                    Make your Breakfast<br />
-                                    Healthy and Easy
+                                <h4 class="text-white">
+                                    LICB+ <br />
+                                    Gaming PC
                                 </h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
@@ -93,7 +79,10 @@
                         <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                             <img src="{{ asset('front/assets/imgs/banner/banner-3.png') }}" alt="" />
                             <div class="banner-text">
-                                <h4>The best Organic <br />Products Online</h4>
+                                <h4 class="text-white">
+                                    LICB+ <br />
+                                    Gaming PC
+                                </h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
