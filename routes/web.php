@@ -75,7 +75,8 @@ Route::get('/edit-status/{id}', [PointAdminController::class, 'showModal']);
 Route::get('/update-status/{id}/{status}', [PointAdminController::class, 'updateModal']);
 Route::get('/add-coupon/{id}', [CouponAdminController::class, 'showModal']);
 Route::post('/store-coupon', [CouponAdminController::class, 'storeCoupon']);
-
+Route::get('/edit-status-order/{id}', [App\Http\Controllers\OrderController::class, 'editStatus']);
+Route::post('/update-status', [App\Http\Controllers\OrderController::class, 'updateStatus']);
 
 // customer route
 Route::resource('/customer/orders',OrderCustomerController::class);

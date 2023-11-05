@@ -69,9 +69,10 @@
                                                 <td>
                                                    <div class="d-flex">
                                                         <a href="{{ asset('admin/order-detail/'.$order->id) }}" class="btn btn-primary shadow btn-xs sharp me-1 order-details"><i class="fas fa-eye"></i></a>
+                                                        @if($order->status == 0)
                                                         <button data-id="{{ $order->id }}" class="btn btn-success shadow btn-xs sharp me-1 add-order-to-yalidine"><i class="fas fa-plus"></i></button>
-
-                                                        <a href="#" class="btn btn-warning shadow btn-xs sharp me-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
+                                                        @endif
+                                                        <a href="#" data-id="{{ $order->id }}" class="btn btn-warning shadow btn-xs sharp me-1 edit-status"><i class="fas fa-pencil-alt"></i></a>
                                                         <form action="{{url('admin/orders/'.$order->id)}}" method="post">
                                                             {{csrf_field()}}
                                                             {{method_field('DELETE')}}
@@ -92,6 +93,9 @@
             </div>
 </div>
 <div id="modal-order">
+
+</div>
+<div id="modal-edit-status-order">
 
 </div>
 @endsection
@@ -127,6 +131,42 @@ $("#modal-order").on('click','.storeOrder',function(e){
      }
 
      });
+
+});
+
+$("body").on('click','.edit-status',function() {
+  var id = $(this).data('id');
+ $.ajax({
+        url: '/edit-status-order/'+id ,
+        type: "GET",
+        success: function (res) {
+        $('#modal-edit-status-order').html(res);
+        $("#editStatusModal").modal('show');
+        }
+    });
+
+});
+
+$("#modal-edit-status-order").on('click','.editStatus',function(e){
+   e.preventDefault();
+   let status = $('#status').val();
+   let order =  $('#order').val();
+   $.ajax({
+            type:"Post",
+            url: '/update-status',
+            data:{
+              "_token": "{{ csrf_token() }}",
+              status:status,
+              order:order,
+            },
+            success:function(res){
+             $('#editStatusModal').modal('hide');
+             console.log(res);
+             location.reload();
+            },
+
+        });
+
 
 });
 </script>

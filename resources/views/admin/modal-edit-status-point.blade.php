@@ -25,7 +25,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary updateStatus">Envoyer</button>
+                <button type="button" class="btn btn-primary updateStatus">Enregistrer</button>
             </div>
         </div>
     </div>
