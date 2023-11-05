@@ -187,15 +187,15 @@
                         <!-- Contenu du panneau d'inscription -->
                         <!-- Ajoutez votre formulaire d'inscription ici -->
                     </div>
-                    
+
                 </div>
             </div>
-           
+
         </div>
     </div>
 </div>
 
-  
+
 
 @endsection
 @push('delete-item')
@@ -229,19 +229,20 @@
 @push('checkout-registration')
 <script>
      $('#form-checkout').on('submit', function(e) {
-        e.preventDefault(); 
-        var formData = $(this).serialize(); 
+        e.preventDefault();
+        var formData = $(this).serialize();
+        var form = this;
         $('#monBouton').prop('disabled', true);
         $.ajax({
-            url: '/check-auth', 
+            url: '/check-auth',
             type: 'GET',
             dataType: 'json',
             success: function(data) {
                 if (data.isLoggedIn) {
-                    this.submit(); 
+                    form.submit();
                 } else {
                     $('#exampleModal').modal('show');
-                } 
+                }
             },
             error: function(error) {
                 console.log(error);

@@ -36,7 +36,7 @@ class CheckoutController extends Controller
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $categories = Category::where('parent_id',null)->limit('5')->get();
         $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
-        return view('checkout',compact('cart','cartitems','nbr_cartitem','total','categories','wilayas','first_part_categories','last_part_categories'));
+        return view('checkout',compact('cart','cartitems','nbr_cartitem','total','categories','wilayas','first_part_categories','last_part_categories','nbr_cartitem'));
 
     }
 
@@ -127,6 +127,6 @@ class CheckoutController extends Controller
     }
 
 
-    
+
 
 }

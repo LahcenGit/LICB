@@ -15,7 +15,7 @@
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Checkout</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">Il y a <span class="text-brand">3</span> produit(s) dans votre panier</h6>
+                    <h6 class="text-body">Il y a <span class="text-brand">{{ $nbr_cartitem }}</span> produit(s) dans votre panier</h6>
                 </div>
             </div>
         </div>
