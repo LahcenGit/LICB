@@ -271,7 +271,7 @@
                             </a>
                     </li>
                     <li>
-                        <a href="{{url('admin/point-management')}}" aria-expanded="false">
+                        <a href="{{url('admin/points-management')}}" aria-expanded="false">
                             <i class="fas-sharp fas-solid fa-hundred-points"></i>
                             <span class="nav-text">Les points</span>
                         </a>

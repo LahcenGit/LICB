@@ -15,6 +15,7 @@ class ProfilCustomerController extends Controller
     }
     public function index(){
         $user = User::find(Auth::user()->id);
-        return view('customer.profil',compact('user'));
+        $points = Auth::user()->point;
+        return view('customer.profil',compact('user','points'));
     }
 }

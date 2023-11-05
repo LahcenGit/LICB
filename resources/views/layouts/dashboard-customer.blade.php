@@ -593,7 +593,7 @@
                                     <img src="{{ asset('dashboard/images/user.jpg') }}" width="20" alt=""/>
 									<div class="header-info ms-3">
                                         <span class="fs-18 font-w500">{{ ucfirst(Auth::user()->last_name) }}.</span>
-                                        <small class="fs-12 font-w400">Vous avez <b>50</b> points</small>
+                                        <small class="fs-12 font-w400">Vous avez <b>{{ $points }}</b> points</small>
 									</div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">

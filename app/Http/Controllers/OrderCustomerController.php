@@ -17,7 +17,8 @@ class OrderCustomerController extends Controller
     public function index(){
         $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
         $count_orders = Order::where('user_id',Auth::user()->id)->count();
-        return view('customer.orders',compact('orders','count_orders'));
+        $points = Auth::user()->point;
+        return view('customer.orders',compact('orders','count_orders','points'));
     }
 
     public function cancelOrder($id){
@@ -30,6 +31,7 @@ class OrderCustomerController extends Controller
     public function orderDetail($id){
         $order = Order::find($id);
         $orderlines = Orderline::where('order_id',$id)->get();
-        return view('customer.detail-order',compact('order','orderlines'));
+        $points = Auth::user()->point;
+        return view('customer.detail-order',compact('order','orderlines','points'));
     }
 }

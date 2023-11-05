@@ -87,7 +87,8 @@ Route::get('/convert-point/{point}', [CustomerController::class, 'convertPoint']
 Route::get('/customer', [CustomerController::class, 'dashboard']);
 Route::resource('/customer/profil',ProfilCustomerController::class);
 Route::get('/customer/coupons', function () {
-   return view('customer.coupons');
+    $points = Auth::user()->point;
+   return view('customer.coupons',compact('points'));
 });
 //yalidine route
 Route::get('add-order-to-yalidine/{id}', [OrderController::class, 'addOrderToYalidine']);

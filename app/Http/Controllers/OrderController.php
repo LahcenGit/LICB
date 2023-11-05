@@ -207,22 +207,11 @@ class OrderController extends Controller
         $order->save();
         if($order->status == 2){
             $orderlines = $order->orderlines;
-            $point =Convertedpoint::where('user_id',$order->user_id)->first();
-            if($point){
-                foreach($orderlines as $orderline){
-                    $point->point =  $point->point + $orderline->productline->product->point;
-                }
-            $point->save();
+            $user = User::find($order->user_id);
+           foreach($orderlines as $orderline){
+                $user->point =  $user->point + $orderline->productline->product->point;
             }
-            else{
-                $point = new Convertedpoint();
-                $point->user_id = $order->user_id;
-                $point->point = 0;
-                foreach($orderlines as $orderline){
-                    $point->point =  $point->point + $orderline->productline->product->point;
-                }
-            $point->save();
-            }
+           $user->save();
         }
         return $order;
      }
