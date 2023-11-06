@@ -13,8 +13,8 @@
 	<!-- PAGE TITLE HERE -->
 	<title>LICB+ | Dashboard</title>
 
-	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{asset('dashboard/images/favicon.png')}}" />
+	<!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('dashboard/images/favicon.png')}}" />
 	<link href="{{asset('dashboard/vendor/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">

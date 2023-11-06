@@ -175,7 +175,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="#"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
+                        <a href="{{asset('/')}}"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -228,7 +228,6 @@
                                                 </div>
                                                 <div class="shopping-cart-button">
                                                     <a href="{{asset('/carts')}}" class="outline">Voir le panier</a>
-                                                    <a href="shop-checkout.html">Validation</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,7 +338,7 @@
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                             <nav>
                                 <ul>
-                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.svg')}}" alt="hot deals" /><a href="#">Promo</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.png')}}" alt="hot deals" /><a href="#">Promo</a></li>
                                     <li>
                                         <a  href="{{ asset('/') }}">Accueil </a>
 
@@ -500,28 +499,6 @@
     <!--End header-->
     @yield('content')
     <footer class="main">
-        <section class="newsletter mb-15 wow animate__animated animate__fadeIn">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="position-relative newsletter-inner">
-                            <div class="newsletter-content">
-                                <h2 class="mb-20">
-                                    Inscrivez-vous  <br />à notre newsletter !
-
-                                </h2>
-                                <p class="mb-45">Inscrivez-vous gratuitement à la Newsletter pour bénéficier d'offres spéciales, être informé des nouveautés de  <span class="text-brand">LICB+</span></p>
-                                <form class="form-subcriber d-flex">
-                                    <input type="email" placeholder="Votre email" />
-                                    <button class="btn" type="submit">S'inscrir</button>
-                                </form>
-                            </div>
-                            <img src="{{asset('front/assets/imgs/banner/banner-9.png')}}" alt="newsletter" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section class="featured section-padding">
             <div class="container">
                 <div class="row">
@@ -648,7 +625,7 @@
                     <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">LICB+</strong> </p>
                 </div>
                 <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
-                    <div class="hotline d-lg-inline-flex mr-30">
+                    <div class="hotline d-lg-inline-flex mr-30" style="min-width: 250px;">
                         <img src="{{asset('front/assets/imgs/theme/icons/phone-call.svg')}}" alt="hotline" />
                         <p>043 267 669<span>Du samedi au jeudi <br>de 9h30 à 18h </span></p>
                     </div>

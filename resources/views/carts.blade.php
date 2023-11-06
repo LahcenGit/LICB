@@ -14,7 +14,18 @@
     }
 </style>
 
+
+
 <main class="main">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
@@ -106,11 +117,10 @@
                 </div>
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
-                    <a class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a>
+                    <button class="btn "> <a href="{{asset('/')}}"><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a></button> 
                     <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Mettre à jour le panier</button>
                 </div>
             </form>
-
             </div>
             <div class="col-lg-4">
                 <div class="border p-md-4 cart-totals ml-30">
@@ -196,7 +206,10 @@
                                     <input type="text"  name="last_name" placeholder="Prénom*" required/>
                                    </div>
                                    <div class="form-group">
-                                    <input type="text"  name="email" placeholder="Email ou username*" required/>
+                                    <input type="text"  name="email" placeholder="Email*" required/>
+                                   </div>
+                                   <div class="form-group">
+                                    <input type="text"  name="username" placeholder="Nom d'utilisateur*" required/>
                                    </div>
                                    <div class="form-group">
                                     <input type="text"  name="phone" placeholder="Numéro de téléphone*" required/>
@@ -209,7 +222,7 @@
                                    </div>
                                    <div class="d-flex justify-content-center">
                                         <input  type="hidden" name="routeToCheckout" value="1" />
-                                        <button type="submit" class="btn btn-primary ">S'inscrir</button>
+                                        <button type="submit" class="btn btn-primary ">S'inscrire</button>
                                    </div>
                             </form>
                     </div>

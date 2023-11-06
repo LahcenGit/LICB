@@ -9,7 +9,7 @@
                         <div class="single-hero-slider single-animation-wrap" style="background-image: url(front/assets/imgs/slider/slider-0.jpg)">
                             <div class="slider-content">
                                 <h1 class="text-white" style="font-size: 50px; line-height:40px">
-                                    Aures Gaming <br> Accessories
+                                     GAMING ACCESSORIES
                                 </h1>
                                 <h1 class=" mb-40 mt-3 text-white" style="font-size: 30px;">
                                     Promo with free shipping
@@ -94,7 +94,7 @@
         <section class="product-tabs section-padding position-relative">
             <div class="container">
                 <div class="section-title style-2 wow animate__animated animate__fadeIn">
-                    <h3>Derniers Produits</h3>
+                    <h3>Nouveautés</h3>
                     <ul class="nav nav-tabs links" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Périphérique PC</button>
@@ -500,7 +500,7 @@
                     <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
                         <div class="banner-img style-2">
                             <div class="banner-text">
-                                <h2 class="mb-100">Bring nature into your home</h2>
+                                <h2 class="mb-100 text-white">Discover new Redragon products</h2>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
@@ -636,154 +636,47 @@
                     </a>
                 </div>
                 <div class="row">
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="{{ asset('front/assets/imgs/banner/banner-5.png') }}" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$32.85</span>
-                                            <span class="old-price">$33.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
+
+                    @foreach($last_products->take(4) as $last_product)
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay="0">
+                                <div class="product-img-action-wrap">
+                                    <div class="product-img">
+                                        <a href="#">
+                                            <img src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="{{ asset('front/assets/imgs/banner/banner-6.png') }}" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2026/04/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Perdue Simply Smart Organics Gluten Free</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                <div class="product-content-wrap">
+                                    <div class="deals-countdown-wrap">
+                                        <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
                                     </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Old El Paso</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$24.85</span>
-                                            <span class="old-price">$26.8</span>
+                                    <div class="deals-content">
+                                        <h2><a href="shop-product-right.html">{{$last_product->designation}}</a></h2>
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width: 90%"></div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                        <div>
+                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">LICB+</a></span>
+                                        </div>
+                                        <div class="product-card-bottom">
+                                            <div class="product-price">
+                                                <span>2.500 Da</span>
+                                                <span class="old-price">3.500 Da</span>
+                                            </div>
+                                            <div class="add-cart">
+                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Acheter </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 d-none d-lg-block">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="{{ asset('front/assets/imgs/banner/banner-7.png') }}" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2027/03/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Signature Wood-Fired Mushroom and Caramelized</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 80%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (3.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Progresso</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$12.85</span>
-                                            <span class="old-price">$13.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 d-none d-xl-block">
-                        <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img">
-                                    <a href="shop-product-right.html">
-                                        <img src="{{ asset('front/assets/imgs/banner/banner-8.png') }}" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="deals-countdown-wrap">
-                                    <div class="deals-countdown" data-countdown="2025/02/25 00:00:00"></div>
-                                </div>
-                                <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Simply Lemonade with Raspberry Juice</a></h2>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 80%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (3.0)</span>
-                                    </div>
-                                    <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Yoplait</a></span>
-                                    </div>
-                                    <div class="product-card-bottom">
-                                        <div class="product-price">
-                                            <span>$15.85</span>
-                                            <span class="old-price">$16.8</span>
-                                        </div>
-                                        <div class="add-cart">
-                                            <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </section>
@@ -794,66 +687,29 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 mb-sm-5 mb-md-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <h4 class="section-title style-1 mb-30 animated animated">Top Selling</h4>
                         <div class="product-list-small animated animated">
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-1.jpg') }}" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                            @foreach ($last_products->take(3) as $last_product)
+                                <article class="row align-items-center hover-up">
+                                    <figure class="col-md-4 mb-0">
+                                        <a href="shop-product-right.html"><img src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
+                                    </figure>
+                                    <div class="col-md-8 mb-0">
+                                        <h6>
+                                            <a href="#">{{$last_product->designation}}</a>
+                                        </h6>
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width: 90%"></div>
+                                            </div>
+                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-2.jpg') }}" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
+                                        <div class="product-price">
+                                            <span>$32.85</span>
+                                            <span class="old-price">$33.8</span>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center hover-up">
-                                <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-3.jpg') }}" alt="" /></a>
-                                </figure>
-                                <div class="col-md-8 mb-0">
-                                    <h6>
-                                        <a href="shop-product-right.html">Nestle Original Coffee-Mate Coffee Creamer</a>
-                                    </h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
-                                    </div>
-                                </div>
-                            </article>
+                                </article>
+                                @endforeach
+                           
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
@@ -862,7 +718,7 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-4.jpg') }}" alt="" /></a>
+                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -875,8 +731,12 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
+                                        @if($last_product->getPricePromo())
+                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @else
+                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        @endif
                                     </div>
                                 </div>
                             </article>
@@ -890,7 +750,7 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-4.jpg') }}" alt="" /></a>
+                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -903,8 +763,12 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
+                                        @if($last_product->getPricePromo())
+                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @else
+                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        @endif
                                     </div>
                                 </div>
                             </article>
@@ -919,7 +783,7 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img src="{{ asset('front/assets/imgs/shop/thumbnail-4.jpg') }}" alt="" /></a>
+                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}"  alt="" /></a>
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
@@ -932,8 +796,12 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        <span>$32.85</span>
-                                        <span class="old-price">$33.8</span>
+                                        @if($last_product->getPricePromo())
+                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @else
+                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        @endif
                                     </div>
                                 </div>
                             </article>

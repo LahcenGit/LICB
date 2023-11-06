@@ -30,7 +30,7 @@
                                             <div class="card-body d-flex px-4  justify-content-between">
                                                 <div>
                                                     <div class="">
-                                                       <span class="fs-18 font-w500 d-block"><b>{{ Auth::user()->last_name }}</b>,vous n'avez actuellement aucun point à votre compte.</span>
+                                                       <span class="fs-18 font-w500 d-block"><b>{{ Auth::user()->last_name }}</b>, vous n'avez actuellement aucun point à votre compte.</span>
                                                     </div>
                                                 </div>
                                             </div>

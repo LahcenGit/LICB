@@ -16,8 +16,8 @@
 	<!-- PAGE TITLE HERE -->
 	<title>LICB+ | Dashboard</title>
 
-	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+	<!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('dashboard/images/favicon.png')}}" />
 	<link href="{{asset('dashboard/vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
 	<link href="{{asset('dashboard/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
@@ -27,6 +27,12 @@
     <link href="{{asset('dashboard/css/style.css')}}" rel="stylesheet">
 
 </head>
+
+<style>
+	.point-style{
+		color: #BC221A;
+	}
+</style>
 <body>
 
     <!--*******************
@@ -51,14 +57,17 @@
             Nav header start
         ***********************************-->
 		<div class="nav-header ">
-            <a href="{{ asset('/customer') }}" class="brand-logo">
-				<img src="{{asset('dashboard/logo-dashboard.png')}}" alt="">
+            <a href="{{ asset('/customer') }}" class="brand-logo d-flex justify-content-center">
+				<img src="{{asset('dashboard/logo-customer.png')}}" alt=""> 
             </a>
+			
             <div class="nav-control">
                 <div class="hamburger">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
             </div>
+
+			
         </div>
         <!--**********************************
             Nav header end
@@ -585,31 +594,10 @@
 										<path d="M23.3333 19.8333H23.1187C23.2568 19.4597 23.3295 19.065 23.3333 18.6666V12.8333C23.3294 10.7663 22.6402 8.75902 21.3735 7.12565C20.1068 5.49228 18.3343 4.32508 16.3333 3.80679V3.49996C16.3333 2.88112 16.0875 2.28763 15.6499 1.85004C15.2123 1.41246 14.6188 1.16663 14 1.16663C13.3812 1.16663 12.7877 1.41246 12.3501 1.85004C11.9125 2.28763 11.6667 2.88112 11.6667 3.49996V3.80679C9.66574 4.32508 7.89317 5.49228 6.6265 7.12565C5.35983 8.75902 4.67058 10.7663 4.66667 12.8333V18.6666C4.67053 19.065 4.74316 19.4597 4.88133 19.8333H4.66667C4.35725 19.8333 4.0605 19.9562 3.84171 20.175C3.62292 20.3938 3.5 20.6905 3.5 21C3.5 21.3094 3.62292 21.6061 3.84171 21.8249C4.0605 22.0437 4.35725 22.1666 4.66667 22.1666H23.3333C23.6428 22.1666 23.9395 22.0437 24.1583 21.8249C24.3771 21.6061 24.5 21.3094 24.5 21C24.5 20.6905 24.3771 20.3938 24.1583 20.175C23.9395 19.9562 23.6428 19.8333 23.3333 19.8333Z" fill="#717579"/>
 										<path d="M9.98192 24.5C10.3863 25.2088 10.971 25.7981 11.6766 26.2079C12.3823 26.6178 13.1839 26.8337 13.9999 26.8337C14.816 26.8337 15.6175 26.6178 16.3232 26.2079C17.0288 25.7981 17.6135 25.2088 18.0179 24.5H9.98192Z" fill="#717579"/>
 									</svg>
-                                    <span class="badge light text-white bg-primary rounded-circle">16</span>
+                                    <span class="badge light text-white bg-primary rounded-circle">0</span>
                                 </a>
                             </li>
-			                <li class="nav-item dropdown header-profile" style="margin-left:0px;padding-left: 0rem!important;">
-                                <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                                    <img src="{{ asset('dashboard/images/user.jpg') }}" width="20" alt=""/>
-									<div class="header-info ms-3">
-                                        <span class="fs-18 font-w500">{{ ucfirst(Auth::user()->last_name) }}.</span>
-                                        <small class="fs-12 font-w400">Vous avez <b>{{ $points }}</b> points</small>
-									</div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="{{ asset('customer/profil') }}" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <span class="ms-2">Profile </span>
-                                    </a>
-                                    <a href="{{route('logout')}}" class="dropdown-item ai-icon" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                        <span class="ms-2">Déconnexion </span>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </a>
-                                </div>
-                            </li>
+			               
                         </ul>
                     </div>
 				</nav>
@@ -624,13 +612,20 @@
         ***********************************-->
         <div class="dlabnav">
             <div class="dlabnav-scroll">
+				<div class="header-info mb-4 text-center">
+					<span class="fs-18 font-w500">{{ ucfirst(Auth::user()->last_name) }}.</span> <br>
+					
+					<small class="fs-12 font-w400">Vous avez <b class="point-style"> @if ($points) {{$points}} @else 0 @endif </b> points</small>
+				</div>
+
 				<ul class="metismenu" id="menu">
+						
                     <li><a href="{{asset('customer')}}" aria-expanded="false">
                         <i class="fas fa-home"></i>
                         <span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
-				 <li><a href="{{ asset('customer/orders') }}" class="" aria-expanded="false">
+                   		 </a>
+                	</li>
+				 	<li><a href="{{ asset('customer/orders') }}" class="" aria-expanded="false">
 							<i class="fas fa-table"></i>
 							<span class="nav-text">Commandes</span>
 						</a>
@@ -651,8 +646,13 @@
                 </ul>
                 <div class="plus-box">
 					<div class="text-center">
-						<h4 class="fs-18 font-w600 mb-4">Page d'Accueil</h4>
-						<a href="{{ asset('/') }}" class="btn btn-primary btn-rounded">Accéder <i class="fas fa-caret-right"></i></a>
+						<a href="{{route('logout')}}" class="btn btn-primary btn-rounded mt-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<span class="ms-2">Déconnexion </span>
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								@csrf
+							</form>
+						</a>
+						
 					</div>
 				</div>
             </div>
@@ -668,7 +668,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://dexignlab.com/" target="_blank">DexignLab</a> 2021</p>
+                <p>Copyright © Developed by <a href="https://www.licbplus.com/" target="_blank">LICB+</a> 2023</p>
             </div>
         </div>
         <!--**********************************
