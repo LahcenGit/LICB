@@ -29,9 +29,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         if(Auth::user()){
             $cart = Cart::where('user_id',Auth::user()->id)->first();
+            $cart_session = session('cart_id');
+            if ($cart_session) {
+                $cartitems = Cartitem::where('cart_id',$cart_session)->get();
+                foreach ($cartitems as $cartitem) {
+                    $cartitem->cart_id = $cart->id;
+                    $cartitem->save();
+                }
+            }
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
