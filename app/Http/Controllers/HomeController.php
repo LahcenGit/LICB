@@ -39,6 +39,7 @@ class HomeController extends Controller
                     $cartitem->save();
                 }
             }
+            session()->forget('cart');
             $cartitems = $cart->cartitems;
             $nbr_cartitem = $cart->cartitems->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();

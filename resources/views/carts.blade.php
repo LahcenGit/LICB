@@ -184,13 +184,37 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="inscription" role="tabpanel" aria-labelledby="inscription-tab">
-                        <!-- Contenu du panneau d'inscription -->
-                        <!-- Ajoutez votre formulaire d'inscription ici -->
+                            <div class="mb-3 p-2 ">
+                                <b style="font-weight: 500">Créer un compte pour accéder à toutes les fonctionnalités</b>
+                            </div>
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+                                   <div class="form-group">
+                                       <input type="text"  name="first_name" placeholder="Nom*" required/>
+                                   </div>
+                                   <div class="form-group">
+                                    <input type="text"  name="last_name" placeholder="Prénom*" required/>
+                                   </div>
+                                   <div class="form-group">
+                                    <input type="text"  name="email" placeholder="Email ou username*" required/>
+                                   </div>
+                                   <div class="form-group">
+                                    <input type="text"  name="phone" placeholder="Numéro de téléphone*" required/>
+                                   </div>
+                                   <div class="form-group">
+                                       <input  type="password" name="password" placeholder="Mot de passe*" required />
+                                   </div>
+                                   <div class="form-group">
+                                    <input type="password" name="password_confirmation" placeholder="Confirm password" required />
+                                   </div>
+                                   <div class="d-flex justify-content-center">
+                                        <input  type="hidden" name="routeToCheckout" value="1" />
+                                        <button type="submit" class="btn btn-primary ">S'inscrir</button>
+                                   </div>
+                            </form>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
