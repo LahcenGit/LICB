@@ -17,7 +17,7 @@
                                     <button class="btn" type="submit">Enjoy !</button>
                             </div>
                         </div>
-                      
+
                     </div>
                     <div class="slider-arrow hero-slider-1-arrow"></div>
                 </div>
@@ -532,9 +532,11 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
+                                                @if($product->mark)
                                                 <div class="product-category">
                                                     <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
                                                 </div>
+                                                @endif
                                                 <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
@@ -588,9 +590,11 @@
                                                 </div>
                                             </div>
                                             <div class="product-content-wrap">
+                                                @if($product->mark)
                                                 <div class="product-category">
                                                     <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
                                                 </div>
+                                                @endif
                                                 <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
@@ -676,7 +680,7 @@
                             </div>
                         </div>
                     @endforeach
-                    
+
                 </div>
             </div>
         </section>
@@ -709,7 +713,7 @@
                                     </div>
                                 </article>
                                 @endforeach
-                           
+
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-6 mb-md-0 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
