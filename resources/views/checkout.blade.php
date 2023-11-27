@@ -253,7 +253,7 @@ $('.shipping-redio').on('click', function() {
 
         success: function (res) {
 
-                if(check == "bureau"){
+            if(check == "bureau"){
                     total = parseFloat(total) + parseFloat(res.price_b);
                     $('.total-price').html(total + ' Da');
                 }
