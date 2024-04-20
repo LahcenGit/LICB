@@ -116,3 +116,9 @@ Route::post('/tracking', [App\Http\Controllers\TrackingController::class, 'track
 
 //authcheck
 Route::get('/check-auth', [App\Http\Controllers\HomeController::class, 'checkAuth']);
+
+
+//pc builder
+
+Route::get('/pc-builder', [App\Http\Controllers\PcBuilderController::class, 'index']);
+Route::get('/show-component', [App\Http\Controllers\PcBuilderController::class, 'showComponent']);

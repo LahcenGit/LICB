@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="{{asset('front/assets/css/plugins/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('front/assets/css/main.css?v=5.5')}}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.bootstrap5.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.dataTables.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css"/>
+
+
+    
 </head>
 <style>
     .primary-color{
@@ -36,6 +44,17 @@
         color: #BC221A;
         background-color: #ffffff;
         border-color: #BC221A;
+    }
+
+    .account-drap{
+        height: 50px!important;
+    }
+
+    .btn-signin{
+        font-size: 14px!important;
+    }
+    .banner-icon img{
+        max-width: 60px ! important;
     }
 </style>
 <body>
@@ -137,22 +156,12 @@
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
-        <div class="header-top header-top-ptb-1 d-none d-lg-block">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block " style="background-color: #bc221a">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-4">
-                        <div class="header-info">
-                            <ul>
-                                <li><a href="#">Livraison</a></li>
-                                <li><a href="#">Mon compte</a></li>
-                                <li><a href="#">Favoris</a></li>
-                                <li><a href="#">Suivi de commande</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="row align-items-center d-flex justify-content-center">
                     <div class="col-xl-6 col-lg-4">
                         <div class="text-center">
-                            <div id="news-flash" class="d-inline-block">
+                            <div id="news-flash" class="d-inline-block" style="color: #ffffff">
                                 <ul>
                                     <li>100% Secure delivery without contacting the courier</li>
                                     <li>Supper Value Deals - Save more with coupons</li>
@@ -161,13 +170,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4">
-                        <div class="header-info header-info-right">
-                            <ul>
-                                <li>Besoin d'aide ? : <strong class="text-brand"> 043 267 669</strong></li>
-                            </ul>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -175,35 +178,24 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href="{{asset('/')}}"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
+                        <a href="{{asset('/')}}"><img src="{{asset('front/logo-white.png')}}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
-                                <select class="select-active">
-                                    @foreach($categories as $category)
-                                    <option>{{ $category->designation }}</option>
-                                    @endforeach
-                                </select>
-                                <input type="text" placeholder="Je cherche sur..." />
+                                
+                                <input type="text" placeholder="Search a product, brand, category..." />
                             </form>
                         </div>
                         <div class="header-action-right">
                             <div class="header-action-2">
-                             <div class="header-action-icon-2">
-                                    <a href="#">
-                                        <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-heart.svg')}}" />
-                                        <span class="pro-count blue">6</span>
-                                    </a>
-                                    <a href="#"><span class="lable">Favoris</span></a>
-                                </div>
 
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="{{ asset('/carts') }}">
-                                        <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.svg')}}" />
+                                        <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.png')}}" />
                                         <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
                                     </a>
-                                    <a href="{{ asset('/carts') }}"><span class="lable">Panier</span></a>
+                                    <a href="{{ asset('/carts') }}"><span class="lable">Cart</span></a>
                                     @if($nbr_cartitem > 0)
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <ul class="cart-list">
@@ -234,7 +226,7 @@
                                     @else
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 cart-empty ">
                                             <div class="d-flex justify-content-center">
-                                               <p style="font-size: 20px;">Votre panier est vide </p>
+                                               <p style="font-size: 20px;"> your cart is empty </p>
                                             </div>
                                         </div>
                                     @endif
@@ -244,7 +236,7 @@
                                     @if(Auth::user())
                                         @if(Auth::user()->type == 'customer')
                                         <a href="{{ asset('/customer') }}">
-                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
+                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.png')}}" />
                                         </a>
                                         <a href="{{ asset('/customer') }}"><span class="lable ml-0">{{ucfirst(Auth::user()->last_name)}}</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -275,7 +267,7 @@
                                         </div>
                                         @elseif(Auth::user()->type == 'admin')
                                         <a href="{{ asset('/customer') }}">
-                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
+                                            <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.png')}}" />
                                         </a>
                                         <a href="{{ asset('/customer') }}"><span class="lable ml-0">{{ucfirst(Auth::user()->last_name)}}</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -291,9 +283,36 @@
                                         @endif
                                     @else
                                     <a href="{{ asset('/login') }}">
-                                        <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.svg')}}" />
+                                        <img class="svgInject" alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-user.png')}}" />
                                     </a>
-                                    <a href="{{ asset('/login') }}"><span class="lable ml-0">Connexion</span></a>
+                                    <a href="{{ asset('/login') }}"><span class="lable ml-0">Account</span></a>
+
+                                    <div class="cart-dropdown-wrap ">
+                                        <div class="text-center mb-4">
+                                            <p>Already have an account?</p>
+                                        </div>
+                                        
+                                        <form>
+                                            <div class="form-group">
+                                              <input type="email" class="form-control account-drap" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                            </div>
+                                            <div class="form-group">
+                                              <input type="password" class="form-control account-drap" id="exampleInputPassword1" placeholder="Password">
+                                            </div>
+                                            <div class="text-center">
+                                                <a href="#"> <small> Forgot your password? </small></a>
+                                            </div>
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <button type="submit" class="btn btn-primary btn-signin">Sign in</button>
+                                            </div>
+                                           
+                                        </form>
+
+                                        <div class="text-center mt-2">
+                                            <p>new customer ? <a href="#"> create an account </a></p>
+                                        </div>
+                                    </div>
+
                                     @endif
                                 </div>
                             </div>
@@ -309,62 +328,45 @@
                         <a href="#"><img src="{{ asset('front/logo.png') }}" alt="logo" /></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
-                        <div class="main-categori-wrap d-none d-lg-block">
-                            <a class="categories-button-active" href="#">
-                                <span class="fi-rs-apps"></span> <span class="et">Catégories</span>
-                                <i class="fi-rs-angle-down"></i>
-                            </a>
-                            <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
-                                <div class="d-flex categori-dropdown-inner">
-                                    <ul>
-                                        @foreach($first_part_categories as $first_part_category)
-                                        <li>
-                                            <a href="#">{{ $first_part_category->designation }}</a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                    <ul class="end">
-                                        @foreach($last_part_categories as $last_part_category)
-                                        <li>
-                                            <a href="#"> {{ $last_part_category->designation }}</a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
 
-                                <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">Voir plus...</span></div>
-                            </div>
-                        </div>
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                             <nav>
                                 <ul>
-                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.png')}}" alt="hot deals" /><a href="#">Promo</a></li>
                                     <li>
-                                        <a  href="{{ asset('/') }}">Accueil </a>
+                                        <a href="#" class="btn btn-primary" style="color: #ffffff"><span class="fi-rs-apps "></span>&nbsp; Categories <i class="fi-rs-angle-down"></i></a>
+                                        <ul class="sub-menu">
 
+                                            @foreach($categories as $category)
+                                                @if($category->childrenCategories)
+                                                    <li>
+                                                        <a href="#">{{$category->designation}}<i class="fi-rs-angle-right"></i></a>
+                                                        <ul class="level-menu">
+                                                            @foreach ($category->childrenCategories as $child)
+                                                             <li><a href="#">{{ $child->designation }}</a></li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </li>
+                                                @else
+                                                    <li><a href="#">{{ $category->designation }}</a></li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
                                     </li>
-                                    <li>
-                                        <a href="#">Qui sommes-nous?</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Atelier LICB+</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ asset('/tracking') }}">Tracking</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tutoriel Licb+</a>
-                                    </li>
-                                    <li>
-                                    <a href="#">Contact</a>
-                                    </li>
+
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.png')}}" alt="hot deals" /><a href="#">Promo</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-builder.png')}}" alt="hot deals" /><a href="#">PC Builder</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tracking.png')}}" alt="hot deals" /><a href="#">Tracking</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tutoriel.png')}}" alt="hot deals" /><a href="#">Tutoriel</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-about.png')}}" alt="hot deals" /><a href="#">About Us</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-help.png')}}" alt="hot deals" /><a href="#">Help Center</a></li>
+                                   
                                 </ul>
                             </nav>
                         </div>
                     </div>
                     <div class="hotline d-none d-lg-flex">
-                        <img src="{{asset('front/assets/imgs/theme/icons/icon-headphone.svg')}}" alt="hotline" />
-                        <p>043 267 669<span>Appelez-Nous</span></p>
+                        <img src="{{asset('front/assets/imgs/theme/icons/icon-headphone.png')}}" alt="hotline" />
+                        <p>0797 428 910<span style="color: #797979">Need help? Call Us </span></p>
                     </div>
                     <div class="header-action-icon-2 d-block d-lg-none">
                         <div class="burger-icon burger-icon-white">
@@ -505,144 +507,122 @@
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 mb-md-4 mb-xl-0">
                         <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay="0">
                             <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-1.svg')}}" alt="" />
+                                <img src="{{asset('front/assets/imgs/theme/icons/icon-1.png')}}" alt="" />
                             </div>
                             <div class="banner-text">
-                                <h3 class="icon-box-title">Best prices & offers</h3>
-                                <p>Orders $50 or more</p>
+                                <h3 class="icon-box-title">Competitive Prices</h3>
+                                <p>Save big on all your tech needs.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                             <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-2.svg')}}" alt="" />
+                                <img src="{{asset('front/assets/imgs/theme/icons/icon-2.png')}}" alt="" />
                             </div>
                             <div class="banner-text">
-                                <h3 class="icon-box-title">Free delivery</h3>
-                                <p>24/7 amazing services</p>
+                                <h3 class="icon-box-title">Fast <br> Delivery</h3>
+                                <p>Anywhere in Algeria</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                             <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-3.svg')}}" alt="" />
+                                <img src="{{asset('front/assets/imgs/theme/icons/icon-3.png')}}" alt="" />
                             </div>
                             <div class="banner-text">
-                                <h3 class="icon-box-title">Great daily deal</h3>
-                                <p>When you sign up</p>
+                                <h3 class="icon-box-title">Loyalty Rewards</h3>
+                                <p>Earn points with every purchase </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
                             <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-4.svg')}}" alt="" />
+                                <img src="{{asset('front/assets/imgs/theme/icons/icon-4.png')}}" alt="" />
                             </div>
                             <div class="banner-text">
-                                <h3 class="icon-box-title">Wide assortment</h3>
-                                <p>Mega Discounts</p>
+                                <h3 class="icon-box-title">Customer Service</h3>
+                                <p>From start to finish.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                         <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                             <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-5.svg')}}" alt="" />
+                                <img src="{{asset('front/assets/imgs/theme/icons/icon-5.png')}}" alt="" />
                             </div>
                             <div class="banner-text">
-                                <h3 class="icon-box-title">Easy returns</h3>
-                                <p>Within 30 days</p>
+                                <h3 class="icon-box-title">Easy <br> returns</h3>
+                                <p>Exchanges or refunds</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-xl-none">
-                        <div class="banner-left-icon d-flex align-items-center wow animate__animated animate__fadeInUp" data-wow-delay=".5s">
-                            <div class="banner-icon">
-                                <img src="{{asset('front/assets/imgs/theme/icons/icon-6.svg')}}" alt="" />
-                            </div>
-                            <div class="banner-text">
-                                <h3 class="icon-box-title">Safe delivery</h3>
-                                <p>Within 30 days</p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>
-    <section class="section-padding footer-mid">
+       <section class="section-padding footer-mid">
             <div class="container pt-15 pb-20">
-                <div class="row">
-                    <div class="col">
+                <div class="row ">
+                    <div class="col d-flex justify-content-center">
                         <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                            <div class="logo mb-30">
-                                <a href="index.html" class="mb-15"><img src="{{asset('front/logo.png')}}" alt="logo" /></a>
+                            <div class="logo ">
+                                <a href="#" ><img src="{{asset('front/logo.png')}}" alt="logo" /></a> <br>
 
                             </div>
-                            <ul class="contact-infor">
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-location.svg')}}" alt="" /><span>B1 N°1 Salef el Adraa En face Djezzy (Kiffane)
-                                    Tlemcen, Algérie</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-contact.svg')}}" alt="" /><span>043 267 669</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-email-2.svg')}}" alt="" />service.marketing@licbplus.com</span></li>
-                                <li><img src="{{asset('front/assets/imgs/theme/icons/icon-clock.svg')}}" alt="" /><span>Du samedi au mercredi: de 9h30 à 18h
-                                    Jeudi : de 9h30 à 13h30</span></li>
-                            </ul>
+                           {{-- <ul class="contact-infor">
+                                <li><span>B1 N°1 Salef el Adraa En face Djezzy (Kiffane)Tlemcen, Algérie</span></li>
+                                <li><span>0797 428 910</span></li>
+                                <li>contactg@licbplus.com</span></li>
+                             
+                            </ul>--}}
                         </div>
-                    </div>
 
-                    <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                        <h4 class="widget-title">Services</h4>
-                        <ul class="footer-list mb-sm-5 mb-md-0">
-                            <li><a href="#">Accueil</a></li>
-                            <li><a href="#">Qui somme-nous</a></li>
-                            <li><a href="#">Atelier licb+</a></li>
-                            <li><a href="#">Tracking</a></li>
-                            <li><a href="#">Tutoriel licb+</a></li>
+                        
 
-                        </ul>
+
                     </div>
-                    <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".3s">
-                        <h4 class="widget-title">Catégories</h4>
-                        <ul class="footer-list mb-sm-5 mb-md-0">
-                            <li><a href="#">Pc</a></li>
-                            <li><a href="#">Composants Pc</a></li>
-                            <li><a href="#">Périphérique PC</a></li>
-                            <li><a href="#">Imprimante, Scanner et Fax</a></li>
-                            <li><a href="#">Consommable</a></li>
-                            <li><a href="#">Logiciels</a></li>
-                            <li><a href="#">Téléphonie</a></li>
-                        </ul>
-                    </div>
+                   
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                     <div class="col-md-8 text-center">  
+                        <p>"LICB, a leading provider in information technology, communication, and office equipment, offers a comprehensive range of computer hardware solutions. With a focus on quality and innovation, we strive to meet the diverse needs of our customers in the ever-evolving technological landscape."</p>
+                     </div>
                 </div>
         </section>
+
         <div class="container pb-30 wow animate__animated animate__fadeInUp" data-wow-delay="0">
             <div class="row align-items-center">
                 <div class="col-12 mb-30">
                     <div class="footer-bottom"></div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">LICB+</strong> </p>
+                    <p class="font-sm mb-0">&copy; 2024, <strong class="text-brand">LICB+</strong> Dev team </p>
                 </div>
                 <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                     <div class="hotline d-lg-inline-flex mr-30" style="min-width: 250px;">
                         <img src="{{asset('front/assets/imgs/theme/icons/phone-call.svg')}}" alt="hotline" />
-                        <p>043 267 669<span>Du samedi au jeudi <br>de 9h30 à 18h </span></p>
+                        <p>0797 428 910<span>Need help? Call Us now ! </span></p>
                     </div>
 
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6 text-end d-none d-md-block">
                     <div class="mobile-social-icon">
-                        <h6>Suivez-nous !</h6>
+                        <h6>Follow us !</h6>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-facebook-white.svg')}}" alt="" /></a>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-instagram-white.svg')}}" alt="" /></a>
                         <a href="#"><img src="{{asset('front/assets/imgs/theme/icons/icon-youtube-white.svg')}}" alt="" /></a>
                     </div>
-                    <p class="font-sm">Jusqu'à 15% de réduction sur votre premier abonnement</p>
+                    <p class="font-sm">Stay connected with our latest updates and exciting content</p>
                 </div>
             </div>
         </div>
     </footer>
+
+    
     <!-- Preloader Start -->
     <!--  <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -673,6 +653,7 @@
     <script src="{{asset('front/assets/js/plugins/jquery.vticker-min.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/jquery.theia.sticky.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/jquery.elevatezoom.js')}}"></script>
+
     <!-- Template  JS -->
     <script src="{{asset('front/assets/js/main.js?v=5.5')}}"></script>
     <script src="{{asset('front/assets/js/shop.js?v=5.5')}}"></script>
@@ -680,6 +661,19 @@
     <script src="{{asset('front/assets/js/jquery.number.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.js"></script>
+    <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
+
+
+
+
+
+  
+    
     @stack('get-price-script')
     @stack('add-cart-scripts')
     @stack('delete-item')
@@ -687,6 +681,7 @@
     @stack('get-price-product-added-script')
     @stack('shipping-script')
     @stack('checkout-registration')
+    @stack('pc-builder-scripts')
 </body>
 
 </html>

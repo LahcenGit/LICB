@@ -25,8 +25,8 @@ TABLE CONTENT
  WP STYPE
  Custom amine
 ***/
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Quicksand:wght@400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,600&display=swap');
+
+@import url(https://fonts.bunny.net/css?family=lato:400,700,900|quicksand:400,500,600,700);
 /*import vendors*/
 @import url(vendors/normalize.css);
 @import url(vendors/bootstrap.min.css);
@@ -730,7 +730,7 @@ h6,
 .display-1,
 .display-2,
 .heading-sm-1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   color: #000000;
   font-weight: 700;
   line-height: 1.2;
@@ -986,7 +986,7 @@ h5.widget-title {
   background-color: #BC221A;
   border-radius: 50px;
   padding: 13px 28px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .btn-default i {
@@ -1029,7 +1029,7 @@ h5.widget-title {
 }
 
 .btn {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .btn:hover {
@@ -1170,7 +1170,7 @@ button.submit:hover, button[type='submit']:hover {
   border: 0;
   padding: 14px 80px 14px 65px;
   background-repeat: no-repeat;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .btn.btn-brush i, .button.btn-brush i {
@@ -1305,7 +1305,7 @@ textarea:focus {
   line-height: 50px;
   font-size: 14px;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   color: #000000;
 }
 
@@ -1426,7 +1426,7 @@ textarea:focus {
   border: none;
   background-color: #000000;
   border-radius: 10px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .contact-from-area .contact-form-style button:hover {
@@ -2228,7 +2228,6 @@ input.qty-val {
 }
 
 .home-slider.style-2 {
-  background: url(../imgs/banner/banner-12.png) no-repeat center bottom;
   background-size: cover;
   width: 100%;
   padding: 50px 0;
@@ -2540,7 +2539,7 @@ input.qty-val {
 }
 
 .account .card .table > thead {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 17px;
 }
 
@@ -2554,7 +2553,7 @@ input.qty-val {
 .card-login .social-login {
   font-size: 20px;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2622,7 +2621,7 @@ input.qty-val {
   border-right-color: currentcolor;
   border-bottom-color: currentcolor;
   border-left-color: currentcolor;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 600;
   line-height: 1;
 }
@@ -2687,7 +2686,7 @@ input.qty-val {
   font-size: 16px;
   color: #7E7E7E;
   padding: 15px 30px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-weight: 700;
 }
 
@@ -2724,7 +2723,7 @@ input.qty-val {
 }
 
 .tab-header .view-more {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 13px;
   font-weight: 700;
   display: -webkit-box;
@@ -2775,7 +2774,7 @@ input.qty-val {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .deals-countdown .countdown-section .countdown-period {
@@ -2922,7 +2921,7 @@ input.qty-val {
   padding: 20px;
   background-color: #fff;
   border-bottom: 1px solid #ececec;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .breadcrumb {
@@ -4456,7 +4455,7 @@ table .product-thumbnail img {
 }
 
 .product-price {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .product-list-small article:not(:last-child) {
@@ -5176,7 +5175,7 @@ table .product-thumbnail img {
   padding: 8px 12px;
   border-radius: 5px;
   margin-bottom: 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
@@ -5290,7 +5289,7 @@ table .product-thumbnail img {
   line-height: 50px;
   font-weight: 700;
   font-size: 16px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .product-extra-link2 .button.button-add-to-cart i {
@@ -5314,7 +5313,7 @@ table .product-thumbnail img {
   padding: 13px 24px !important;
   text-align: center;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   text-transform: none;
   font-size: 17px;
   border-radius: 30px;
@@ -5486,7 +5485,7 @@ table .product-thumbnail img {
   border: 1px solid #ececec;
   font-size: 17px;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
   padding: 10px 20px;
@@ -5570,7 +5569,7 @@ table .product-thumbnail img {
 .shopping-summery table thead th {
   background-color: #ececec;
   padding: 18px 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 17px;
   font-weight: 700;
   color: #000000;
@@ -5777,7 +5776,7 @@ table.no-border td, table.no-border th, table.no-border thead {
           box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
   padding: 10px 20px;
   border: 1px solid #ececec;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 17px;
   font-weight: 700;
 }
@@ -6405,7 +6404,7 @@ h6.post-title {
   position: relative;
   overflow: hidden;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .invoice-content .btn-check:focus + .btn,
@@ -6474,7 +6473,7 @@ h6.post-title {
 }
 
 .invoice-content table thead {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   color: #000000;
   font-weight: 700;
 }
@@ -6959,7 +6958,6 @@ h6.post-title {
 /*Header default*/
 .header-top-ptb-1 {
   padding: 7px 0;
-  border-bottom: 1px solid #ececec;
   font-size: 13px;
   line-height: 1;
 }
@@ -7225,7 +7223,7 @@ h6.post-title {
 
 .header-action-2 .header-action-icon-2 > a span {
   font-size: 14px;
-  color: #7E7E7E;
+  color: #d6d6d6;
 }
 
 .header-action-2 .header-action-icon-2 > a span.pro-count {
@@ -7577,7 +7575,7 @@ h6.post-title {
   line-height: 1;
   padding: 10px 20px;
   background-color: #BC221A;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   border: 2px solid #BC221A;
 }
 
@@ -8255,7 +8253,7 @@ h6.post-title {
   color: #BC221A;
   font-size: 26px;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   display: block;
   line-height: 1;
 }
@@ -8289,7 +8287,8 @@ h6.post-title {
 }
 
 .header-style-1 .header-middle-ptb-1 {
-  padding: 30px 0;
+  padding: 15px 0;
+  background-color: black;
 }
 
 .header-style-1 .select2-container {
@@ -8413,9 +8412,7 @@ h6.post-title {
 }
 
 .header-style-1 .header-bottom-bg-color {
-  background-color: #fff;
-  border-top: 1px solid #ececec;
-  border-bottom: 1px solid #ececec;
+  background-color: #e4e4e4;
 }
 
 .header-style-1 .main-categori-wrap > a {
@@ -8433,7 +8430,7 @@ h6.post-title {
   line-height: 44px;
   border-radius: 5px;
   padding: 0 20px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 16px;
 }
 
@@ -8521,8 +8518,8 @@ span.fi-rs-apps {
   display: inline-block;
   font-size: 16px;
   font-weight: 700;
-  color: #000000;
-  font-family: 'Montserrat', sans-serif;
+  color: #000;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .main-menu > nav > ul > li > a i {
@@ -9101,7 +9098,7 @@ span.fi-rs-apps {
   color: #BC221A;
   position: relative;
   font-size: 13px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -9237,7 +9234,7 @@ span.fi-rs-apps {
   line-height: 40px;
   text-align: center;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 16px;
   background-color: #F2F3F4;
 }
@@ -11811,7 +11808,7 @@ footer .hotline img {
 
 @media only screen and (min-width: 1200px) {
   .container {
-    max-width: 1610px;
+    max-width: 1350px;
   }
   .col-lg-1-5 {
     width: 20%;

@@ -1,48 +1,114 @@
 @extends('layouts.front')
 @section('content')
 
-<main class="main">
-        <section class="home-slider position-relative mb-30">
-            <div class="container">
-                <div class="home-slide-cover mt-30">
-                    <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                        <div class="single-hero-slider single-animation-wrap" style="background-image: url(front/assets/imgs/slider/slider-0.jpg)">
-                            <div class="slider-content">
-                                <h1 class="text-white" style="font-size: 50px; line-height:40px">
-                                     GAMING ACCESSORIES
-                                </h1>
-                                <h1 class=" mb-40 mt-3 text-white" style="font-size: 30px;">
-                                    Promo with free shipping
-                                </h1>
-                                    <button class="btn" type="submit">Enjoy !</button>
-                            </div>
-                        </div>
 
+<main class="main">
+    <section class="home-slider position-relative mb-30">
+        <div class="container">
+            <div class="home-slide-cover mt-30">
+                <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                    <div class="single-hero-slider single-animation-wrap" style="background-image: url(front/assets/imgs/slider/slider-1.jpg)" >
+                        {{--<div class="slider-content">
+                                <button class="btn" type="submit">Buy it</button>
+                        </div>--}}
                     </div>
-                    <div class="slider-arrow hero-slider-1-arrow"></div>
+
+
+                    <div class="single-hero-slider single-animation-wrap" style="background-image: url(front/assets/imgs/slider/slider-2.jpg)" >
+                        {{--<div class="slider-content">
+                                <button class="btn" type="submit">Buy it</button>
+                        </div>--}}
+                    </div>
+
+
+                   {{-- <div class="single-hero-slider single-animation-wrap" style="background-image: url(assets/imgs/slider/slider-1.png)">
+                        <div class="slider-content">
+                            <h1 class="display-2 mb-40">
+                                Fresh Vegetables<br />
+                                Big discount
+                            </h1>
+                            <p class="mb-65">Save up to 50% off on your first order</p>
+                            <form class="form-subcriber d-flex">
+                                <input type="email" placeholder="Your emaill address" />
+                                <button class="btn" type="submit">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>--}}
                 </div>
+                <div class="slider-arrow hero-slider-1-arrow"></div>
             </div>
-        </section>
-        <!--End hero slider-->
+
+        </div>
+    </section>
+
+
         <section class="popular-categories section-padding">
             <div class="container wow animate__animated animate__fadeIn">
                 <div class="section-title">
                     <div class="title">
-                        <h3>Categories</h3>
+                        <h3>Featured Categories</h3>
                     </div>
                     <div class="slider-arrow slider-arrow-2 flex-right carausel-10-columns-arrow" id="carausel-10-columns-arrows"></div>
                 </div>
                 <div class="carausel-10-columns-cover position-relative">
                     <div class="carausel-10-columns" id="carausel-10-columns">
-                        @foreach($categories as $category)
-                            <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
-                                <figure class="img-hover-scale overflow-hidden">
-                                    <a href="shop-grid-right.html"><img src="{{ asset('front/assets/imgs/shop/cat-13.png') }}" alt="" /></a>
-                                </figure>
-                                <h6><a href="shop-grid-right.html">{{ $category->designation }}</a></h6>
-                                <span>10 produits</span>
-                            </div>
-                        @endforeach
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-01.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">PC Components </a></h6>
+                            <span>125 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-02.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">PC peripherals</a></h6>
+                            <span>80 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-03.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">Laptop Computers </a></h6>
+                            <span>30 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-04.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">Desktop computers</a></h6>
+                            <span>35 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-05.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">Networking</a></h6>
+                            <span>63 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-06.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">Printer scan copy</a></h6>
+                            <span>18 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-07.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">Office & Furniture</a></h6>
+                            <span>21 products</span>
+                        </div>
+                        <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
+                            <figure class="img-hover-scale overflow-hidden">
+                                <a href="#"><img src="{{ asset('front/assets/imgs/shop/icon-10.png') }}" alt="" /></a>
+                            </figure>
+                            <h6><a href="#">POS equipment</a></h6>
+                            <span>6 products</span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -51,25 +117,14 @@
         <section class="banners mb-25">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                            <img src="{{ asset('front/assets/imgs/banner/banner-1.png') }}" alt="" />
-                            <div class="banner-text">
-                                <h4 class="text-white">
-                                    LICB+ <br />
-                                    Gaming PC
-                                </h4>
-                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                             <img src="{{ asset('front/assets/imgs/banner/banner-2.png') }}" alt="" />
                             <div class="banner-text">
                                 <h4 class="text-white">
-                                    LICB+ <br />
-                                    Gaming PC
+                                    PC <br />
+                                    Components
                                 </h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
@@ -80,8 +135,20 @@
                             <img src="{{ asset('front/assets/imgs/banner/banner-3.png') }}" alt="" />
                             <div class="banner-text">
                                 <h4 class="text-white">
-                                    LICB+ <br />
-                                    Gaming PC
+                                    PC <br />
+                                    peripherals
+                                </h4>
+                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
+                            <img src="{{ asset('front/assets/imgs/banner/banner-1.png') }}" alt="" />
+                            <div class="banner-text">
+                                <h4 class="text-white">
+                                    Office &  <br />
+                                    Furniture
                                 </h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
@@ -94,28 +161,18 @@
         <section class="product-tabs section-padding position-relative">
             <div class="container">
                 <div class="section-title style-2 wow animate__animated animate__fadeIn">
-                    <h3>Nouveautés</h3>
+                    <h3>What's new !</h3>
                     <ul class="nav nav-tabs links" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Périphérique PC</button>
+                            <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">PC Components </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">Composants PC</button>
+                            <button class="nav-link" id="nav-tab-two" data-bs-toggle="tab" data-bs-target="#tab-two" type="button" role="tab" aria-controls="tab-two" aria-selected="false">PC peripherals</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">PC</button>
+                            <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">Desktop computers</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-four" data-bs-toggle="tab" data-bs-target="#tab-four" type="button" role="tab" aria-controls="tab-four" aria-selected="false">Connectique</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-five" data-bs-toggle="tab" data-bs-target="#tab-five" type="button" role="tab" aria-controls="tab-five" aria-selected="false">Projection</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-six" data-bs-toggle="tab" data-bs-target="#tab-six" type="button" role="tab" aria-controls="tab-six" aria-selected="false">Téléphonie</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-seven" data-bs-toggle="tab" data-bs-target="#tab-seven" type="button" role="tab" aria-controls="tab-seven" aria-selected="false">Logiciels</button>
+           
                         </li>
                     </ul>
                 </div>
@@ -486,13 +543,13 @@
         <section class="section-padding pb-5">
             <div class="container">
                 <div class="section-title wow animate__animated animate__fadeIn">
-                    <h3 class="">Produits</h3>
+                    <h3 class="">Powered by LICB+</h3>
                     <ul class="nav nav-tabs links" id="myTab-2" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Populaire</button>
+                            <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Popular</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">nouveau ajouté</button>
+                            <button class="nav-link" id="nav-tab-two-1" data-bs-toggle="tab" data-bs-target="#tab-two-1" type="button" role="tab" aria-controls="tab-two" aria-selected="false">New</button>
                         </li>
                     </ul>
                 </div>
@@ -500,7 +557,8 @@
                     <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
                         <div class="banner-img style-2">
                             <div class="banner-text">
-                                <h2 class="mb-100 text-white">Discover new Redragon products</h2>
+                                <h2 class="mb-100 text-white">PC <br>
+                                    Gaming </h2>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
