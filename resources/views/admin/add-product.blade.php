@@ -1,7 +1,7 @@
 @extends('layouts.dashboard-admin')
 
 <style>
-    
+
 
 .custom-file-upi {
   display: inline-block;
@@ -29,7 +29,7 @@
   height: 100%;
 }
 
-        
+
 .delete {
   background-color: transparent;
   border: none;
@@ -67,7 +67,9 @@
 
 }
 
-
+.select2-selection--multiple {
+  min-height: 3.5rem !important;
+}
 
 </style>
 @section('content')
@@ -134,7 +136,7 @@
                                                     <label class="form-label">Poids:</label>
                                                     <input type="text" class="form-control" placeholder="1" name="weight" >
                                                 </div>
-                                               
+
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
@@ -235,7 +237,7 @@
                                 <div class="card-body">
                                     <div class="input-photoPrincipale-add">
                                     </div>
-                                 
+
                                 </div>
                             </div>
                         </div>
@@ -257,6 +259,57 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="input-photos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Compatibility</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                        <label class="form-label">p GEN:</label>
+                                            <select  class="default-select form-control wide" name="p_GEN">
+                                                <option value="">Nothing selected</option>
+                                                <option value=10>10</option>
+                                                <option value=11>11</option>
+                                                <option value=12>12</option>
+                                                <option value=13>13</option>
+                                                <option value= 14>14</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">m DDR:</label>
+                                            <select  class="default-select form-control wide" name="m_DDR">
+                                                <option value="">Nothing selected</option>
+                                                <option value="DDR4">DDR4</option>
+                                                <option value="DDR5">DDR5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                        <label class="form-label">m GEN:</label>
+                                        <select class="multi-select"  name="m_GEN[]" multiple="multiple" placeholder="Nothing selected">
+                                            <option>Nothing selected</option>
+                                            <option value=10>10</option>
+                                            <option value=11>11</option>
+                                            <option value=12>12</option>
+                                            <option value=13>13</option>
+                                            <option value= 14>14</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">r DDR:</label>
+                                            <select class="default-select form-control wide" name="r_DDR">
+                                                <option value="">Nothing selected</option>
+                                                <option value="DDR4">DDR4</option>
+                                                <option value="DDR5">DDR5</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -325,7 +378,7 @@
                                                                 <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                             </td>
                                                         </tr>
-                                                    
+
                                                 </tbody>
                                             </table>
                                          </div>
@@ -374,7 +427,7 @@
                                                 <div style="width: 50px; margin-right:10px;">
                                                     <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                 </div>
-                                        </div>--}}  
+                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -423,7 +476,7 @@
 <script>
     $( "#check" ).prop( "checked", false );
     $("#check").on('change',function(){
-    
+
      if(this.checked) {
          $("#variation").css("display", "block");
          $("#select-content").prop('required',true);
@@ -436,7 +489,7 @@
      });
 </script>
 
-  
+
 <script type="text/javascript">
 		var i = 0;
 		$("#add-attribute").click(function () {
@@ -583,7 +636,7 @@
                     required: true,
                     maxlength: 1
                  },
-                 
+
             },
             messages: {
                 designation: {

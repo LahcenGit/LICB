@@ -48,6 +48,19 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->point = $request->point;
         $product->mark_id = $request->mark;
+        if($request->p_GEN){
+            $product->p_GEN = $request->p_GEN;
+        }
+
+        if($request->m_GEN){
+            $product->m_GEN = json_encode($request['m_GEN']);
+        }
+        if($request->m_DDR){
+            $product->m_DDR = $request->m_DDR;
+        }
+        if($request->r_DDR){
+            $product->r_DDR = $request->r_DDR;
+        }
         $product->slug = str::slug($request->designation);
         if($request->brouillon == '1'){
             $product->is_brouillon = 1;
