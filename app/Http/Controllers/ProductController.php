@@ -48,10 +48,16 @@ class ProductController extends Controller
         $product->long_description = $request->long_description;
         $product->point = $request->point;
         $product->mark_id = $request->mark;
+        if($request->p_TYPE){
+            $product->p_TYPE = $request->p_TYPE;
+        }
+
         if($request->p_GEN){
             $product->p_GEN = $request->p_GEN;
         }
-
+        if($request->m_TYPE){
+            $product->m_TYPE = $request->m_TYPE;
+        }
         if($request->m_GEN){
             $product->m_GEN = json_encode($request['m_GEN']);
         }

@@ -454,5 +454,6 @@
 @stack('order-detail-scripts')
 @stack('point-scripts')
 @stack('coupon-script')
+@stack('compatibility-script')
 </body>
 </html>

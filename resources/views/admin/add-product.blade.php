@@ -271,39 +271,47 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                        <label class="form-label">p GEN:</label>
-                                            <select  class="default-select form-control wide" name="p_GEN">
+                                          <label for="p_TYPE" class="form-label">Processor TYPE:</label>
+                                          <select class="default-select form-control wide" name="p_TYPE" id="p_TYPE">
+                                            <option value="">Nothing selected</option>
+                                            <option value="intel">INTEL</option>
+                                            <option value="amd">AMD</option>
+                                          </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                          <label for="p_GEN" class="form-label">Processor GEN:</label>
+                                          <select class="default-select form-control wide" name="p_GEN" id="select-result">
+                                            <option value="">Nothing selected</option>
+                                          </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">Motherboard TYPE:</label>
+                                            <select  class="default-select form-control wide" name="m_TYPE" id="m_TYPE">
                                                 <option value="">Nothing selected</option>
-                                                <option value=10>10</option>
-                                                <option value=11>11</option>
-                                                <option value=12>12</option>
-                                                <option value=13>13</option>
-                                                <option value= 14>14</option>
+                                                <option value="intel">INTEL</option>
+                                                <option value="amd">AMD</option>
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">m DDR:</label>
-                                            <select  class="default-select form-control wide" name="m_DDR">
-                                                <option value="">Nothing selected</option>
-                                                <option value="DDR4">DDR4</option>
-                                                <option value="DDR5">DDR5</option>
+                                            <label for="m_GEN" class="form-label">Motherboard GEN:</label>
+                                            <select class="multi-select" name="m_GEN[]" id="m_GEN" multiple="multiple">
+                                              <option value="">Nothing selected</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
-                                        <label class="form-label">m GEN:</label>
-                                        <select class="multi-select"  name="m_GEN[]" multiple="multiple" placeholder="Nothing selected">
-                                            <option>Nothing selected</option>
-                                            <option value=10>10</option>
-                                            <option value=11>11</option>
-                                            <option value=12>12</option>
-                                            <option value=13>13</option>
-                                            <option value= 14>14</option>
+                                        <label class="form-label">Motherboard DDR:</label>
+                                        <select class="default-select form-control wide"  name="m_DDR" placeholder="Nothing selected">
+                                                <option value="">Nothing selected</option>
+                                                <option value="DDR4">DDR4</option>
+                                                <option value="DDR5">DDR5</option>
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-6">
-                                            <label class="form-label">r DDR:</label>
+                                            <label class="form-label">RAM DDR:</label>
                                             <select class="default-select form-control wide" name="r_DDR">
                                                 <option value="">Nothing selected</option>
                                                 <option value="DDR4">DDR4</option>
@@ -464,6 +472,69 @@
 </div>
 
 @endsection
+@push('compatibility-script')
+<script>
+$(document).ready(function() {
+  $('#p_TYPE').change(function() {
+    var selectedType = $(this).val();
+
+    $('#p_GEN').empty();
+
+    if (selectedType === "intel") {
+      var options = '<option value="">Nothing selected</option>' +
+                    '<option value="10">10</option>' +
+                    '<option value="11">11</option>' +
+                    '<option value="12">12</option>' +
+                    '<option value="13">13</option>' +
+                    '<option value="14">14</option>';
+    } else if (selectedType === "amd") {
+      var options = '<option value="">Nothing selected</option>' +
+                    '<option value="1">1</option>' +
+                    '<option value="2">2</option>' +
+                    '<option value="3">3</option>' +
+                    '<option value="4">4</option>';
+    }
+
+    if (options) {
+      $('#select-result').html(options);
+      $('#select-result').niceSelect('update');
+
+    }
+  });
+});
+</script>
+
+<script>
+    $(document).ready(function() {
+      $('#m_TYPE').change(function() {
+        var selectedType = $(this).val();
+
+        $('#m_GEN').empty();
+
+        if (selectedType === "intel") {
+          var options = '<option value="">Nothing selected</option>' +
+                        '<option value="10">10</option>' +
+                        '<option value="11">11</option>' +
+                        '<option value="12">12</option>' +
+                        '<option value="13">13</option>' +
+                        '<option value="14">14</option>';
+        } else if (selectedType === "amd") {
+          var options = '<option value="">Nothing selected</option>' +
+                        '<option value="1">1</option>' +
+                        '<option value="2">2</option>' +
+                        '<option value="3">3</option>' +
+                        '<option value="4">4</option>';
+        }
+
+        if (options) {
+          $('#m_GEN').html(options);
+          $('#m_GEN').niceSelect('update');
+
+        }
+      });
+    });
+    </script>
+@endpush
 @push('add-attribute-scripts')
 
 <script>
@@ -683,36 +754,6 @@
 </script>
 @endpush
 
-
-@push('search-product-scripts')
-
-    <script type="text/javascript">
-
-     $.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-        });
-        $('#search').select2(function(){
-            alert(1);
-            var value=$(this).val();
-            var data ="";
-            $.ajax({
-            type : 'get',
-            url : '/search/'+ value,
-
-            success:function(res){
-            $.each(res, function(i, res) {
-                data = data + '<option value="'+ res.id+ '" >'+ res.designation + '</option>';
-                });
-                $('#search').html(data);
-            }
-            });
-        })
-    </script>
-
-@endpush
-
 @push('show-variation-scripts')
 <script>
 
@@ -912,4 +953,5 @@
      });
   </script>
 @endpush
+
 
