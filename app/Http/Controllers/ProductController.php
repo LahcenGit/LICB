@@ -34,8 +34,8 @@ class ProductController extends Controller
                                 ->get();
         $productlines = Productline::all();
         $attributes = Attribute::all();
-        $marks = Mark::all();
-        return view('admin.add-product',compact('categories','productlines','attributes','marks'));
+        $brands = Mark::orderBy('designation','asc')->get();
+        return view('admin.add-product',compact('categories','productlines','attributes','brands'));
     }
 
 
@@ -47,7 +47,8 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
-        $product->mark_id = $request->mark;
+        $product->mark_id = $request->brand;
+        $product->date = $request->date;
         if($request->p_TYPE){
             $product->p_TYPE = $request->p_TYPE;
         }
@@ -68,12 +69,8 @@ class ProductController extends Controller
             $product->r_DDR = $request->r_DDR;
         }
         $product->slug = str::slug($request->designation);
-        if($request->brouillon == '1'){
-            $product->is_brouillon = 1;
-        }
-        else{
-            $product->is_brouillon = 0;
-        }
+        $product->is_brouillon = $request->draft ?? 0;
+        $product->free_shipping = $request->free_shipping ?? 0;
 
         if($request->date){
          $product->created_at = $request->date;

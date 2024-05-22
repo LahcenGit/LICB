@@ -67,10 +67,15 @@
 
 }
 
-.select2-selection--multiple {
+.select2-selection {
   min-height: 3.5rem !important;
 }
-
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 3.2rem !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 7px !important;
+}
 </style>
 @section('content')
 
@@ -80,7 +85,7 @@
 				<div class="row page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Produits</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Products</a></li>
 					</ol>
                 </div>
                 @if (count($errors) > 0)
@@ -103,7 +108,7 @@
                    <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Ajouter Produit</h4>
+                                    <h4 class="card-title">Add Product</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="basic-form">
@@ -118,38 +123,46 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Prix:</label>
+                                                <div class="mb-3 col-md-3">
+                                                    <label class="form-label">Price:</label>
                                                     <input type="text" class="form-control"  placeholder="0.00" name="price">
                                                 </div>
-                                                <div class="mb-3 col-md-6">
+                                                <div class="mb-3 col-md-3">
                                                     <label>Promo:</label>
                                                     <input type="text" class="form-control" placeholder="0.00" name="promo">
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="mb-3 col-md-6">
+                                                <div class="mb-3 col-md-3">
                                                     <label class="form-label">Qte:</label>
                                                     <input type="number" class="form-control" placeholder="0" name="qte" id="qte" >
                                                 </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label class="form-label">Poids:</label>
+                                                <div class="mb-3 col-md-3">
+                                                    <label class="form-label">Weight:</label>
                                                     <input type="text" class="form-control" placeholder="1" name="weight" >
                                                 </div>
-
                                             </div>
                                             <div class="row">
-                                                <div class="mb-3 col-md-6">
-                                                <label class="form-label">Statut:</label>
-                                                    <select id="inputState" class="default-select form-control wide" name="status">
-                                                        <option>Nothing selected</option>
-                                                        <option value="new">New</option>
-                                                        <option value="old">Non</option>
+                                                <div class="mb-3 col-md-4">
+                                                    <label class="form-label">Brand *:</label>
+                                                    <select class="multi-select" name="brand" id="brand">
+                                                        <option value="">Nothing selected</option>
+                                                        @foreach($brands as $brand)
+                                                            <option value="{{ $brand->id }}">{{ $brand->designation }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="mb-3 col-md-6">
+                                                <div class="mb-3 col-md-4">
+                                                    <label class="form-label">Status:</label>
+                                                        <select id="inputState" class="default-select form-control wide" name="status">
+                                                            <option value="">Nothing selected</option>
+                                                            <option value="1">New</option>
+                                                            <option value="2">SOON</option>
+                                                            <option value="2">MAKE TO ORDER</option>
+                                                            <option value="2">IT'S BACK</option>
+                                                        </select>
+                                                    </div>
+                                                <div class="mb-3 col-md-4">
                                                     <label>Date:</label>
-                                                    <input name="date" class="datepicker-default form-control" id="datepicker">
+                                                    <input name="date" class="form-control" type="date">
                                                 </div>
                                             </div>
 
@@ -160,7 +173,7 @@
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Catégories</h4>
+                                    <h4 class="card-title">Categories</h4>
                                 </div>
                                     <div class="card-body">
                                         <div class="mb-3">
@@ -171,57 +184,16 @@
                                     </div>
                             </div>
                         </div>
-                        <div class="col-xl-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Produits associés</h4>
-                                </div>
-                                <div class="card-body">
-                                    <label>Séléctionnez des produits :</label>
-                                    <select class="multi-select" id="search" name="relatedproducts[]" multiple="multiple">
-                                            @foreach($productlines as $productline)
-                                            <option value="{{ $productline->id }}">{{ $productline->product->designation }}@if($productline->attributeLine)-{{ $productline->attributeLine->value }}@endif</option>
-                                            @endforeach
-
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Marques</h4>
-                                    <a style="cursor: pointer" class="btn btn-success add-mark  " style="background-color: #006e40; border-color:#006e40;">Ajouter</a>
-                                </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                                <div class="categories overflow-auto" style="max-width: 260px; max-height:300px;">
-                                                    <ul style="line-height: 1.69230769;">
-                                                        @foreach ($marks as $mark)
-                                                            <li>
-                                                                <div class="form-check mb-2">
-                                                                <input type="checkbox" class="form-check-input" id="check1" value="{{$mark->id}}" name="mark">
-                                                                <label class="form-check-label" for="check1">{{ $mark->designation }}</label>
-                                                                </div>
-                                                            </li>
-                                                        @endforeach
-                                                    <ul>
-                                                </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
                         <div class="col-xl-8 col-lg-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Description Courte: </h4>
+                                    <h4 class="card-title">Short Description : </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="basic-form">
                                          <div class="row">
                                                 <div class="mb-3 col-md-12">
-                                                <textarea  class="form-control" name="short_description"></textarea>
+                                                    <textarea class="summernote" class="form-control " style="background-color: #202020; color:##202020" name="short_description" >{{old('short_description')}}</textarea>
                                              </div>
                                         </div>
                                     </div>
@@ -232,7 +204,7 @@
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Photo principale</h4>
+                                    <h4 class="card-title">Main Photo</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="input-photoPrincipale-add">
@@ -244,18 +216,17 @@
                         <div class="col-xl-8 col-xxl-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Description longue</h4>
+                                    <h4 class="card-title">Long Description</h4>
                                 </div>
                                 <div class="card-body custom-ekeditor">
                                 <textarea class="summernote" class="form-control " style="background-color: #202020; color:##202020" name="long_description" >{{old('description')}}</textarea>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-xl-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Photos secondaires</h4>
+                                    <h4 class="card-title">Secondary Photos</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="input-photos">
@@ -263,62 +234,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12">
+                        <div class="col-xl-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Compatibility</h4>
+                                    <h4 class="card-title">Associated Products</h4>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                          <label for="p_TYPE" class="form-label">Processor TYPE:</label>
-                                          <select class="default-select form-control wide" name="p_TYPE" id="p_TYPE">
-                                            <option value="">Nothing selected</option>
-                                            <option value="intel">INTEL</option>
-                                            <option value="amd">AMD</option>
-                                          </select>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                          <label for="p_GEN" class="form-label">Processor GEN:</label>
-                                          <select class="default-select form-control wide" name="p_GEN" id="select-result">
-                                            <option value="">Nothing selected</option>
-                                          </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">Motherboard TYPE:</label>
-                                            <select  class="default-select form-control wide" name="m_TYPE" id="m_TYPE">
-                                                <option value="">Nothing selected</option>
-                                                <option value="intel">INTEL</option>
-                                                <option value="amd">AMD</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label for="m_GEN" class="form-label">Motherboard GEN:</label>
-                                            <select class="multi-select" name="m_GEN[]" id="m_GEN" multiple="multiple">
-                                              <option value="">Nothing selected</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-3 col-md-6">
-                                        <label class="form-label">Motherboard DDR:</label>
-                                        <select class="default-select form-control wide"  name="m_DDR" placeholder="Nothing selected">
-                                                <option value="">Nothing selected</option>
-                                                <option value="DDR4">DDR4</option>
-                                                <option value="DDR5">DDR5</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="form-label">RAM DDR:</label>
-                                            <select class="default-select form-control wide" name="r_DDR">
-                                                <option value="">Nothing selected</option>
-                                                <option value="DDR4">DDR4</option>
-                                                <option value="DDR5">DDR5</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <label>Select products :</label>
+                                    <select class="multi-select"  name="relatedproducts[]" multiple="multiple">
+                                            @foreach($productlines as $productline)
+                                            <option value="{{ $productline->id }}">{{ $productline->product->designation }}@if($productline->attributeLine)-{{ $productline->attributeLine->value }}@endif</option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -329,9 +256,6 @@
                                     <input type="checkbox" class="form-check-input" id="check" value="oui" name="check" >
                                 </div>
                                 <div class="card-body " id="variation" style="display: none;">
-                                    <div class="text-center">
-                                        <a style="cursor: pointer" class="btn btn-success add-attribute " style="background-color: #006e40; border-color:#006e40;">Gérer les attributs</a>
-                                    </div>
                                     <div class="basic-form d-flex justify-content-center" >
                                         <div class="col-md-10">
                                             <table class="table table-bordered mt-3 ">
@@ -440,15 +364,81 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Compatibility</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                          <label for="p_TYPE" class="form-label">Processor TYPE:</label>
+                                          <select class="default-select form-control wide" name="p_TYPE" id="p_TYPE">
+                                            <option value="">Nothing selected</option>
+                                            <option value="intel">INTEL</option>
+                                            <option value="amd">AMD</option>
+                                          </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                          <label for="p_GEN" class="form-label">Processor GEN:</label>
+                                          <select class="default-select form-control wide" name="p_GEN" id="select-result">
+                                            <option value="">Nothing selected</option>
+                                          </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">Motherboard TYPE:</label>
+                                            <select  class="default-select form-control wide" name="m_TYPE" id="m_TYPE">
+                                                <option value="">Nothing selected</option>
+                                                <option value="intel">INTEL</option>
+                                                <option value="amd">AMD</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label for="m_GEN" class="form-label">Motherboard GEN:</label>
+                                            <select class="multi-select" name="m_GEN[]" id="m_GEN" multiple="multiple">
+                                              <option value="">Nothing selected</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                        <label class="form-label">Motherboard DDR:</label>
+                                        <select class="default-select form-control wide"  name="m_DDR" placeholder="Nothing selected">
+                                                <option value="">Nothing selected</option>
+                                                <option value="DDR4">DDR4</option>
+                                                <option value="DDR5">DDR5</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="form-label">RAM DDR:</label>
+                                            <select class="default-select form-control wide" name="r_DDR">
+                                                <option value="">Nothing selected</option>
+                                                <option value="DDR4">DDR4</option>
+                                                <option value="DDR5">DDR5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xl-12 col-lg-12">
                             <div class="card-body">
                                 <div class="basic-form">
                                     <div class="row">
-                                        <div class="form-check mb-2">
-                                        <label class="form-check-label" for="check1">Brouillon ?</label>
-                                        <input type="checkbox" class="form-check-input" id="check1" value="1" name="brouillon">
+                                        <div class="col-6">
+                                            <div class="form-check mb-2">
+                                            <label class="form-check-label" for="check1">Draft ?</label>
+                                            <input type="checkbox" class="form-check-input" id="check1" value="1" name="draft">
+                                            </div>
                                         </div>
-
+                                        <div class="col-6">
+                                            <div class="form-check mb-2">
+                                                <label class="form-check-label" for="check1">Free shipping ?</label>
+                                                <input type="checkbox" class="form-check-input" id="check1" value="1" name="free_shipping">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +447,7 @@
                     <div class="col-xl-12 col-lg-12">
                         <div class="card">
                         <div class="card-body text-center">
-                            <button type="submit"  class="btn btn-primary mt-3">Ajouter le produit</button>
+                            <button type="submit"  class="btn btn-primary mt-3">Add Product</button>
                             </form>
                         </div>
                        </div>
@@ -733,27 +723,41 @@ $(document).ready(function() {
 @push('set-required')
 <script>
     $(document).ready(function() {
+        $.validator.addMethod("notEqual", function(value, element, param) {
+            return this.optional(element) || value != param;
+        }, "Please select a valid option.");
+
         $("#addProduct").validate({
             rules: {
                 designation: "required",
                 'categories[]': {
                     required: true,
                     maxlength: 1
-                 },
-                 mark: "required",
-
+                },
+                brand: {
+                    required: true,
+                    notEqual: ""
+                }
             },
             messages: {
                 designation: {
-                    required: "La designation est obligatoire",
+                    required: "Designation is required",
                 },
                 'categories[]': {
-                    required: "Selectionnez une categorie",
-                 },
-                 mark: {
-                    required: "La marque est obligatoire",
+                    required: "Select a category",
                 },
+                brand: {
+                    required: "Brand is required",
+                    notEqual: "Please select a valid brand"
+                }
             },
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "brand") {
+                    error.insertAfter(element);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
         });
     });
 </script>
