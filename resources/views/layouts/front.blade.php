@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css"/>
 
 
-    
+
 </head>
 <style>
     .primary-color{
@@ -170,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -183,7 +183,7 @@
                     <div class="header-right">
                         <div class="search-style-2">
                             <form action="#">
-                                
+
                                 <input type="text" placeholder="Search a product, brand, category..." />
                             </form>
                         </div>
@@ -291,7 +291,7 @@
                                         <div class="text-center mb-4">
                                             <p>Already have an account?</p>
                                         </div>
-                                        
+
                                         <form>
                                             <div class="form-group">
                                               <input type="email" class="form-control account-drap" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -305,7 +305,7 @@
                                             <div class="d-flex justify-content-center mt-2">
                                                 <button type="submit" class="btn btn-primary btn-signin">Sign in</button>
                                             </div>
-                                           
+
                                         </form>
 
                                         <div class="text-center mt-2">
@@ -355,11 +355,11 @@
 
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.png')}}" alt="hot deals" /><a href="#">Promo</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-builder.png')}}" alt="hot deals" /><a href="#">PC Builder</a></li>
-                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tracking.png')}}" alt="hot deals" /><a href="#">Tracking</a></li>
+                                    <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tracking.png')}}" alt="hot deals" /><a href="{{ asset('/tracking') }}">Tracking</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tutoriel.png')}}" alt="hot deals" /><a href="#">Tutoriel</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-about.png')}}" alt="hot deals" /><a href="#">About Us</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-help.png')}}" alt="hot deals" /><a href="#">Help Center</a></li>
-                                   
+
                                 </ul>
                             </nav>
                         </div>
@@ -559,7 +559,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </section>
@@ -576,19 +576,19 @@
                                 <li><span>B1 N°1 Salef el Adraa En face Djezzy (Kiffane)Tlemcen, Algérie</span></li>
                                 <li><span>0797 428 910</span></li>
                                 <li>contactg@licbplus.com</span></li>
-                             
+
                             </ul>--}}
                         </div>
 
-                        
+
 
 
                     </div>
-                   
+
                 </div>
 
                 <div class="row d-flex justify-content-center">
-                     <div class="col-md-8 text-center">  
+                     <div class="col-md-8 text-center">
                         <p>"LICB, a leading provider in information technology, communication, and office equipment, offers a comprehensive range of computer hardware solutions. With a focus on quality and innovation, we strive to meet the diverse needs of our customers in the ever-evolving technological landscape."</p>
                      </div>
                 </div>
@@ -622,7 +622,7 @@
         </div>
     </footer>
 
-    
+
     <!-- Preloader Start -->
     <!--  <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -662,7 +662,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    
+
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.js"></script>
     <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.js"></script>
@@ -672,8 +672,8 @@
 
 
 
-  
-    
+
+
     @stack('get-price-script')
     @stack('add-cart-scripts')
     @stack('delete-item')

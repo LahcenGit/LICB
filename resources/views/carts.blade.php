@@ -29,7 +29,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
                 <span></span> Shop
                 <span></span> Cart
             </div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
-                    <button class="btn "> <a href="{{asset('/')}}"><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a></button> 
+                    <button class="btn "> <a href="{{asset('/')}}"><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a></button>
                     <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Mettre à jour le panier</button>
                 </div>
             </form>
