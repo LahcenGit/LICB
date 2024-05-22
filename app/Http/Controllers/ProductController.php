@@ -84,7 +84,7 @@ class ProductController extends Controller
         if($request->check != 'oui'){
         $productline = new Productline();
         $productline->product_id = $product->id;
-        $productline->qte = $request->qte;
+        $productline->qte = $request->qte ?? 0;
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
@@ -98,7 +98,7 @@ class ProductController extends Controller
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->as[$i];
-            $productline->qte = $request->qtes[$i];
+            $productline->qte = $request->qte[$i] ?? 0;
             $productline->weight = $request->weight;
             if($request->price){
                 $productline->price = $request->price;
@@ -152,18 +152,19 @@ class ProductController extends Controller
         //first_image
         $hasFile = $request->hasFile('photoPrincipale');
         $hasFileTwo = $request->hasFile('photos');
-        if($hasFile){
-                    $destination = 'public/images/products';
-                    $path = $request->file('photoPrincipale')[0]->store($destination);
-                    $storageName = basename($path);
-                    $image = new Image();
-                    $image->lien = $storageName;
-                    $image->type = 1;
-                    $product->images()->save($image);
-            }
-        // secondary images
-        if($hasFileTwo){
-            foreach($request->file('photos') as $file){
+        if ($hasFile) {
+            $destination = 'public/images/products';
+            $path = $request->file('photoPrincipale')[0]->store($destination);
+            $storageName = basename($path);
+            $image = new Image();
+            $image->lien = $storageName;
+            $image->type = 1;
+            $product->images()->save($image);
+        }
+
+        // Secondary images
+        if ($hasFileTwo) {
+            foreach ($request->file('photos') as $file) {
                 $destination = 'public/images/products';
                 $path = $file->store($destination);
                 $storageName = basename($path);

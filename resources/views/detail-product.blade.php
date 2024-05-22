@@ -414,8 +414,9 @@
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
                                                             <a href="{{ asset('product/'.$related_product->product->slug) }}" tabindex="0">
+                                                                @if(optional($related_product->images->first())->lien)
                                                                 <img class="default-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="" />
-
+                                                                @endif
                                                             </a>
                                                         </div>
 
@@ -465,7 +466,9 @@
                                 @foreach($new_products as $new_product)
                                 <div class="single-post clearfix">
                                     <div class="image">
+                                        @if(optional($new_product->images->first())->lien)
                                         <img src="{{asset('storage/images/products/'.$new_product->images[0]->lien)}}" alt="#" />
+                                        @endif
                                     </div>
                                     <div class="content pt-10">
                                         <h5><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h5>

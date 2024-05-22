@@ -130,7 +130,7 @@
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Qte:</label>
-                                                    <input type="number" class="form-control" placeholder="0" name="qte" >
+                                                    <input type="number" class="form-control" placeholder="0" name="qte" id="qte" >
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label class="form-label">Poids:</label>
@@ -697,30 +697,6 @@ $(document).ready(function() {
 
 
 @push('generate-attribute-scripts')
-
-<script>
-    $(document).ready(function() {
-        $("#addProduct").validate({
-            rules: {
-                designation: "required",
-                'categories[]': {
-                    required: true,
-                    maxlength: 1
-                 },
-
-            },
-            messages: {
-                designation: {
-                    required: "La designation est obligatoire",
-                },
-                'categories[]': {
-                    required: "Selectionnez une categorie",
-                 },
-            },
-        });
-    });
- </script>
-
 <script>
 	$.ajaxSetup({
 		headers: {
@@ -754,6 +730,34 @@ $(document).ready(function() {
 </script>
 @endpush
 
+@push('set-required')
+<script>
+    $(document).ready(function() {
+        $("#addProduct").validate({
+            rules: {
+                designation: "required",
+                'categories[]': {
+                    required: true,
+                    maxlength: 1
+                 },
+                 mark: "required",
+
+            },
+            messages: {
+                designation: {
+                    required: "La designation est obligatoire",
+                },
+                'categories[]': {
+                    required: "Selectionnez une categorie",
+                 },
+                 mark: {
+                    required: "La marque est obligatoire",
+                },
+            },
+        });
+    });
+</script>
+ @endpush
 @push('show-variation-scripts')
 <script>
 

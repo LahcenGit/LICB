@@ -1,7 +1,5 @@
 @extends('layouts.front')
 @section('content')
-
-
 <main class="main">
     <section class="home-slider position-relative mb-30">
         <div class="container">
@@ -117,7 +115,7 @@
         <section class="banners mb-25">
             <div class="container">
                 <div class="row">
-                  
+
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                             <img src="{{ asset('front/assets/imgs/banner/banner-2.png') }}" alt="" />
@@ -126,7 +124,7 @@
                                     PC <br />
                                     Components
                                 </h4>
-                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="#" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -138,7 +136,7 @@
                                     PC <br />
                                     peripherals
                                 </h4>
-                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="#" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -150,7 +148,7 @@
                                     Office &  <br />
                                     Furniture
                                 </h4>
-                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="#" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -172,7 +170,7 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="nav-tab-three" data-bs-toggle="tab" data-bs-target="#tab-three" type="button" role="tab" aria-controls="tab-three" aria-selected="false">Desktop computers</button>
                         </li>
-           
+
                         </li>
                     </ul>
                 </div>
@@ -186,7 +184,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -237,7 +235,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -288,7 +286,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -339,7 +337,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -390,7 +388,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -441,7 +439,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -492,7 +490,7 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ asset('product/'.$last_product->slug) }}">
-                                                @if($last_product->images)
+                                                @if(optional($last_product->images->first())->lien)
                                                 <img class="default-img" src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
                                                 @endif
                                             </a>
@@ -573,11 +571,11 @@
                                         <div class="product-cart-wrap">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
-
+                                                    <a href="{{ asset('product/'.$product->slug) }}">
+                                                        @if(optional($product->images->first())->lien)
                                                         <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
                                                         <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
-
+                                                        @endif
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
@@ -592,19 +590,19 @@
                                             <div class="product-content-wrap">
                                                 @if($product->mark)
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
+                                                    <a href="{{ asset('product/'.$product->slug) }}">{{ $product->mark->designation }}</a>
                                                 </div>
                                                 @endif
-                                                <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
+                                                <h2><a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
                                                 </div>
                                                 <div class="product-price mt-10">
-                                                    @if($last_product->getPricePromo())
+                                                    @if($product->getPricePromo())
                                                     <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                    <span class="old-price">{{ number_format($product->getPrice() ,2) }} Da</span>
                                                     @else
-                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                    <span>{{ number_format($product->getPrice(),2) }} Da</span>
                                                     @endif
                                                 </div>
                                                 <!--
@@ -631,11 +629,11 @@
                                         <div class="product-cart-wrap">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
-
+                                                    <a href="{{ asset('product/'.$product->slug) }}">
+                                                        @if(optional($product->images->first())->lien)
                                                         <img class="default-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
                                                         <img class="hover-img" src="{{ asset('storage/images/products/'.$product->images[0]->lien) }}" alt="" />
-
+                                                        @endif
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
@@ -653,16 +651,16 @@
                                                     <a href="shop-grid-right.html">{{ $product->mark->designation }}</a>
                                                 </div>
                                                 @endif
-                                                <h2><a href="shop-product-right.html">{{ $product->designation }}</a></h2>
+                                                <h2><a href="{{ asset('product/'.$product->slug) }}">{{ $product->designation }}</a></h2>
                                                 <div class="product-rate d-inline-block">
                                                     <div class="product-rating" style="width: 80%"></div>
                                                 </div>
                                                 <div class="product-price mt-10">
-                                                    @if($last_product->getPricePromo())
-                                                    <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                                    <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                                    @if($product->getPricePromo())
+                                                    <span>{{ number_format($product->getPricePromo() ,2) }} Da</span>
+                                                    <span class="old-price">{{ number_format($product->getPrice() ,2) }} Da</span>
                                                     @else
-                                                    <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                                    <span>{{ number_format($product->getPrice(),2) }} Da</span>
                                                     @endif
                                                 </div>
                                                 <!--
@@ -704,8 +702,11 @@
                             <div class="product-cart-wrap style-2 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img">
-                                        <a href="#">
+                                        <a href="{{ asset('product/'.$last_product->slug) }}">
+                                            @if(optional($last_product->images->first())->lien)
                                             <img src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" />
+                                            @endif
+
                                         </a>
                                     </div>
                                 </div>
@@ -714,7 +715,7 @@
                                         <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
                                     </div>
                                     <div class="deals-content">
-                                        <h2><a href="shop-product-right.html">{{$last_product->designation}}</a></h2>
+                                        <h2><a href="{{ asset('product/'.$last_product->slug) }}">{{$last_product->designation}}</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
@@ -752,11 +753,14 @@
                             @foreach ($last_products->take(3) as $last_product)
                                 <article class="row align-items-center hover-up">
                                     <figure class="col-md-4 mb-0">
-                                        <a href="shop-product-right.html"><img src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
+                                        <a href="{{ asset('product/'.$last_product->slug) }}">
+                                            @if(optional($last_product->images->first())->lien)
+                                            <img src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
+                                            @endif
                                     </figure>
                                     <div class="col-md-8 mb-0">
                                         <h6>
-                                            <a href="#">{{$last_product->designation}}</a>
+                                            <a href="{{ asset('product/'.$last_product->slug) }}">{{$last_product->designation}}</a>
                                         </h6>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
@@ -780,11 +784,15 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
+                                    <a href="{{ asset('product/'.$new_product->slug) }}">
+                                        @if(optional($new_product->images->first())->lien)
+                                        <img src="{{ asset('storage/images/products/'.$new_product->images[0]->lien) }}" alt="" /></a>
+                                        @endif
+
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
-                                        <a href="shop-product-right.html">{{ $new_product->designation }}</a>
+                                        <a href="{{ asset('product/'.$new_product->slug) }}">{{ $new_product->designation }}</a>
                                     </h6>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
@@ -793,11 +801,11 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        @if($last_product->getPricePromo())
-                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @if($new_product->getPricePromo())
+                                        <span>{{ number_format($new_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($new_product->getPrice() ,2) }} Da</span>
                                         @else
-                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        <span>{{ number_format($new_product->getPrice(),2) }} Da</span>
                                         @endif
                                     </div>
                                 </div>
@@ -812,11 +820,15 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}" alt="" /></a>
+                                    <a href="{{ asset('product/'.$new_product->slug) }}">
+                                        @if(optional($new_product->images->first())->lien)
+                                        <img src="{{ asset('storage/images/products/'.$new_product->images[0]->lien) }}" alt="" /></a>
+                                        @endif
+
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
-                                        <a href="shop-product-right.html">{{ $new_product->designation }}</a>
+                                        <a href="{{ asset('product/'.$new_product->slug) }}">{{ $new_product->designation }}</a>
                                     </h6>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
@@ -825,11 +837,11 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        @if($last_product->getPricePromo())
-                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @if($new_product->getPricePromo())
+                                        <span>{{ number_format($new_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($new_product->getPrice() ,2) }} Da</span>
                                         @else
-                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        <span>{{ number_format($new_product->getPrice(),2) }} Da</span>
                                         @endif
                                     </div>
                                 </div>
@@ -845,11 +857,15 @@
                             @foreach($new_products as $new_product)
                             <article class="row align-items-center hover-up">
                                 <figure class="col-md-4 mb-0">
-                                    <a href="shop-product-right.html"><img  src="{{ asset('storage/images/products/'.$last_product->images[0]->lien) }}"  alt="" /></a>
+                                    <a href="{{ asset('product/'.$new_product->slug) }}">
+                                        @if(optional($new_product->images->first())->lien)
+                                        <img src="{{ asset('storage/images/products/'.$new_product->images[0]->lien) }}" alt="" /></a>
+                                        @endif
+
                                 </figure>
                                 <div class="col-md-8 mb-0">
                                     <h6>
-                                        <a href="shop-product-right.html">{{ $new_product->designation }}</a>
+                                        <a href="{{ asset('product/'.$new_product->slug) }}">{{ $new_product->designation }}</a>
                                     </h6>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
@@ -858,11 +874,11 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div class="product-price">
-                                        @if($last_product->getPricePromo())
-                                        <span>{{ number_format($last_product->getPricePromo() ,2) }} Da</span>
-                                        <span class="old-price">{{ number_format($last_product->getPrice() ,2) }} Da</span>
+                                        @if($new_product->getPricePromo())
+                                        <span>{{ number_format($new_product->getPricePromo() ,2) }} Da</span>
+                                        <span class="old-price">{{ number_format($new_product->getPrice() ,2) }} Da</span>
                                         @else
-                                        <span>{{ number_format($last_product->getPrice(),2) }} Da</span>
+                                        <span>{{ number_format($new_product->getPrice(),2) }} Da</span>
                                         @endif
                                     </div>
                                 </div>

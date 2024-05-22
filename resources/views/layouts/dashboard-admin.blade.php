@@ -455,5 +455,6 @@
 @stack('point-scripts')
 @stack('coupon-script')
 @stack('compatibility-script')
+@stack('set-required')
 </body>
 </html>
