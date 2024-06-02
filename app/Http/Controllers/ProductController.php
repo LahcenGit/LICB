@@ -23,7 +23,7 @@ class ProductController extends Controller
 {
     //
     public function index(){
-        $products = Product::all();
+        $products = Product::orderBy('created_at','desc')->get();
         return view('admin.products',compact('products'));
     }
 
@@ -49,6 +49,7 @@ class ProductController extends Controller
         $product->point = $request->point;
         $product->mark_id = $request->brand;
         $product->date = $request->date;
+        $product->status = $request->status;
         if($request->p_TYPE){
             $product->p_TYPE = $request->p_TYPE;
         }
@@ -229,47 +230,54 @@ class ProductController extends Controller
         ->get();
 
 
-        $all_productlines = Productline::all();
+        $all_productlines = Productline::where('product_id', '!=', $id)->get();
         $attributes = Attribute::all();
         $marks = Mark::all();
         $productlines = Productline::where('product_id',$id)->get();
-
-        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p'));
+        $brands = Mark::orderBy('designation','asc')->get();
+        $relatedProductLines = $product->relatedProducts->pluck('added_productline_id')->toArray();
+        return view('admin.edit-product',compact('product','categories','attributes','marks','productlines','all_productlines','images','array_checked','images_preload','image_preload_p' , 'brands' ,'relatedProductLines'));
     }
 
 
     public function update(Request $request , $id){
-
-
-
 
         $product = Product::find($id);
         $images = Image::where('product_id', $id)->get();
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
-
-
         //traitement images
         //---1er cas : aucun ajout avec supression photo
-        if( !$request->hasFile('photoPrincipale') && !$request->hasFile('photos') ){
-            if(count($request->old) !=  $images->count()){
-                //capter les images supprimer
-                $deleted_images = Image::where('product_id', $id)->whereNotIn('id', $request->old)->get('id');
-                foreach(  $deleted_images as $image){
-                    File::delete('storage/images/products/'.$image->lien);
+        if (!$request->hasFile('photoPrincipale') && !$request->hasFile('photos')) {
+            if (is_array($request->old) && count($request->old) != $images->count()) {
+                // Capte les images supprimées
+                $deleted_images = Image::where('product_id', $id)->whereNotIn('id', $request->old)->get();
+                foreach ($deleted_images as $image) {
+                    File::delete('storage/images/products/' . $image->lien);
                     $image->delete();
                 }
             }
-        }
-        else{
-            if($request->hasFile('photoPrincipale')){
+        } else {
+            // Gérer la suppression des anciennes images
+            if (is_array($request->old) && count($request->old) != $images->count()) {
+                $deleted_images = Image::where('product_id', $id)->whereNotIn('id', $request->old)->get();
+                foreach ($deleted_images as $image) {
+                    File::delete('storage/images/products/' . $image->lien);
+                    $image->delete();
+                }
+            }
 
-                //supprimer la principale
-                $deleted_image = Image::where('product_id', $id)->whereNotIn('id', $request->old)->where('type',1)->first();
-                File::delete('storage/images/products/'.$deleted_image->lien);
-                $deleted_image->delete();
-                //go head
+            // Gérer l'ajout des nouvelles images principales
+            if ($request->hasFile('photoPrincipale')) {
+                // Supprimer l'ancienne image principale
+                $deleted_image = Image::where('product_id', $id)->where('type', 1)->first();
+                if ($deleted_image) {
+                    File::delete('storage/images/products/' . $deleted_image->lien);
+                    $deleted_image->delete();
+                }
+
+                // Enregistrer la nouvelle image principale
                 $destination = 'public/images/products';
                 $path = $request->file('photoPrincipale')[0]->store($destination);
                 $storageName = basename($path);
@@ -279,8 +287,9 @@ class ProductController extends Controller
                 $product->images()->save($image);
             }
 
-            if($request->hasFile('photos')){
-                foreach($request->file('photos') as $file){
+            // Gérer l'ajout des nouvelles images supplémentaires
+            if ($request->hasFile('photos')) {
+                foreach ($request->file('photos') as $file) {
                     $destination = 'public/images/products';
                     $path = $file->store($destination);
                     $storageName = basename($path);
@@ -318,25 +327,49 @@ class ProductController extends Controller
         $product->short_description = $request->short_description;
         $product->long_description = $request->long_description;
         $product->point = $request->point;
-        $product->mark_id = $request->mark;
-        $product->slug = str::slug($request->designation);
-        if($request->brouillon == '1'){
-            $product->is_brouillon = 1;
+        $product->mark_id = $request->brand;
+        $product->date = $request->date;
+        $product->status = $request->status;
+        if($request->p_TYPE){
+            $product->p_TYPE = $request->p_TYPE;
         }
-        else{
+
+        if($request->p_GEN){
+            $product->p_GEN = $request->p_GEN;
+        }
+        if($request->m_TYPE){
+            $product->m_TYPE = $request->m_TYPE;
+        }
+        if($request->m_GEN){
+            $product->m_GEN = json_encode($request['m_GEN']);
+        }
+        if($request->m_DDR){
+            $product->m_DDR = $request->m_DDR;
+        }
+        if($request->r_DDR){
+            $product->r_DDR = $request->r_DDR;
+        }
+        $product->slug = str::slug($request->designation);
+        if ($request->has('draft')) {
+            $product->is_brouillon = 1;
+        } else {
             $product->is_brouillon = 0;
         }
 
+        if ($request->has('free_shipping')) {
+            $product->free_shipping = 1;
+        } else {
+            $product->free_shipping = 0;
+        }
         if($request->date){
          $product->created_at = $request->date;
         }
         $product->save();
-
-        //product has no attribute
+       //product has no attribute
         if($request->check != 'oui'){
         $productline = new Productline();
         $productline->product_id = $product->id;
-        $productline->qte = $request->qte;
+        $productline->qte = $request->qte ?? 0;
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
@@ -380,10 +413,10 @@ class ProductController extends Controller
                 $productline->attribute_image = $storageName;
              }
             $productline->save();
-
         }
     }
        //product has related products
+
         if($request->relatedproducts){
         foreach($request->relatedproducts as $relatedproduct){
             $productR = new Relatedproduct();
@@ -400,33 +433,7 @@ class ProductController extends Controller
             $categoryproduct->category_id= $category;
             $categoryproduct->save();
         }
-        // product images
-        //first_image
-       /* $hasFile = $request->hasFile('photoPrincipale');
 
-
-        $hasFileTwo = $request->hasFile('photos');
-        if($hasFile){
-                $destination = 'public/images/products';
-                $path = $request->file('photoPrincipale')->store($destination);
-                $storageName = basename($path);
-                $image = new Image();
-                $image->lien = $storageName;
-                $image->type = 1;
-                $product->images()->save($image);
-            }
-        // secondary images
-        if($hasFileTwo){
-            foreach($request->file('photos') as $file){
-                $destination = 'public/images/products';
-                $path = $file->store($destination);
-                $storageName = basename($path);
-                $image = new Image();
-                $image->lien = $storageName;
-                $image->type = 2;
-                $product->images()->save($image);
-            }
-        }*/
         return redirect('admin/products');
     }
 
@@ -454,7 +461,7 @@ class ProductController extends Controller
             $attributes = null;
 
             $images = $product->images;
-            $images_attributes = $product->productlines;
+            $variations = $product->productlines;
 
             if($images){
                 $secondary_images = $images->where('type',2);
@@ -481,7 +488,7 @@ class ProductController extends Controller
            $attributes = null;
            $images = $product->images;
            $secondary_images = $images->where('type',2);
-           $images_attributes = null;
+           $variations = null;
            $has_color = false;
 
         }
@@ -515,10 +522,15 @@ class ProductController extends Controller
         $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
+        $randomCategories = Category::withCount('productCategories')
+                                    ->whereNotNull('parent_id')
+                                    ->inRandomOrder()
+                                    ->take(5)
+                                    ->get();
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
         'related_products','product_line','nbr_cartitem','cartitems','total'
-         ,'images_attributes','secondary_images','added_products','has_color','category_product','first_part_categories','last_part_categories'));
+         ,'variations','secondary_images','added_products','has_color','category_product','first_part_categories','last_part_categories','randomCategories'));
     }
 
 

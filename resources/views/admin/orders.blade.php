@@ -15,8 +15,8 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Commandes</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Orders</a></li>
 					</ol>
                 </div>
 
@@ -24,7 +24,7 @@
                 <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Table des commandes</h4>
+                                <h4 class="card-title">Orders</h4>
                             </div>
 
                             <div class="card-body">
@@ -33,12 +33,12 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Client</th>
+                                                <th>Customer</th>
                                                 <th>Wilaya</th>
-                                                <th>Adresse</th>
-                                                <th>Téléphone</th>
-                                                <th>Code Tracking</th>
-                                                <th>Statut</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                                <th>Tracking code</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -56,15 +56,15 @@
                                                 <td><i class="fas fa-minus"></i></td>
                                                 @endif
                                                 @if($order->status == 0)
-                                                <td><span class="badge light badge-warning">En attente</span></td>
+                                                <td><span class="badge light badge-warning">Pending</span></td>
                                                 @elseif($order->status == 1)
-                                                <td><span class="badge badge-primary light">Livraison...</span></td>
+                                                <td><span class="badge badge-primary light">Delivery...</span></td>
                                                 @elseif($order->status == 2)
-                                                <td><span class="badge light badge-success">Livré</span></td>
+                                                <td><span class="badge light badge-success">Delivered</span></td>
                                                 @elseif($order->status == 3)
-                                                <td><span class="badge light badge-danger">Annulé</span></td>
+                                                <td><span class="badge light badge-danger">Cancelled</span></td>
                                                 @else
-                                                <td><span class="badge badge-dark light">En attente de paiement</span></td>
+                                                <td><span class="badge badge-dark light">Payment pending</span></td>
                                                 @endif
                                                 <td>
                                                    <div class="d-flex">

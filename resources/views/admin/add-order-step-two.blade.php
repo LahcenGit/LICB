@@ -13,7 +13,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Produit</th>
+                                        <th scope="col">Product</th>
                                         <th scope="col">P.U</th>
                                         <th scope="col">Qte</th>
                                         <th scope="col">Total</th>
@@ -47,7 +47,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td colspan="4" style="text-align:right;"><b>Livraison</b> </td>
+                                        <td colspan="4" style="text-align:right;"><b>Delivery</b> </td>
                                         <td >  {{ $delivery_cost }} Da</td>
                                     </tr>
                                     <tr>
@@ -74,7 +74,7 @@
                 <div class="col-xl-12 col-lg-12">
                     <div class="card">
                     <div class="card-body text-center">
-                        <button type="submit" class="btn btn-primary mt-3">Valider la vente</button>
+                        <button type="submit" class="btn btn-primary mt-3">Confirm order</button>
                         </form>
                     </div>
                    </div>

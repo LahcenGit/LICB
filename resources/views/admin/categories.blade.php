@@ -5,7 +5,7 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Categories</a></li>
 					</ol>
                 </div>
@@ -14,7 +14,7 @@
                 <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Table des catégories</h4>
+                                <h4 class="card-title">Categories</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -23,7 +23,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Designation</th>
-                                                <th>Parent Catégorie</th>
+                                                <th>Parent Category</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

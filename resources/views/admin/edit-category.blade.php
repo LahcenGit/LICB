@@ -4,8 +4,8 @@
  <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Catégories</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Categories</a></li>
 					</ol>
                 </div>
 
@@ -13,7 +13,7 @@
             <div class="col-xl-8 col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Modifier Categorie</h4>
+                        <h4 class="card-title">Edit Categorie</h4>
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
@@ -22,13 +22,13 @@
 
                                 @csrf
                                 <div class="form-group">
-                                    <label>Désignation:</label>
+                                    <label>Designation:</label>
                                     <input type="text"  class="form-control input-default" value="{{$category->designation}}"  name="name" >
 
                                 </div>
                                 <div class="form-group">
 
-                                    <label>Liste des catégories :</label>
+                                    <label>Categories :</label>
 
                                     <select class="form-control  @error('category') is-invalid @enderror" id="sel1"  class="selectpicker" data-live-search="true" name="category">
 
@@ -60,7 +60,7 @@
                                     <textarea class="form-control" name="description" rows="3">{{$category->description}}</textarea>
                                 </div>
 
-                                <button type="submit"  class="btn btn-primary mt-3">Enregistrer</button>
+                                <button type="submit"  class="btn btn-primary mt-3">Save</button>
                             </form>
                         </div>
                     </div>

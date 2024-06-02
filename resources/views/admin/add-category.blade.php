@@ -5,7 +5,7 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Categories</a></li>
 					</ol>
                 </div>
@@ -14,7 +14,7 @@
                     <div class="col-xl-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Ajouter Categorie</h4>
+                                <h4 class="card-title">Add</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -30,7 +30,7 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                        <label>Liste des categories :</label>
+                                        <label>Categories :</label>
                                         <select class="form-control " id="sel1"  class="selectpicker" data-live-search="true" name="category">
 
                                           <option value=0>Nothing selected</option>
@@ -58,7 +58,7 @@
                                         <label >Description : </label>
                                            <textarea class="form-control" name="description" rows="3"></textarea>
                                         </div>
-                                        <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                                        <button type="submit"  class="btn btn-primary mt-3">Add</button>
                                     </form>
                                 </div>
                             </div>

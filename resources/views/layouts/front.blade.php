@@ -342,7 +342,7 @@
                                                         <a href="#">{{$category->designation}}<i class="fi-rs-angle-right"></i></a>
                                                         <ul class="level-menu">
                                                             @foreach ($category->childrenCategories as $child)
-                                                             <li><a href="#">{{ $child->designation }}</a></li>
+                                                             <li><a href="{{ asset('category-products/'.$child->id) }}">{{ $child->designation }}</a></li>
                                                             @endforeach
                                                         </ul>
                                                     </li>
@@ -650,7 +650,8 @@
     <script src="{{asset('front/assets/js/plugins/images-loaded.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/isotope.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/scrollup.js')}}"></script>
-    <script src="{{asset('front/assets/js/plugins/jquery.vticker-min.js')}}"></script>
+    <script src="{{ asset('front/assets/js/plugins/slider-range.js') }}"></script>
+   <script src="{{asset('front/assets/js/plugins/jquery.vticker-min.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/jquery.theia.sticky.js')}}"></script>
     <script src="{{asset('front/assets/js/plugins/jquery.elevatezoom.js')}}"></script>
 

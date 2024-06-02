@@ -9,8 +9,8 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
-                <span></span> Suivi de la commande <span></span>
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span> Order tracking <span></span>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
                             <h5 class="section-title style-1 mb-30" style="color: #BC221A">{{$code}}</h5>
                               <div class="single-post clearfix">
                                 <div class="heading_s1">
-                                   <p>Aucune donnée pour ce code de suivi !</p>
+                                   <p>No data for this tracking code !</p>
                                 </div>
                             </div>
 

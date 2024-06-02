@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modifier statut</h5>
+                <h5 class="modal-title">Edit status</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                 </button>
             </div>
@@ -13,9 +13,9 @@
                         <div class="mb-3 col-md-12">
                             <label>Statut :</label>
                             <select class="form-control" id="status"  class="selectpicker" data-live-search="true" name="status">
-                                <option value="0" @if( $point->status == 0 ) selected @endif >En attente</option>
-                                <option value="1" @if( $point->status == 1 ) selected @endif >Validé</option>
-                                <option value="2" @if( $point->status == 2 ) selected @endif >Annuler</option>
+                                <option value="0" @if( $point->status == 0 ) selected @endif >Pending</option>
+                                <option value="1" @if( $point->status == 1 ) selected @endif >Approved</option>
+                                <option value="2" @if( $point->status == 2 ) selected @endif >Cancelled</option>
                             </select>
                         </div>
                     </div>
@@ -24,8 +24,8 @@
                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary updateStatus">Enregistrer</button>
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary updateStatus">Save</button>
             </div>
         </div>
     </div>

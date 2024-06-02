@@ -4,7 +4,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                 <span></span> Tracking <span></span>
             </div>
         </div>
@@ -17,14 +17,14 @@
                         <div class="col-lg-6 primary-sidebar sticky-sidebar">
                             <div class="widget-area">
                                 <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                                    <h4 class="section-title style-1 mb-30" >Suivi votre commande</h4>
+                                    <h4 class="section-title style-1 mb-30" >Track your order.</h4>
                                       <form method="POST" aaction="{{asset('/tracking')}}">
                                         @csrf
                                            <div class="form-group mt-3">
-                                               <input type="text" required name="codetrack" placeholder="Entrer votre code de suivi  *" />
+                                               <input type="text" required name="codetrack" placeholder="Enter your tracking code  *" />
                                            </div>
                                            <div class="form-group">
-                                               <button type="submit" class="btn btn-heading btn-block hover-up" style="background-color: #BC221A;">Suivi</button>
+                                               <button type="submit" class="btn btn-heading btn-block hover-up" style="background-color: #BC221A;">Tracking</button>
                                            </div>
                                        </form>
                                 </div>

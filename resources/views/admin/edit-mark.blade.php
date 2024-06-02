@@ -5,7 +5,7 @@
  <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Marques</a></li>
 					</ol>
                 </div>
@@ -14,7 +14,7 @@
                     <div class="col-xl-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">ModifierUne Marque</h4>
+                                <h4 class="card-title">Edit Marque</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -24,13 +24,13 @@
                                         @csrf
                                          <div class="row">
                                             <div class="mb-3 col-md-8">
-                                                <label>Désignation* :</label>
+                                                <label>Designation* :</label>
                                                     <input type="text" class="form-control input-default "  name="designation" value="{{ $mark->designation }}" required>
                                             </div>
                                          </div>
 
 
-                                        <button type="submit"  class="btn btn-primary mt-3">Enregistrer</button>
+                                        <button type="submit"  class="btn btn-primary mt-3">Save</button>
                                     </form>
                                 </div>
                             </div>

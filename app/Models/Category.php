@@ -13,7 +13,7 @@ class Category extends Model
 
         return $this->hasMany(Category::class,'parent_id');
    }
-   
+
    public function childrenCategories()
    {
        return $this->hasMany(Category::class, 'parent_id')->with('categories');
@@ -26,5 +26,10 @@ class Category extends Model
    }
    public function products(){
     return $this->hasMany(Product::class);
+}
+
+public function productCategories()
+{
+    return $this->hasMany(ProductCategory::class);
 }
 }

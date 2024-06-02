@@ -4,7 +4,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>home</a>
                 <span></span> Shop
                 <span></span> Checkout
             </div>
@@ -24,14 +24,14 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="row">
-                        <h4 class="mb-30">Détails de la facturation</h4>
+                        <h4 class="mb-30">Billing details</h4>
                         <form method="post">
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" required name="first_name" placeholder="Nom *">
+                                    <input type="text" required name="first_name" placeholder="First name *">
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" required name="last_name" placeholder="Prénom *">
+                                    <input type="text" required name="last_name" placeholder="last name *">
                                 </div>
                             </div>
                             <div class="row">
@@ -39,7 +39,7 @@
                                     <input type="text" name="email" required placeholder="Email *">
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" name="phone" required placeholder="Téléphone">
+                                    <input type="text" name="phone" required placeholder="Phone">
                                 </div>
                             </div>
                             <div class="row shipping_calculator">
@@ -77,7 +77,7 @@
                             </div>
 
                             <div class="form-group mb-30">
-                                <textarea rows="5" placeholder="Ajouter une remarque" name="ordernote"></textarea>
+                                <textarea rows="5" placeholder="Add a note" name="ordernote"></textarea>
                             </div>
 
 
@@ -87,7 +87,7 @@
                 <div class="col-lg-5">
                     <div class="border p-40 cart-totals ml-30 mb-50">
                         <div class="d-flex align-items-end justify-content-between mb-30">
-                            <h4>Détail de la commande</h4>
+                            <h4>Order details</h4>
                         </div>
                         <div class="divider-2 mb-30"></div>
                         <div class="table-responsive order_table checkout">
@@ -122,20 +122,20 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4 class="mb-30">Livraison</h4>
+                                            <h4 class="mb-30">Delivery</h4>
                                         </td>
                                         <td class="d-flex justify-content-center">
                                             <ul class="shipping-type">
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio" id="bureau" value="bureau" type="radio" name="shipping" checked>
-                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">bureau : <span id="bureau-cost" >0</span> da</label>
+                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Office : <span id="bureau-cost" >0</span> da</label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio"  type="radio" name="shipping" id="domicile" value="domicile" >
-                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">à domicile : <span id="domicile-cost" >0</span>  da</label>
+                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">At home : <span id="domicile-cost" >0</span>  da</label>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -150,13 +150,13 @@
                         </div>
                     </div>
                     <div class="payment ml-30">
-                        <h4 class="mb-30">Paiement</h4>
+                        <h4 class="mb-30">Payment</h4>
                         <div class="payment_option">
                             <div class="custome-radio">
                                 <input class="form-check-input" required type="radio" name="payment_option" id="exampleRadios3" checked>
-                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Paiement à la livraison</label>
+                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Cash on delivery</label>
                             </div>
-                            <button type="submit" class="btn btn-fill-out btn-block mt-30">Commander<i class="fi-rs-sign-out ml-15"></i></button>
+                            <button type="submit" class="btn btn-fill-out btn-block mt-30">Order<i class="fi-rs-sign-out ml-15"></i></button>
                         </div>
                     </div>
                 </div>

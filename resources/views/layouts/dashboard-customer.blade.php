@@ -58,16 +58,16 @@
         ***********************************-->
 		<div class="nav-header ">
             <a href="{{ asset('/customer') }}" class="brand-logo d-flex justify-content-center">
-				<img src="{{asset('dashboard/logo-customer.png')}}" alt=""> 
+				<img src="{{asset('dashboard/logo-customer.png')}}" alt="">
             </a>
-			
+
             <div class="nav-control">
                 <div class="hamburger">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
                 </div>
             </div>
 
-			
+
         </div>
         <!--**********************************
             Nav header end
@@ -584,7 +584,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
 							<div class="dashboard_bar">
-                                Bienvenue
+                                Welcome
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -597,7 +597,7 @@
                                     <span class="badge light text-white bg-primary rounded-circle">0</span>
                                 </a>
                             </li>
-			               
+
                         </ul>
                     </div>
 				</nav>
@@ -614,12 +614,12 @@
             <div class="dlabnav-scroll">
 				<div class="header-info mb-4 text-center">
 					<span class="fs-18 font-w500">{{ ucfirst(Auth::user()->last_name) }}.</span> <br>
-					
-					<small class="fs-12 font-w400">Vous avez <b class="point-style"> @if ($points) {{$points}} @else 0 @endif </b> points</small>
+
+					<small class="fs-12 font-w400">You have <b class="point-style"> @if ($points) {{$points}} @else 0 @endif </b> points</small>
 				</div>
 
 				<ul class="metismenu" id="menu">
-						
+
                     <li><a href="{{asset('customer')}}" aria-expanded="false">
                         <i class="fas fa-home"></i>
                         <span class="nav-text">Dashboard</span>
@@ -627,32 +627,32 @@
                 	</li>
 				 	<li><a href="{{ asset('customer/orders') }}" class="" aria-expanded="false">
 							<i class="fas fa-table"></i>
-							<span class="nav-text">Commandes</span>
+							<span class="nav-text">Orders</span>
 						</a>
 
                     </li>
 
                     <li><a href="{{ asset('/customer/coupons') }}" class="" aria-expanded="false">
 							<i class="fas fa-file-alt"></i>
-							<span class="nav-text">Mes Coupons</span>
+							<span class="nav-text">My Coupons</span>
 						</a>
                     </li>
 
                     <li><a href="{{ asset('customer/profil') }}" class="" aria-expanded="false">
 							<i class="fas fa-user-check"></i>
-							<span class="nav-text">Profil</span>
+							<span class="nav-text">Profile</span>
 						</a>
 					</li>
                 </ul>
                 <div class="plus-box">
 					<div class="text-center">
 						<a href="{{route('logout')}}" class="btn btn-primary btn-rounded mt-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-							<span class="ms-2">Déconnexion </span>
+							<span class="ms-2">Log out </span>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>
 						</a>
-						
+
 					</div>
 				</div>
             </div>

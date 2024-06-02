@@ -15,15 +15,15 @@
     <div class="container-fluid">
         <div class="row page-titles">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Commandes</a></li>
+                <li class="breadcrumb-item active"><a href="{{ asset('/') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Points management</a></li>
             </ol>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Gestion des points</h4>
+                        <h4 class="card-title">Points management</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -31,10 +31,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Client</th>
+                                        <th>Customer</th>
                                         <th>Points</th>
                                         <th>Date</th>
-                                        <th>Statut</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -46,11 +46,11 @@
                                         <td>{{$point->point}}</td>
                                         <td>{{$point->created_at->format('Y-m-d')}}</td>
                                         @if($point->status == 0)
-                                        <td><span class="badge light badge-warning">En attente</span></td>
+                                        <td><span class="badge light badge-warning">Pending</span></td>
                                         @elseif($point->status == 1)
-                                        <td><span class="badge badge-success light">Validé</span></td>
+                                        <td><span class="badge badge-success light">Approved</span></td>
                                         @elseif($point->status == 3)
-                                        <td><span class="badge light badge-danger">Annulé</span></td>
+                                        <td><span class="badge light badge-danger">Cancelled</span></td>
                                         @endif
                                         <td>
                                             <div class="d-flex">

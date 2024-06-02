@@ -5,7 +5,7 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Frais de livraison</a></li>
 					</ol>
                 </div>
@@ -13,7 +13,7 @@
                 <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Frais de livraison</h4>
+                                <h4 class="card-title">Delivery fee</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -23,9 +23,9 @@
                                                 <th>#</th>
                                                 <th>Wilaya</th>
                                                 <th>Commune</th>
-                                                <th>Extention</th>
-                                                <th>Prix bureau</th>
-                                                <th>Prix a domicile</th>
+                                                <th>Extension</th>
+                                                <th>Office price</th>
+                                                <th>Home delivery price</th>
                                                 <th>Supp</th>
                                                 <th>Action</th>
                                             </tr>

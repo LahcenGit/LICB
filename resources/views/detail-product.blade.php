@@ -13,7 +13,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Accueil</a>
+                    <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                     <span></span> <a href="#">Composants PC</a> <span></span> {{$category_product->category->designation}}
                 </div>
             </div>
@@ -35,20 +35,20 @@
                                                     <img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" />
                                                     </figure>
                                                 @endif
-                                                @if($images_attributes)
-                                                    @if($images_attributes[0]->attribute_image)
-                                                        @foreach($images_attributes as $image_attribute)
+                                                @if($variations)
+                                                    @if($variations[0]->attribute_image)
+                                                        @foreach($variations as $variation)
                                                             <figure class="border-radius-10">
-                                                            <img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="{{ $image_attribute->attributeLine->value }}" />
+                                                            <img src="{{asset('storage/images/productlines/'.$variation->attribute_image)}}" alt="{{ $variation->attributeLine->value }}" />
                                                             </figure>
                                                         @endforeach
-                                                    @else
-                                                        @foreach($secondary_images as $secondary_image)
-                                                        <figure class="border-radius-10">
-                                                        <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="product image" />
-                                                        </figure>
-                                                        @endforeach
                                                     @endif
+
+                                                    @foreach($secondary_images as $secondary_image)
+                                                    <figure class="border-radius-10">
+                                                    <img src="{{asset('storage/images/products/'.$secondary_image->lien)}}" alt="product image" />
+                                                    </figure>
+                                                    @endforeach
                                                 @else
                                                     @foreach($secondary_images as $secondary_image)
                                                     <figure class="border-radius-10">
@@ -60,16 +60,19 @@
                                             </div>
                                             <!-- THUMBNAILS -->
                                             <div class="slider-nav-thumbnails">
-                                                @if($images_attributes)
-                                                    @if($images_attributes[0]->attribute_image)
-                                                        @foreach($images_attributes as $image_attribute)
-                                                        <div id="{{'related-img-'.$image_attribute->id}}"><img src="{{asset('storage/images/productlines/'.$image_attribute->attribute_image)}}" alt="product image" /></div>
+                                                @if($first_image)
+                                                    <div ><img src="{{asset('storage/images/products/'.$first_image->lien)}}" alt="product image" /></div>
+                                                @endif
+                                                @if($variations)
+                                                    @if($variations[0]->attribute_image)
+                                                        @foreach($variations as $variation)
+                                                        <div id="{{'related-img-'.$variation->id}}"><img src="{{asset('storage/images/productlines/'.$variation->attribute_image)}}" alt="product image" /></div>
                                                         @endforeach
-                                                    @else
-                                                        @foreach($product->images as $img)
-                                                        <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
-                                                        @endforeach
-                                                    @endif
+                                                   @endif
+
+                                                    @foreach($product->images as $img)
+                                                    <div id="{{'related-img-'.$img->id}}"><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
+                                                    @endforeach
                                                 @else
                                                   @if($product->images->count() > 1)
                                                     @foreach($product->images as $img)
@@ -119,7 +122,7 @@
                                                 </div>
                                             </div>
                                             <div class="short-desc mb-30">
-                                                <p class="font-lg">{{ $product->short_description}}</p>
+                                                <p class="font-lg">{!! $product->short_description !!}</p>
                                             </div>
                                             @if($productlines)
                                                 {{--if product has color--}}
@@ -414,9 +417,9 @@
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
                                                             <a href="{{ asset('product/'.$related_product->product->slug) }}" tabindex="0">
-                                                                @if(optional($related_product->images->first())->lien)
-                                                                <img class="default-img" src="{{asset('storage/images/products/'.$related_product->product->images[0]->lien)}}" alt="" />
-                                                                @endif
+                                                                @if($related_product->product->images->first())
+                                                                <img class="default-img" src="{{ asset('storage/images/products/'.$related_product->product->images->first()->lien) }}" alt="" />
+                                                            @endif
                                                             </a>
                                                         </div>
 
@@ -451,9 +454,9 @@
                             <div class="sidebar-widget widget-category-2 mb-30">
                                 <h5 class="section-title style-1 mb-30">Catégories</h5>
                                 <ul>
-                                    @foreach($categories as $category)
+                                    @foreach($randomCategories as $category)
                                     <li>
-                                        <a href="#">{{$category->designation}}</a><span class="count" style="color: #fff">30</span>
+                                        <a href="#">{{$category->designation}}</a><span class="count" style="color: #fff">{{ $category->product_categories_count }}</span>
                                     </li>
                                     @endforeach
                                 </ul>

@@ -100,7 +100,7 @@ Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::resource('/',HomeController::class);
-
+Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);

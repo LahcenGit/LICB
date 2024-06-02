@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ajouter un coupon</h5>
+                <h5 class="modal-title">Add an coupon</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                 </button>
             </div>
@@ -17,13 +17,13 @@
                       </div>
                       <div class="form-row">
                         <div class="col-md-12 mt-2">
-                            <label>Valeur*:</label>
+                            <label>Value*:</label>
                             <input type="text"  class="form-control input-default " id="value" placeholder="2000">
                         </div>
                       </div>
                       <div class="form-row">
                         <div class="col-md-12 mt-2">
-                            <label>Date d'éxpiration*:</label>
+                            <label>Expiration date*:</label>
                             <input type="date"  class="form-control input-default " id="date" >
                         </div>
                       </div>
@@ -32,8 +32,8 @@
                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary storeCoupon">Ajouter</button>
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary storeCoupon">Add</button>
             </div>
         </div>
     </div>

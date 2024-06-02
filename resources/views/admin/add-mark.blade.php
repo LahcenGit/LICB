@@ -5,8 +5,8 @@
  <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Marques</a></li>
+						<li class="breadcrumb-item active"><a href="{{ asset('/') }}">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Brands</a></li>
 					</ol>
                 </div>
 
@@ -14,7 +14,7 @@
                     <div class="col-xl-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Ajouter Une Marque</h4>
+                                <h4 class="card-title">Add</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -33,7 +33,7 @@
                                          </div>
 
 
-                                        <button type="submit"  class="btn btn-primary mt-3">Ajouter</button>
+                                        <button type="submit"  class="btn btn-primary mt-3">Add</button>
                                     </form>
                                 </div>
                             </div>

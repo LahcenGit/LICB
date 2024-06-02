@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Ajouter un attribut</h5>
+                <h5 class="modal-title">Add an attribute</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                 </button>
             </div>
@@ -11,7 +11,7 @@
                     <div class="basic-form">
                       <div class="form-row">
                         <div class="col-md-12">
-                            <label>Attribut*:</label>
+                            <label>Attribute*:</label>
                             <input type="text"  class="form-control input-default @error('attr') is-invalid @enderror" value="{{old('attr')}}" id="attr" placeholder="Attribut">
                                 @error('attr')
                                     <span class="invalid-feedback" role="alert">
@@ -46,8 +46,8 @@
                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-primary storeAttribute">Ajouter</button>
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary storeAttribute">Add</button>
             </div>
         </div>
     </div>

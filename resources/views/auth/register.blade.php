@@ -5,8 +5,8 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                <span></span> Pages <span></span> My Account
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <span></span>Register
             </div>
         </div>
     </div>
@@ -24,13 +24,13 @@
                             <div class="login_wrap widget-taber-content background-white">
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
-                                        <h1 class="mb-5">Créer un compte</h1>
-                                        <p class="mb-30">Vous avez déjà un compte? <a href="{{ asset('/login') }}">S'identifier</a></p>
+                                        <h1 class="mb-5">Create an account</h1>
+                                        <p class="mb-30">Do you already have an account? <a href="{{ asset('/login') }}">"Sign in</a></p>
                                     </div>
                                     <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="text"  name="first_name" class="form-control @error('first_name') is-invalid @enderror" placeholder="Nom" required/>
+                                            <input type="text"  name="first_name" class="form-control @error('first_name') is-invalid @enderror" placeholder="First name" required/>
                                                 @error('first_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                                                 @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"  name="last_name" class="form-control @error('last_name') is-invalid @enderror" placeholder="Prénom" required/>
+                                            <input type="text"  name="last_name" class="form-control @error('last_name') is-invalid @enderror" placeholder="Last name" required/>
                                                 @error('last_name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                                 @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"  name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="N° de téléphone" required/>
+                                            <input type="text"  name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" required/>
                                                 @error('phone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -86,7 +86,7 @@
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
                                                     <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="" />
-                                                    <label class="form-check-label" for="exampleCheckbox12"><span>J'accepte les conditions &amp; la politique.</span></label>
+                                                    <label class="form-check-label" for="exampleCheckbox12"><span>"I accept the terms and  &amp; policies.</span></label>
                                                 </div>
                                             </div>
                                           {{-- <a href="#"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a> --}}
@@ -94,7 +94,7 @@
                                         <div class="form-group mb-30">
                                             <button type="submit" class="btn btn-fill-out btn-block hover-up font-weight-bold" name="login">S'inscrir</button>
                                         </div>
-                                        <p class="font-xs text-muted"><strong>Remarque:</strong>Vos données personnelles seront utilisées pour améliorer votre expérience sur ce site Web, pour gérer l'accès à votre compte et à d'autres fins décrites dans notre politique de confidentialité.</p>
+                                        <p class="font-xs text-muted"><strong>Note:</strong>Your personal data will be used to enhance your experience on this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
                                     </form>
                                 </div>
                             </div>

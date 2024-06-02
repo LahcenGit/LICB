@@ -20,17 +20,17 @@
                                                 <div>
                                                     <div class="">
                                                         <h2 class="fs-32 font-w700">{{ $points }}</h2>
-                                                        <span class="fs-18 font-w500 d-block">Total Points que vous avez</span>
+                                                        <span class="fs-18 font-w500 d-block">Total points you have</span>
                                                     </div>
                                                 </div>
                                                 <div id="NewCustomers"></div>
-                                                <button  class="btn btn-primary mt-3 convert-points">Convertir vos points</button>
+                                                <button  class="btn btn-primary mt-3 convert-points">Convert your points</button>
                                             </div>
                                             @else
                                             <div class="card-body d-flex px-4  justify-content-between">
                                                 <div>
                                                     <div class="">
-                                                       <span class="fs-18 font-w500 d-block"><b>{{ Auth::user()->last_name }}</b>, vous n'avez actuellement aucun point à votre compte.</span>
+                                                       <span class="fs-18 font-w500 d-block"><b>{{ Auth::user()->last_name }}</b>, You currently have no points in your account.</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +68,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Dèrnières commandes</h4>
+                                <h4 class="card-title">Recent orders</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -77,7 +77,7 @@
                                             <tr>
                                                 <th style="width:80px;"><strong>#</strong></th>
                                                 <th><strong>Date</strong></th>
-                                                <th><strong>Montant</strong></th>
+                                                <th><strong>Amount</strong></th>
                                                 <th><strong>Tracking</strong></th>
                                                 <th><strong>Status</strong></th>
                                             </tr>
@@ -90,15 +90,15 @@
                                                     <td>{{ number_format($order->total_f) }} DA</td>
                                                     <td>@if($order->tracking_code){{ $order->tracking_code }}@else <i class="fa fa-minus"></i>@endif</td>
                                                     @if($order->status == 0)
-                                                    <td><span class="badge light badge-warning">En attente</span></td>
+                                                    <td><span class="badge light badge-warning">Pending</span></td>
                                                     @elseif($order->status == 1)
-                                                    <td><span class="badge badge-primary light">Livraison...</span></td>
+                                                    <td><span class="badge badge-primary light">Delivery...</span></td>
                                                     @elseif($order->status == 2)
-                                                    <td><span class="badge light badge-success">Livré</span></td>
+                                                    <td><span class="badge light badge-success">Delivered</span></td>
                                                     @elseif($order->status == 3)
-                                                    <td><span class="badge light badge-danger">Annulé</span></td>
+                                                    <td><span class="badge light badge-danger">Cancelled</span></td>
                                                     @else
-                                                    <td><span class="badge badge-dark light">En attente de paiement</span></td>
+                                                    <td><span class="badge badge-dark light">Payment pending</span></td>
                                                     @endif
                                                 </tr>
                                             @endforeach

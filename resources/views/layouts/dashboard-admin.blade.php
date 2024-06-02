@@ -192,7 +192,7 @@
 
                                     <a href="{{route('logout')}}" class="dropdown-item ai-icon" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                        <span class="ms-2">Déconnexion </span>
+                                        <span class="ms-2">Log out </span>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
@@ -221,66 +221,66 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-layer-group"></i>
-							<span class="nav-text">Catégories</span>
+							<span class="nav-text">Categories</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('admin/categories/create')}}">Ajouter</a></li>
-							<li><a href="{{url('admin/categories')}}">Toutes les catégories</a></li>
+                            <li><a href="{{url('admin/categories/create')}}">Add</a></li>
+							<li><a href="{{url('admin/categories')}}">All</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-star"></i>
-							<span class="nav-text">Marques</span>
+							<span class="nav-text">Brands</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('admin/marks/create')}}">Ajouter</a></li>
-							<li><a href="{{url('admin/marks')}}">Toutes les marques</a></li>
+                            <li><a href="{{url('admin/marks/create')}}">Add</a></li>
+							<li><a href="{{url('admin/marks')}}">All</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 						<i class="fas fa-shapes"></i>
-							<span class="nav-text">Attributs</span>
+							<span class="nav-text">Attributes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('admin/attributes/create')}}">Ajouter</a></li>
-                            <li><a href="{{url('admin/attributes')}}">Tous les attributs</a></li>
+                            <li><a href="{{url('admin/attributes/create')}}">Add</a></li>
+                            <li><a href="{{url('admin/attributes')}}">All</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 							<i class="fab fa-product-hunt"></i>
-							<span class="nav-text">Produits</span>
+							<span class="nav-text">Products</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{url('admin/products/create')}}">Ajouter</a></li>
-                            <li><a href="{{url('admin/products')}}">Tous les produits</a></li>
+                            <li><a href="{{url('admin/products/create')}}">Add</a></li>
+                            <li><a href="{{url('admin/products')}}">All</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
 							<i class="fas fa-shopping-basket"></i>
-							<span class="nav-text">Commandes</span>
+							<span class="nav-text">Orders</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ asset('/admin/add-order-step-one') }}">Ajouter</a></li>
-                            <li><a href="{{ asset('admin/orders') }}">Toutes les commandes</a></li>
+                            <li><a href="{{ asset('/admin/add-order-step-one') }}">Add</a></li>
+                            <li><a href="{{ asset('admin/orders') }}">All</a></li>
                         </ul>
                     </li>
                     <li>
                             <a href="{{url('admin/delivery-costs')}}" aria-expanded="false">
                                 <i class="fas fa-truck"></i>
-                                <span class="nav-text">Livraison</span>
+                                <span class="nav-text">Delivery</span>
                             </a>
                     </li>
                     <li>
                         <a href="{{url('admin/points-management')}}" aria-expanded="false">
                             <i class="fas-sharp fas-solid fa-hundred-points"></i>
-                            <span class="nav-text">Les points</span>
+                            <span class="nav-text">Points</span>
                         </a>
                     </li>
                 </ul>
 				<div class="plus-box">
 					<div class="text-center">
-						<h4 class="fs-18 font-w600 mb-4">Page d'Accueil</h4>
-						<a href="{{ asset('/') }}" class="btn btn-primary btn-rounded">Accéder <i class="fas fa-caret-right"></i></a>
+						<h4 class="fs-18 font-w600 mb-4">Home</h4>
+						<a href="{{ asset('/') }}" class="btn btn-primary btn-rounded">Access <i class="fas fa-caret-right"></i></a>
 					</div>
 				</div>
 

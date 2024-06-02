@@ -1,20 +1,30 @@
 @extends('layouts.dashboard-admin')
 
 @section('content')
-
+<style>
+.select2-selection {
+  min-height: 3.5rem !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 3.2rem !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    margin-top: 7px !important;
+}
+</style>
 <div class="content-body">
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
                 <div class="welcome-text">
-                    <h4>Bonjour, bienvenue!</h4>
-                    <span>Ajouter une commande</span>
+                    <h4>Welcome!</h4>
+                    <span>Add a commande</span>
                 </div>
             </div>
             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{url('/admin')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Ajouter commande</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Add</a></li>
                 </ol>
             </div>
         </div>
@@ -24,12 +34,12 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Ajouter commande</h4>
+                        <h4 class="card-title">Add a commande</h4>
                     </div>
                     <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label>Nom* :</label>
+                                        <label>First name* :</label>
                                         <input class="form-control @error('first_name') is-invalid @enderror" name="first_name" placeholder="Nom" required>
                                             @error('first_name')
                                             <span class="invalid-feedback" role="alert">
@@ -38,7 +48,7 @@
                                             @enderror
                                     </div>
                                     <div class=" col-md-3">
-                                        <label>Prenom* :</label>
+                                        <label>last name* :</label>
                                         <input class="form-control @error('last_name') is-invalid @enderror" name="last_name" placeholder="Prenom" required>
                                         @error('last_name')
                                         <span class="invalid-feedback" role="alert">
@@ -47,7 +57,7 @@
                                         @enderror
                                     </div>
                                     <div class=" col-md-3">
-                                        <label>Téléphone* :</label>
+                                        <label>Phone* :</label>
                                         <input class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="xx xx xx xx" required>
                                         @error('phone')
                                         <span class="invalid-feedback" role="alert">
@@ -56,7 +66,7 @@
                                         @enderror
                                     </div>
                                     <div class=" col-md-3">
-                                        <label>Adresse* :</label>
+                                        <label>Address* :</label>
                                         <input class="form-control @error('address') is-invalid @enderror" name="address" placeholder="Adresse" required>
                                         @error('address')
                                         <span class="invalid-feedback" role="alert">
@@ -68,7 +78,7 @@
                                 <div class="row mt-2">
                                     <div class=" col-md-3">
                                         <label>Wilaya* :</label>
-                                        <select class="single-select" id="wilaya" name="wilaya" required>
+                                        <select class="multi-select" id="wilaya" name="wilaya" required>
                                             <option>selectionner la wilaya...</option>
                                             @foreach($wilayas as $wilaya)
                                                 <option value="{{$wilaya->wilaya}}"> {{$wilaya->wilaya}}</option>
@@ -78,27 +88,27 @@
                                     </div>
                                     <div class=" col-md-3">
                                         <label>Commune* :</label>
-                                        <select class="single-select" id="commune" name="commune"  required>
+                                        <select class="multi-select"  id="commune" name="commune"  required>
 
                                         </select>
 
                                     </div>
                                     <div class=" col-md-3">
                                         <label>Centre : </label>
-                                        <select class="single-select" name="center" id="center">
+                                        <select class="multi-select" name="center" id="center">
 
                                         </select>
 
                                     </div>
                                     <div class="col-md-3 mt-2">
-                                        <label>Livraison :</label> <br>
+                                        <label>Delivery :</label> <br>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="shipping" id="inlineRadio1" value="bureau" checked  >
-                                            <label class="form-check-label" for="inlineRadio1">Au bureau</label>
+                                            <label class="form-check-label" for="inlineRadio1">At the office</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="shipping" id="inlineRadio2" value="domicile" >
-                                            <label class="form-check-label" for="inlineRadio2">A domicile</label>
+                                            <label class="form-check-label" for="inlineRadio2">At home</label>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +121,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Détails de commande </h4>
+                        <h4 class="card-title">Order details </h4>
                     </div>
                     <div class="card-body " id="variation" >
                        <div class="basic-form d-flex justify-content-center" >
@@ -119,7 +129,7 @@
                                 <table id="tblattribute" class="table table-bordered mt-3 ">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Produit - attribut</th>
+                                            <th scope="col">Product - attribute</th>
                                             <th scope="col">Qte</th>
                                             <th scope="col">#</th>
                                         </tr>
@@ -128,7 +138,7 @@
                                             <tr>
                                                 <td style="width: 30%">
                                                     <div class="input-group">
-                                                        <select name="product[]" id="select-product" class="single-select">
+                                                        <select name="product[]" id="select-product" class="multi-select">
                                                             @foreach ($productlines as $line)
                                                               <option value="{{$line->id}}">{{$line->product->designation }}  &nbsp;&nbsp;   @if($line->attributeLine){{$line->attributeLine->value}}@endif </option>
                                                             @endforeach
@@ -161,7 +171,7 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                 <div class="card-body text-center">
-                    <button type="submit" class="btn btn-primary mt-3">Voir Détails</button>
+                    <button type="submit" class="btn btn-primary mt-3">View Details</button>
                     </form>
                 </div>
                </div>
