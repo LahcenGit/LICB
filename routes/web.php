@@ -8,6 +8,7 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponAdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
@@ -104,7 +105,7 @@ Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::clas
 Route::get('/category/products/filter', [HomeController::class, 'filterProducts'])->name('products.filter');
 Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
 Route::resource('/',HomeController::class);
-
+Route::resource('/comment',CommentController::class);
 
 
 //chekout

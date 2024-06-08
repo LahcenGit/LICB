@@ -6,6 +6,7 @@
     width: 40px;
     height: 40px;
     }
+
 </style>
 
 
@@ -90,10 +91,10 @@
                                             <h2 class="title-detail">{{$product->designation}}</h2>
                                             <div class="product-detail-rating">
                                                 <div class="product-rate-cover text-end">
-                                                    <div class="product-rate d-inline-block">
-                                                        <div class="product-rating" style="width: 90%"></div>
+                                                    <div class="product-average-rating d-inline-block">
+
                                                     </div>
-                                                    <span class="font-small ml-5 text-muted"> (32 reviews)</span>
+                                                    <span class="font-small ml-5 text-muted"> ({{ $count_comments }} reviews)</span>
                                                 </div>
                                             </div>
                                             <div class="clearfix product-price-cover">
@@ -208,7 +209,7 @@
                                                     <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                                 </div>
                                                 <div class="product-extra-link2">
-                                                    <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Ajouter au panier</button>
+                                                    <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
 
                                                 </div>
@@ -240,7 +241,7 @@
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Commentaires (3)</a>
+                                                <a class="nav-link count-comment" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">Comments ({{ $count_comments }})</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content shop_info_tab entry-main-content">
@@ -274,77 +275,43 @@
                                                 <!--Comments-->
                                                 <div class="comments-area">
                                                     <div class="row">
-                                                        <div class="col-lg-8">
-                                                            <h4 class="mb-30">Avis des clients</h4>
-                                                            <div class="comment-list">
-                                                                <div class="single-comment justify-content-between d-flex mb-30">
-                                                                    <div class="user justify-content-between d-flex">
-                                                                        <div class="thumb text-center">
-                                                                            <img src="{{ asset('front/assets/imgs/blog/author-2.png') }}" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">NODHAR BOUCHAREB</a>
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <div class="d-flex justify-content-between mb-10">
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">December 4, 2022 13h:15 </span>
-                                                                                </div>
-                                                                                <div class="product-rate d-inline-block">
-                                                                                    <div class="product-rating" style="width: 100%"></div>
-                                                                                </div>
+                                                        <div class="col-lg-8 " id="comment-section">
+                                                            <h4 class="mb-30 customer_reviews">@if($count_comments > 0)Customer Reviews @endif</h4>
+                                                            @foreach($comments as $comment)
+                                                                <div class="comment-list">
+                                                                    <div class="single-comment justify-content-between d-flex mb-30">
+                                                                        <div class="user justify-content-between d-flex">
+                                                                            <div class="thumb text-center">
+                                                                                <img src="{{asset('dashboard/logo-customer.png')}}" alt="" />
+                                                                                <a href="#" class="font-heading text-brand">{{ $comment->user->first_name }} {{ $comment->user->last_name }}</a>
                                                                             </div>
-                                                                            <p class="mb-10">Great shop..great costumer service..and most importently great interaction with content creators such as me..Very fast delivery and competitive prices. </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="single-comment justify-content-between d-flex mb-30">
-                                                                    <div class="user justify-content-between d-flex">
-                                                                        <div class="thumb text-center">
-                                                                            <img src="{{ asset('front/assets/imgs/blog/author-2.png') }}" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">Abderahim</a>
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <div class="d-flex justify-content-between mb-10">
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">Septembre 3, 2022 at 10h:20 </span>
-                                                                                </div>
-                                                                                <div class="product-rate d-inline-block">
-                                                                                    <div class="product-rating" style="width: 100%"></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <p class="mb-10">I like the diversity of your products, also good communication. </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                            <div class="desc">
+                                                                                <div class="d-flex justify-content-between mb-10">
+                                                                                    <div class="d-flex align-items-center">
+                                                                                        <span class="font-xs text-muted">{{$comment->created_at->format('Y-m-d H:m')}}</span>
+                                                                                    </div>
+                                                                                    <div class="d-inline-block comment-rating"  data-rating="{{ $comment->rating }}">
 
-                                                                <div class="single-comment justify-content-between d-flex">
-                                                                    <div class="user justify-content-between d-flex">
-                                                                        <div class="thumb text-center">
-                                                                            <img src="{{ asset('front/assets/imgs/blog/author-4.png') }}" alt="" />
-                                                                            <a href="#" class="font-heading text-brand">zako </a>
-                                                                        </div>
-                                                                        <div class="desc">
-                                                                            <div class="d-flex justify-content-between mb-10">
-                                                                                <div class="d-flex align-items-center">
-                                                                                    <span class="font-xs text-muted">juillet 14, 2022 at 17h:30</span>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="product-rate d-inline-block">
-                                                                                    <div class="product-rating" style="width: 80%"></div>
-                                                                                </div>
+                                                                                <p class="mb-10">{{ $comment->comment }}</p>
                                                                             </div>
-                                                                            <p class="mb-10">Fast shipping and excellent prices with a great costumers services .Thanks licb </p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            @endforeach
                                                         </div>
                                                         <div class="col-lg-4">
 
                                                             <div class="d-flex mb-30">
-                                                                <div class="product-rate d-inline-block mr-15">
-                                                                    <div class="product-rating" style="width: 90%"></div>
+                                                                <div class="product-average-rating d-inline-block mr-15">
+
                                                                 </div>
-                                                                <h6>4,8 sur 5</h6>
+
+                                                                <h6 class="avg-rating">@if($count_comments > 0){{ $average_rating }} sur 5 @endif</h6>
+
                                                             </div>
+                                                            {{--
                                                             <div class="progress">
                                                                 <span>5 star</span>
                                                                 <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
@@ -366,13 +333,16 @@
                                                                 <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
                                                             </div>
                                                             <a href="#" class="font-xs text-muted">Comment les notes sont-elles calculées ?</a>
+                                                            --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!--comment form-->
+                                                @Auth
+                                                @if($nbr_comment == 0)
                                                 <div class="comment-form">
-                                                    <h4 class="mb-15">Ajouter un commentaire</h4>
-                                                    <div class="product-rate d-inline-block mb-30"></div>
+                                                    <h4 class="mb-15">Add a comment</h4>
+                                                    <div class="d-inline-block mb-30 my-rating"></div>
                                                     <div class="row">
                                                         <div class="col-lg-8 col-md-12">
                                                             <form class="form-contact comment_form" action="#" id="commentForm">
@@ -382,32 +352,32 @@
                                                                             <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Commentaire"></textarea>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="form-group">
-                                                                            <input class="form-control" name="name" id="name" type="text" placeholder="Nom et prenom" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="form-group">
-                                                                            <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
-                                                                        </div>
-                                                                    </div>
-
+                                                                    <input type="hidden" class="form-control" id="product" value="{{ $product->id }}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <button type="submit" class="button button-contactForm">Envoyer</button>
+                                                                    <button type="button" class="button button-contactForm add-comment">Send</button>
                                                                 </div>
                                                             </form>
+                                                            <div id="show_comment_msg">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                @else
+                                                <h6 style="color: #BC221A">You have already provided feedback on this product!</h6>
+                                                @endif
+                                                @else
+                                                <p>Please log in to post a comment.</p>
+                                                <a href="{{asset('/login')}}"class="btn btn-sqr mt-3">Log In</a>
+                                                @endauth
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-60">
                                     <div class="col-12">
-                                        <h2 class="section-title style-1 mb-30">Produits associés</h2>
+                                        <h2 class="section-title style-1 mb-30">Related products</h2>
                                     </div>
                                     <div class="col-12">
                                         <div class="row related-products">
@@ -430,9 +400,10 @@
                                                     </div>
                                                     <div class="product-content-wrap">
                                                         <h2><a href={{ asset('product/'.$related_product->product->slug) }}>{{$related_product->product->designation}}</a></h2>
-                                                        <div class="rating-result" title="90%">
+                                                        {{--  <div class="rating-result" title="90%">
                                                             <span> </span>
-                                                        </div>
+                                                        </div> --}}
+
                                                         <div class="product-price">
                                                             @if($related_product->getPricePromo())
                                                             <span>{{number_format($related_product->getPricePromo())}} Da</span>
@@ -452,7 +423,7 @@
                         </div>
                         <div class="col-xl-3 primary-sidebar sticky-sidebar mt-30">
                             <div class="sidebar-widget widget-category-2 mb-30">
-                                <h5 class="section-title style-1 mb-30">Catégories</h5>
+                                <h5 class="section-title style-1 mb-30">Categories</h5>
                                 <ul>
                                     @foreach($randomCategories as $category)
                                     <li>
@@ -465,7 +436,7 @@
 
                             <!-- Product sidebar Widget -->
                             <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                                <h5 class="section-title style-1 mb-30">Nouveaux produits</h5>
+                                <h5 class="section-title style-1 mb-30">New products</h5>
                                 @foreach($new_products as $new_product)
                                 <div class="single-post clearfix">
                                     <div class="image">
@@ -476,9 +447,10 @@
                                     <div class="content pt-10">
                                         <h5><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h5>
                                         <p class="price mb-0 mt-5">{{number_format($new_product->minPrice())}} Da</p>
-                                        <div class="product-rate">
-                                            <div class="product-rating" style="width: 90%"></div>
-                                        </div>
+                                        {{-- <div class="product-average-rating">
+
+                                        </div> --}}
+
                                     </div>
                                 </div>
                                @endforeach
@@ -711,5 +683,127 @@
         $("#li-"+id).addClass("li-color-selected");
         $('#related-img-'+id).trigger('click');
     });
+</script>
+@endpush
+
+
+@push('comment-scripts')
+<script>
+    $(document).ready(function() {
+        var averageRating = {{ $average_rating }};
+        var averageRating = parseFloat(averageRating);
+
+
+        $('.product-average-rating').starRating({
+            initialRating: averageRating,
+            readOnly: true,
+            // Autres options du plugin...
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+      // Récupérer la valeur de la note depuis l'attribut data-rating
+      var initialRating = parseFloat($('#product-rating').data('rating'));
+
+      // Initialiser le plugin StarRatingSvg avec la valeur récupérée
+      $('.comment-rating').starRating({
+        initialRating: initialRating,
+        readOnly: true, // Optionnel : définir à true si vous ne voulez pas que les utilisateurs puissent modifier la note
+        // Autres options du plugin...
+      });
+    });
+</script>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(".add-comment").on("click", function (e) {
+    e.preventDefault();
+
+    $('#show_comment_msg').html('<div>En cours....</div>');
+
+    var comment = $('#comment').val();
+    var product = $('#product').val();
+    var rating = $('.my-rating').starRating('getRating');
+
+    var data = {
+        "_token": "{{ csrf_token() }}",
+        comment: comment,
+        product: product,
+        rating: rating
+    };
+
+    $.ajax({
+    url: "/comment",
+    type: "POST",
+    data: data,
+    success: function (res) {
+        // Récupérer la valeur de la note depuis la réponse AJAX
+        var initialRating = parseFloat(res.rating);
+        var averageRating = parseFloat(res.average_rating);
+        // Initialiser le plugin StarRatingSvg avec la valeur récupérée
+
+
+        // Ajouter le contenu du commentaire à #comment-section avec les étoiles
+        $('#comment-section').append(
+            '<div class="comment-list">' +
+            '<div class="single-comment justify-content-between d-flex mb-30">' +
+            '<div class="user justify-content-between d-flex">' +
+            '<div class="thumb text-center">' +
+            '<img src="{{asset('dashboard/logo-customer.png')}}" alt="" />' +
+            '<a href="#" class="font-heading text-brand">' + res.name + '</a>' +
+            '</div>' +
+            '<div class="desc">' +
+            '<div class="d-flex justify-content-between mb-10">' +
+            '<div class="d-flex align-items-center">' +
+            '<span class="font-xs text-muted">' + res.date + '</span>' +
+            '</div>' +
+            '<div class="d-inline-block comment-rating"></div>' + // Ajouter ici la classe pour les étoiles
+            '</div>' +
+            '<p class="mb-10">' + res.comment + '</p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+        );
+        $('.comment-rating').starRating({
+            initialRating: initialRating,
+            readOnly: true, // Optionnel : définir à true si vous ne voulez pas que les utilisateurs puissent modifier la note
+            // Autres options du plugin...
+        });
+        $('.product-average-rating').starRating({
+            initialRating: averageRating,
+            readOnly: true,
+            // Autres options du plugin...
+        });
+        $('.avg-rating').text(res.average_rating + ' sur 5');
+        $('.customer_reviews').text('Customer Reviews');
+        $('.count-comment').text('Comments('+res.count_comments+')');
+        // Afficher un message de succès
+        $('#show_comment_msg').html('<div class="alert alert-success mt-2 flash-alert" id="form-success" role="alert" style="color:#fff; background-color:#BC221A; border-color:#BC221A;">Thank you for your comment!</div>');
+        $(".flash-alert").slideDown(200, function () {
+            setTimeout(function () {
+                $(".flash-alert").slideUp(200, function () {
+                    $(".comment-form").hide();
+                });
+            }, 2000);
+        });
+    },
+    error: function (xhr, status, error) {
+        // Afficher un message d'erreur en cas d'échec de la requête AJAX
+        $('#show_comment_msg').html('<div class="alert alert-danger mt-2 flash-alert" id="form-error" role="alert" style="color:#fff; background-color:#BC221A; border-color:#BC221A;">You have already commented on this product.</div>');
+        $(".flash-alert").slideDown(200, function () {
+            setTimeout(function () {
+                $(".flash-alert").slideUp(200);
+            }, 2000);
+        });
+    }
+});
+});
 </script>
 @endpush

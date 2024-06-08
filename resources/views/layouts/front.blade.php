@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.bootstrap5.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.dataTables.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css"/>
-
+    <link rel="stylesheet" href="{{ asset('plugins/star-rating-svg.css') }}" />
 
 
 </head>
@@ -669,8 +669,21 @@
     <script src="https://cdn.datatables.net/fixedcolumns/5.0.0/js/dataTables.fixedColumns.js"></script>
     <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
 
+    <script type="text/javascript" src="{{ asset('plugins/jquery.star-rating-svg.js') }}"></script>
+	<script>
+        $(".my-rating").starRating({
+			starSize: 25,
+			initialRating: 3.5,
+		});
 
+		let rate =$('#rate-result').val();
 
+		$(".rating-result").starRating({
+			starSize: 25,
+			initialRating: rate,
+            readOnly: true
+		});
+    </script>
 
 
 
@@ -684,7 +697,7 @@
     @stack('checkout-registration')
     @stack('pc-builder-scripts')
     @stack('filter-product')
-
+    @stack('comment-scripts')
 </body>
 
 </html>
