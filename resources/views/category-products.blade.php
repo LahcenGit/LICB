@@ -21,7 +21,7 @@
     </div>
     <div class="container mb-30">
         <div class="row flex-row-reverse mt-4 " >
-            <div class="col-lg-4-5" id="product-list">
+            <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
                         <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row product-grid" id="product-filtered-by-price">
+                <div class="row product-grid" id="product-list">
                     @foreach($products as $productCategory)
                         @php $product = $productCategory->product; @endphp
                         <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
@@ -323,7 +323,7 @@
                     </div>
                     <!-- Ajout de l'identifiant unique au bouton Filter -->
                     <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
-                    <a href="{{ asset('category-products/'.$category->id) }}" id="filter-button" class="btn btn-sm btn-default mt-3"> show all</a>
+                    <a href="{{ asset('category-products/'.$category->id) }}" class="btn btn-sm btn-default mt-3"> show all</a>
                 </div>
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                     <div class="vendor-logo mb-30">
@@ -393,77 +393,61 @@
     </div>
 </main>
 @endsection
-@push('filter-product-with-brand')
+@push('filter-product')
 <script>
     $(document).ready(function() {
-        // Gestionnaire d'événements pour le clic sur le bouton Filter
-        $('#filter-button').on('click', function() {
-            let selectedBrands = [];
-            $('.form-check-input:checked').each(function() {
-                selectedBrands.push($(this).val());
-            });
-
-            let categoryId = $('#category-id').val();
-            fetchProducts(selectedBrands, categoryId);
-        });
-
-        function fetchProducts(brands, categoryId) {
-            $.ajax({
-                url: '/category/products/filter',
-                method: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    brands: brands,
-                    category_id: categoryId
-                },
-                success: function(response) {
-                    $('#product-list').html(response.html);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-    });
-    </script>
-@endpush
-@push('filter-product-with-price')
-<script>
-    $(document).ready(function() {
-        function loadProducts(sortBy) {
-           var categoryId = $('#category-id').val();
+        function loadProducts(brands, sortBy) {
+            var categoryId = $('#category-id').val();
 
             $.ajax({
-                url: '{{ route('filter.products.with.price') }}',
+                url: '{{ route('products.filter') }}',
                 method: 'GET',
                 data: {
+                    brands: brands,
                     sort_by: sortBy,
                     category_id: categoryId
                 },
                 success: function(response) {
-                    $('#product-filtered-by-price').html(response.html);
+                    $('#product-list').html(response.html);
+                    $('.totall-product .text-brand').text(response.countProducts);
                 }
             });
         }
 
-        // Ajouter des événements de clic aux liens de tri
+        // filter by price
         $('.filter-link').on('click', function(e) {
             e.preventDefault();
             $('.filter-link').removeClass('active');
             $(this).addClass('active');
             var sortBy = $(this).data('sort-by');
-            if(sortBy == 'price_low_high'){
+            var brands = [];
+           $('input[name="brands[]"]:checked').each(function() {
+                brands.push($(this).val());
+            });
+
+            // Mettre à jour le texte de tri
+            if (sortBy == 'price_low_high') {
                 $('.sort-by-text').text('Low To High');
-            }
-            else if(sortBy == 'price_high_low'){
+            } else if (sortBy == 'price_high_low') {
                 $('.sort-by-text').text('High To Low');
-            }
-            else{
+            } else {
                 $('.sort-by-text').text('New');
             }
+            loadProducts(brands, sortBy);
+        });
 
-            loadProducts(sortBy);
+        //filter by brand
+        $('#filter-button').on('click', function(e) {
+            e.preventDefault();
+            var sortBy = $('.filter-link.active').data('sort-by');
+            var brands = [];
+
+
+            $('input[name="brands[]"]:checked').each(function() {
+                brands.push($(this).val());
+            });
+            loadProducts(brands, sortBy);
         });
     });
-    </script>
+</script>
 @endpush

@@ -133,48 +133,43 @@ class HomeController extends Controller
     }
 
     public function filterProducts(Request $request)
-    {
-        $brands = $request->input('brands');
+{       $brands = $request->input('brands');
         $categoryId = $request->input('category_id');
-        $products = Product::with('images')->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-                             ->whereIn('mark_id', $brands)
-                             ->where('productcategories.category_id', $categoryId)
-                             ->select('products.*')
-                             ->paginate(15);
-        $countProducts = $products->count();
-        $html = view('partials.product-list', compact('products' ,'countProducts'))->render();
-
-        return response()->json(['html' => $html]);
-    }
-
-    public function filterProductsWithPrice(Request $request)
-    {
-
-        $categoryId = $request->input('category_id');
-        $query = Product::with(['images', 'productlines'])->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-                             ->where('productcategories.category_id', $categoryId)
-                             ->select('products.*', DB::raw('MIN(productlines.price) as price'))
-                             ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
-                             ->groupBy('products.id');
-
         $sortBy = $request->input('sort_by');
-        switch ($sortBy) {
-        case 'price_low_high':
-            $query->orderBy('price', 'asc');
-            break;
-        case 'price_high_low':
-            $query->orderBy('price', 'desc');
-            break;
 
-        case 'new':
-        default:
-            $query->orderBy('products.created_at', 'desc');
-            break;
-    }
+        $query = Product::with(['images', 'productlines'])
+                        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                        ->where('productcategories.category_id', $categoryId)
+                        ->select('products.*', DB::raw('MIN(productlines.price) as price'))
+                        ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
+                        ->groupBy('products.id');
+
+       //filter by brand;
+        if ($brands) {
+            $query->whereIn('mark_id', $brands);
+        }
+
+        //filter by price
+        switch ($sortBy) {
+            case 'price_low_high':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high_low':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'new':
+            default:
+                $query->orderBy('products.created_at', 'desc');
+                break;
+        }
+
+        // Pagination
         $products = $query->paginate(15);
         $countProducts = $products->count();
-        $html = view('partials.products-filtered-by-price', compact('products' ,'sortBy'))->render();
-
-        return response()->json(['html' => $html]);
-    }
+        $html = view('partials.product-list', compact('products', 'countProducts'))->render();
+        return response()->json([
+            'html' => $html,
+            'countProducts' => $countProducts
+    ]);
+}
 }

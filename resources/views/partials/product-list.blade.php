@@ -1,29 +1,4 @@
-<div class="shop-product-fillter">
-    <div class="totall-product">
-        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
-    </div>
-    <div class="sort-by-product-area">
-        <div class="sort-by-cover">
-            <div class="sort-by-product-wrap">
-                <div class="sort-by">
-                    <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
-                </div>
-                <div class="sort-by-dropdown-wrap">
-                    <span> New <i class="fi-rs-angle-small-down"></i></span>
-                </div>
-            </div>
-            <div class="sort-by-dropdown">
-                <ul>
-                    <li><a href="#" class="filter-link active" data-sort-by="new">New</a></li>
-                    <li><a href="#" class="filter-link" data-sort-by="price_low_high">Price: Low to High</a></li>
-                    <li><a href="#" class="filter-link" data-sort-by="price_high_low">Price: High to Low</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row product-grid" id="product-list">
+<div class="row product-grid">
     @foreach($products as $product)
         <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
             <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
@@ -71,7 +46,6 @@
         </div>
     @endforeach
 </div>
-
 <!-- Pagination Area -->
 <div class="pagination-area mt-20 mb-20">
     <nav aria-label="Page navigation example">

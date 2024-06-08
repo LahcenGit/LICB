@@ -683,8 +683,8 @@
     @stack('shipping-script')
     @stack('checkout-registration')
     @stack('pc-builder-scripts')
-    @stack('filter-product-with-brand')
-    @stack('filter-product-with-price')
+    @stack('filter-product')
+
 </body>
 
 </html>
