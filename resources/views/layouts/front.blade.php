@@ -347,7 +347,7 @@
                                                         </ul>
                                                     </li>
                                                 @else
-                                                    <li><a href="#">{{ $category->designation }}</a></li>
+                                                    <li><a href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
@@ -683,6 +683,8 @@
     @stack('shipping-script')
     @stack('checkout-registration')
     @stack('pc-builder-scripts')
+    @stack('filter-product-with-brand')
+    @stack('filter-product-with-price')
 </body>
 
 </html>

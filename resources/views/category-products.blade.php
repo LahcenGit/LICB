@@ -1,5 +1,15 @@
 @extends('layouts.front')
 @section('content')
+<style>
+.custome-checkbox input[type="checkbox"]:checked + .form-check-label::before {
+    background-color: #BC221A !important;
+    border-color: #BC221A !important;;
+}
+::selection {
+    background: #BC221A !important;
+    color: #fff!important ;
+}
+</style>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -10,13 +20,14 @@
         </div>
     </div>
     <div class="container mb-30">
-        <div class="row flex-row-reverse mt-4">
-            <div class="col-lg-4-5">
+        <div class="row flex-row-reverse mt-4 " >
+            <div class="col-lg-4-5" id="product-list">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> items for you!</p>
+                        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
                     </div>
                     <div class="sort-by-product-area">
+                         {{--
                         <div class="sort-by-cover mr-10">
                             <div class="sort-by-product-wrap">
                                 <div class="sort-by">
@@ -26,7 +37,8 @@
                                     <span> 50 <i class="fi-rs-angle-small-down"></i></span>
                                 </div>
                             </div>
-                            <div class="sort-by-dropdown">
+
+                                <div class="sort-by-dropdown">
                                 <ul>
                                     <li><a class="active" href="#">50</a></li>
                                     <li><a href="#">100</a></li>
@@ -35,29 +47,32 @@
                                     <li><a href="#">All</a></li>
                                 </ul>
                             </div>
+
+
                         </div>
+                        --}}
                         <div class="sort-by-cover">
                             <div class="sort-by-product-wrap">
                                 <div class="sort-by">
                                     <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                 </div>
                                 <div class="sort-by-dropdown-wrap">
-                                    <span> Featured <i class="fi-rs-angle-small-down"></i></span>
+                                    <span class="sort-by-text"> New <i class="fi-rs-angle-small-down "></i></span>
                                 </div>
                             </div>
                             <div class="sort-by-dropdown">
                                 <ul>
-                                    <li><a class="active" href="#">Featured</a></li>
-                                    <li><a href="#">Price: Low to High</a></li>
-                                    <li><a href="#">Price: High to Low</a></li>
-                                    <li><a href="#">Release Date</a></li>
-                                    <li><a href="#">Avg. Rating</a></li>
+                                    <ul>
+                                        <li><a href="#" class="filter-link active" data-sort-by="new">New</a></li>
+                                        <li><a href="#" class="filter-link" data-sort-by="price_low_high">Price: Low to High</a></li>
+                                        <li><a href="#" class="filter-link" data-sort-by="price_high_low">Price: High to Low</a></li>
+                                    </ul>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row product-grid">
+                <div class="row product-grid" id="product-filtered-by-price">
                     @foreach($products as $productCategory)
                         @php $product = $productCategory->product; @endphp
                         <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
@@ -113,6 +128,7 @@
                         @include('vendor.pagination.custom-pagination', ['paginator' => $products])
                     </nav>
                 </div>
+                {{--
                 <section class="section-padding pb-5">
                     <div class="section-title">
                         <h3 class="">Deals Of The Day</h3>
@@ -272,9 +288,43 @@
                         </div>
                     </div>
                 </section>
+                 --}}
                 <!--End Deals-->
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
+
+                <div class="sidebar-widget widget-category-2 mb-30">
+                    <h5 class="section-title style-1 mb-30">Categories</h5>
+                    <ul>
+                        @foreach($randomCategories as $randomcategory)
+                            <li>
+                                <a href="#">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <!-- Fillter By Price -->
+                <div class="sidebar-widget price_range range mb-30">
+                    <h5 class="section-title style-1 mb-30">Filter by brand</h5>
+                    <div class="list-group">
+                        <div class="list-group-item mb-10 mt-10">
+                            <label class="fw-900">Brand</label>
+                            <div class="custom-checkbox">
+                                @foreach($brands as $brand)
+                                <input class="form-check-input" type="checkbox" name="brands[]" id="exampleCheckbox{{ $loop->iteration }}" value="{{ $brand->id }}" />
+                                <label class="form-check-label" for="exampleCheckbox{{ $loop->iteration }}">
+                                    <span>{{ $brand->designation }}</span>
+                                </label>
+                                <br />
+                                @endforeach
+                            </div>
+                            <input type="hidden" id="category-id" value="{{ $category->id }}" />
+                        </div>
+                    </div>
+                    <!-- Ajout de l'identifiant unique au bouton Filter -->
+                    <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
+                    <a href="{{ asset('category-products/'.$category->id) }}" id="filter-button" class="btn btn-sm btn-default mt-3"> show all</a>
+                </div>
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                     <div class="vendor-logo mb-30">
                         <img src="assets/imgs/vendor/vendor-16.png" alt="" />
@@ -327,47 +377,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-widget widget-category-2 mb-30">
-                    <h5 class="section-title style-1 mb-30">Categories</h5>
-                    <ul>
-                        @foreach($randomCategories as $category)
-                            <li>
-                                <a href="#">{{$category->designation}}</a><span class="count" style="color: #fff">{{ $category->product_categories_count }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <!-- Fillter By Price -->
-                <div class="sidebar-widget price_range range mb-30">
-                    <h5 class="section-title style-1 mb-30">Filter by brand</h5>
-                    <div class="list-group">
-                        <div class="list-group-item mb-10 mt-10">
-                            <label class="fw-900">Color</label>
-                            <div class="custome-checkbox">
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
-                                <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                <br />
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="" />
-                                <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                <br />
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="" />
-                                <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                            </div>
-                            <label class="fw-900 mt-15">Item Condition</label>
-                            <div class="custome-checkbox">
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="" />
-                                <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                <br />
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="" />
-                                <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                <br />
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="" />
-                                <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="shop-grid-right.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
-                </div>
                 <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
                     <img src="{{ asset('front/assets/imgs/banner/banner-11.png') }}" alt="" />
                     <div class="banner-text">
@@ -384,3 +393,77 @@
     </div>
 </main>
 @endsection
+@push('filter-product-with-brand')
+<script>
+    $(document).ready(function() {
+        // Gestionnaire d'événements pour le clic sur le bouton Filter
+        $('#filter-button').on('click', function() {
+            let selectedBrands = [];
+            $('.form-check-input:checked').each(function() {
+                selectedBrands.push($(this).val());
+            });
+
+            let categoryId = $('#category-id').val();
+            fetchProducts(selectedBrands, categoryId);
+        });
+
+        function fetchProducts(brands, categoryId) {
+            $.ajax({
+                url: '/category/products/filter',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    brands: brands,
+                    category_id: categoryId
+                },
+                success: function(response) {
+                    $('#product-list').html(response.html);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+    </script>
+@endpush
+@push('filter-product-with-price')
+<script>
+    $(document).ready(function() {
+        function loadProducts(sortBy) {
+           var categoryId = $('#category-id').val();
+
+            $.ajax({
+                url: '{{ route('filter.products.with.price') }}',
+                method: 'GET',
+                data: {
+                    sort_by: sortBy,
+                    category_id: categoryId
+                },
+                success: function(response) {
+                    $('#product-filtered-by-price').html(response.html);
+                }
+            });
+        }
+
+        // Ajouter des événements de clic aux liens de tri
+        $('.filter-link').on('click', function(e) {
+            e.preventDefault();
+            $('.filter-link').removeClass('active');
+            $(this).addClass('active');
+            var sortBy = $(this).data('sort-by');
+            if(sortBy == 'price_low_high'){
+                $('.sort-by-text').text('Low To High');
+            }
+            else if(sortBy == 'price_high_low'){
+                $('.sort-by-text').text('High To Low');
+            }
+            else{
+                $('.sort-by-text').text('New');
+            }
+
+            loadProducts(sortBy);
+        });
+    });
+    </script>
+@endpush

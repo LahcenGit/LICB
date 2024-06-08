@@ -99,8 +99,14 @@ Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'd
 Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::resource('/',HomeController::class);
+
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::post('/category/products/filter', [HomeController::class, 'filterProducts'])->name('products.filter');
+Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
+Route::resource('/',HomeController::class);
+
+
+
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
@@ -122,3 +128,5 @@ Route::get('/check-auth', [App\Http\Controllers\HomeController::class, 'checkAut
 
 Route::get('/pc-builder', [App\Http\Controllers\PcBuilderController::class, 'index']);
 Route::get('/show-component', [App\Http\Controllers\PcBuilderController::class, 'showComponent']);
+
+
