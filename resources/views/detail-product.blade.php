@@ -2,10 +2,22 @@
 @section('content')
 
 <style>
-    .carre {
+   .carre {
     width: 40px;
     height: 40px;
     }
+    
+    .border {
+             border: 1px solid #000 !important;
+        }
+        
+        
+     .summernote-container {
+    max-height: auto; /* Définir une hauteur maximale pour le div */
+    max-width: auto; /* Définir une largeur maximale pour le div */
+    overflow: auto; /* Ajouter des barres de défilement si le contenu dépasse les limites */
+    box-sizing: border-box; /* Inclure le padding et la bordure dans les dimensions de l'élément */
+}
 </style>
 
 
@@ -70,7 +82,7 @@
                                                         @endforeach
                                                    @endif
 
-                                                    @foreach($product->images as $img)
+                                                    @foreach($secondary_images as $img)
                                                     <div id="{{'related-img-'.$img->id}}"><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
                                                     @endforeach
                                                 @else
@@ -136,11 +148,11 @@
                                                                 @foreach($productline as $item)
                                                                     @if($item[0])
                                                                     <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
-                                                                        <a  href="javascript:void(0)" class="select-attribut" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                                        <a  href="javascript:void(0)" class="select-attribut getAttribute" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
                                                                     </li>
                                                                     @else
                                                                         <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
-                                                                            <a  href="javascript:void(0)" class="select-attribut" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
+                                                                            <a  href="javascript:void(0)" class="select-attribut getAttribute" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
                                                                         </li>
                                                                     @endif
                                                                 @endforeach
@@ -184,14 +196,18 @@
                                                 <div class="attr-detail attr-size mb-30 color-option">
                                                     <ul class="list-filter size-filter font-small list-option" id="list-line">
                                                         <div class="mb-4 attribut-section">
-                                                            <strong >Options: <span class="product-text"></span></strong>
+                                                            <strong > <span class="product-text" style="color:#BC221A "> Recommended add-ons !</span></strong>
                                                         </div>
 
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
-                                                            <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} <br>
-                                                                <strong >@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
-                                                            </a>
+                                                                <div class="d-flex flex-row p-1" style="border: 1px solid #BC221A; border-radius: 5px;">
+                                                                    <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} 
+                                                                        <strong style="color: #BC221A">@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
+                                                                    </a>
+
+                                                                    <img src="{{asset('storage/images/products/'.$added_product->productLine->product->images[0]->lien)}}" alt="Description of Image" width="60" height="60">
+                                                                </div>
                                                             </li>
                                                         @endforeach
                                                     </ul>
@@ -245,7 +261,7 @@
                                         </ul>
                                         <div class="tab-content shop_info_tab entry-main-content">
                                             <div class="tab-pane fade show active" id="Description">
-                                                <div class="">
+                                                <div class="summernote-container ">
                                                     <hr class="wp-block-separator is-style-dots" />
                                                     <p>{!! $product->long_description !!}</p>
                                                 </div>

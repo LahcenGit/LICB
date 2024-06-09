@@ -64,7 +64,7 @@ class HomeController extends Controller
         }
 
         $categories = Category::where('parent_id',NULL)->get();
-        $last_products = Product::latest()->take(10)->get();
+        $last_products = Product::orderBy('created_at','desc')->take(10)->get();
         $products = Product::orderBy('created_at','desc')->get();
 
 

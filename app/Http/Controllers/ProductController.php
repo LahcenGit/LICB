@@ -82,7 +82,7 @@ class ProductController extends Controller
         if($request->check != 'oui'){
         $productline = new Productline();
         $productline->product_id = $product->id;
-        $productline->qte = $request->qte ?? 0;
+        $productline->qte = $request->qte ?? 1;
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
@@ -91,12 +91,13 @@ class ProductController extends Controller
         }
         //product has many attribute
         else{
+
         for($i=0 ; $i<count($request->as) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->as[$i];
-            $productline->qte = $request->qte[$i] ?? 0;
+            $productline->qte = $request->qte[$i] ?? 1;
             $productline->weight = $request->weight;
             if($request->price){
                 $productline->price = $request->price;
@@ -222,11 +223,11 @@ class ProductController extends Controller
 
 
         $image_preload_p = Image::where('product_id', $id)->where('type',1)
-        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
         ->get();
 
         $images_preload = Image::where('product_id', $id)->where('type',2)
-        ->select('id', DB::raw("concat('https://www.licbplus.com.dz/newsite/public/storage/images/products/', lien) as src"))
+        ->select('id', DB::raw("concat('/storage/images/products/', lien) as src"))
         ->get();
 
 
@@ -242,11 +243,15 @@ class ProductController extends Controller
 
     public function update(Request $request , $id){
 
+
+
+
         $product = Product::find($id);
         $images = Image::where('product_id', $id)->get();
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
+        
         //traitement images
         //---1er cas : aucun ajout avec supression photo
         if (!$request->hasFile('photoPrincipale') && !$request->hasFile('photos')) {
@@ -308,12 +313,12 @@ class ProductController extends Controller
         }*/
 
         foreach($productlines as $productline){
-            if($productline->attribute_image){
+           /* if($productline->attribute_image){
                 File::delete('storage/images/productlines/'.$productline->attribute_image);
             }
             if($productline->attribute_icone){
                 File::delete('storage/icones/productlines/'.$productline->attribute_image);
-            }
+            }*/
             $productline->delete();
         }
         foreach($product_categories as $product_category){
@@ -329,6 +334,7 @@ class ProductController extends Controller
         $product->point = $request->point;
         $product->mark_id = $request->brand;
         $product->date = $request->date;
+        
         $product->status = $request->status;
         if($request->p_TYPE){
             $product->p_TYPE = $request->p_TYPE;
@@ -369,7 +375,7 @@ class ProductController extends Controller
         if($request->check != 'oui'){
         $productline = new Productline();
         $productline->product_id = $product->id;
-        $productline->qte = $request->qte ?? 0;
+        $productline->qte = $request->qte ?? 1;
         $productline->price = $request->price;
         $productline->promo_price = $request->promo;
         $productline->status = $request->status;
@@ -378,12 +384,13 @@ class ProductController extends Controller
         }
         //product has many attribute
         else{
+
         for($i=0 ; $i<count($request->as) ; $i++){
             $productline = new Productline();
             $productline->product_id = $product->id;
             $productline->attributeline_id = $request->values[$i];
             $productline->attribute_id = $request->as[$i];
-            $productline->qte = $request->qtes[$i];
+            $productline->qte = $request->qtes[$i] ?? 1;
             $productline->weight = $request->weight;
             if($request->price){
                 $productline->price = $request->price;
@@ -407,11 +414,25 @@ class ProductController extends Controller
             }
 
             if($request->images){
-                $destination = 'public/images/productlines';
-                $path = $request->images[$i]->store($destination);
-                $storageName = basename($path);
-                $productline->attribute_image = $storageName;
-             }
+
+                if(isset($request->images[$i])){
+                    if(isset($request->images_old[$i])){
+                        File::delete('storage/images/productlines/'. $request->images_old[$i]);
+                    }
+                    
+                    $destination = 'public/images/productlines';
+                    $path = $request->images[$i]->store($destination);
+                    $storageName = basename($path);
+                    $productline->attribute_image = $storageName;
+                }
+
+                else{
+                    $productline->attribute_image = $request->images_old[$i];
+                }
+            }
+            else{
+                $productline->attribute_image = $request->images_old[$i];
+            }
             $productline->save();
         }
     }
@@ -466,7 +487,6 @@ class ProductController extends Controller
             if($images){
                 $secondary_images = $images->where('type',2);
             }
-
 
 
             $productattribute = $product_line->attribute->value;

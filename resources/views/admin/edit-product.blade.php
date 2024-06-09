@@ -33,7 +33,7 @@
                     </div>
                     </div>
                 @endif
-                <form action="{{url('admin/products/'.$product->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/products/'.$product->id)}}" id="addProduct"  method="POST"  enctype="multipart/form-data">
                 <input type="hidden" name="_method" value="PUT">
                 @csrf
 
@@ -226,50 +226,15 @@
                                                     <th scope="col">Icon</th>
                                                     <th scope="col">Image</th>
                                                     <th scope="col">#</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="dynamicAddRemove">
-                                                <tr>
-                                                    <td style="width: 15%">
-                                                        <select  id="select-content"  class="default-select form-control wide " name="as[]"  >
-                                                            <option value="0">Nothing Selected</option>
-                                                            @foreach($attributes as $a)
-                                                            <option value="{{$a->id}}">{{$a->value}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td style="width: 15%">
-                                                        <select  id="select-value" class="default-select form-control wide " name="values[]"  >
-                                                        </select>
-                                                    </td>
-                                                    <td style="width:  10%">
-                                                        <input type="text" class="form-control" placeholder="0" name="qtes[]">
-                                                    </td>
-                                                    <td  style="width: 15%">
-                                                        <input type="text" class="form-control price" placeholder="0.00" name="prices[]">
-                                                    </td>
-                                                    <td style="width: 15%">
-                                                        <input type="text" class="form-control price" placeholder="0.00" name="promos[]">
-                                                    </td>
-                                                    <td>
-                                                        <label for="icon-0" style="cursor: pointer;">
-                                                            <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
-                                                        </label>
-                                                        <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
-                                                    </td>
-                                                    <td>
-                                                        <label for="image-0" style="cursor: pointer;">
-                                                            <img id="image-show-0" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
-                                                        </label>
-                                                        <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
-                                                    </td>
                                                     <td>
                                                         <button type="button" id="add-attribute" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-plus"></i></button>
                                                     </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>
-                                                    </td>
                                                 </tr>
+                                            </thead>
+                                            <tbody id="dynamicAddRemove">
+                                                @php
+                                                $counter = 0;
+                                                @endphp
                                                 @if($productlines->count() >= 1 && $productlines[0]->attributeline_id != NULL)
                                                 @foreach($productlines as $productline)
                                                     <tr>
@@ -298,30 +263,37 @@
                                                             <input type="text" class="form-control price" value="{{ $productline->promo_price }}" placeholder="0.00" name="promos[]">
                                                         </td>
                                                         <td>
-                                                            <label for="icon-0" style="cursor: pointer;">
+                                                            <label for="icon-{{ $counter }}" style="cursor: pointer;">
                                                                 @if($productline->attribute_icone)
-                                                                <img id="icon-show-0" src="{{asset('storage/icones/productlines/'.$productline->attribute_icone)}}" width="50" height="50" alt="" >
+                                                                <img id="icon-show-{{ $counter }}" src="{{asset('storage/icones/productlines/'.$productline->attribute_icone)}}" width="50" height="50" alt="" >
                                                                 @else
-                                                                <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
+                                                                <img id="icon-show-{{ $counter }}" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >
                                                                 @endif
                                                             </label>
                                                             <input type="file" class="input-image" id="icon-0" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                                                         </td>
                                                         <td>
-                                                            <label for="image-0" style="cursor: pointer;">
+                                                            <label for="image-{{ $counter }}" style="cursor: pointer;">
                                                                 @if($productline->attribute_image)
-                                                                <img id="image-show-0" src="{{asset('storage/images/productlines/'.$productline->attribute_image)}}" width="100" height="100" alt="" >
+                                                                <img id="image-show-{{ $counter }}" src="{{asset('storage/images/productlines/'.$productline->attribute_image)}}" width="100" height="100" alt="" >
+                                                                
                                                                 @else
-                                                                <img id="icon-show-0" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
+                                                                <img id="icon-show-{{ $counter }}" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
+                                                                
                                                                 @endif
                                                             </label>
-                                                            <input type="file" class="input-image" id="image-0" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            <input type="file"  class="input-image" id="image-{{ $counter }}" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
+                                                            <input type="text"  value="{{$productline->attribute_image}}" class="input-image"  name="images_old[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
                                                         </td>
 
                                                         <td>
                                                             <button type="button" class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>
                                                         </td>
                                                     </tr>
+
+                                                    @php
+                                                        $counter++;
+                                                    @endphp
                                                 @endforeach
                                                 @endif
                                             </tbody>
@@ -515,10 +487,17 @@ $(document).ready(function() {
                         '<option value="14">14</option>';
         } else if (selectedType === "amd") {
           var options = '<option value="">Nothing selected</option>' +
-                        '<option value="1">1</option>' +
-                        '<option value="2">2</option>' +
-                        '<option value="3">3</option>' +
-                        '<option value="4">4</option>';
+          '<option value="1000">1000</option>' +
+          '<option value="1000">1000</option>' +
+                    '<option value="2000">2000</option>' +
+                    '<option value="3000">3000</option>' +
+                    '<option value="4000">4000</option>'+
+                    '<option value="5000">5000</option>'+
+                    '<option value="6000">6000</option>'+
+                    '<option value="7000">7000</option>'+
+                    '<option value="8000">8000</option>'+
+                    '<option value="9000">9000</option>'+
+                    '<option value="10000">10000</option>';
         }
 
         if (options) {
@@ -541,28 +520,51 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-    var i = 0;
+      var elements = $("[id^='image-show-']");
+            
+            // Initialise une variable pour suivre la valeur maximale de l'ID
+            var maxIdValue = -1;
+
+            // Parcours chaque élément pour trouver le plus grand numéro
+            elements.each(function(){
+                // Récupère l'ID de l'élément actuel
+                var id = $(this).attr('id');
+                
+                // Extrait la partie numérique de l'ID
+                var idNumber = parseInt(id.replace('image-show-', ''), 10);
+                
+                // Compare et met à jour la valeur maximale de l'ID
+                if (idNumber > maxIdValue) {
+                    maxIdValue = idNumber;
+                }
+            });
+
+            
+
+
+    var i = maxIdValue;
+
     $("#add-attribute").click(function () {
         var options = $('#select-content').html();
         ++i;
         $html = '<tr class="tradded">'+
                     '<td style="width: 15%">'+
-                        '<select   class="default-select form-control wide select-attribute " name="as['+i+']">'+
+                        '<select   class="default-select form-control wide select-attribute " name="as[]">'+
                             options +
                         '</select>'+
                     '</td>'+
                     '<td style="width: 15%">'+
-                        '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values['+i+']">'+
+                        '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values[]">'+
                         '</select>'+
                     '</td>'+
                     '<td style="width:  10%">'+
-                        '<input type="text" class="form-control" placeholder="0" name="qtes['+i+']">'+
+                        '<input type="text" class="form-control" placeholder="0" name="qtes[]">'+
                     '</td>'+
                     '<td  style="width: 15%">'+
-                        '<input type="text" class="form-control price" placeholder="0.00" name="prices['+i+']">'+
+                        '<input type="text" class="form-control price" placeholder="0.00" name="prices[]">'+
                     '</td>'+
                     '<td style="width: 15%">'+
-                        '<input type="text" class="form-control price" placeholder="0.00" name="promos['+i+']">'+
+                        '<input type="text" class="form-control price" placeholder="0.00" name="promos[]">'+
                     '</td>'+
                     '<td>'+
                         '<label for="icon-'+i+'" style="cursor: pointer;">'+
@@ -590,20 +592,20 @@ $(document).ready(function() {
                 '</div>'+
                 '<div style="width: 200px; margin-right:10px;">'+
                 '<label for="">Valeur:</label>'+
-                '<select name="values['+i+']" id="select-attr'+i+'" class="default-select form-control wide ">'+
+                '<select name="values[]" id="select-attr'+i+'" class="default-select form-control wide ">'+
                 '</select>'+
                 '</div>'+
                 '<div style="width: 200px; margin-right:10px;">'+
                     '<label>Qte:</label>'+
-                    '<input type="number" class="form-control" placeholder="0" name="qtes['+i+']">'+
+                    '<input type="number" class="form-control" placeholder="0" name="qtes[]">'+
                 '</div>'+
                 '<div style="width: 200px; margin-right:10px;">'+
                     '<label>Prix:</label>'+
-                    '<input type="number" class="form-control " placeholder="0" name="prices['+i+']">'+
+                    '<input type="number" class="form-control " placeholder="0" name="prices[]">'+
                 '</div>'+
                 '<div style="width: 200px; margin-right:10px;">'+
                     '<label>Promo:</label>'+
-                    '<input type="number" class="form-control " placeholder="0" name="promos['+i+']">'+
+                    '<input type="number" class="form-control " placeholder="0" name="promos[]">'+
                 '</div>'+
                 ' <div style="width: 100px; ">'+
                 '<label >icon : </label> <br>'+
@@ -706,6 +708,49 @@ $(document).ready(function() {
 
 </script>
 @endpush
+
+@push('set-required')
+<script>
+    $(document).ready(function() {
+        $.validator.addMethod("notEqual", function(value, element, param) {
+            return this.optional(element) || value != param;
+        }, "Please select a valid option.");
+
+        $("#addProduct").validate({
+            rules: {
+                designation: "required",
+                'categories[]': {
+                    required: true,
+                    maxlength: 1
+                },
+                brand: {
+                    required: true,
+                    notEqual: ""
+                }
+            },
+            messages: {
+                designation: {
+                    required: "Designation is required",
+                },
+                'categories[]': {
+                    required: "Select a category",
+                },
+                brand: {
+                    required: "Brand is required",
+                    notEqual: "Please select a valid brand"
+                }
+            },
+            errorPlacement: function(error, element) {
+                if (element.attr("name") == "brand") {
+                    error.insertAfter(element);
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    });
+</script>
+ @endpush
 
 
 @push('generate-attribute-scripts')

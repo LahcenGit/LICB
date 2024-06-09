@@ -24,6 +24,8 @@ return new class extends Migration
             $table->integer('point')->nullable();
             $table->string('slug')->nullable();
             $table->string('flug')->nullable();
+            $table->string('date')->nullable();
+            $table->string('status')->nullable();
             $table->foreign('mark_id')->references('id')->on('marks')->onDelete('cascade');
             $table->timestamps();
         });
