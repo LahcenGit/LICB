@@ -8,6 +8,7 @@ use App\Http\Controllers\AttributelineController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CouponAdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
@@ -99,8 +100,14 @@ Route::get('/product/{slug}', [App\Http\Controllers\ProductController::class, 'd
 Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::resource('/',HomeController::class);
+
 Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::get('/category/products/filter', [HomeController::class, 'filterProducts'])->name('products.filter');
+Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
+Route::resource('/',HomeController::class);
+Route::resource('/comment',CommentController::class);
+
+
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
@@ -122,3 +129,5 @@ Route::get('/check-auth', [App\Http\Controllers\HomeController::class, 'checkAut
 
 Route::get('/pc-builder', [App\Http\Controllers\PcBuilderController::class, 'index']);
 Route::get('/show-component', [App\Http\Controllers\PcBuilderController::class, 'showComponent']);
+
+

@@ -8,6 +8,7 @@ use App\Models\Attribute;
 use App\Models\Attributeline;
 use App\Models\Cart;
 use App\Models\Cartitem;
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Mark;
 use App\Models\Productcategory;
@@ -547,10 +548,20 @@ class ProductController extends Controller
                                     ->inRandomOrder()
                                     ->take(5)
                                     ->get();
+        $nbr_comment = 0;
+        if(Auth::user()){
+            $nbr_comment = Comment::where('product_id',$product->id)->where('user_id',Auth::user()->id)->count();
+        }
+        $comments = Comment::where('product_id',$product->id)->orderBy('created_at','desc')->get();
+        $count_comments = $comments->count();
+        $average_rating = Comment::where('product_id', $product->id)->avg('rating');
+
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
         'related_products','product_line','nbr_cartitem','cartitems','total'
-         ,'variations','secondary_images','added_products','has_color','category_product','first_part_categories','last_part_categories','randomCategories'));
+         ,'variations','secondary_images','added_products','has_color'
+         ,'category_product','first_part_categories','last_part_categories','randomCategories'
+         ,'nbr_comment','comments','count_comments','average_rating'));
     }
 
 
