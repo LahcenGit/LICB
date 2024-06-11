@@ -73,8 +73,8 @@
                     </div>
                 </div>
                 <div class="row product-grid" id="product-list">
-                    @foreach($products as $productCategory)
-                        @php $product = $productCategory->product; @endphp
+                    @foreach($paginated_products as $paginated_product)
+                        @php $product = $paginated_product->product; @endphp
                         <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                             <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                 <div class="product-img-action-wrap">
@@ -117,7 +117,7 @@
                 <!-- Pagination Area -->
                 <div class="pagination-area mt-20 mb-20">
                     <nav aria-label="Page navigation example">
-                        @include('vendor.pagination.custom-pagination', ['paginator' => $products])
+                        @include('vendor.pagination.custom-pagination', ['paginator' => $paginated_products])
                     </nav>
                 </div>
                 {{--
@@ -296,7 +296,8 @@
                     </ul>
                 </div>
                 <!-- Fillter By Price -->
-                <div class="sidebar-widget price_range range mb-30">
+                {{--
+                     <div class="sidebar-widget price_range range mb-30">
                     <h5 class="section-title style-1 mb-30">Filter by brand</h5>
                     <div class="list-group">
                         <div class="list-group-item mb-10 mt-10">
@@ -317,6 +318,8 @@
                     <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
                     <a href="{{ asset('category-products/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
                 </div>
+                     --}}
+
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                     <div class="vendor-logo mb-30">
                         <img src="assets/imgs/vendor/vendor-16.png" alt="" />

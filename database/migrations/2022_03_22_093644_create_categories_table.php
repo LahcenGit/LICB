@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('designation');
             $table->longText('description')->nullable();
+            $table->string('icone')->nullable();
             $table->string('slug')->nullable();
             $table->string('flug')->nullable();
             $table->timestamps();

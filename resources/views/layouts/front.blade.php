@@ -342,12 +342,12 @@
                                                         <a href="#">{{$category->designation}}<i class="fi-rs-angle-right"></i></a>
                                                         <ul class="level-menu">
                                                             @foreach ($category->childrenCategories as $child)
-                                                             <li><a href="{{ asset('category-products/'.$child->id) }}">{{ $child->designation }}</a></li>
+                                                             <li><a href="{{ asset('category-products/'.$child->slug) }}">{{ $child->designation }}</a></li>
                                                             @endforeach
                                                         </ul>
                                                     </li>
                                                 @else
-                                                    <li><a href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a></li>
+                                                    <li><a href="{{ asset('category-products/'.$category->slug) }}">{{ $category->designation }}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>

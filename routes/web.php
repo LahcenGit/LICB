@@ -101,7 +101,8 @@ Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 
-Route::get('/category-products/{id}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::get('/category-products/{slug}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::get('/category-parent-products/{slug}', [App\Http\Controllers\HomeController::class, 'categoryParentProducts']);
 Route::get('/category/products/filter', [HomeController::class, 'filterProducts'])->name('products.filter');
 Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
 Route::resource('/',HomeController::class);
