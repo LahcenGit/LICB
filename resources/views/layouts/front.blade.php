@@ -56,6 +56,14 @@
     .banner-icon img{
         max-width: 60px ! important;
     }
+
+    .dropdown-hover-all .dropdown-menu, .dropdown-hover > .dropdown-menu.dropend { margin-left:-1px !important }
+
+    .dropdown-item{
+        padding: .6rem 1rem !important;
+    }
+
+
 </style>
 <body>
     <!-- Modal -->
@@ -327,39 +335,48 @@
                     <div class="logo logo-width-1 d-block d-lg-none">
                         <a href="#"><img src="{{ asset('front/logo.png') }}" alt="logo" /></a>
                     </div>
+
+
                     <div class="header-nav d-none d-lg-flex">
 
+                        <div class="dropdown me-4">
+                            <button class="btn btn-primary dropdown-toggle" style="font-size: 18px" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Categories
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach ($categories as $category)
+                                    
+                                    @if ($category->children->isNotEmpty())
+                                        <div class="dropdown dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $category->designation }}</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
+                                                @include('children', ['children' => $category->children])
+                                            </div>
+                                        </div>
+                                    @else
+                                        <a class="dropdown-item" href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a>
+                                    @endif
+
+                                @endforeach
+                            </div>
+                        </div>
+
                         <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
+
+                           
                             <nav>
+
+                                
+
                                 <ul>
-                                    <li>
-                                        <a href="#" class="btn btn-primary" style="color: #ffffff"><span class="fi-rs-apps "></span>&nbsp; Categories <i class="fi-rs-angle-down"></i></a>
-                                        <ul class="sub-menu">
-
-                                            @foreach($categories as $category)
-                                                @if($category->childrenCategories)
-                                                    <li>
-                                                        <a href="#">{{$category->designation}}<i class="fi-rs-angle-right"></i></a>
-                                                        <ul class="level-menu">
-                                                            @foreach ($category->childrenCategories as $child)
-                                                             <li><a href="{{ asset('category-products/'.$child->id) }}">{{ $child->designation }}</a></li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                @else
-                                                    <li><a href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a></li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    </li>
-
+                                        
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-hot.png')}}" alt="hot deals" /><a href="#">Promo</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-builder.png')}}" alt="hot deals" /><a href="#">PC Builder</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tracking.png')}}" alt="hot deals" /><a href="{{ asset('/tracking') }}">Tracking</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-tutoriel.png')}}" alt="hot deals" /><a href="#">Tutoriel</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-about.png')}}" alt="hot deals" /><a href="#">About Us</a></li>
                                     <li class="hot-deals"><img src="{{asset('front/assets/imgs/theme/icons/icon-help.png')}}" alt="hot deals" /><a href="#">Help Center</a></li>
-
                                 </ul>
                             </nav>
                         </div>
@@ -670,6 +687,7 @@
     <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
 
     <script type="text/javascript" src="{{ asset('plugins/jquery.star-rating-svg.js') }}"></script>
+
 	<script>
         $(".my-rating").starRating({
 			starSize: 25,
@@ -684,6 +702,54 @@
             readOnly: true
 		});
     </script>
+
+
+<script>
+    (function($bs) {
+    const CLASS_NAME = 'has-child-dropdown-show';
+    $bs.Dropdown.prototype.toggle = function(_orginal) {
+        return function() {
+            document.querySelectorAll('.' + CLASS_NAME).forEach(function(e) {
+                e.classList.remove(CLASS_NAME);
+            });
+            let dd = this._element.closest('.dropdown').parentNode.closest('.dropdown');
+            for (; dd && dd !== document; dd = dd.parentNode.closest('.dropdown')) {
+                dd.classList.add(CLASS_NAME);
+            }
+            return _orginal.call(this);
+        }
+    }($bs.Dropdown.prototype.toggle);
+
+    document.querySelectorAll('.dropdown').forEach(function(dd) {
+        dd.addEventListener('hide.bs.dropdown', function(e) {
+            if (this.classList.contains(CLASS_NAME)) {
+                this.classList.remove(CLASS_NAME);
+                e.preventDefault();
+            }
+            e.stopPropagation(); // do not need pop in multi level mode
+        });
+    });
+
+    // for hover
+    document.querySelectorAll('.dropdown-hover, .dropdown-hover-all .dropdown').forEach(function(dd) {
+        dd.addEventListener('mouseenter', function(e) {
+            let toggle = e.target.querySelector(':scope>[data-bs-toggle="dropdown"]');
+            if (!toggle.classList.contains('show')) {
+                $bs.Dropdown.getOrCreateInstance(toggle).toggle();
+                dd.classList.add(CLASS_NAME);
+                $bs.Dropdown.clearMenus();
+            }
+        });
+        dd.addEventListener('mouseleave', function(e) {
+            let toggle = e.target.querySelector(':scope>[data-bs-toggle="dropdown"]');
+            if (toggle.classList.contains('show')) {
+                $bs.Dropdown.getOrCreateInstance(toggle).toggle();
+            }
+        });
+    });
+})(bootstrap);
+
+</script>
 
 
 

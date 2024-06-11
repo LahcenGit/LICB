@@ -65,12 +65,15 @@ class HomeController extends Controller
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
 
-        $categories = Category::where('parent_id',NULL)->get();
+        //$categories = Category::where('parent_id',NULL)->get();
         $last_products = Product::orderBy('created_at','desc')->take(10)->get();
         $products = Product::orderBy('created_at','desc')->get();
 
 
         $new_products = Product::orderBy('created_at','desc')->limit(3)->get();
+
+
+        $categories = Category::whereNull('parent_id')->with('children')->get();
         return view('welcome',compact('nbr_cartitem','cartitems','total','categories','last_products','products','new_products'));
     }
 
