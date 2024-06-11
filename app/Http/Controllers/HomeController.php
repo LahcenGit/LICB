@@ -66,7 +66,7 @@ class HomeController extends Controller
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
         }
 
-        $categories = Category::where('parent_id',NULL)->get();
+        //$categories = Category::where('parent_id',NULL)->get();
         $last_products = Product::orderBy('created_at','desc')->take(10)->get();
         $products = Product::orderBy('created_at','desc')->get();
 
@@ -99,6 +99,7 @@ class HomeController extends Controller
         }
 
         $new_products = Product::orderBy('created_at','desc')->limit(3)->get();
+
         $parent_categories =  Category::select('categories.id', 'categories.designation','categories.slug','categories.icone')
                                 ->leftJoin('categories as children', 'children.parent_id', '=', 'categories.id')
                                 ->leftJoin('productcategories as pc1', 'pc1.category_id', '=', 'categories.id')
@@ -110,6 +111,12 @@ class HomeController extends Controller
         return view('welcome',compact('nbr_cartitem','cartitems','total','categories'
                 ,'last_products','products','new_products','parent_categories',
                 'categoriesWithNewProducts','recentProductsByCategory'));
+
+
+
+        $categories = Category::whereNull('parent_id')->with('children')->get();
+        return view('welcome',compact('nbr_cartitem','cartitems','total','categories','last_products','products','new_products'));
+
     }
 
     public function checkAuth() {
