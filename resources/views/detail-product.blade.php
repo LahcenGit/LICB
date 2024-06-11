@@ -89,7 +89,7 @@
                                                     @endforeach
                                                 @else
                                                   @if($product->images->count() > 1)
-                                                    @foreach($product->images as $img)
+                                                    @foreach($secondary_images as $img)
                                                     <div><img src="{{asset('storage/images/products/'.$img->lien)}}" alt="product image" /></div>
                                                     @endforeach
                                                   @endif
