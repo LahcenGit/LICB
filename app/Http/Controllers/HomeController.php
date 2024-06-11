@@ -108,15 +108,10 @@ class HomeController extends Controller
                                 ->whereNull('categories.parent_id')
                                 ->groupBy('categories.id', 'categories.designation')
                                 ->get();
+        $categories = Category::whereNull('parent_id')->with('children')->get();
         return view('welcome',compact('nbr_cartitem','cartitems','total','categories'
                 ,'last_products','products','new_products','parent_categories',
                 'categoriesWithNewProducts','recentProductsByCategory'));
-
-
-
-        $categories = Category::whereNull('parent_id')->with('children')->get();
-        return view('welcome',compact('nbr_cartitem','cartitems','total','categories','last_products','products','new_products'));
-
     }
 
     public function checkAuth() {

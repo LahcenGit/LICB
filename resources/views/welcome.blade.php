@@ -51,7 +51,7 @@
                         @foreach ($parent_categories as $parent_category )
                             <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                                 <figure class="img-hover-scale overflow-hidden">
-                                    <a href="#"><img src="{{ asset('front/Licb-icons-categories/'.$parent_category->icone) }}" alt="" /></a>
+                                    <a href="{{ asset('category-parent-products/'.$parent_category->slug) }}"><img src="{{ asset('front/Licb-icons-categories/'.$parent_category->icone) }}" alt="" /></a>
                                 </figure>
                                 <h6><a href="{{ asset('category-parent-products/'.$parent_category->slug) }}">{{ $parent_category->designation }}</a></h6>
                                 <span>{{ $parent_category->product_count }} products</span>
