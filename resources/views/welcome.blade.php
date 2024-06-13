@@ -51,9 +51,9 @@
                         @foreach ($parent_categories as $parent_category )
                             <div class="card-2 bg-9 wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                                 <figure class="img-hover-scale overflow-hidden">
-                                    <a href="{{ asset('category-parent-products/'.$parent_category->slug) }}"><img src="{{ asset('front/Licb-icons-categories/'.$parent_category->icone) }}" alt="" /></a>
+                                    <a href="{{ asset('global-category/'.$parent_category->slug) }}"><img src="{{ asset('front/Licb-icons-categories/'.$parent_category->icone) }}" alt="" /></a>
                                 </figure>
-                                <h6><a href="{{ asset('category-parent-products/'.$parent_category->slug) }}">{{ $parent_category->designation }}</a></h6>
+                                <h6><a href="{{ asset('global-category/'.$parent_category->slug) }}">{{ $parent_category->designation }}</a></h6>
                                 <span>{{ $parent_category->product_count }} products</span>
                             </div>
                         @endforeach
@@ -74,7 +74,7 @@
                                     PC <br />
                                     Components
                                 </h4>
-                                <a href="{{ asset('category-parent-products/pc-components') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="{{ asset('global-category/pc-components') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                     PC <br />
                                     peripherals
                                 </h4>
-                                <a href="{{ asset('category-parent-products/pc-peripherals') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="{{ asset('/global-category/pc-peripherals') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                                     Office &  <br />
                                     Furniture
                                 </h4>
-                                <a href="{{ asset('category-parent-products/office-furniture') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="{{ asset('/global-category//office-furniture') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>

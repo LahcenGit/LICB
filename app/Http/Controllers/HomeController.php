@@ -172,9 +172,48 @@ class HomeController extends Controller
 
     }
 
-    public function filterProducts(Request $request)
-{       $brands = $request->input('brands');
-        $categoryId = $request->input('category_id');
+    public function filterProducts($slug,$categoryId ,$brands,Request $request){
+    if(Auth::user()){
+        $cart = Cart::where('user_id',Auth::user()->id)->first();
+        $cart_session = session('cart_id');
+        if ($cart_session) {
+            $cartitems_session = Cartitem::where('cart_id', $cart_session)->get();
+
+            foreach ($cartitems_session as $cartitem_session) {
+                // Vérifier si le produit existe déjà dans le panier de l'utilisateur
+                $existingCartItem = $cart->cartitems()->where('productline_id', $cartitem_session->productline_id)->first();
+
+                if ($existingCartItem) {
+                    // Si le produit existe, augmenter la quantité
+                    $existingCartItem->qte += $cartitem_session->qte;
+                    $existingCartItem->save();
+                } else {
+                    // Sinon, créer un nouvel élément dans le panier de l'utilisateur
+                    $cartitem_session->cart_id = $cart->id;
+                    $cartitem_session->save();
+                }
+            }
+        }
+        session()->forget('cart');
+        $cartitems = $cart->cartitems;
+        $nbr_cartitem = $cart->cartitems->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+    }
+    else{
+        $cart= session('cart_id');
+        $cartitems = Cartitem::where('cart_id',$cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+    }
+
+        $categories = Category::where('parent_id',NULL)->get();
+        $category = Category::find($categoryId);
+        $randomCategories = Category::withCount('productCategories')
+                                    ->whereNotNull('parent_id')
+                                    ->inRandomOrder()
+                                    ->take(5)
+                                    ->get();
+
         $sortBy = $request->input('sort_by');
 
         $query = Product::with(['images', 'productlines'])
@@ -183,10 +222,16 @@ class HomeController extends Controller
                         ->select('products.*', DB::raw('MIN(productlines.price) as price'))
                         ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
                         ->groupBy('products.id');
-
+        $selcetd_brands = explode(',', $brands);
+        $brands = Mark::join('products', 'marks.id', '=', 'products.mark_id')
+                            ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                            ->where('productcategories.category_id', $categoryId)
+                            ->select('marks.*')
+                            ->distinct()
+                            ->get();
        //filter by brand;
-        if ($brands) {
-            $query->whereIn('mark_id', $brands);
+        if ($selcetd_brands) {
+            $query->whereIn('mark_id', $selcetd_brands);
         }
 
         //filter by price
@@ -206,11 +251,8 @@ class HomeController extends Controller
         // Pagination
         $products = $query->paginate(15);
         $countProducts = $products->count();
-        $html = view('partials.product-list', compact('products', 'countProducts'))->render();
-        return response()->json([
-            'html' => $html,
-            'countProducts' => $countProducts
-    ]);
+        return view('filtered-products-by-brands', compact('products', 'countProducts', 'category', 'categories','selcetd_brands','brands', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy'));
+
 }
 
 
@@ -250,6 +292,7 @@ public function categoryParentProducts($slug){
 
     $categories = Category::where('parent_id',NULL)->get();
     $category = Category::where('slug',$slug)->first();
+    $subcategories = Category::where('parent_id',$category->id)->get();
     $randomCategories = Category::withCount('productCategories')
                                 ->whereNotNull('parent_id')
                                 ->inRandomOrder()
@@ -262,7 +305,89 @@ public function categoryParentProducts($slug){
 
     $countProducts = $paginated_products->total();
     return view('category-parent-products',compact('paginated_products','category','countProducts','nbr_cartitem'
-                                            ,'cartitems','total','categories','randomCategories'));
+                                            ,'cartitems','total','categories','randomCategories','subcategories'));
 
+}
+
+public function filterProductsBySubcategories($slug,$categoryId, $subcategories, Request $request)
+{
+    if (Auth::user()) {
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart_session = session('cart_id');
+        if ($cart_session) {
+            $cartitems_session = Cartitem::where('cart_id', $cart_session)->get();
+            foreach ($cartitems_session as $cartitem_session) {
+                $existingCartItem = $cart->cartitems()->where('productline_id', $cartitem_session->productline_id)->first();
+                if ($existingCartItem) {
+                    $existingCartItem->qte += $cartitem_session->qte;
+                    $existingCartItem->save();
+                } else {
+                    $cartitem_session->cart_id = $cart->id;
+                    $cartitem_session->save();
+                }
+            }
+        }
+        session()->forget('cart');
+        $cartitems = $cart->cartitems;
+        $nbr_cartitem = $cart->cartitems->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart->id)->first();
+    } else {
+        $cart = session('cart_id');
+        $cartitems = Cartitem::where('cart_id', $cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id', $cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart)->first();
+    }
+
+    $category = Category::find($categoryId);
+    $subcategories_selected = explode(',', $subcategories);
+    $categories = Category::where('parent_id', NULL)->get();
+    $randomCategories = Category::withCount('productCategories')
+                                ->whereNotNull('parent_id')
+                                ->inRandomOrder()
+                                ->take(5)
+                                ->get();
+    $sortBy = $request->input('sort_by', 'new');
+    $subcategories = Category::where('parent_id', $categoryId)->get();
+
+    $query = Product::with(['images', 'productlines'])
+        ->select('products.*', DB::raw('MIN(productlines.price) as price'))
+        ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id');
+
+    if (!empty($subcategories_selected) && $subcategories_selected[0] != '0') {
+        $query->whereHas('categoryProducts', function ($query) use ($subcategories_selected) {
+            $query->whereIn('category_id', $subcategories_selected);
+        });
+    } else {
+        $allSubCategories = $subcategories->pluck('id')->toArray();
+        if (!empty($allSubCategories)) {
+            $query->whereHas('categoryProducts', function ($query) use ($allSubCategories) {
+                $query->whereIn('category_id', $allSubCategories);
+            });
+        } else {
+            $query->whereHas('categoryProducts', function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            });
+        }
+    }
+
+    $query->groupBy('products.id');
+
+    switch ($sortBy) {
+        case 'price_low_high':
+            $query->orderBy('price', 'asc');
+            break;
+        case 'price_high_low':
+            $query->orderBy('price', 'desc');
+            break;
+        case 'new':
+        default:
+            $query->orderBy('products.created_at', 'desc');
+            break;
+    }
+
+    $products = $query->paginate(15);
+    $countProducts = $products->total();
+
+    return view('filtered-products-by-subCategories', compact('products', 'countProducts', 'subcategories', 'subcategories_selected', 'category', 'categories', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy'));
 }
 }

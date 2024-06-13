@@ -14,7 +14,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                 <span></span> {{ $category->designation }} <span></span> products
             </div>
         </div>
@@ -290,7 +290,7 @@
                     <ul>
                         @foreach($randomCategories as $randomcategory)
                             <li>
-                                <a href="{{ asset('category-products/'.$category->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                                <a href="{{ asset('category-products/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
                             </li>
                         @endforeach
                     </ul>
@@ -311,6 +311,7 @@
                                 @endforeach
                             </div>
                             <input type="hidden" id="category-id" value="{{ $category->id }}" />
+                            <input type="hidden" id="category-slug" value="{{ $category->slug }}" />
                         </div>
                     </div>
                     <!-- Ajout de l'identifiant unique au bouton Filter -->
@@ -388,57 +389,42 @@
 @push('filter-product')
 <script>
     $(document).ready(function() {
-        function loadProducts(brands, sortBy) {
-            var categoryId = $('#category-id').val();
+        // Fonction pour appliquer les filtres et rediriger
+        function applyFilters() {
+            let categoryId = $('#category-id').val();
+            let slug = $('#category-slug').val();
+            let brands = [];
+            let sortBy = $('.filter-link.active').data('sort-by');
 
-            $.ajax({
-                url: '{{ route('products.filter') }}',
-                method: 'GET',
-                data: {
-                    brands: brands,
-                    sort_by: sortBy,
-                    category_id: categoryId
-                },
-                success: function(response) {
-                    $('#product-list').html(response.html);
-                    $('.totall-product .text-brand').text(response.countProducts);
-                }
+            // Récupérer les marques sélectionnées
+            $('input[name="brands[]"]:checked').each(function() {
+                brands.push($(this).val());
             });
+
+            // Construire l'URL avec les paramètres
+            let url = "/category/" + slug + "/" + categoryId + "/" + (brands.length > 0 ? brands.join(',') : '0');
+
+            // Ajouter le paramètre de tri
+            if (sortBy) {
+                url += '?sort_by=' + sortBy;
+            }
+
+            // Rediriger l'utilisateur vers l'URL construit
+            window.location.href = url;
         }
 
-        // filter by price
+        // Gérer le clic sur le bouton de filtre
+        $('#filter-button').on('click', function(e) {
+            e.preventDefault();
+            applyFilters();
+        });
+
+        // Gérer le clic sur les liens de tri
         $('.filter-link').on('click', function(e) {
             e.preventDefault();
             $('.filter-link').removeClass('active');
             $(this).addClass('active');
-            var sortBy = $(this).data('sort-by');
-            var brands = [];
-           $('input[name="brands[]"]:checked').each(function() {
-                brands.push($(this).val());
-            });
-
-            // Mettre à jour le texte de tri
-            if (sortBy == 'price_low_high') {
-                $('.sort-by-text').text('Low To High');
-            } else if (sortBy == 'price_high_low') {
-                $('.sort-by-text').text('High To Low');
-            } else {
-                $('.sort-by-text').text('New');
-            }
-            loadProducts(brands, sortBy);
-        });
-
-        //filter by brand
-        $('#filter-button').on('click', function(e) {
-            e.preventDefault();
-            var sortBy = $('.filter-link.active').data('sort-by');
-            var brands = [];
-
-
-            $('input[name="brands[]"]:checked').each(function() {
-                brands.push($(this).val());
-            });
-            loadProducts(brands, sortBy);
+            applyFilters();
         });
     });
 </script>

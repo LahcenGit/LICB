@@ -101,10 +101,11 @@ Route::resource('/admin',AdminController::class);
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 
-Route::get('/category-products/{slug}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
-Route::get('/category-parent-products/{slug}', [App\Http\Controllers\HomeController::class, 'categoryParentProducts']);
-Route::get('/category/products/filter', [HomeController::class, 'filterProducts'])->name('products.filter');
-Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
+Route::get('/category/{slug}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
+Route::get('/category/{slug}/{categoryId}/{brands}', [HomeController::class, 'filterProducts'])->name('products.filter');
+Route::get('/global-category/{slug}', [App\Http\Controllers\HomeController::class, 'categoryParentProducts']);
+//Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
+Route::get('/global-category/{slug}/{categoryId}/{subCategories}', [HomeController::class, 'filterProductsBySubcategories']);
 Route::resource('/',HomeController::class);
 Route::resource('/comment',CommentController::class);
 

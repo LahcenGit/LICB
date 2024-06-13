@@ -356,7 +356,7 @@
                                             </div>
                                         </div>
                                     @else
-                                        <a class="dropdown-item" href="{{ asset('category-products/'.$category->id) }}">{{ $category->designation }}</a>
+                                        <a class="dropdown-item" href="{{ asset('category/'.$category->slug) }}">{{ $category->designation }}</a>
                                     @endif
 
                                 @endforeach
@@ -759,6 +759,7 @@
     @stack('pc-builder-scripts')
     @stack('filter-product')
     @stack('comment-scripts')
+    @stack('filter-product-by-subcategories')
 </body>
 
 </html>

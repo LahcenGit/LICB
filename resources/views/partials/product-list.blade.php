@@ -39,8 +39,8 @@
     @endforeach
 </div>
 <!-- Pagination Area -->
-<div class="pagination-area mt-20 mb-20">
+<div class="pagination-area mt-20 mb-20" id="partial-pagination">
     <nav aria-label="Page navigation example">
-        @include('vendor.pagination.custom-pagination', ['paginator' => $products])
+        @include('vendor.pagination.custom-pagination', ['paginator' => $products, 'page' => $page])
     </nav>
 </div>
