@@ -4,7 +4,23 @@
     .bg-licb {
     background-color: #BC221A !important;
     }
+
+    b {
+  font-weight: 700;
+}
 </style>
+
+
+@php
+    use Carbon\Carbon;
+@endphp
+
+{{-- Convertir la date en objet Carbon --}}
+@php
+    $date = Carbon::createFromFormat('Y-m-d\TH:i:s.u', $data['Colis'][0]['DateH_Action']);
+@endphp
+
+
 <main class="main pages">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -16,7 +32,7 @@
     </div>
     <div class="page-content pt-150 pb-150">
         <div class="container">
-            @if(!$response_array)
+            @if(!$data)
 
             <div class="row  d-flex justify-content-center">
                 <div class="col-lg-6 primary-sidebar sticky-sidebar">
@@ -38,15 +54,22 @@
                 <div class="col-lg-6 primary-sidebar sticky-sidebar">
                     <div class="widget-area">
                         <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                            <h5 class="section-title style-1 mb-30" style="color: #BC221A">{{$code}}</h5>
-                            @foreach($response_array as $response)
+                            <h5 class="section-title style-1 mb-30" style="color: #BC221A">{{$code}}</h5> <span class="badge bg-licb ">{{ $data['Colis'][0]['TypeLivraison'] == 1 ? 'StopDesk' : 'Home Delivery' }} </span>
                             <div class="single-post clearfix">
-                                <div class="heading_s1">
-                                    <h5> {{$response['commune_name']}} </h5> <span class="badge bg-licb ">{{$response['status']}}</span>
-                                    <p>Date : <b>{{$response['date_status']}}</b> </p>
+                                <div class="heading_s1 mt-2">
+                                    <h5>Tracking status : {{$data['Colis'][0]['Situation']}} </h5> 
+                                    <div class="mt-2">
+                                        <p>Customer : <b>{{$data['Colis'][0]['Client']}}</b>  <br>
+                                        Wilaya : <b>{{$data['Colis'][0]['Wilaya']}}</b> <br>
+                                        Commune : <b>{{$data['Colis'][0]['Commune']}}</b>  <br>
+                                        @if($data['Colis'][0]['Commentaire'])
+                                        Comment : <b>{{$data['Colis'][0]['Commentaire']}}</b> <br>@endif
+                                        Update : <b>{{$date}}</b> </p>
+
+                                    </div>
+                                    
                                 </div>
                             </div>
-                            @endforeach
                         </div>
                     </div>
                 </div>
