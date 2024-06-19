@@ -7,12 +7,12 @@
     height: 40px;
     }
 
-    
+
     .border {
              border: 1px solid #000 !important;
         }
-        
-        
+
+
      .summernote-container {
     max-height: auto; /* Définir une hauteur maximale pour le div */
     max-width: auto; /* Définir une largeur maximale pour le div */
@@ -28,7 +28,13 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                    <span></span> <a href="#">Composants PC</a> <span></span> {{$category_product->category->designation}}
+                    @foreach ($categoryHierarchy as $category)
+                        <span></span>
+                        <a href="{{ $category->parent ? url('category/' . $category->slug) : url('global-category/' . $category->slug) }}">
+                            {{ $category->designation }}
+                        </a>
+                    @endforeach
+                    <span></span>{{ $product->designation }}
                 </div>
             </div>
         </div>
@@ -204,7 +210,7 @@
                                                         @foreach($added_products as $added_product)
                                                             <li value-id="{{$added_product->id}}">
                                                                 <div class="d-flex flex-row p-1" style="border: 1px solid #BC221A; border-radius: 5px;">
-                                                                    <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }} 
+                                                                    <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }}
                                                                         <strong style="color: #BC221A">@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
                                                                     </a>
 
@@ -227,10 +233,11 @@
                                                 </div>
                                                 <div class="product-extra-link2">
                                                     <button type="submit" class="button button-add-to-cart addToCartBtn"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
-                                                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>
+                                                    <!-- <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#"><i class="fi-rs-heart"></i></a>!-->
 
                                                 </div>
                                             </div>
+                                            <!--
                                             <div class="font-xs">
                                                 <ul class="mr-50 float-start">
                                                     <li class="mb-5">Type: <span class="text-brand">{{$category_product->category->designation}}</span></li>
@@ -243,6 +250,7 @@
                                                     <li>Stock:<span class="in-stock text-brand ml-5">8 Items In Stock</span></li>
                                                 </ul>
                                             </div>
+                                            !-->
                                         </div>
                                         <!-- Detail Info -->
                                     </div>

@@ -252,7 +252,7 @@ class ProductController extends Controller
         $productlines = Productline::where('product_id',$id)->get();
         $product_categories = Productcategory::where('product_id',$id)->get();
         $related_products = Relatedproduct::where('product_id',$id)->get();
-        
+
         //traitement images
         //---1er cas : aucun ajout avec supression photo
         if (!$request->hasFile('photoPrincipale') && !$request->hasFile('photos')) {
@@ -335,7 +335,7 @@ class ProductController extends Controller
         $product->point = $request->point;
         $product->mark_id = $request->brand;
         $product->date = $request->date;
-        
+
         $product->status = $request->status;
         if($request->p_TYPE){
             $product->p_TYPE = $request->p_TYPE;
@@ -420,7 +420,7 @@ class ProductController extends Controller
                     if(isset($request->images_old[$i])){
                         File::delete('storage/images/productlines/'. $request->images_old[$i]);
                     }
-                    
+
                     $destination = 'public/images/productlines';
                     $path = $request->images[$i]->store($destination);
                     $storageName = basename($path);
@@ -457,6 +457,18 @@ class ProductController extends Controller
         }
 
         return redirect('admin/products');
+    }
+
+    // fonction recursive
+    public function getCategoryHierarchy($category)
+    {
+        $categoryHierarchy = [];
+        while ($category) {
+            $categoryHierarchy[] = $category;
+            $category = $category->parent;
+        }
+
+        return array_reverse($categoryHierarchy); // On inverse l'ordre pour avoir la hiérarchie de la racine jusqu'à la feuille
     }
 
     public function detailProduct($slug){
@@ -513,10 +525,14 @@ class ProductController extends Controller
            $has_color = false;
 
         }
-        $categories = Category::where('parent_id',null)->limit('5')->get();
+        $categories = Category::where('parent_id',null)->get();
+        //$featured_categories = Category::where('parent_id',null)->limit(5)->get();
         // 3 new products
         $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
         $category_product = Productcategory::where('product_id',$product->id)->first();
+        $category = Category::find($category_product->category_id);
+        $categoryHierarchy = $this->getCategoryHierarchy($category);
+
       //  $category_product_name = Category::find($category_product->id);
         $related_products = Productcategory::where('category_id',$category_product->category_id)->where('product_id','!=',$product->id)->get();
         if(Auth::user()){
@@ -561,7 +577,7 @@ class ProductController extends Controller
         'related_products','product_line','nbr_cartitem','cartitems','total'
          ,'variations','secondary_images','added_products','has_color'
          ,'category_product','first_part_categories','last_part_categories','randomCategories'
-         ,'nbr_comment','comments','count_comments','average_rating'));
+         ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy'));
     }
 
 

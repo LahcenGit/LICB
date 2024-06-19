@@ -276,10 +276,10 @@
                                                             <label for="image-{{ $counter }}" style="cursor: pointer;">
                                                                 @if($productline->attribute_image)
                                                                 <img id="image-show-{{ $counter }}" src="{{asset('storage/images/productlines/'.$productline->attribute_image)}}" width="100" height="100" alt="" >
-                                                                
+
                                                                 @else
                                                                 <img id="icon-show-{{ $counter }}" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >
-                                                                
+
                                                                 @endif
                                                             </label>
                                                             <input type="file"  class="input-image" id="image-{{ $counter }}" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">
@@ -521,7 +521,7 @@ $(document).ready(function() {
 
 <script type="text/javascript">
       var elements = $("[id^='image-show-']");
-            
+
             // Initialise une variable pour suivre la valeur maximale de l'ID
             var maxIdValue = -1;
 
@@ -529,23 +529,28 @@ $(document).ready(function() {
             elements.each(function(){
                 // Récupère l'ID de l'élément actuel
                 var id = $(this).attr('id');
-                
+
                 // Extrait la partie numérique de l'ID
                 var idNumber = parseInt(id.replace('image-show-', ''), 10);
-                
+
                 // Compare et met à jour la valeur maximale de l'ID
                 if (idNumber > maxIdValue) {
                     maxIdValue = idNumber;
                 }
             });
 
-            
+
 
 
     var i = maxIdValue;
 
     $("#add-attribute").click(function () {
-        var options = $('#select-content').html();
+        var attributes = @json($attributes);
+        var options = '';
+
+        attributes.forEach(function(attribute) {
+            options += '<option value="' + attribute.id + '">' + attribute.value + '</option>';
+        });
         ++i;
         $html = '<tr class="tradded">'+
                     '<td style="width: 15%">'+
