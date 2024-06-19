@@ -156,7 +156,7 @@ class HomeController extends Controller
         $categories = Category::where('parent_id',NULL)->get();
         $category = Category::where('slug',$slug)->first();
         $products = ProductCategory::where('category_id', $category->id)->with('product')->paginate(15);
-        $countProducts = ProductCategory::where('category_id', $category->id)->with('product')->count();
+        $countProducts = $products->total();
         $randomCategories = Category::withCount('productCategories')
                                     ->whereNotNull('parent_id')
                                     ->inRandomOrder()
@@ -250,7 +250,7 @@ class HomeController extends Controller
 
         // Pagination
         $products = $query->paginate(15);
-        $countProducts = $products->count();
+        $countProducts = $products->total();
         return view('filtered-products-by-brands', compact('products', 'countProducts', 'category', 'categories','selcetd_brands','brands', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy'));
 
 }
