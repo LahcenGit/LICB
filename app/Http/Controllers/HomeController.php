@@ -159,6 +159,7 @@ class HomeController extends Controller
         $countProducts = $products->total();
         $randomCategories = Category::withCount('productCategories')
                                     ->whereNotNull('parent_id')
+                                    ->has('productCategories')
                                     ->inRandomOrder()
                                     ->take(5)
                                     ->get();
@@ -210,11 +211,12 @@ class HomeController extends Controller
         $category = Category::find($categoryId);
         $randomCategories = Category::withCount('productCategories')
                                     ->whereNotNull('parent_id')
+                                    ->has('productCategories')
                                     ->inRandomOrder()
                                     ->take(5)
                                     ->get();
 
-        $sortBy = $request->input('sort_by');
+        $sortBy = $request->input('sort_by', 'new');
 
         $query = Product::with(['images', 'productlines'])
                         ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
@@ -249,8 +251,9 @@ class HomeController extends Controller
         }
 
         // Pagination
-        $products = $query->paginate(15);
+        $products = $query->paginate(15)->appends(['sort_by' => $sortBy]);
         $countProducts = $products->total();
+
         return view('filtered-products-by-brands', compact('products', 'countProducts', 'category', 'categories','selcetd_brands','brands', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy'));
 
 }
@@ -295,6 +298,7 @@ public function categoryParentProducts($slug){
     $subcategories = Category::where('parent_id',$category->id)->get();
     $randomCategories = Category::withCount('productCategories')
                                 ->whereNotNull('parent_id')
+                                ->has('productCategories')
                                 ->inRandomOrder()
                                 ->take(5)
                                 ->get();
@@ -343,6 +347,7 @@ public function filterProductsBySubcategories($slug,$categoryId, $subcategories,
     $categories = Category::where('parent_id', NULL)->get();
     $randomCategories = Category::withCount('productCategories')
                                 ->whereNotNull('parent_id')
+                                ->has('productCategories')
                                 ->inRandomOrder()
                                 ->take(5)
                                 ->get();
@@ -385,7 +390,7 @@ public function filterProductsBySubcategories($slug,$categoryId, $subcategories,
             break;
     }
 
-    $products = $query->paginate(15);
+    $products = $query->paginate(15)->appends(['sort_by' => $sortBy]);
     $countProducts = $products->total();
 
     return view('filtered-products-by-subCategories', compact('products', 'countProducts', 'subcategories', 'subcategories_selected', 'category', 'categories', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy'));

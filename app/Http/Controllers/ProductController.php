@@ -561,6 +561,7 @@ class ProductController extends Controller
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $randomCategories = Category::withCount('productCategories')
                                     ->whereNotNull('parent_id')
+                                    ->has('productCategories')
                                     ->inRandomOrder()
                                     ->take(5)
                                     ->get();

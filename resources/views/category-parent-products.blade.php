@@ -284,20 +284,17 @@
                 <!--End Deals-->
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-
                 <div class="sidebar-widget widget-category-2 mb-30">
                     <h5 class="section-title style-1 mb-30">Categories</h5>
                     <ul>
                         @foreach($randomCategories as $randomcategory)
                             <li>
-                                <a href="{{ asset('category-products/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                                <a href="{{ asset('category/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
                             </li>
                         @endforeach
                     </ul>
                 </div>
                 <!-- Fillter By Price -->
-
-
                     <div class="sidebar-widget price_range range mb-30">
                     <h5 class="section-title style-1 mb-30">Filter by subcategories</h5>
 

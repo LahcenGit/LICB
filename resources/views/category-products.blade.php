@@ -290,7 +290,7 @@
                     <ul>
                         @foreach($randomCategories as $randomcategory)
                             <li>
-                                <a href="{{ asset('category-products/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                                <a href="{{ asset('category/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
                             </li>
                         @endforeach
                     </ul>
