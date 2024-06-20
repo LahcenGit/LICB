@@ -4,7 +4,7 @@
         <div class="dropdown dropend">
             <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ $child->designation }}</a>
             <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                @include('children', ['children' => $child->children])
+                @include('children', ['children' => $child->children])  
             </div>
         </div>
 

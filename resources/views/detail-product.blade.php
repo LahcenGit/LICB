@@ -9,7 +9,7 @@
 
 
     .border {
-             border: 1px solid #000 !important;
+             border: 1px solid #000000 !important;
         }
 
 
@@ -150,16 +150,16 @@
                                                     <div class="attr-detail attr-size mb-10 ">
                                                         <ul class="font-small attribut-color-section" >
                                                             <div class="mb-4">
-                                                                <strong >Couleur : <span class="attribut-title"></span></strong>
+                                                                <strong >Color : <span class="attribut-title"></span></strong>
                                                             </div>
                                                             @foreach($productlines as $productline)
                                                                 @foreach($productline as $item)
                                                                     @if($item[0])
-                                                                    <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;">
+                                                                    <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  style=" border: 1px solid #000!important; border-radius: 15% !important;" class="border">
                                                                         <a  href="javascript:void(0)" class="select-attribut getAttribute" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
                                                                     </li>
                                                                     @else
-                                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  >
+                                                                        <li value-id="{{$item->id}}"  id="{{'li-'.$item->id}}"  class="border">
                                                                             <a  href="javascript:void(0)" class="select-attribut getAttribute" style="background-color: {{$item->attributeLine->code}}; margin:2px!important;" title="{{$item->attributeLine->value}}"  id="{{$item->id}}"></a>
                                                                         </li>
                                                                     @endif
@@ -508,7 +508,7 @@
 
         var id = $(this).attr("id");
         $.ajax({
-			url: '/get-price/' + id ,
+			url: '/newsite/public/get-price/' + id ,
 			type: "GET",
             success: function (res) {
 
@@ -538,7 +538,7 @@
     $( ".added-product").click(function() {
 
         if($(this).parent().hasClass("active")){
-            $(".product-text").text('');
+            $(".product-text").text('Recommended add-ons !');
             $(".origin-price").text(origin_price);
             $(".origin-price-promo").text(origin_price_promo);
         }
@@ -549,7 +549,7 @@
             $(".product-text").text($(this).attr('title'));
 
             $.ajax({
-                url: '/get-price-product-added/' + product_added +'/'+product_id,
+                url: '/newsite/public/get-price-product-added/' + product_added +'/'+product_id,
                 type: "GET",
                 success: function (res) {
                 if(res.productline.price_promo){
@@ -574,7 +574,7 @@
             var product_added = $(this).data("added");
 
             $.ajax({
-                url: '/get-price-product-added/' + product_added +'/'+product_id,
+                url: '/newsite/public/get-price-product-added/' + product_added +'/'+product_id,
                 type: "GET",
                 success: function (res) {
                 if(res.productline.price_promo){
@@ -605,14 +605,14 @@
         var qte = $(this).closest('.product-data').find('.qty-val').val();
 
         $.ajax({
-                url: '/get-product/' + product_id ,
+                url: '/newsite/public/get-product/' + product_id ,
                 type: "GET",
                 success: function (res) {
 
                 if(res.countproductlines > 1){
                     var id = $('#list-line li.active').attr('value-id');
                     $.ajax({
-                            url: '/carts',
+                            url: '/newsite/public/carts',
                             type: "POST",
                             data:{
                                 'id' : id,
@@ -652,7 +652,7 @@
                             var id = res.productlines.id;
 
                             $.ajax({
-                            url: '/carts',
+                            url: '/newsite/public/carts',
                             type: "POST",
                             data:{
                                 'id' : id,
@@ -764,7 +764,7 @@ $(".add-comment").on("click", function (e) {
     };
 
     $.ajax({
-    url: "/comment",
+    url: "/newsite/public/comment",
     type: "POST",
     data: data,
     success: function (res) {
