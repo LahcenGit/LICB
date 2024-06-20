@@ -307,7 +307,7 @@
                             <div class="custom-checkbox">
                                 @foreach($brands as $brand)
                                 <input class="form-check-input" type="checkbox" name="brands[]" id="exampleCheckbox{{ $loop->iteration }}" value="{{ $brand->id }}"
-                                @if(in_array($brand->id, $selcetd_brands)) checked @endif />
+                                @if($selected_brands) @if(in_array($brand->id, $selected_brands)) checked @endif @endif/>
                                 <label class="form-check-label" for="exampleCheckbox{{ $loop->iteration }}">
                                     <span>{{ $brand->designation }}</span>
                                 </label>
@@ -320,7 +320,7 @@
                     </div>
                     <!-- Ajout de l'identifiant unique au bouton Filter -->
                     <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
-                    <a href="{{ asset('category-products/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
+                    <a href="{{ asset('category/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
                 </div>
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                     <div class="vendor-logo mb-30">

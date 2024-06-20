@@ -175,89 +175,91 @@ class HomeController extends Controller
 
     }
 
-    public function filterProducts($slug,$categoryId ,$brands,Request $request){
-    if(Auth::user()){
-        $cart = Cart::where('user_id',Auth::user()->id)->first();
+    public function filterProducts($slug, $categoryId, $brands, Request $request)
+{
+    // Gestion du panier de l'utilisateur
+    if (Auth::user()) {
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
         $cart_session = session('cart_id');
+
         if ($cart_session) {
             $cartitems_session = Cartitem::where('cart_id', $cart_session)->get();
-
             foreach ($cartitems_session as $cartitem_session) {
-                // Vérifier si le produit existe déjà dans le panier de l'utilisateur
                 $existingCartItem = $cart->cartitems()->where('productline_id', $cartitem_session->productline_id)->first();
-
                 if ($existingCartItem) {
-                    // Si le produit existe, augmenter la quantité
                     $existingCartItem->qte += $cartitem_session->qte;
                     $existingCartItem->save();
                 } else {
-                    // Sinon, créer un nouvel élément dans le panier de l'utilisateur
                     $cartitem_session->cart_id = $cart->id;
                     $cartitem_session->save();
                 }
             }
         }
+
         session()->forget('cart');
         $cartitems = $cart->cartitems;
         $nbr_cartitem = $cart->cartitems->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart->id)->first();
+    } else {
+        $cart = session('cart_id');
+        $cartitems = Cartitem::where('cart_id', $cart)->get();
+        $nbr_cartitem = Cartitem::where('cart_id', $cart)->count();
+        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart)->first();
+    }
+
+    $categories = Category::where('parent_id', NULL)->get();
+    $category = Category::find($categoryId);
+
+    $randomCategories = Category::withCount('productCategories')
+        ->whereNotNull('parent_id')
+        ->has('productCategories')
+        ->inRandomOrder()
+        ->take(5)
+        ->get();
+
+    $sortBy = $request->input('sort_by', 'new');
+
+    $query = Product::with(['images', 'productlines'])
+        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
+        ->where('productcategories.category_id', $categoryId)
+        ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
+        ->select('products.*', DB::raw('MIN(productlines.price) as price'))
+        ->groupBy('products.id');
+
+    if ($brands != 0) {
+        $selected_brands = explode(',', $brands);
+        $query->whereIn('mark_id', $selected_brands);
     }
     else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
+        $selected_brands = NULL;
     }
 
-        $categories = Category::where('parent_id',NULL)->get();
-        $category = Category::find($categoryId);
-        $randomCategories = Category::withCount('productCategories')
-                                    ->whereNotNull('parent_id')
-                                    ->has('productCategories')
-                                    ->inRandomOrder()
-                                    ->take(5)
-                                    ->get();
+    switch ($sortBy) {
+        case 'price_low_high':
+            $query->orderBy('price', 'asc');
+            break;
+        case 'price_high_low':
+            $query->orderBy('price', 'desc');
+            break;
+        case 'new':
+        default:
+            $query->orderBy('products.created_at', 'desc');
+            break;
+    }
 
-        $sortBy = $request->input('sort_by', 'new');
+    $products = $query->paginate(15)->appends(['sort_by' => $sortBy]);
+    $countProducts = $products->total();
 
-        $query = Product::with(['images', 'productlines'])
-                        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-                        ->where('productcategories.category_id', $categoryId)
-                        ->select('products.*', DB::raw('MIN(productlines.price) as price'))
-                        ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
-                        ->groupBy('products.id');
-        $selcetd_brands = explode(',', $brands);
-        $brands = Mark::join('products', 'marks.id', '=', 'products.mark_id')
-                            ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-                            ->where('productcategories.category_id', $categoryId)
-                            ->select('marks.*')
-                            ->distinct()
-                            ->get();
-       //filter by brand;
-        if ($selcetd_brands) {
-            $query->whereIn('mark_id', $selcetd_brands);
-        }
+    $brands = Mark::join('products', 'marks.id', '=', 'products.mark_id')
+        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
+        ->where('productcategories.category_id', $categoryId)
+        ->select('marks.*')
+        ->distinct()
+        ->get();
 
-        //filter by price
-        switch ($sortBy) {
-            case 'price_low_high':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_high_low':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'new':
-            default:
-                $query->orderBy('products.created_at', 'desc');
-                break;
-        }
+    $search_term = NULL;
 
-        // Pagination
-        $products = $query->paginate(15)->appends(['sort_by' => $sortBy]);
-        $countProducts = $products->total();
-        $search_term = NULL;
-        return view('filtered-products-by-brands', compact('products', 'countProducts', 'category', 'categories','selcetd_brands','brands', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy','search_term'));
-
+    return view('filtered-products-by-brands', compact('products', 'countProducts', 'category', 'categories', 'brands', 'randomCategories', 'nbr_cartitem', 'cartitems', 'total', 'sortBy', 'search_term','selected_brands'));
 }
 
 
