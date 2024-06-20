@@ -24,7 +24,11 @@
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @if ($countProducts > 0)
+                            <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @else
+                            <p>No products found for you!</p>
+                        @endif
                     </div>
                     <div class="sort-by-product-area">
                          {{--
@@ -57,7 +61,7 @@
                                     <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                 </div>
                                 <div class="sort-by-dropdown-wrap">
-                                    <span class="sort-by-text"> @if($sortBy == 'new')New @elseif($sortBy == 'price_low_high') Price :Low tp Heigh @else Price: High to Low @endif<i class="fi-rs-angle-small-down "></i></span>
+                                    <span class="sort-by-text"> @if($sortBy == 'new')New @elseif($sortBy == 'price_low_high') Price :Low to Heigh @else Price: High to Low @endif<i class="fi-rs-angle-small-down "></i></span>
                                 </div>
                             </div>
                             <div class="sort-by-dropdown">
@@ -289,7 +293,7 @@
                     <ul>
                         @foreach($randomCategories as $randomcategory)
                             <li>
-                                <a href="{{ asset('category-products/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                                <a href="{{ asset('category/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
                             </li>
                         @endforeach
                     </ul>

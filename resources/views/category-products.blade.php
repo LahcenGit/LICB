@@ -24,7 +24,11 @@
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @if ($countProducts > 0)
+                            <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @else
+                            <p>No products found for you!</p>
+                        @endif
                     </div>
                     <div class="sort-by-product-area">
                          {{--
@@ -290,7 +294,7 @@
                     <ul>
                         @foreach($randomCategories as $randomcategory)
                             <li>
-                                <a href="{{ asset('category-products/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
+                                <a href="{{ asset('category/'.$randomcategory->slug) }}">{{$randomcategory->designation}}</a><span class="count" style="color: #fff">{{ $randomcategory->product_categories_count }}</span>
                             </li>
                         @endforeach
                     </ul>

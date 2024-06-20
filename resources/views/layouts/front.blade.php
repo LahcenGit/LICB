@@ -190,9 +190,8 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-
-                                <input type="text" placeholder="Search a product, brand, category..." />
+                            <form method="GET" action="{{ route('search') }}">
+                            <input type="text"  name="search_term" value="{{ $search_term }}" placeholder="Search a product, brand, category..." />
                             </form>
                         </div>
                         <div class="header-action-right">
