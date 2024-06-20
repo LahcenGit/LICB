@@ -15,7 +15,7 @@
         <div class="container">
             <div class="breadcrumb">
                 <a href="{{ asset('/') }}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                <span></span> {{ $category->designation }} <span></span> products
+                <span></span> category<span></span> products
             </div>
         </div>
     </div>
@@ -61,15 +61,24 @@
                                     <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                 </div>
                                 <div class="sort-by-dropdown-wrap">
-                                    <span class="sort-by-text"> New <i class="fi-rs-angle-small-down "></i></span>
+                                    <span class="sort-by-text">
+                                        @if(request('sort_by') == 'price_low_high')
+                                            Price: Low to High
+                                        @elseif(request('sort_by') == 'price_high_low')
+                                            Price: High to Low
+                                        @else
+                                            New
+                                        @endif
+                                        <i class="fi-rs-angle-small-down"></i>
+                                    </span>
                                 </div>
                             </div>
                             <div class="sort-by-dropdown">
                                 <ul>
                                     <ul>
-                                        <li><a href="#" class="filter-link active" data-sort-by="new">New</a></li>
-                                        <li><a href="#" class="filter-link" data-sort-by="price_low_high">Price: Low to High</a></li>
-                                        <li><a href="#" class="filter-link" data-sort-by="price_high_low">Price: High to Low</a></li>
+                                        <li><a href="{{ route('search', array_merge(request()->query(), ['sort_by' => 'new'])) }}" class="filter-link {{ request('sort_by') == 'new' ? 'active' : '' }}">New</a></li>
+                                        <li><a href="{{ route('search', array_merge(request()->query(), ['sort_by' => 'price_low_high'])) }}" class="filter-link {{ request('sort_by') == 'price_low_high' ? 'active' : '' }}">Price: Low to High</a></li>
+                                        <li><a href="{{ route('search', array_merge(request()->query(), ['sort_by' => 'price_high_low'])) }}" class="filter-link {{ request('sort_by') == 'price_high_low' ? 'active' : '' }}">Price: High to Low</a></li>
                                     </ul>
                                 </ul>
                             </div>
@@ -77,8 +86,7 @@
                     </div>
                 </div>
                 <div class="row product-grid" id="product-list">
-                    @foreach($paginated_products as $paginated_product)
-                        @php $product = $paginated_product->product; @endphp
+                    @foreach($products as $product)
                         <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
                             <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                 <div class="product-img-action-wrap">
@@ -119,9 +127,9 @@
                 </div>
 
                 <!-- Pagination Area -->
-                <div class="pagination-area mt-20 mb-20" id="pagination" data-pagination-type="global">
+                <div class="pagination-area mt-20 mb-20">
                     <nav aria-label="Page navigation example">
-                        @include('vendor.pagination.custom-pagination', ['paginator' => $paginated_products])
+                        @include('vendor.pagination.custom-pagination', ['paginator' => $products])
                     </nav>
                 </div>
                 {{--
@@ -288,6 +296,7 @@
                 <!--End Deals-->
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
+
                 <div class="sidebar-widget widget-category-2 mb-30">
                     <h5 class="section-title style-1 mb-30">Categories</h5>
                     <ul>
@@ -299,33 +308,33 @@
                     </ul>
                 </div>
                 <!-- Fillter By Price -->
-                    <div class="sidebar-widget price_range range mb-30">
-                    <h5 class="section-title style-1 mb-30">Filter by subcategories</h5>
+                <!--
+                <div class="sidebar-widget price_range range mb-30">
+                    <h5 class="section-title style-1 mb-30">Filter by brand</h5>
+                    <div class="list-group">
+                        <div class="list-group-item mb-10 mt-10">
+                            <label class="fw-900">Brand</label>
+                            <div class="custom-checkbox">
 
-                            <div class="list-group">
-                                <div class="list-group-item mb-10 mt-10">
-                                    <label class="fw-900">Subcategories</label>
-                                    <div class="custom-checkbox">
-                                        @foreach($subcategories as $subcategorie)
-                                        <input class="form-check-input subcategory-checkbox" type="checkbox" name="sub_categories[]" id="exampleCheckbox{{ $loop->iteration }}" value="{{ $subcategorie->id }}" />
-                                        <label class="form-check-label" for="exampleCheckbox{{ $loop->iteration }}">
-                                            <span>{{ $subcategorie->designation }}</span>
-                                        </label>
-                                        <br/>
-                                        @endforeach
-                                    </div>
-                                    <input type="hidden" id="category_id" value="{{ $category->id }}" />
-                                    <input type="hidden" id="category_slug" value="{{ $category->slug }}" />
-                                </div>
+                                <input class="form-check-input" type="checkbox" name="brands[]" id="exampleCheckbox" value="" />
+                                <label class="form-check-label" for="exampleCheckbox">
+                                    <span></span>
+                                </label>
+                                <br />
+
                             </div>
-                        <!-- Ajout de l'identifiant unique au bouton Filter -->
-                        <button id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</button>
+                            <input type="hidden" id="category-id" value="" />
+                            <input type="hidden" id="category-slug" value="" />
+                        </div>
+                    </div>
+                    !-->
+                    <!-- Ajout de l'identifiant unique au bouton Filter -->
+                    <!--
+                    <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
+                    <a href="" class="btn btn-sm btn-default mt-3"> show all</a>
 
-                    <a href="{{ asset('category-parent-products/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
                 </div>
-
-
-
+                 !-->
                 <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
                     <div class="vendor-logo mb-30">
                         <img src="assets/imgs/vendor/vendor-16.png" alt="" />
@@ -394,43 +403,4 @@
     </div>
 </main>
 @endsection
-@push('filter-product-by-subcategories')
 
-<script>
-$(document).ready(function() {
-    $('#filter-button').on('click', function() {
-        applyFilters();
-    });
-
-    $('.filter-link').on('click', function(e) {
-        e.preventDefault();
-        $('.filter-link').removeClass('active');
-        $(this).addClass('active');
-        applyFilters();
-    });
-
-    function applyFilters() {
-        let categoryId = $('#category_id').val();
-        let slug = $('#category_slug').val();
-        let subCategories = [];
-        let sortBy = $('.filter-link.active').data('sort-by');
-
-        $('.subcategory-checkbox:checked').each(function() {
-            subCategories.push($(this).val());
-        });
-
-        // Construire l'URL avec les paramètres
-        let url = "/global-category/"+slug;
-        url = url + '/' + categoryId + '/' + (subCategories.length > 0 ? subCategories.join(',') : '0');
-
-        // Ajouter le paramètre de tri
-        if (sortBy) {
-            url += '?sort_by=' + sortBy;
-        }
-
-        window.location.href = url;
-    }
-});
-
-</script>
-@endpush

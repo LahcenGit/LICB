@@ -103,6 +103,7 @@ Route::resource('/admin',AdminController::class);
 
 Route::get('/category/{slug}', [App\Http\Controllers\HomeController::class, 'categoryProducts']);
 Route::get('/category/{slug}/{categoryId}/{brands}', [HomeController::class, 'filterProducts'])->name('products.filter');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/global-category/{slug}', [App\Http\Controllers\HomeController::class, 'categoryParentProducts']);
 //Route::get('/filter-products', [HomeController::class, 'filterProductsWithPrice'])->name('filter.products.with.price');
 Route::get('/global-category/{slug}/{categoryId}/{subCategories}', [HomeController::class, 'filterProductsBySubcategories']);

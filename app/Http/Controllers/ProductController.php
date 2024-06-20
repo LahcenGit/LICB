@@ -572,13 +572,13 @@ class ProductController extends Controller
         $comments = Comment::where('product_id',$product->id)->orderBy('created_at','desc')->get();
         $count_comments = $comments->count();
         $average_rating = Comment::where('product_id', $product->id)->avg('rating');
-
+        $search_term = NULL;
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
         'related_products','product_line','nbr_cartitem','cartitems','total'
          ,'variations','secondary_images','added_products','has_color'
          ,'category_product','first_part_categories','last_part_categories','randomCategories'
-         ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy'));
+         ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy','search_term'));
     }
 
 

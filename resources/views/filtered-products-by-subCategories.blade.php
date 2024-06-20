@@ -24,7 +24,11 @@
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @if ($countProducts > 0)
+                            <p>We found <strong class="text-brand">{{ $countProducts }}</strong> products for you!</p>
+                        @else
+                            <p>No products found for you!</p>
+                        @endif
                     </div>
                     <div class="sort-by-product-area">
                          {{--
