@@ -299,12 +299,13 @@
                                             <p>Already have an account?</p>
                                         </div>
 
-                                        <form>
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
                                             <div class="form-group">
-                                              <input type="email" class="form-control account-drap" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                              <input type="text" class="form-control account-drap" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
                                             </div>
                                             <div class="form-group">
-                                              <input type="password" class="form-control account-drap" id="exampleInputPassword1" placeholder="Password">
+                                              <input type="password" class="form-control account-drap" name="password" id="exampleInputPassword1" placeholder="Password" required>
                                             </div>
                                             <div class="text-center">
                                                 <a href="#"> <small> Forgot your password? </small></a>

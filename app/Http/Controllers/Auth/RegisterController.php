@@ -51,7 +51,8 @@ class RegisterController extends Controller
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $categories = Category::where('parent_id',null)->limit('5')->get();
-        return view('auth.register',compact('nbr_cartitem','first_part_categories','last_part_categories','categories'));
+        $search_term = NULL;
+        return view('auth.register',compact('nbr_cartitem','first_part_categories','last_part_categories','categories','search_term'));
     }
 
     /**
