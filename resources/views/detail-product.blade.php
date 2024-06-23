@@ -2,23 +2,38 @@
 @section('content')
 
 <style>
-   .carre {
+    .carre {
     width: 40px;
     height: 40px;
     }
 
 
     .border {
-             border: 1px solid #000000 !important;
-        }
+        border: 1px solid #000000 !important;
+    }
 
+    .border:hover{
+        border: 1px solid #BC221A !important;
+    }
+
+    .li-color-selected{
+        border: 1px solid #BC221A !important;
+    }
 
      .summernote-container {
-    max-height: auto; /* Définir une hauteur maximale pour le div */
-    max-width: auto; /* Définir une largeur maximale pour le div */
-    overflow: auto; /* Ajouter des barres de défilement si le contenu dépasse les limites */
-    box-sizing: border-box; /* Inclure le padding et la bordure dans les dimensions de l'élément */
-}
+        max-height: auto; /* Définir une hauteur maximale pour le div */
+        max-width: auto; /* Définir une largeur maximale pour le div */
+        overflow: auto; /* Ajouter des barres de défilement si le contenu dépasse les limites */
+        box-sizing: border-box; /* Inclure le padding et la bordure dans les dimensions de l'élément */
+    }
+
+    .dropdown-menu .show{
+        z-index: 99!important;
+    }
+
+    .zoomContainer{
+        z-index: 1!important;
+    }
 
 </style>
 
@@ -171,7 +186,7 @@
                                                     <div class="attr-detail attr-size mb-10 ">
                                                         <ul class="font-small attribut-section" >
                                                             <div class="mb-4">
-                                                                <strong >Stockage : <span class="attribut-title"></span></strong>
+                                                                <strong > {{$variations->first()->attribute->value}}  : <span class="attribut-title"></span></strong>
                                                             </div>
                                                             @foreach($productlines as $productline)
                                                                 @foreach($productline as $item)
@@ -704,8 +719,11 @@
 
         $('.attribut-color-section li').removeAttr('class');
         $('.attribut-section li').removeAttr('class');
+        $('li[id^="li-"]').addClass('border');
 
         $("#li-"+id).addClass("li-color-selected");
+
+       
         $('#related-img-'+id).trigger('click');
     });
 </script>

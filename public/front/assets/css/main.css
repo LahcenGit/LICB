@@ -5099,12 +5099,10 @@ table .product-thumbnail img {
   -webkit-transition: all 0.5s ease-out 0s;
 }
 
-.attribut-color-section li a:hover,
+/*.attribut-color-section li a:hover,
 .attribut-color-section li.active a {
   border: 1px solid rgb(82, 82, 82)!important;
-}
-
-
+}*/
 
 
 
