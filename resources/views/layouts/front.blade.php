@@ -200,13 +200,13 @@
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="{{ asset('/carts') }}">
                                         <img alt="Nest" src="{{asset('front/assets/imgs/theme/icons/icon-cart.png')}}" />
-                                        <span class="pro-count blue nbr_product">{{$nbr_cartitem}}</span>
+                                        <span class="pro-count blue nbr_product">{{$cartData['nbr_cartitem']}}</span>
                                     </a>
                                     <a href="{{ asset('/carts') }}"><span class="lable">Cart</span></a>
-                                    @if($nbr_cartitem > 0)
+                                    @if($cartData['nbr_cartitem'] > 0)
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                             <ul class="cart-list">
-                                            @foreach($cartitems as $cartitem)
+                                            @foreach($cartData['cartitems'] as $cartitem)
                                                 <li  id="list{{$cartitem->id}}">
                                                     <div class="shopping-cart-img">
                                                         <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
@@ -223,7 +223,7 @@
                                             </ul>
                                             <div class="shopping-cart-footer">
                                                 <div class="shopping-cart-total">
-                                                    <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
+                                                    <h4>Total <span class="total">{{number_format($cartData['total']->sum)}} Da</span></h4>
                                                 </div>
                                                 <div class="shopping-cart-button">
                                                     <a href="{{asset('/carts')}}" class="outline">Voir le panier</a>
@@ -398,12 +398,12 @@
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="{{ asset('/carts') }}">
                                     <img alt="Nest" src="{{ asset('front/assets/imgs/theme/icons/icon-cart.svg') }}" />
-                                    <span class="pro-count white">{{$nbr_cartitem}}</span>
+                                    <span class="pro-count white">{{$cartData['nbr_cartitem']}}</span>
                                 </a>
-                                @if($nbr_cartitem > 0)
+                                @if($cartData['nbr_cartitem'] > 0)
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2  ">
                                     <ul class="cart-list">
-                                    @foreach($cartitems as $cartitem)
+                                    @foreach($cartData['cartitems'] as $cartitem)
                                         <li  id="list{{$cartitem->id}}">
                                             <div class="shopping-cart-img">
                                                 <a href="shop-product-right.html"><img alt="Nest" src="{{asset('storage/images/products/'.$cartitem->getImage()->lien)}}" /></a>
@@ -420,7 +420,7 @@
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total <span class="total">{{number_format($total->sum)}} Da</span></h4>
+                                            <h4>Total <span class="total">{{number_format($cartData['total']->sum)}} Da</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
                                             <a href="{{asset('/carts')}}" class="outline">Voir le panier</a>

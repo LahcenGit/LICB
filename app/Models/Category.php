@@ -40,4 +40,16 @@ public function productCategories()
 {
     return $this->hasMany(Productcategory::class);
 }
+
+// methode recursive
+public function getAllSubCategoryIds()
+{
+    $subCategoryIds = $this->childrenCategories()->pluck('id')->toArray();
+
+    foreach ($this->childrenCategories as $child) {
+        $subCategoryIds = array_merge($subCategoryIds, $child->getAllSubCategoryIds());
+    }
+
+    return $subCategoryIds;
+}
 }

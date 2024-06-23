@@ -46,13 +46,16 @@ class RegisterController extends Controller
 
     public function showRegistrationForm(){
         $nbr_cartitem = 0;
+        $cartData= [
+            'nbr_cartitem' => $nbr_cartitem,
+        ];
         $total_category = Category::where('parent_id', NULL)->count();
         $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $categories = Category::where('parent_id',null)->limit('5')->get();
         $search_term = NULL;
-        return view('auth.register',compact('nbr_cartitem','first_part_categories','last_part_categories','categories','search_term'));
+        return view('auth.register',compact('cartData','first_part_categories','last_part_categories','categories','search_term'));
     }
 
     /**

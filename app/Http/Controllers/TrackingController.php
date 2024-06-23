@@ -7,24 +7,13 @@ use App\Models\Cartitem;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Traits\CartManagementTrait;
 class TrackingController extends Controller
 {
+    use CartManagementTrait;
     //
     public function tracking(){
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-
+        $cartData = $this->fetchCartData();
         $categories = Category::where('parent_id',NULL)->get();
 
         $total_category = Category::where('parent_id', NULL)->count();
@@ -32,25 +21,14 @@ class TrackingController extends Controller
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $search_term = NULL;
-        return view('tracking',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories','search_term'));
+        return view('tracking',compact('cartData','categories','first_part_categories','last_part_categories','search_term'));
     }
 
 
     public function trackingResult(Request $request){
 
 
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
+        $cartData = $this->fetchCartData();
 
         $categories = Category::where('parent_id',NULL)->get();
 
@@ -133,6 +111,6 @@ class TrackingController extends Controller
         $search_term = NULL;
 
 
-        return view('tracking-result',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories','data','code','search_term'));
+        return view('tracking-result',compact('cartData','categories','first_part_categories','last_part_categories','data','code','search_term'));
     }
 }

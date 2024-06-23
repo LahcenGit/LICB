@@ -20,9 +20,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Traits\CartManagementTrait;
 class ProductController extends Controller
 {
     //
+    use CartManagementTrait;
     public function index(){
         $products = Product::orderBy('created_at','desc')->get();
         return view('admin.products',compact('products'));
@@ -473,7 +475,7 @@ class ProductController extends Controller
 
     public function detailProduct($slug){
 
-
+        $cartData = $this->fetchCartData();
         $product = Product::where('slug',$slug)->first();
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
@@ -535,26 +537,6 @@ class ProductController extends Controller
 
       //  $category_product_name = Category::find($category_product->id);
         $related_products = Productcategory::where('category_id',$category_product->category_id)->where('product_id','!=',$product->id)->get();
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            if($cart){
-            $cartitems = $cart->cartitems;
-            $nbr_cartitem = $cart->cartitems->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-        }
-        else{
-        $cart= session('cart_id');
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-
         $total_category = Category::where('parent_id', NULL)->count();
         $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
@@ -575,7 +557,7 @@ class ProductController extends Controller
         $search_term = NULL;
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
-        'related_products','product_line','nbr_cartitem','cartitems','total'
+        'related_products','product_line','cartData'
          ,'variations','secondary_images','added_products','has_color'
          ,'category_product','first_part_categories','last_part_categories','randomCategories'
          ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy','search_term'));
