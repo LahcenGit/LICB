@@ -322,7 +322,7 @@
                     </div>
                     <!-- Ajout de l'identifiant unique au bouton Filter -->
                     <a href="javascript:void(0)" id="filter-button" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Filter</a>
-                    <a href="{{ asset('category-parent-products/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
+                    <a href="{{ asset('global-category/'.$category->slug) }}" class="btn btn-sm btn-default mt-3"> show all</a>
                 </div>
 
 

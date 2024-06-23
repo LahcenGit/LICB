@@ -31,7 +31,8 @@ class TrackingController extends Controller
         $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
         $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
-        return view('tracking',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories'));
+        $search_term = NULL;
+        return view('tracking',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories','search_term'));
     }
 
 
@@ -98,7 +99,7 @@ class TrackingController extends Controller
         $payload = json_encode([
             'Colis' => [
                 ['Tracking' => $code]
-              
+
             ]
         ]);
 
@@ -129,9 +130,9 @@ class TrackingController extends Controller
 
         $data = json_decode($response, true);
 
- 
+        $search_term = NULL;
 
 
-        return view('tracking-result',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories','data','code'));
+        return view('tracking-result',compact('nbr_cartitem','cartitems','total','categories','first_part_categories','last_part_categories','data','code','search_term'));
     }
 }
