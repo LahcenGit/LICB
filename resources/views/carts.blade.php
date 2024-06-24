@@ -36,21 +36,14 @@
         </div>
     </div>
     <div class="container mb-80 mt-50">
-        @if(Auth::user())
-            <form action="{{url('carts/'.$cart->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{url('carts/'.$cartData['cart_id'])}}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="PUT">
-            @csrf
-        @else
-            <form action="{{url('carts/'.$cart)}}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="PUT">
-            @csrf
-        @endif
-
+        @csrf
         <div class="row">
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Votre panier</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">Vous avez <span class="text-brand"> {{$nbr_cartitem}} </span> produit(s) dans votre panier</h6>
+                    <h6 class="text-body">Vous avez <span class="text-brand"> {{$cartData['nbr_cartitem']}} </span> produit(s) dans votre panier</h6>
                     <h6 class="text-body"><a href="{{url('/delete-cartitems')}}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Vider le panier</a></h6>
                 </div>
             </div>
@@ -73,7 +66,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($cartitems as $item)
+                            @foreach($cartData['cartitems'] as $item)
                             <tr class="pt-30" id="item{{$item->id}}">
                                 <td class="custome-checkbox pl-30">
                                     <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
@@ -82,13 +75,15 @@
                                 <td class="image product-thumbnail pt-40"><img src="{{asset('storage/images/products/'.$item->productline->product->images[0]->lien)}}" alt="#"></td>
                                 <td class="product-des product-name">
                                     <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">{{$item->productline->product->designation}} @if($item->productline->attributeLine)-{{ $item->productline->attributeLine->value }}@endif</a></h6>
-                                    <div class="product-rate-cover">
+                                    {{-- <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width:90%">
                                             </div>
                                         </div>
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
+                                         --}}
+
                                 </td>
                                 <td class="price" data-title="Price">
                                     <h4 class="text-body">{{number_format($item->price)}} Da</h4>
@@ -134,7 +129,7 @@
                                             <h6 class="text-muted">Total</h6>
                                         </td>
                                         <td class="cart_total_amount">
-                                            <h4 class="text-brand text-end">{{ number_format($total->sum,2) }} Da</h4>
+                                            <h4 class="text-brand text-end">{{ number_format($cartData['total']->sum,2) }} Da</h4>
                                         </td>
                                     </tr>
                                     <tr>
@@ -145,7 +140,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <input type="hidden" value="{{ $cart_id }}" name="cart_id">
+                        <input type="hidden" value="{{ $cartData['cart_id'] }}" name="cart_id">
                       <button type="submit" class="btn mb-20 w-100">Payer<i class="fi-rs-sign-out ml-15"></i></button>
                     </form>
                 </div>

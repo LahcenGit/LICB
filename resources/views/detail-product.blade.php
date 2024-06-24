@@ -163,7 +163,7 @@
                                                 {{--if product has color--}}
                                                 @if($has_color)
                                                     <div class="attr-detail attr-size mb-10 ">
-                                                        <ul class="font-small attribut-color-section" >
+                                                        <ul class="font-small attribut-color-section" id="list-line" >
                                                             <div class="mb-4">
                                                                 <strong >Color : <span class="attribut-title"></span></strong>
                                                             </div>
@@ -184,7 +184,7 @@
                                                    </div>
                                                 @else
                                                     <div class="attr-detail attr-size mb-10 ">
-                                                        <ul class="font-small attribut-section" >
+                                                        <ul class="font-small attribut-section" id="list-line" >
                                                             <div class="mb-4">
                                                                 <strong > {{$variations->first()->attribute->value}}  : <span class="attribut-title"></span></strong>
                                                             </div>
@@ -214,16 +214,15 @@
                                                     </li>
                                                 </ul>
                                             @endif
-
                                             @if(count($added_products) != 0)
                                                 <div class="attr-detail attr-size mb-30 color-option">
-                                                    <ul class="list-filter size-filter font-small list-option" id="list-line">
+                                                    <ul class="list-filter size-filter font-small list-option">
                                                         <div class="mb-4 attribut-section">
                                                             <strong > <span class="product-text" style="color:#BC221A "> Recommended add-ons !</span></strong>
                                                         </div>
 
                                                         @foreach($added_products as $added_product)
-                                                            <li value-id="{{$added_product->id}}">
+                                                            <li value-id="{{$added_product->productLine->id}}"  class="recommended-product">
                                                                 <div class="d-flex flex-row p-1" style="border: 1px solid #BC221A; border-radius: 5px;">
                                                                     <a style="height: auto; line-height: 23px;" href="#" title="{{ $added_product->productLine->product->designation }}" class="added-product" data-added="{{$added_product->id}}" data-product="{{$product->id}}" >  {{ $added_product->productLine->product->designation }}
                                                                         <strong style="color: #BC221A">@if($added_product->productLine->price_promo){{ number_format($added_product->productLine->price_promo) }} Da @else {{ number_format($added_product->productLine->price) }} Da @endif</strong>
@@ -523,7 +522,7 @@
 
         var id = $(this).attr("id");
         $.ajax({
-			url: '/newsite/public/get-price/' + id ,
+			url: '/get-price/' + id ,
 			type: "GET",
             success: function (res) {
 
@@ -564,7 +563,7 @@
             $(".product-text").text($(this).attr('title'));
 
             $.ajax({
-                url: '/newsite/public/get-price-product-added/' + product_added +'/'+product_id,
+                url: '/get-price-product-added/' + product_added +'/'+product_id,
                 type: "GET",
                 success: function (res) {
                 if(res.productline.price_promo){
@@ -589,7 +588,7 @@
             var product_added = $(this).data("added");
 
             $.ajax({
-                url: '/newsite/public/get-price-product-added/' + product_added +'/'+product_id,
+                url: '/get-price-product-added/' + product_added +'/'+product_id,
                 type: "GET",
                 success: function (res) {
                 if(res.productline.price_promo){
@@ -608,105 +607,85 @@
 @endpush
 @push('add-cart-scripts')
 <script>
+ $(document).ready(function() {
+    // Configuration AJAX
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        });
+    });
 
-    $( ".addToCartBtn" ).click(function(e) {
+    // Gestion de l'ajout de produits au panier
+    $(".addToCartBtn").click(function(e) {
         e.preventDefault();
         var product_id = $(this).closest('.product-data').find('.product_id').val();
         var qte = $(this).closest('.product-data').find('.qty-val').val();
 
         $.ajax({
-                url: '/newsite/public/get-product/' + product_id ,
-                type: "GET",
-                success: function (res) {
-
-                if(res.countproductlines > 1){
-                    var id = $('#list-line li.active').attr('value-id');
-                    $.ajax({
-                            url: '/newsite/public/carts',
-                            type: "POST",
-                            data:{
-                                'id' : id,
-                                'qte' :qte,
-                            },
-                            success: function (res) {
-
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
-
-                                if(res.qtes == 0){
-                                    var $path = '{{asset("storage/images/products/")}}';
-                                    $data =  '<li>'+
-                                                '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img src="'+ $path + '/'+res.image + '" alt="product"></a>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-title">'+
-                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
-                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-delete">'+
-                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
-                                                '</div>'+
-                                        '</li>';
-                                    $(".cart-empty").css("display", "none");
-                                    $('.cart-list').append($data);
-                                }
-                                else{
-                                    alert("Le produit existe déja dans votre panier");
-                                }
-                                $(".total").text(res.total +' Da');
-                               }
-
-                            });
-                         }
-                         else{
-                            var id = res.productlines.id;
-
-                            $.ajax({
-                            url: '/newsite/public/carts',
-                            type: "POST",
-                            data:{
-                                'id' : id,
-                                'qte' :qte,
-                            },
-                            success: function (res) {
-
-                                toastr.success('Produit ajouté avec success');
-                                $(".nbr_product").text(res.nbr_cart);
-                                if(res.qtes == 0){
-                                    var $path = '{{asset("storage/images/products/")}}';
-                                    $data =  '<li>'+
-                                                '<div class="shopping-cart-img">'+
-                                                    '<a href="shop-product-right.html"><img src="'+ $path + '/'+res.image + '" alt="product"></a>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-title">'+
-                                                    '<h4><a href="shop-product-right.html">'+res.name+'</a></h4>'+
-                                                    '<h4><span>'+res.qte+' × </span>'+res.price+' Da</h4>'+
-                                                '</div>'+
-                                                '<div class="shopping-cart-delete">'+
-                                                    '<a href="#"><i class="fi-rs-cross-small"></i></a>'+
-                                                '</div>'+
-                                        '</li>';
-                                    $(".cart-empty").css("display", "none");
-                                    $('.cart-list').append($data);
-                                }
-                                else{
-                                    alert("Le produit existe déja dans votre panier");
-                                }
-                                $(".total").text(res.total +' Da');
-
-                            }
-                            });
-                         }
-
-
+            url: '/get-product/' + product_id,
+            type: "GET",
+            success: function(res) {
+                var id;
+                if (res.countproductlines > 1) {
+                    id = $('#list-line li.li-color-selected').attr('value-id');
+                } else {
+                    id = res.productlines.id;
                 }
-            });
 
+
+                // Vérifier et ajouter les produits recommandés sélectionnés au panier
+                $('.d-flex.active').each(function() {
+                    var recommendedId = $('.recommended-product').attr('value-id');
+                    var recommendedQte = 1; // Quantité par défaut pour les produits recommandés
+                    addToCart(recommendedId, recommendedQte);
+                });
+                 addToCart(id, qte);
+            }
+        });
+    });
+
+    // Gestion de la sélection des produits recommandés
+    $('.list-line').on('click', '.recommended-product', function(e) {
+        e.preventDefault();
+        $(this).find('.d-flex').toggleClass('active'); // Bascule la classe active sur le div parent
+    });
+
+    // Fonction pour ajouter des produits au panier
+    function addToCart(id, qte) {
+        $.ajax({
+            url: '/carts',
+            type: "POST",
+            data: {
+                'id': id,
+                'qte': qte,
+            },
+            success: function(res) {
+                toastr.success('Product added successfully');
+                $(".nbr_product").text(res.nbr_cart);
+
+                if (res.qtes == 0) {
+                    var $path = '{{asset("storage/images/products/")}}';
+                    var $data = '<li>' +
+                        '<div class="shopping-cart-img">' +
+                        '<a href="shop-product-right.html"><img src="' + $path + '/' + res.image + '" alt="product"></a>' +
+                        '</div>' +
+                        '<div class="shopping-cart-title">' +
+                        '<h4><a href="shop-product-right.html">' + res.name + '</a></h4>' +
+                        '<h4><span>' + res.qte + ' × </span>' + res.price + ' Da</h4>' +
+                        '</div>' +
+                        '<div class="shopping-cart-delete">' +
+                        '<a href="#"><i class="fi-rs-cross-small"></i></a>' +
+                        '</div>' +
+                        '</li>';
+                    $(".cart-empty").css("display", "none");
+                    $('.cart-list').append($data);
+                } else {
+                    alert("The product already exists in your cart");
+                }
+                $(".total").text(res.total + ' Da');
+            }
+        });
+    }
 });
 </script>
 @endpush
@@ -723,7 +702,7 @@
 
         $("#li-"+id).addClass("li-color-selected");
 
-       
+
         $('#related-img-'+id).trigger('click');
     });
 </script>
@@ -782,7 +761,7 @@ $(".add-comment").on("click", function (e) {
     };
 
     $.ajax({
-    url: "/newsite/public/comment",
+    url: "/comment",
     type: "POST",
     data: data,
     success: function (res) {
