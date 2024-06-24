@@ -30,7 +30,7 @@
 </head>
 <style>
     .primary-color{
-        color: #BC221A !important;
+        color: #CE0000 !important;
     }
 
     .li-color-selected{
@@ -41,9 +41,9 @@
         border-radius: 15%;
     }
     .alert-success-licb{
-        color: #BC221A;
+        color: #CE0000;
         background-color: #ffffff;
-        border-color: #BC221A;
+        border-color: #CE0000;
     }
 
     .account-drap{
@@ -61,6 +61,16 @@
 
     .dropdown-item{
         padding: .6rem 1rem !important;
+    }
+
+    .btn-primary:focus{
+        border: solid 1px #CE0000 !important;
+        background-color: #CE0000!important;
+    }
+
+    .btn-primary:hover{
+        border: solid 1px #e70000 !important;
+        background-color: #e70000!important;
     }
 
 
@@ -164,16 +174,18 @@
         <div class="mobile-promotion">
             <span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
         </div>
-        <div class="header-top header-top-ptb-1 d-none d-lg-block " style="background-color: #bc221a">
+        <div class="header-top header-top-ptb-1 d-none d-lg-block " style="background-color: #CE0000">
             <div class="container">
                 <div class="row align-items-center d-flex justify-content-center">
                     <div class="col-xl-6 col-lg-4">
                         <div class="text-center">
                             <div id="news-flash" class="d-inline-block" style="color: #ffffff">
                                 <ul>
-                                    <li>100% Secure delivery without contacting the courier</li>
-                                    <li>Supper Value Deals - Save more with coupons</li>
-                                    <li>Trendy 25silver jewelry, save up 35% off today</li>
+                                    <li>Welcome to our new platform !</li>
+                                    <li>Earn points with every purchase, unique loyalty system</li>
+                                    <li>Experience real-time order tracking, a first for IT platforms</li>
+                                    <li>Our intelligent PC builder ensures guaranteed compatibility</li>
+                                    <li>Support available 24/7, 7 days a week</li>
                                 </ul>
                             </div>
                         </div>
@@ -189,7 +201,7 @@
                         <a href="{{asset('/')}}"><img src="{{asset('front/logo-white.png')}}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
-                        <div class="search-style-2">
+                        <div class="search-style-2 d-flex justify-content-start">
                             <form method="GET" action="{{ route('search') }}">
                             <input type="text"  name="search_term" value="{{ $search_term }}" placeholder="Search a product, brand, category..." />
                             </form>
