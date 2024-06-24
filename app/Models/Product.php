@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Product extends Model
 {
@@ -58,5 +59,18 @@ class Product extends Model
     public function categoryProducts()
     {
         return $this->hasMany(Productcategory::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'productcategories', 'product_id', 'category_id');
+    }
+
+
+    public function isNew()
+    {
+        $createdAt = $this->created_at;
+        $now = Carbon::now();
+        return $createdAt->greaterThanOrEqualTo($now->subDays(10));
     }
 }

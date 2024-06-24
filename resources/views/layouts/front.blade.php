@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.dataTables.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/css/select.dataTables.css"/>
     <link rel="stylesheet" href="{{ asset('plugins/star-rating-svg.css') }}" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
 
 </head>
@@ -72,6 +74,14 @@
         border: solid 1px #e70000 !important;
         background-color: #e70000!important;
     }
+
+    .banner-slider .banner-img {
+            position: relative;
+        }
+        .banner-slider .banner-img img {
+            width: 100%;
+            display: block;
+        }
 
 
 </style>
@@ -694,6 +704,19 @@
     <script src="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js"></script>
 
     <script type="text/javascript" src="{{ asset('plugins/jquery.star-rating-svg.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+   <script>
+    $('.banner-slider').slick({
+        dots: false,
+        infinite: true,
+        speed: 500,
+        fade: true, // Désactivez temporairement l'effet de transition
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 2000,
+    });
+   </script>
 
 	<script>
         $(".my-rating").starRating({
@@ -709,6 +732,9 @@
             readOnly: true
 		});
     </script>
+
+
+</script>
 
 
 <script>

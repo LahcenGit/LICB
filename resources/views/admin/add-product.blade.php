@@ -154,10 +154,10 @@
                                                     <label class="form-label">Status:</label>
                                                         <select id="inputState" class="default-select form-control wide" name="status">
                                                             <option value="">Nothing selected</option>
-                                                            <option value="1">New</option>
                                                             <option value="2">SOON</option>
-                                                            <option value="2">MAKE TO ORDER</option>
-                                                            <option value="2">IT'S BACK</option>
+                                                            <option value="3">IT'S BACK</option>
+                                                            <option value="4">MAKE TO ORDER</option>
+                                                            <option value="5">Out of stock</option>
                                                         </select>
                                                     </div>
                                                 <div class="mb-3 col-md-4">

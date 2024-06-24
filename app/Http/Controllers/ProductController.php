@@ -473,6 +473,8 @@ class ProductController extends Controller
         return array_reverse($categoryHierarchy); // On inverse l'ordre pour avoir la hiérarchie de la racine jusqu'à la feuille
     }
 
+ 
+
     public function detailProduct($slug){
 
         $cartData = $this->fetchCartData();
@@ -480,6 +482,14 @@ class ProductController extends Controller
         $first_image = Image::where('product_id',$product->id)->where('type',1)->first();
         $countproductlines = Productline::where('product_id',$product->id)->count();
         $added_products = $product->relatedproducts;
+
+        if ($product->isNew()) {
+           $status = 1 ; 
+        } else {
+            $status = $product->statut ;
+        }
+
+        
 
         //product has many attribute
         if($countproductlines > 1){
@@ -530,13 +540,24 @@ class ProductController extends Controller
         $categories = Category::where('parent_id',null)->get();
         //$featured_categories = Category::where('parent_id',null)->limit(5)->get();
         // 3 new products
-        $new_products = Product::orderBy('created_at','desc')->where('id','!=',$product->id)->limit('3')->get();
+        $category = $product->categories()->first();
+
+        
+        $new_products = $category->products()
+                        ->where('products.id', '!=', $product->id) // Exclure le produit donné
+                        ->orderBy('products.created_at', 'desc') // Trier par date de création décroissante
+                        ->take(3) // Limiter à 3 produits
+                        ->get();
+
         $category_product = Productcategory::where('product_id',$product->id)->first();
         $category = Category::find($category_product->category_id);
         $categoryHierarchy = $this->getCategoryHierarchy($category);
 
       //  $category_product_name = Category::find($category_product->id);
-        $related_products = Productcategory::where('category_id',$category_product->category_id)->where('product_id','!=',$product->id)->get();
+        $similar_products = Productcategory::where('category_id',$category_product->category_id)
+                            ->where('product_id','!=',$product->id)
+                            ->take(8)
+                            ->get();
         $total_category = Category::where('parent_id', NULL)->count();
         $moitie = ceil($total_category / 2);
         $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
@@ -557,10 +578,10 @@ class ProductController extends Controller
         $search_term = NULL;
         return view('detail-product',compact('product','first_image','min_price','attributes',
         'productlines','min_price_promo','countproductlines','categories','new_products',
-        'related_products','product_line','cartData'
+        'similar_products','product_line','cartData'
          ,'variations','secondary_images','added_products','has_color'
          ,'category_product','first_part_categories','last_part_categories','randomCategories'
-         ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy','search_term'));
+         ,'nbr_comment','comments','count_comments','average_rating','categoryHierarchy','search_term','status'));
     }
 
 

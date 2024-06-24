@@ -32,14 +32,20 @@ class Category extends Model
     }
 
 
-   public function products(){
+  /* public function products(){
     return $this->hasMany(Product::class);
-}
+    }*/
 
-public function productCategories()
-{
-    return $this->hasMany(Productcategory::class);
-}
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'productcategories', 'category_id', 'product_id');
+    }
+
+    public function productCategories()
+    {
+        return $this->hasMany(Productcategory::class);
+    }
 
 // methode recursive
 public function getAllSubCategoryIds()

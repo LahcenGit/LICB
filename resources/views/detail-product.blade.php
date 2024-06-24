@@ -35,6 +35,31 @@
         z-index: 1!important;
     }
 
+    .stock-status.out-stock {
+        color: #CE0000;
+        background: #ffcece;
+    }
+    .stock-status.new-stock {
+        color: #ffffff;
+        background: #CE0000;
+    }
+    .stock-status.in-stock {
+        color: #d6ffdf;
+        background: #53b14f;
+    }
+    .stock-status.promo-stock {
+        color: #ffc400;
+        background: #000000;
+    }
+    .stock-status.back-stock {
+        color: #fff5d2;
+        background: #ffc400;
+    }
+
+    .rounded-image {
+        border-radius: 10px;
+    }
+
 </style>
 
 
@@ -121,7 +146,12 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <div class="detail-info pr-30 pl-30">
-                                            <span class="stock-status out-stock"> Sale Off </span>
+                                            @if($status == 1)
+                                                <span class="stock-status new-stock"> New </span>
+                                            @else
+                                                <span class="stock-status in-stock"> In Stock </span>   
+                                            @endif
+                                           
                                             <h2 class="title-detail">{{$product->designation}}</h2>
                                             <div class="product-detail-rating">
                                                 <div class="product-rate-cover text-end">
@@ -416,18 +446,18 @@
                                 </div>
                                 <div class="row mt-60">
                                     <div class="col-12">
-                                        <h2 class="section-title style-1 mb-30">Related products</h2>
+                                        <h2 class="section-title style-1 mb-30">Similar products</h2>
                                     </div>
                                     <div class="col-12">
                                         <div class="row related-products">
-                                            @foreach($related_products as $related_product)
+                                            @foreach($similar_products as $similar_product)
                                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                                                 <div class="product-cart-wrap hover-up">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="{{ asset('product/'.$related_product->product->slug) }}" tabindex="0">
-                                                                @if($related_product->product->images->first())
-                                                                <img class="default-img" src="{{ asset('storage/images/products/'.$related_product->product->images->first()->lien) }}" alt="" />
+                                                            <a href="{{ asset('product/'.$similar_product->product->slug) }}" tabindex="0">
+                                                                @if($similar_product->product->images->first())
+                                                                <img class="default-img" src="{{ asset('storage/images/products/'.$similar_product->product->images->first()->lien) }}" alt="" />
                                                             @endif
                                                             </a>
                                                         </div>
@@ -438,17 +468,17 @@
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
-                                                        <h2><a href={{ asset('product/'.$related_product->product->slug) }}>{{$related_product->product->designation}}</a></h2>
+                                                        <h2><a href={{ asset('product/'.$similar_product->product->slug) }}>{{$similar_product->product->designation}}</a></h2>
                                                         {{--  <div class="rating-result" title="90%">
                                                             <span> </span>
                                                         </div> --}}
 
                                                         <div class="product-price">
-                                                            @if($related_product->getPricePromo())
-                                                            <span>{{number_format($related_product->getPricePromo())}} Da</span>
-                                                            <span class="old-price">{{number_format($related_product->getPrice())}} Da</span>
+                                                            @if($similar_product->getPricePromo())
+                                                            <span>{{number_format($similar_product->getPricePromo())}} Da</span>
+                                                            <span class="old-price">{{number_format($similar_product->getPrice())}} Da</span>
                                                             @else
-                                                            <span>{{number_format($related_product->getPrice())}} Da</span>
+                                                            <span>{{number_format($similar_product->getPrice())}} Da</span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -461,7 +491,7 @@
                             </div>
                         </div>
                         <div class="col-xl-3 primary-sidebar sticky-sidebar mt-30">
-                            <div class="sidebar-widget widget-category-2 mb-30">
+                           {{-- <div class="sidebar-widget widget-category-2 mb-30">
                                 <h5 class="section-title style-1 mb-30">Categories</h5>
                                 <ul>
                                     @foreach($randomCategories as $category)
@@ -470,12 +500,27 @@
                                     </li>
                                     @endforeach
                                 </ul>
-                            </div>
+                            </div>--}}
                             <!-- Fillter By Price -->
 
                             <!-- Product sidebar Widget -->
+
+                            <div class="banner-slider sidebar-widget product-sidebar mb-30  bg-grey border-radius-10">
+                                <div >
+                                    <img class="rounded-image" src="{{ asset('front/assets/ads/pc-builder.jpg') }}" alt="" />
+                                </div>
+                                <div >
+                                    <img class="rounded-image" src="{{ asset('front/assets/ads/order-track.jpg') }}" alt="" />
+                                </div>
+                                <div >
+                                    <img class="rounded-image" src="{{ asset('front/assets/ads/google-reviews.jpg') }}" alt="" />
+                                </div>
+                                <!-- Ajoutez plus d'images si nécessaire -->
+                            </div>
+
+
                             <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
-                                <h5 class="section-title style-1 mb-30">New products</h5>
+                                <h5 class="section-title style-1 mb-30">Latest {{$category->designation}}</h5>
                                 @foreach($new_products as $new_product)
                                 <div class="single-post clearfix">
                                     <div class="image">
@@ -484,28 +529,17 @@
                                         @endif
                                     </div>
                                     <div class="content pt-10">
-                                        <h5><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h5>
+                                        <h6><a href={{asset('product/'.$new_product->slug) }}>{{$new_product->designation}}</a></h6>
                                         <p class="price mb-0 mt-5">{{number_format($new_product->minPrice())}} Da</p>
                                         {{-- <div class="product-average-rating">
 
                                         </div> --}}
-
                                     </div>
                                 </div>
                                @endforeach
+                            </div>
 
-                            </div>
-                            <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-                                <img src="{{ asset('front/assets/imgs/banner/banner-11.png') }}" alt="" />
-                                <div class="banner-text">
-                                    <span>Oganic</span>
-                                    <h4>
-                                        Save 17% <br />
-                                        on <span class="text-brand">Oganic</span><br />
-                                        Juice
-                                    </h4>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
