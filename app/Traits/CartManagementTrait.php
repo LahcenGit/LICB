@@ -13,7 +13,7 @@ trait CartManagementTrait
         if (Auth::user()) {
             $cart = Cart::where('user_id', Auth::user()->id)->first();
             $cart_session = session('cart_id');
-
+            $cart_id = $cart->id;
             if ($cart_session) {
                 $cartitems_session = Cartitem::where('cart_id', $cart_session)->get();
 
@@ -36,11 +36,12 @@ trait CartManagementTrait
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart->id)->first();
         } else {
             $cart = session('cart_id');
+            $cart_id = $cart;
             $cartitems = Cartitem::where('cart_id', $cart)->get();
             $nbr_cartitem = Cartitem::where('cart_id', $cart)->count();
             $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id', $cart)->first();
         }
 
-        return compact('cart', 'cartitems', 'nbr_cartitem', 'total');
+        return compact('cart', 'cartitems', 'nbr_cartitem', 'total','cart_id');
     }
 }

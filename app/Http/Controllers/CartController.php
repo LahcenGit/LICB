@@ -6,13 +6,14 @@ use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Productline;
-
+use App\Traits\CartManagementTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     //
+    use CartManagementTrait;
     public function store(Request $request) {
 
 
@@ -112,7 +113,6 @@ class CartController extends Controller
                 $cart = new Cart();
                 $cart->save();
                 $productline = Productline::where('id',$request->input('id'))->first();
-
                 $cart_item = new Cartitem();
                 $cart_item->cart_id = $cart->id;
                 $cart_item->productline_id = $request->input('id');
@@ -151,31 +151,14 @@ class CartController extends Controller
 
   public function index(){
 
+    $cartData = $this->fetchCartData();
     $total_category = Category::where('parent_id', NULL)->count();
     $moitie = ceil($total_category / 2);
     $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
     $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
     $categories = Category::where('parent_id',null)->limit('5')->get();
-
-    if(Auth::user()){
-        $cart = Cart::where('user_id',Auth::user()->id)->first();
-        $cart_id = $cart->id;
-        if($cart){
-        $cartitems = $cart->cartitems;
-        $nbr_cartitem = $cart->cartitems->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-
-        return view('carts',compact('cartitems','cart_id','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories'));
-        }
-    }
-    else{
-        $cart= session('cart_id');
-        $cart_id = $cart;
-        $cartitems = Cartitem::where('cart_id',$cart)->get();
-        $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-        $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        return view('carts',compact('cartitems','nbr_cartitem','total','cart','categories','first_part_categories','last_part_categories','cart_id'));
-    }
+    $search_term = NULL;
+    return view('carts',compact('cartData','categories','first_part_categories','last_part_categories','search_term'));
   }
 
   public function update(Request $request , $id){
