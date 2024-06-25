@@ -101,7 +101,7 @@ class HomeController extends Controller
 
         // Find the category based on the slug
         $category = Category::where('slug', $slug)->first();
-
+        //$latest_products = $category->products()->orderBy('created_at', 'desc')->take(10)->get();
         // Retrieve products associated with the specified category
         $products = ProductCategory::where('category_id', $category->id)->with('product')->paginate(15);
         $countProducts = $products->total();
@@ -126,7 +126,10 @@ class HomeController extends Controller
         $search_term = NULL;
 
         // Return the view with necessary data
-        return view('category-products', compact('products', 'category', 'countProducts', 'cartData', 'categories', 'randomCategories', 'brands', 'search_term'));
+        return view('category-products', compact('products', 'category', 'countProducts'
+                                          , 'cartData', 'categories'
+                                          , 'randomCategories', 'brands'
+                                          , 'search_term'));
     }
 
     public function filterProducts($slug, $categoryId, $brands, Request $request)
@@ -141,9 +144,9 @@ class HomeController extends Controller
     $category = Category::find($categoryId);
 
     // Retrieve random categories with associated products for display
-    $randomCategories = Category::withCount('productCategories')
+    $randomCategories = Category::withCount('products')
         ->whereNotNull('parent_id')
-        ->has('productCategories')
+        ->has('products')
         ->inRandomOrder()
         ->take(5)
         ->get();
@@ -153,8 +156,9 @@ class HomeController extends Controller
 
     // Build query to retrieve products based on category and optional brands filter
     $query = Product::with(['images', 'productlines'])
-        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-        ->where('productcategories.category_id', $categoryId)
+        ->whereHas('categories', function($q) use ($categoryId) {
+            $q->where('categories.id', $categoryId);
+        })
         ->leftJoin('productlines', 'products.id', '=', 'productlines.product_id')
         ->select('products.*', DB::raw('MIN(productlines.price) as price'))
         ->groupBy('products.id');
@@ -187,11 +191,11 @@ class HomeController extends Controller
 
     // Retrieve brands available for the specified category
     $brands = Mark::join('products', 'marks.id', '=', 'products.mark_id')
-        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
-        ->where('productcategories.category_id', $categoryId)
-        ->select('marks.*')
-        ->distinct()
-        ->get();
+                        ->join('productcategories', 'products.id', '=', 'productcategories.product_id')
+                        ->where('productcategories.category_id', $categoryId)
+                        ->select('marks.*')
+                        ->distinct()
+                        ->get();
 
     // Initialize search term as NULL
     $search_term = NULL;
@@ -292,12 +296,12 @@ public function filterProductsBySubcategories($slug, $categoryId, $subcategories
         }
 
         // Filter products based on selected subcategories
-        $query->whereHas('categoryProducts', function ($query) use ($selectedSubCategoryIds) {
+        $query->whereHas('categories', function ($query) use ($selectedSubCategoryIds) {
             $query->whereIn('category_id', $selectedSubCategoryIds);
         });
     } else {
         // Filter products based on all subcategories of the parent category
-        $query->whereHas('categoryProducts', function ($query) use ($allSubCategoryIds) {
+        $query->whereHas('categories', function ($query) use ($allSubCategoryIds) {
             $query->whereIn('category_id', $allSubCategoryIds);
         });
     }

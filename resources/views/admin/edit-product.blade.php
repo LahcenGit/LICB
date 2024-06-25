@@ -455,11 +455,17 @@ $(document).ready(function() {
                     '<option value="13">13</option>' +
                     '<option value="14">14</option>';
     } else if (selectedType === "amd") {
-      var options = '<option value="">Nothing selected</option>' +
-                    '<option value="1">1</option>' +
-                    '<option value="2">2</option>' +
-                    '<option value="3">3</option>' +
-                    '<option value="4">4</option>';
+        var options = '<option value="">Nothing selected</option>' +
+                    '<option value="1000">1000</option>' +
+                    '<option value="2000">2000</option>' +
+                    '<option value="3000">3000</option>' +
+                    '<option value="4000">4000</option>'+
+                    '<option value="5000">5000</option>'+
+                    '<option value="6000">6000</option>'+
+                    '<option value="7000">7000</option>'+
+                    '<option value="8000">8000</option>'+
+                    '<option value="9000">9000</option>'+
+                    '<option value="10000">10000</option>';
     }
 
     if (options) {
