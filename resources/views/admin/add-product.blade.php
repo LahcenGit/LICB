@@ -76,6 +76,7 @@
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
     margin-top: 7px !important;
 }
+
 </style>
 @section('content')
 
@@ -274,7 +275,7 @@
                                                 <tbody id="dynamicAddRemove"  >
                                                         <tr>
                                                             <td style="width: 15%">
-                                                                <select  id="select-content"  class="default-select form-control wide " name="as[0]"  >
+                                                                <select  id="select-content" class="multi-select" name="as[0]"  >
                                                                     <option value="0">Nothing Selected</option>
                                                                     @foreach($attributes as $a)
                                                                     <option value="{{$a->id}}">{{$a->value}}</option>
@@ -282,7 +283,7 @@
                                                                 </select>
                                                             </td>
                                                             <td style="width: 15%">
-                                                                <select  id="select-value" class="default-select form-control wide " name="values[0]"  >
+                                                                <select  id="select-value"  class="multi-select" name="values[0]"  >
                                                                 </select>
                                                             </td>
                                                             <td style="width:  10%">
@@ -373,7 +374,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                           <label for="p_TYPE" class="form-label">Processor TYPE:</label>
-                                          <select class="default-select form-control wide" name="p_TYPE" id="p_TYPE">
+                                          <select class="multi-select" name="p_TYPE" id="p_TYPE">
                                             <option value="">Nothing selected</option>
                                             <option value="intel">INTEL</option>
                                             <option value="amd">AMD</option>
@@ -381,7 +382,7 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                           <label for="p_GEN" class="form-label">Processor GEN:</label>
-                                          <select class="default-select form-control wide" name="p_GEN" id="select-result">
+                                          <select  class="multi-select" name="p_GEN" id="select-result">
                                             <option value="">Nothing selected</option>
                                           </select>
                                         </div>
@@ -389,7 +390,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">Motherboard TYPE:</label>
-                                            <select  class="default-select form-control wide" name="m_TYPE" id="m_TYPE">
+                                            <select   class="multi-select" name="m_TYPE" id="m_TYPE">
                                                 <option value="">Nothing selected</option>
                                                 <option value="intel">INTEL</option>
                                                 <option value="amd">AMD</option>
@@ -405,7 +406,7 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-6">
                                         <label class="form-label">Motherboard DDR:</label>
-                                        <select class="default-select form-control wide"  name="m_DDR" placeholder="Nothing selected">
+                                        <select  class="multi-select" name="m_DDR" placeholder="Nothing selected">
                                                 <option value="">Nothing selected</option>
                                                 <option value="DDR4">DDR4</option>
                                                 <option value="DDR5">DDR5</option>
@@ -413,7 +414,7 @@
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">RAM DDR:</label>
-                                            <select class="default-select form-control wide" name="r_DDR">
+                                            <select  class="multi-select" name="r_DDR">
                                                 <option value="">Nothing selected</option>
                                                 <option value="DDR4">DDR4</option>
                                                 <option value="DDR5">DDR5</option>
@@ -493,7 +494,7 @@ $(document).ready(function() {
 
     if (options) {
       $('#select-result').html(options);
-      $('#select-result').niceSelect('update');
+      $('#select-result').select2();
 
     }
   });
@@ -524,7 +525,7 @@ $(document).ready(function() {
 
         if (options) {
           $('#m_GEN').html(options);
-          $('#m_GEN').niceSelect('update');
+          $('#m_GEN').select2();
 
         }
       });
@@ -564,12 +565,12 @@ $(document).ready(function() {
 			++i;
             $html = '<tr class="tradded">'+
                         '<td style="width: 15%">'+
-                            '<select   class="default-select form-control wide select-attribute " name="as['+i+']">'+
+                            '<select   class="multi-select select-attribute" name="as['+i+']">'+
                                 options +
                             '</select>'+
                         '</td>'+
                         '<td style="width: 15%">'+
-                            '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values['+i+']">'+
+                            '<select id="select-attr'+i+'" class="multi-select" name="values['+i+']">'+
                             '</select>'+
                         '</td>'+
                         '<td style="width:  10%">'+
@@ -601,13 +602,13 @@ $(document).ready(function() {
 			$html_temp = '<span><div class="row">'+
 					'<div style="width: 200px; margin-right:10px;">'+
 					'<label for="" >Attribute:</label>'+
-					'<select  name="as['+i+']" id="select-attribute" class="default-select form-control wide " >'+
+					'<select  name="as['+i+']" id="select-attribute" class="multi-select" >'+
 					 options +
 					'</select>'+
 					'</div>'+
                     '<div style="width: 200px; margin-right:10px;">'+
 					'<label for="">Valeur:</label>'+
-					'<select name="values['+i+']" id="select-attr'+i+'" class="default-select form-control wide ">'+
+					'<select name="values['+i+']" id="select-attr'+i+'" class="multi-select">'+
 					'</select>'+
 					'</div>'+
                     '<div style="width: 200px; margin-right:10px;">'+
@@ -641,7 +642,7 @@ $(document).ready(function() {
                     '</div>	</div><span>';
 
 			$("#dynamicAddRemove").append($html);
-			$('select').niceSelect();
+			$('select').select2();
 
 		$(document).on('click', '#delete-attribute', function () {
                 $(this).parents('tr').remove();
@@ -662,8 +663,8 @@ $(document).ready(function() {
                         });
 
                         $('#select-attr'+i).html(data);
-                        $('#select-attr'+i).niceSelect('update');
-                        $('#select-attr'+i).niceSelect('update');
+                        $('#select-attr'+i).select2();
+                        $('#select-attr'+i).select2();
 
                     }
                 });
