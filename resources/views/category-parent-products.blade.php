@@ -76,10 +76,11 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row product-grid" id="product-list">
                     @foreach($paginated_products as $paginated_product)
                         @php $product = $paginated_product->product; @endphp
-                        <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
+                        <div class="col-lg-3 col-md-4 col-sm-6">
                             <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
@@ -287,8 +288,10 @@
                  --}}
                 <!--End Deals-->
             </div>
+            
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-                <div class="sidebar-widget widget-category-2 mb-30">
+
+                {{--<div class="sidebar-widget widget-category-2 mb-30">
                     <h5 class="section-title style-1 mb-30">Categories</h5>
                     <ul>
                         @foreach($randomCategories as $randomcategory)
@@ -297,14 +300,22 @@
                             </li>
                         @endforeach
                     </ul>
+                </div>--}}
+
+                <div class="banner-slider sidebar-widget product-sidebar mb-30  bg-grey border-radius-10">
+                    <div >
+                        <img class="rounded-image" src="{{ asset('front/assets/ads/earn-points.jpg') }}" alt="" />
+                    </div>
+                    
                 </div>
+
                 <!-- Fillter By Price -->
                     <div class="sidebar-widget price_range range mb-30">
-                    <h5 class="section-title style-1 mb-30">Filter by subcategories</h5>
+                    <h5 class="section-title style-1 mb-30">Filter</h5>
 
                             <div class="list-group">
                                 <div class="list-group-item mb-10 mt-10">
-                                    <label class="fw-900">Subcategories</label>
+                                    <label class="fw-900">Categories</label>
                                     <div class="custom-checkbox">
                                         @foreach($subcategories as $subcategorie)
                                         <input class="form-check-input subcategory-checkbox" type="checkbox" name="sub_categories[]" id="exampleCheckbox{{ $loop->iteration }}" value="{{ $subcategorie->id }}" />
@@ -326,69 +337,7 @@
 
 
 
-                <div class="sidebar-widget widget-store-info mb-30 bg-3 border-0">
-                    <div class="vendor-logo mb-30">
-                        <img src="assets/imgs/vendor/vendor-16.png" alt="" />
-                    </div>
-                    <div class="vendor-info">
-                        <div class="product-category">
-                            <span class="text-muted">Since 2012</span>
-                        </div>
-                        <h4 class="mb-5"><a href="vendor-details-1.html" class="text-heading">Nest Food.,Ltd</a></h4>
-                        <div class="product-rate-cover mb-15">
-                            <div class="product-rate d-inline-block">
-                                <div class="product-rating" style="width: 90%"></div>
-                            </div>
-                            <span class="font-small ml-5 text-muted"> (4.0)</span>
-                        </div>
-                        <div class="vendor-des mb-30">
-                            <p class="font-sm text-heading">Got a smooth, buttery spread in your fridge? Chances are good that it's Good Chef. This brand made Lionto's list of the most popular grocery brands across the country.</p>
-                        </div>
-                        <div class="follow-social mb-20">
-                            <h6 class="mb-15">Follow Us</h6>
-                            <ul class="social-network">
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-tw.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-fb.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-insta.svg" alt="" />
-                                    </a>
-                                </li>
-                                <li class="hover-up">
-                                    <a href="#">
-                                        <img src="assets/imgs/theme/icons/social-pin.svg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="vendor-info">
-                            <ul class="font-sm mb-20">
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-location.svg" alt="" /><strong>Address: </strong> <span>5171 W Campbell Ave undefined, Utah 53127 United States</span></li>
-                                <li><img class="mr-5" src="assets/imgs/theme/icons/icon-contact.svg" alt="" /><strong>Call Us:</strong><span>(+91) - 540-025-124553</span></li>
-                            </ul>
-                            <a href="vendor-details-1.html" class="btn btn-xs">Contact Seller <i class="fi-rs-arrow-small-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-                    <img src="{{ asset('front/assets/imgs/banner/banner-11.png') }}" alt="" />
-                    <div class="banner-text">
-                        <span>Oganic</span>
-                        <h4>
-                            Save 17% <br />
-                            on <span class="text-brand">Oganic</span><br />
-                            Juice
-                        </h4>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
