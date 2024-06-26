@@ -473,7 +473,7 @@ class ProductController extends Controller
         return array_reverse($categoryHierarchy); // On inverse l'ordre pour avoir la hiérarchie de la racine jusqu'à la feuille
     }
 
- 
+
 
     public function detailProduct($slug){
 
@@ -484,12 +484,12 @@ class ProductController extends Controller
         $added_products = $product->relatedproducts;
 
         if ($product->isNew()) {
-           $status = 1 ; 
+           $status = 1 ;
         } else {
             $status = $product->statut ;
         }
 
-        
+
 
         //product has many attribute
         if($countproductlines > 1){
@@ -542,7 +542,7 @@ class ProductController extends Controller
         // 3 new products
         $category = $product->categories()->first();
 
-        
+
         $new_products = $category->products()
                         ->where('products.id', '!=', $product->id) // Exclure le produit donné
                         ->orderBy('products.created_at', 'desc') // Trier par date de création décroissante

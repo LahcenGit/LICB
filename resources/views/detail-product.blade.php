@@ -53,7 +53,11 @@
     }
     .stock-status.back-stock {
         color: #fff5d2;
-        background: #ffc400;
+        background: hsl(231, 97%, 65%);
+    }
+    .stock-status.soon {
+        color: #fff5d2;
+        background: #ff8310;
     }
 
     .rounded-image {
@@ -146,12 +150,8 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <div class="detail-info pr-30 pl-30">
-                                            @if($status == 1)
-                                                <span class="stock-status new-stock"> New </span>
-                                            @else
-                                                <span class="stock-status in-stock"> In Stock </span>   
-                                            @endif
-                                           
+                                            {!! \App\Helpers\ProductHelper::getProductBadge($product) !!}
+
                                             <h2 class="title-detail">{{$product->designation}}</h2>
                                             <div class="product-detail-rating">
                                                 <div class="product-rate-cover text-end">
@@ -464,11 +464,12 @@
 
                                                         <div class="product-badges product-badges-position product-badges-mrg">
 
-                                                            <span class="new">New</span>
+                                                            {!! \App\Helpers\ProductHelper::getProductBadge($similar_product->product) !!}
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
                                                         <h2><a href={{ asset('product/'.$similar_product->product->slug) }}>{{$similar_product->product->designation}}</a></h2>
+                                                        <h2><a href={{ asset('product/'.$similar_product->product->slug) }}>{{$similar_product->product->created_at}}</a></h2>
                                                         {{--  <div class="rating-result" title="90%">
                                                             <span> </span>
                                                         </div> --}}

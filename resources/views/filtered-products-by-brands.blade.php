@@ -9,6 +9,30 @@
     background: #BC221A !important;
     color: #fff!important ;
 }
+.stock-status.out-stock {
+        color: #CE0000;
+        background: #ffcece;
+    }
+    .stock-status.new-stock {
+        color: #ffffff;
+        background: #CE0000;
+    }
+    .stock-status.in-stock {
+        color: #d6ffdf;
+        background: #53b14f;
+    }
+    .stock-status.promo-stock {
+        color: #ffc400;
+        background: #000000;
+    }
+    .stock-status.back-stock {
+        color: #fff5d2;
+        background: hsl(231, 97%, 65%);
+    }
+    .stock-status.soon {
+        color: #fff5d2;
+        background: #ff8310;
+    }
 </style>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
@@ -95,7 +119,7 @@
                                         <a class="action-btn" href="{{ asset('product/'.$product->slug) }}"><i class="fi-rs-eye"></i></a>
                                     </div>
                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">New</span>
+                                        {!! \App\Helpers\ProductHelper::getProductBadge($product) !!}
                                     </div>
                                 </div>
                                 <div class="product-content-wrap">
@@ -288,7 +312,7 @@
             </div>
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
 
-                <div class="sidebar-widget widget-category-2 mb-30">
+                 {{--<div class="sidebar-widget widget-category-2 mb-30">
                     <h5 class="section-title style-1 mb-30">Categories</h5>
                     <ul>
                         @foreach($randomCategories as $randomcategory)
@@ -297,6 +321,13 @@
                             </li>
                         @endforeach
                     </ul>
+                </div>--}}
+
+                <div class="banner-slider sidebar-widget product-sidebar mb-30  bg-grey border-radius-10">
+                    <div >
+                        <img class="rounded-image" src="{{ asset('front/assets/ads/earn-points.jpg') }}" alt="" />
+                    </div>
+
                 </div>
                 <!-- Fillter By Price -->
                 <div class="sidebar-widget price_range range mb-30">

@@ -81,10 +81,16 @@ class HomeController extends Controller
                                     ->groupBy('categories.id', 'categories.designation', 'categories.slug', 'categories.icone')
                                     ->get();
         $categories = Category::whereNull('parent_id')->with('children')->get();
+
+        //product category Pc licb+
+        $category_id =232;
+        $products_licb = Product::with('mark')->whereHas('categories', function ($query) use ($category_id) {
+                                    $query->where('categories.id', $category_id);
+                                })->limit(10)->get();
         $search_term = NULL;
         return view('welcome',compact('cartData','categories'
                 ,'last_products','products','new_products','parent_categories',
-                'categoriesWithNewProducts','recentProductsByCategory','search_term'));
+                'categoriesWithNewProducts','recentProductsByCategory','search_term','products_licb'));
     }
 
     public function checkAuth() {

@@ -73,4 +73,9 @@ class Product extends Model
         $now = Carbon::now();
         return $createdAt->greaterThanOrEqualTo($now->subDays(10));
     }
+
+    public function isOnPromo()
+    {
+        return $this->productlines()->whereNotNull('promo_price')->exists();
+    }
 }
