@@ -79,8 +79,6 @@
 
 </style>
 @section('content')
-
-
 <div class="content-body">
             <div class="container-fluid">
 				<div class="row page-titles">
@@ -275,7 +273,7 @@
                                                 <tbody id="dynamicAddRemove"  >
                                                         <tr>
                                                             <td style="width: 15%">
-                                                                <select  id="select-content" class="multi-select" name="as[0]"  >
+                                                                <select  id="select-content"  class="default-select form-control wide" name="as[0]" >
                                                                     <option value="0">Nothing Selected</option>
                                                                     @foreach($attributes as $a)
                                                                     <option value="{{$a->id}}">{{$a->value}}</option>
@@ -283,7 +281,7 @@
                                                                 </select>
                                                             </td>
                                                             <td style="width: 15%">
-                                                                <select  id="select-value"  class="multi-select" name="values[0]"  >
+                                                                <select   id="select-value" class="default-select form-control wide " name="values[0]">
                                                                 </select>
                                                             </td>
                                                             <td style="width:  10%">
@@ -564,118 +562,118 @@ $(document).ready(function() {
 			var options = $('#select-content').html();
 			++i;
             $html = '<tr class="tradded">'+
-                        '<td style="width: 15%">'+
-                            '<select   class="multi-select select-attribute" name="as['+i+']">'+
-                                options +
-                            '</select>'+
-                        '</td>'+
-                        '<td style="width: 15%">'+
-                            '<select id="select-attr'+i+'" class="multi-select" name="values['+i+']">'+
-                            '</select>'+
-                        '</td>'+
-                        '<td style="width:  10%">'+
-                            '<input type="text" class="form-control" placeholder="0" name="qtes['+i+']">'+
-                        '</td>'+
-                        '<td  style="width: 15%">'+
-                            '<input type="text" class="form-control price" placeholder="0.00" name="prices['+i+']">'+
-                        '</td>'+
-                        '<td style="width: 15%">'+
-                            '<input type="text" class="form-control price" placeholder="0.00" name="promos['+i+']">'+
-                        '</td>'+
-                        '<td>'+
-                            '<label for="icon-'+i+'" style="cursor: pointer;">'+
-                               '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
-                            '</label>'+
-                            '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
-                        '</td>'+
-                        '<td>'+
-                           ' <label for="image-'+i+'" style="cursor: pointer;">'+
-                                '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >'+
-                           ' </label>'+
-                            '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
-                        '</td>'+
-                        '<td>'+
-                           ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
-                        '</td>'+
-                    '</tr>';
+                    '<td style="width: 15%">'+
+                        '<select   class="default-select form-control wide select-attribute " name="as[]">'+
+                            options +
+                        '</select>'+
+                    '</td>'+
+                    '<td style="width: 15%">'+
+                        '<select   id="select-attr'+i+'" class="default-select form-control wide " name="values[]">'+
+                        '</select>'+
+                    '</td>'+
+                    '<td style="width:  10%">'+
+                        '<input type="text" class="form-control" placeholder="0" name="qtes[]">'+
+                    '</td>'+
+                    '<td  style="width: 15%">'+
+                        '<input type="text" class="form-control price" placeholder="0.00" name="prices[]">'+
+                    '</td>'+
+                    '<td style="width: 15%">'+
+                        '<input type="text" class="form-control price" placeholder="0.00" name="promos[]">'+
+                    '</td>'+
+                    '<td>'+
+                        '<label for="icon-'+i+'" style="cursor: pointer;">'+
+                           '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
+                        '</label>'+
+                        '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '</td>'+
+                    '<td>'+
+                       ' <label for="image-'+i+'" style="cursor: pointer;">'+
+                            '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="70" height="70" alt="" >'+
+                       ' </label>'+
+                        '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                    '</td>'+
+                    '<td>'+
+                       ' <button type="button"  class="btn btn-danger shadow btn-xs sharp delete-attribute"><i class="fa fa-trash"></i></button>'+
+                    '</td>'+
+                '</tr>';
 
-			$html_temp = '<span><div class="row">'+
-					'<div style="width: 200px; margin-right:10px;">'+
-					'<label for="" >Attribute:</label>'+
-					'<select  name="as['+i+']" id="select-attribute" class="multi-select" >'+
-					 options +
-					'</select>'+
-					'</div>'+
-                    '<div style="width: 200px; margin-right:10px;">'+
-					'<label for="">Valeur:</label>'+
-					'<select name="values['+i+']" id="select-attr'+i+'" class="multi-select">'+
-					'</select>'+
-					'</div>'+
-                    '<div style="width: 200px; margin-right:10px;">'+
-						'<label>Qte:</label>'+
-						'<input type="number" class="form-control" placeholder="0" name="qtes['+i+']">'+
-				    '</div>'+
-                    '<div style="width: 200px; margin-right:10px;">'+
-						'<label>Prix:</label>'+
-						'<input type="number" class="form-control " placeholder="0" name="prices['+i+']">'+
-				    '</div>'+
-                    '<div style="width: 200px; margin-right:10px;">'+
-						'<label>Promo:</label>'+
-						'<input type="number" class="form-control " placeholder="0" name="promos['+i+']">'+
-				    '</div>'+
-                    ' <div style="width: 100px; ">'+
-                    '<label >icon : </label> <br>'+
-                    '<label for="icon-'+i+'" style="cursor: pointer;">'+
-                    '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
-                    '</label>'+
-                    '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
-                    '</div>'+
-                    '<div style="width: 100px; margin-right:10px;">'+
-                    '<label >image : </label> <br>'+
-                    '<label for="image-'+i+'" style="cursor: pointer;">'+
-                    '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >'+
-                    '</label>'+
-                    '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
-                    '</div>'+
-                    '<div style="width: 50px; margin-right:10px;">'+
-                    ' <button type="button" id="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
-                    '</div>	</div><span>';
+        $html_temp = '<span><div class="row">'+
+                '<div style="width: 200px; margin-right:10px;">'+
+                '<label for="" >Attribute:</label>'+
+                '<select  name="as['+i+']" id="select-attribute" class="default-select form-control wide " >'+
+                 options +
+                '</select>'+
+                '</div>'+
+                '<div style="width: 200px; margin-right:10px;">'+
+                '<label for="">Valeur:</label>'+
+                '<select name="values[]" id="select-attr'+i+'" class="default-select form-control wide ">'+
+                '</select>'+
+                '</div>'+
+                '<div style="width: 200px; margin-right:10px;">'+
+                    '<label>Qte:</label>'+
+                    '<input type="number" class="form-control" placeholder="0" name="qtes[]">'+
+                '</div>'+
+                '<div style="width: 200px; margin-right:10px;">'+
+                    '<label>Prix:</label>'+
+                    '<input type="number" class="form-control " placeholder="0" name="prices[]">'+
+                '</div>'+
+                '<div style="width: 200px; margin-right:10px;">'+
+                    '<label>Promo:</label>'+
+                    '<input type="number" class="form-control " placeholder="0" name="promos[]">'+
+                '</div>'+
+                ' <div style="width: 100px; ">'+
+                '<label >icon : </label> <br>'+
+                '<label for="icon-'+i+'" style="cursor: pointer;">'+
+                '<img id="icon-show-'+i+'" src="{{asset('image-upload.png')}}" width="50" height="50" alt="" >'+
+                '</label>'+
+                '<input type="file" class="input-image" id="icon-'+i+'" name="icons[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                '</div>'+
+                '<div style="width: 100px; margin-right:10px;">'+
+                '<label >image : </label> <br>'+
+                '<label for="image-'+i+'" style="cursor: pointer;">'+
+                '<img id="image-show-'+i+'" src="{{asset('image-upload.png')}}" width="100" height="100" alt="" >'+
+                '</label>'+
+                '<input type="file" class="input-image" id="image-'+i+'" name="images[]" accept="image/png, image/jpeg" style="display: none; visibility:none;">'+
+                '</div>'+
+                '<div style="width: 50px; margin-right:10px;">'+
+                ' <button type="button" class="delete-attribute" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></button>'+
+                '</div>	</div><span>';
 
-			$("#dynamicAddRemove").append($html);
-			$('select').select2();
+        $("#dynamicAddRemove").append($html);
+        $('select').niceSelect();
 
-		$(document).on('click', '#delete-attribute', function () {
-                $(this).parents('tr').remove();
-            });
+		$(document).on('click', '.delete-attribute', function () {
+            $(this).parents('tr').remove();
+        });
 
         $(document).on('change', '.select-attribute', function () {
-                var id = $(this).val();
-                var data ="";
+            var id = $(this).val();
+            var data ="";
 
-                $.ajax({
-                    url: '/get-attribute/' + id,
-                    type: "GET",
+            $.ajax({
+                url: '/get-attribute/' + id,
+                type: "GET",
 
-                    success: function (res) {
+                success: function (res) {
 
-                        $.each(res, function(i, res) {
-                        data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
-                        });
+                    $.each(res, function(i, res) {
+                    data = data + '<option value="'+ res.id+ '" >'+ res.value + '</option>';
+                    });
 
-                        $('#select-attr'+i).html(data);
-                        $('#select-attr'+i).select2();
-                        $('#select-attr'+i).select2();
+                    $('#select-attr'+i).html(data);
+                    $('#select-attr'+i).niceSelect('update');
+                    $('#select-attr'+i).niceSelect('update');
 
-                    }
-                });
-		});
-
-
-		});
-	</script>
+                }
+            });
+    });
 
 
+
+});
+</script>
 @endpush
+
 @push('add-image-scripts')
 
 <script>
