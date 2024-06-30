@@ -161,40 +161,37 @@ class CartController extends Controller
     return view('carts',compact('cartData','categories','first_part_categories','last_part_categories','search_term'));
   }
 
-  public function update(Request $request , $id){
+  public function update(Request $request, $id) {
+    $cartitem = Cartitem::find($id);
 
-    for($i=0 ; $i < count($request->qtes); $i++){
-        $cartitem = Cartitem::find($request->item[$i]);
-
-        if(Auth::user()){
-                $cart = Cart::where('user_id',Auth::user()->id)->first();
-                if($cartitem->cart_id == $cart->id){
-                    $cartitem->qte = $request->qtes[$i];
-                    $cartitem->total = $cartitem->price * $request->qtes[$i];
-                    $cartitem->save();
-
-                }
-                else{
-                    abort(404, 'Page not found');
-                }
-            }
-        else{
-            $cart= session('cart_id');
-            if($cartitem->cart_id == $cart){
-                $cartitem->qte = $request->qtes[$i];
-                $cartitem->total = $cartitem->price * $request->qtes[$i];
-                $cartitem->save();
-                return redirect('/carts');
-            }
-            else{
-                abort(404, 'Page not found');
-            }
+    if (Auth::user()) {
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+        if ($cartitem->cart_id == $cart->id) {
+            $cartitem->qte = $request->qtes[0];
+            $cartitem->total = $cartitem->price * $request->qtes[0];
+            $cartitem->save();
+            $cart_total = $cart->cartitems()->sum('total');
+        } else {
+            abort(404, 'Page not found');
         }
-
-
+    } else {
+        $cart_id = session('cart_id');
+        $cart = Cart::find($cart_id);
+        if ($cartitem->cart_id == $cart_id) {
+            $cartitem->qte = $request->qtes[0];
+            $cartitem->total = $cartitem->price * $request->qtes[0];
+            $cartitem->save();
+            $cart_total = $cart->cartitems()->sum('total');
+        } else {
+            abort(404, 'Page not found');
+        }
     }
-    return redirect('/carts');
-  }
+
+    return response()->json([
+        'newTotal' => number_format($cartitem->total, 2),
+        'cartTotal' => number_format($cart_total, 2),
+    ]);
+}
 
   public function destroy($id){
     $cartitem = Cartitem::find($id);

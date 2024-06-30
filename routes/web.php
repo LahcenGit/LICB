@@ -58,9 +58,6 @@ Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/points-management',PointAdminController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
-Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
-Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
-Route::resource('/carts',CartController::class);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::get('/get-price/{id}', [App\Http\Controllers\ProductController::class, 'getPrice']);
 Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\ProductController::class, 'getPriceProductAdded']);
@@ -110,7 +107,11 @@ Route::get('/global-category/{slug}/{categoryId}/{subCategories}', [HomeControll
 Route::resource('/',HomeController::class);
 Route::resource('/comment',CommentController::class);
 
-
+//cart
+Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
+Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
+Route::post('/update-cart/{id}', [CartController::class, 'update']);
+Route::resource('/carts',CartController::class);
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);

@@ -41,10 +41,10 @@
         @csrf
         <div class="row">
             <div class="col-lg-8 mb-40">
-                <h1 class="heading-2 mb-10">Votre panier</h1>
+                <h1 class="heading-2 mb-10">Your cart</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">Vous avez <span class="text-brand"> {{$cartData['nbr_cartitem']}} </span> produit(s) dans votre panier</h6>
-                    <h6 class="text-body"><a href="{{url('/delete-cartitems')}}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Vider le panier</a></h6>
+                    <h6 class="text-body">You have <span class="text-brand nbr-cartitem"> {{$cartData['nbr_cartitem']}} </span>item(s) in your cart</h6>
+                    <h6 class="text-body"><a href="{{url('/delete-cartitems')}}" class="text-muted"><i class="fi-rs-trash mr-5"></i>Empty the cart</a></h6>
                 </div>
             </div>
         </div>
@@ -58,8 +58,8 @@
                                     <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
                                     <label class="form-check-label" for="exampleCheckbox11"></label>
                                 </th>
-                                <th scope="col" colspan="2">Produit</th>
-                                <th scope="col">Prix</th>
+                                <th scope="col" colspan="2">Product</th>
+                                <th scope="col">Price</th>
                                 <th scope="col">Qte</th>
                                 <th scope="col">Total</th>
                                 <th scope="col" class="end">Action</th>
@@ -91,15 +91,15 @@
                                 <td class="text-center detail-info" data-title="Stock">
                                     <div class="detail-extralink mr-15">
                                         <div class="detail-qty border radius">
-                                            <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                            <input type="text" name="qtes[]" class="qty-val" value="{{$item->qte}}" min="1">
-                                            <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                            <a href="#" class="qty-down" data-item-id="{{$item->id}}"><i class="fi-rs-angle-small-down"></i></a>
+                                            <input type="text" name="qtes[]" class="qty-val" value="{{$item->qte}}" min="1" data-item-id="{{$item->id}}">
+                                            <a href="#" class="qty-up" data-item-id="{{$item->id}}"><i class="fi-rs-angle-small-up"></i></a>
                                         </div>
                                     </div>
                                     <input type="hidden" name="item[]" value="{{$item->id}}">
                                 </td>
                                 <td class="price" data-title="Price">
-                                    <h4 class="text-brand">{{number_format($item->total)}} Da</h4>
+                                    <h4 class="text-brand" id="total-{{$item->id}}">{{number_format($item->total)}} Da</h4>
                                 </td>
 
                                 <td class="action text-center" data-title="Remove"><a class="text-body delete-item" data-id="{{$item->id}}"><i class="fi-rs-trash"></i></a></td>
@@ -112,8 +112,9 @@
                 </div>
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
-                    <button class="btn "> <a href="{{asset('/')}}"><i class="fi-rs-arrow-left mr-10"></i>Continuer vos achats</a></button>
-                    <button type="submit" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Mettre à jour le panier</button>
+                    <a href="{{asset('/')}}">
+                    <button class="btn mr-10 mb-sm-15"><i class="fi-rs-arrow-left mr-10"></i>Continue shopping</button>
+                    </a>
                 </div>
             </form>
             </div>
@@ -129,12 +130,7 @@
                                             <h6 class="text-muted">Total</h6>
                                         </td>
                                         <td class="cart_total_amount">
-                                            <h4 class="text-brand text-end">{{ number_format($cartData['total']->sum,2) }} Da</h4>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td scope="col" colspan="2">
-                                            <div class="divider-2 mt-10 mb-10"></div>
+                                            <h4 class="text-brand text-end" id="cart-total">{{ number_format($cartData['total']->sum,2) }} Da</h4>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -248,8 +244,8 @@
               $("#item"+id).css("display", "none");
 
                     $("#list"+id).css("display", "none");
-                    $(".nbr_product").text(res.nbr_cartitem);
-                    $(".total").text(res.total +' Da');
+                    $(".nbr-cartitem").text(res.nbr_cartitem + ' ');
+                    $("#cart-total").text(res.total +' Da');
 
 
              }
@@ -281,5 +277,68 @@
             }
         });
     });
+</script>
+@endpush
+@push('update-cart')
+<script>
+   $(document).ready(function() {
+    function updateTotalPrice(itemId) {
+        var quantity = parseInt($('input.qty-val[data-item-id="' + itemId + '"]').val());
+
+        $.ajax({
+            url: '/update-cart/' + itemId,
+            type: 'POST',
+            data: {
+                qtes: [quantity],
+                item: [itemId],
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                $('#total-' + itemId).text(response.newTotal + ' Da');
+                $('#cart-total').text(response.cartTotal + ' Da');
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
+    $('.qty-up').off('click').on('click', function(event) {
+        event.preventDefault();
+        var itemId = $(this).data('item-id');
+        var qtyInput = $('input.qty-val[data-item-id="' + itemId + '"]');
+        var currentVal = parseInt(qtyInput.val());
+        qtyInput.val(currentVal + 1);
+        updateTotalPrice(itemId);
+    });
+
+    $('.qty-down').off('click').on('click', function(event) {
+        event.preventDefault();
+        var itemId = $(this).data('item-id');
+        var qtyInput = $('input.qty-val[data-item-id="' + itemId + '"]');
+        var currentVal = parseInt(qtyInput.val());
+        if (currentVal > 1) {
+            qtyInput.val(currentVal - 1);
+            updateTotalPrice(itemId);
+        }
+    });
+
+    $('.qty-val').on('change', function() {
+        var itemId = $(this).data('item-id');
+        updateTotalPrice(itemId);
+    });
+
+    // Détecte aussi les entrées clavier et les mets à jour de manière appropriée
+    $('.qty-val').on('keyup', function(event) {
+        var itemId = $(this).data('item-id');
+        var qtyInput = $(this);
+        var currentVal = parseInt(qtyInput.val());
+        if (!isNaN(currentVal) && currentVal >= 1) {
+            updateTotalPrice(itemId);
+        } else {
+            qtyInput.val(1); // Définit une valeur minimale par défaut
+        }
+    });
+});
 </script>
 @endpush

@@ -273,7 +273,7 @@
                                                 <tbody id="dynamicAddRemove"  >
                                                         <tr>
                                                             <td style="width: 15%">
-                                                                <select  id="select-content"  class="default-select form-control wide" name="as[0]" >
+                                                                <select  id="select-content"  class="default-select form-control wide" name="as[0]" style="max-width: 260px; max-height:300px;" >
                                                                     <option value="0">Nothing Selected</option>
                                                                     @foreach($attributes as $a)
                                                                     <option value="{{$a->id}}">{{$a->value}}</option>
@@ -281,7 +281,7 @@
                                                                 </select>
                                                             </td>
                                                             <td style="width: 15%">
-                                                                <select   id="select-value" class="default-select form-control wide " name="values[0]">
+                                                                <select   id="select-value" class="default-select form-control wide " name="values[0]" style="max-width: 260px; max-height:300px;">
                                                                 </select>
                                                             </td>
                                                             <td style="width:  10%">
@@ -515,10 +515,16 @@ $(document).ready(function() {
                         '<option value="14">14</option>';
         } else if (selectedType === "amd") {
           var options = '<option value="">Nothing selected</option>' +
-                        '<option value="1">1</option>' +
-                        '<option value="2">2</option>' +
-                        '<option value="3">3</option>' +
-                        '<option value="4">4</option>';
+                        '<option value="1000">1000</option>' +
+                        '<option value="2000">2000</option>' +
+                        '<option value="3000">3000</option>' +
+                        '<option value="4000">4000</option>'+
+                        '<option value="5000">5000</option>'+
+                        '<option value="6000">6000</option>'+
+                        '<option value="7000">7000</option>'+
+                        '<option value="8000">8000</option>'+
+                        '<option value="9000">9000</option>'+
+                        '<option value="10000">10000</option>';
         }
 
         if (options) {
