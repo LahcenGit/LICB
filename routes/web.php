@@ -64,7 +64,7 @@ Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\P
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Route::resource('/admin/delivery-costs',DeliverycostController::class);
-Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
+Route::get('/update-delivery-cost/{id}/{domicile}/{stopdesk}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::class, 'addOrderStepOne']);
 Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
@@ -116,7 +116,7 @@ Route::resource('/carts',CartController::class);
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
 Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
-Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
+Route::get('/get-cost/{wilaya}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
 Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);
 
 

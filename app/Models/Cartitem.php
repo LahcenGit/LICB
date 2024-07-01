@@ -20,7 +20,7 @@ class Cartitem extends Model
 
     public function getImage(){
         $productline = Productline::where('id',$this->productline_id)->first();
-        $image = Image::where('product_id',$productline->product_id)->where('type',1)->first();
+        $image = Image::where('product_id',$productline->product_id)->first();
         return $image;
     }
 

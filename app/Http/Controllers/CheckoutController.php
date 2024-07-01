@@ -12,11 +12,11 @@ use App\Models\Orderline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Traits\CartManagementTrait;
 class CheckoutController extends Controller
 {
     //
-
+    use CartManagementTrait;
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,34 +30,34 @@ class CheckoutController extends Controller
             return redirect('/');
         }
         $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$request->cart_id)->first();
-        $total_category = Category::where('parent_id', NULL)->count();
-        $moitie = ceil($total_category / 2);
-        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
-        $categories = Category::where('parent_id',null)->limit('5')->get();
+        $cartData = [
+            'cart' => $cart,
+            'cartitems' => $cartitems,
+            'nbr_cartitem' => $nbr_cartitem,
+            'total' => $total
+        ];
+        $categories = Category::where('parent_id',null)->get();
         $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
-        return view('checkout',compact('cart','cartitems','nbr_cartitem','total','categories','wilayas','first_part_categories','last_part_categories','nbr_cartitem'));
+        $search_term = NULL;
+        return view('checkout',compact('cartData','cartitems','categories','wilayas','nbr_cartitem','search_term'));
 
     }
-
-    public function getCommunes($name){
-        return $communes = Deliverycost::where('wilaya',$name)->get('commune');
+     public function getCost($wilaya){
+         return  $cost = Deliverycost::where('wilaya',$wilaya)->first();
      }
-
-     public function getCenters($name){
-        return $centers = Center::where('wilaya_name',$name)->get();
-     }
-
-     public function getCost($wilaya,$commune){
-         return  $cost = Deliverycost::where('wilaya',$wilaya)->where('commune',$commune)->first();
-     }
-
-
-     public function storeOrder(Request $request){
+    public function storeOrder(Request $request){
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'wilayas' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
         $cart = Cart::where('user_id',Auth::user()->id)->first();
         $total = Cartitem::where('cart_id',$cart->id)->sum('total');
         $date = Carbon::now()->format('y');
-        $delivery_cost = Deliverycost::where('wilaya',$request->wilayas)->where('commune',$request->communes)->first();
+        $delivery_cost = Deliverycost::where('wilaya',$request->wilayas)->first();
         $name = $request->first_name.' '.$request->last_name;
         $order = new Order();
         $order->user_id = Auth::user()->id;
@@ -65,7 +65,6 @@ class CheckoutController extends Controller
         $order->last_name = $request->last_name;
         $order->status = 0 ;
         $order->wilaya = $request->wilayas;
-        $order->commune = $request->communes;
         $order->address = $request->address;
         $order->phone = $request->phone;
         $order->note = $request->ordernote;
@@ -73,19 +72,18 @@ class CheckoutController extends Controller
         $order->total = $total;
 
         if($request->shipping == "bureau"){
-            $total_f = $total + $delivery_cost->price_b;
-            $order->delivery_cost =  $delivery_cost->price_b;
+            $total_f = $total + $delivery_cost->stopdesk;
+            $order->delivery_cost =  $delivery_cost->stopdesk;
             $order->is_stopdesk = true;
-            $order->stopdesk_id= $request->centers;
-         }
-         if($request->shipping == "domicile"){
-             $total_f = $total + $delivery_cost->price_a + $delivery_cost->supp;
-             $order->delivery_cost =  $delivery_cost->price_a + $delivery_cost->supp;
+        }
+        if($request->shipping == "domicile"){
+             $total_f = $total + $delivery_cost->domicile;
+             $order->delivery_cost =  $delivery_cost->domicile;
              $order->is_stopdesk = false;
          }
         $order->total_f = $total_f;
         $order->save();
-        $order->code = 'ck'.'-'.$date.'-'.$order->id;
+        $order->code = 'licb'.'-'.$date.'-'.$order->id;
         $order->save();
      foreach($cart->cartitems as $item){
         $orderline = new Orderline();
@@ -97,33 +95,10 @@ class CheckoutController extends Controller
         $orderline->save();
         $item->delete();
      }
-        $total_category = Category::where('parent_id', NULL)->count();
-        $moitie = ceil($total_category / 2);
-        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
-        $categories = Category::where('parent_id',null)->limit('5')->get();
-        if(Auth::user()){
-            $cart = Cart::where('user_id',Auth::user()->id)->first();
-            $cartitems = $cart->cartitems;
-
-            if($cartitems ){
-                $nbr_cartitem = $cart->cartitems->count();
-                $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart->id)->first();
-            }
-            else{
-                $cartitems = null;
-                $nbr_cartitem = 0;
-                $total = 0;
-            }
-
-        }
-        else{
-            $cart= session('cart_id');
-            $cartitems = Cartitem::where('cart_id',$cart)->get();
-            $nbr_cartitem = Cartitem::where('cart_id',$cart)->count();
-            $total = Cartitem::selectRaw('sum(total) as sum')->where('cart_id',$cart)->first();
-        }
-        return view('success-order',compact('cartitems','nbr_cartitem','total','categories','last_part_categories','first_part_categories'));
+        $cartData = $this->fetchCartData();
+        $categories = Category::where('parent_id',null)->get();
+        $search_term = NULL;
+        return view('success-order',compact('cartData','categories','search_term'));
     }
 
 

@@ -15,7 +15,7 @@
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Checkout</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">Il y a <span class="text-brand">{{ $nbr_cartitem }}</span> produit(s) dans votre panier</h6>
+                    <h6 class="text-body">You have <span class="text-brand nbr-cartitem"> {{$cartData['nbr_cartitem']}} </span>item(s) in your cart</h6>
                 </div>
             </div>
         </div>
@@ -28,24 +28,24 @@
                         <form method="post">
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" required name="first_name" placeholder="First name *">
+                                    <input type="text" required name="first_name" value="{{ Auth::user()->first_name }}" placeholder="First name *" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" required name="last_name" placeholder="last name *">
+                                    <input type="text" required name="last_name" value="{{ Auth::user()->last_name }}" placeholder="last name *" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-6">
-                                    <input type="text" name="email" required placeholder="Email *">
+                                    <input type="text" name="email" required placeholder="Email *" value="{{ Auth::user()->email }}" required>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <input type="text" name="phone" required placeholder="Phone">
+                                    <input type="text" name="phone" required placeholder="Phone" value="{{ Auth::user()->phone }}" required>
                                 </div>
                             </div>
                             <div class="row shipping_calculator">
                                 <div class="form-group col-lg-6">
                                     <div class="custom_select">
-                                        <select class="form-control select-active" id="wilayas" name="wilayas">
+                                        <select class="form-control select-active" id="wilayas" name="wilayas" required>
                                             <option value="">Wilayas...</option>
                                             @foreach ($wilayas as $wilaya)
                                                 <option value="{{$wilaya->wilaya}}">{{$wilaya->wilaya}}</option>
@@ -54,34 +54,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <div class="custom_select">
-                                        <select class="form-control select-active" id="communes" name="communes">
-                                            <option value="">Communes...</option>
-
-                                        </select>
-                                    </div>
+                                    <input required type="text" name="address" placeholder="Adresse *" required>
                                 </div>
                             </div>
-                            <div class="row shipping_calculator">
-                                <div class="form-group col-lg-6">
-                                    <div class="custom_select">
-                                        <select class="form-control select-active" id="centers" name="centers">
-                                            <option value="">Centres...</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <input required type="text" name="address" placeholder="Adresse *">
-                                </div>
-                            </div>
-
                             <div class="form-group mb-30">
                                 <textarea rows="5" placeholder="Add a note" name="ordernote"></textarea>
                             </div>
-
-
-                        </form>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -93,18 +71,11 @@
                         <div class="table-responsive order_table checkout">
                             <table class="table no-border">
                                 <tbody>
-                                    @foreach($cartitems as $cartitem)
+                                    @foreach($cartData['cartitems'] as $cartitem)
                                         <tr>
                                             <td class="image product-thumbnail"><img src="{{ asset('storage/images/products/'.$cartitem->productline->product->images[0]->lien) }}" alt="#"></td>
                                             <td>
                                                 <h6 class="w-160 mb-5"><a href="shop-product-full.html" class="text-heading">{{ $cartitem->productline->product->designation }}</a></h6></span>
-                                                <div class="product-rate-cover">
-                                                    <div class="product-rate d-inline-block">
-                                                        <div class="product-rating" style="width:90%">
-                                                        </div>
-                                                    </div>
-                                                    <span class="font-small ml-5 text-muted"> (4.0)</span>
-                                                </div>
                                             </td>
                                             <td>
                                                 <h6 class="text-muted pl-20 pr-20">x {{ $cartitem->qte }}</h6>
@@ -115,10 +86,10 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
+                                <tbody>
                                     <tr>
                                         <td><h4 class="w-160 mb-5">Total</h4></td>
-                                        <td><h4 class="text-brand ">{{ $total->sum }} Da</h4></td>
+                                        <td><h4 class="text-brand ">{{$cartData['total']->sum }} Da</h4></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -129,13 +100,13 @@
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio" id="bureau" value="bureau" type="radio" name="shipping" checked>
-                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Office : <span id="bureau-cost" >0</span> da</label>
+                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Stopdesk : <span id="bureau-cost" >0 Da</span> </label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio"  type="radio" name="shipping" id="domicile" value="domicile" >
-                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">At home : <span id="domicile-cost" >0</span>  da</label>
+                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">At home : <span id="domicile-cost" >0 Da</span></label>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -143,9 +114,9 @@
                                     </tr>
                                     <tr>
                                         <td><h4 class="w-160 mb-5">Total</h4></td>
-                                        <td><h4 class="text-brand total-price">{{$total->sum}} Da</h4></td>
+                                        <td><h4 class="text-brand total-price">{{$cartData['total']->sum}} Da</h4></td>
                                     </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -157,6 +128,7 @@
                                 <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Cash on delivery</label>
                             </div>
                             <button type="submit" class="btn btn-fill-out btn-block mt-30">Order<i class="fi-rs-sign-out ml-15"></i></button>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -170,68 +142,23 @@
 @endsection
 @push('shipping-script')
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-
-    $( "#wilayas" ).change(function() {
-        var name = $(this).val();
-        var data ="";
-        var datacenter ="";
-        $.ajax({
-			url: '/get-communes/'+name ,
-			type: 'GET',
-
-        success: function (res) {
-                $.each(res, function(i, res) {
-                    data = data + '<option value="'+ res.commune+ '" >'+ res.commune+ '</option>';
-                });
-                $('#communes').html(data);
-
-            }
-
-        });
-
-        $.ajax({
-			url: '/get-centers/'+name ,
-			type: 'GET',
-
-        success: function (center) {
-                $.each(center, function(i, center) {
-                    datacenter = datacenter + '<option value="'+ center.center_id+ '" >'+ center.name+ '</option>';
-                });
-                $('#centers').html(datacenter);
-
-            }
-
-        });
-    });
-
-
-
-$( "#communes" ).change(function() {
+$( "#wilayas" ).change(function() {
         var wilaya = $('#wilayas').val();
-        var commune = $(this).val();
-        var total = '{{$total->sum}}';
+        var total = '{{$cartData['total']->sum}}';
         check = $('input[name="shipping"]:checked', '.shipping-type').val();
-
-       $.ajax({
-			url: '/get-cost/'+wilaya+'/'+ commune ,
+        $.ajax({
+			url: '/get-cost/'+wilaya ,
 			type: 'GET',
-
         success: function (res) {
 
-                $('#bureau-cost').html(res.price_b);
-                $('#domicile-cost').html(res.price_a + res.supp);
+                $('#bureau-cost').html(res.stopdesk);
+                $('#domicile-cost').html(res.domicile);
                 if(check == 'bureau'){
-                    total_final = parseFloat(total) + parseFloat(res.price_b);
+                    total_final = parseFloat(total) + parseFloat(res.stopdesk);
                     $('.total-price').html(total_final +'Da');
                 }
                 if(check == 'domicile'){
-                    total_final = parseFloat(total) + parseFloat(res.price_a) + parseFloat(res.supp) ;
+                    total_final = parseFloat(total) + parseFloat(res.domicile);
                     $('.total-price').html(total_final +'Da');
                 }
 
@@ -239,30 +166,26 @@ $( "#communes" ).change(function() {
 
         });
     });
-
 </script>
 <script>
 $('.shipping-redio').on('click', function() {
       var wilaya = $('#wilayas').val();
-      var commune = $('#communes').val();
-      var total = '{{$total->sum}}';
+      var total = '{{$cartData['total']->sum}}';
       check = $('input[name="shipping"]:checked', '.shipping-type').val();
       $.ajax({
-			url: '/get-cost/'+wilaya+'/'+ commune ,
+			url: '/get-cost/'+wilaya,
 			type: 'GET',
 
         success: function (res) {
-
-            if(check == "bureau"){
-                    total = parseFloat(total) + parseFloat(res.price_b);
-                    $('.total-price').html(total + ' Da');
+            if(check == 'bureau'){
+                total_final = parseFloat(total) + parseFloat(res.stopdesk);
+                $('.total-price').html(total_final +'Da');
                 }
-                if(check == "domicile"){
-                    total = parseFloat(total) + parseFloat(res.price_a) + parseFloat(res.supp) ;
-                    $('.total-price').html(total + ' Da');
-                }
-
+            if(check == 'domicile'){
+                 total_final = parseFloat(total) + parseFloat(res.domicile);
+                $('.total-price').html(total_final +'Da');
             }
+        }
 
         });
 

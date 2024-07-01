@@ -12,10 +12,10 @@ class DeliverycostController extends Controller
         return view('admin.delivery-costs',compact('delivery_costs'));
     }
 
-    public function updateDeliveryCost($id , $price_b , $price_a){
+    public function updateDeliveryCost($id , $domicile , $stopdesk){
         $delivery_cost = Deliverycost::find($id);
-        $delivery_cost->price_b = $price_b;
-        $delivery_cost->price_a = $price_a;
+        $delivery_cost->domicile = $domicile;
+        $delivery_cost->stopdesk = $stopdesk;
         $delivery_cost->save();
         return $delivery_cost;
         }

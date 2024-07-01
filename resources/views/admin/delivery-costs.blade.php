@@ -6,7 +6,7 @@
 				<div class="row page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item active"><a href="{{ asset('/admin') }}">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Frais de livraison</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Delivery fee</a></li>
 					</ol>
                 </div>
             <div class="row">
@@ -21,12 +21,10 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Code</th>
                                                 <th>Wilaya</th>
-                                                <th>Commune</th>
-                                                <th>Extension</th>
-                                                <th>Office price</th>
-                                                <th>Home delivery price</th>
-                                                <th>Supp</th>
+                                                <th>Domicile</th>
+                                                <th>Stopdesk</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -34,20 +32,18 @@
                                             @foreach($delivery_costs as $delivery_cost)
                                                 <tr>
                                                     <td>{{$loop->iteration}}</td>
+                                                    <td>{{$delivery_cost->code_wilaya}}</td>
                                                     <td>{{$delivery_cost->wilaya}}</td>
-                                                    <td>{{$delivery_cost->commune}}</td>
-                                                    <td>{{$delivery_cost->extention}}</td>
                                                     <td  style="width: 10%">
                                                         <div class="input-group">
-                                                        <input type="text"  value="{{ $delivery_cost->price_b }}" class="form-control" id="price_b_{{ $delivery_cost->id }}" name='price_b' >
+                                                        <input type="text"  value="{{ $delivery_cost->domicile }}" class="form-control" id="domicile_{{ $delivery_cost->id }}" name='domicile' >
                                                         </div>
                                                     </td >
                                                     <td  style="width: 10%">
                                                         <div class="input-group">
-                                                        <input type="text" value="{{ $delivery_cost->price_a }}" class="form-control" id="price_a_{{ $delivery_cost->id }}" name='price_a'>
+                                                        <input type="text" value="{{ $delivery_cost->stopdesk }}" class="form-control" id="stopdesk_{{ $delivery_cost->id }}" name='stopdesk'>
                                                         </div>
                                                     </td >
-                                                    <td>{{$delivery_cost->supp}}</td>
                                                     <td>
                                                         <div class="d-flex">
                                                             <button data-id="{{ $delivery_cost->id }}" class="btn btn-primary shadow btn-xs sharp check-price" ><i class="fa fa-check"></i></button>
@@ -72,14 +68,14 @@
  $("body").on('click','.check-price',function() {
 
         var id = $(this).data('id');
-        var price_b = $('#price_b_'+id).val();
-        var price_a = $('#price_a_'+id).val();
+        var domicile = $('#domicile_'+id).val();
+        var stopdesk = $('#stopdesk_'+id).val();
         $.ajax({
-			url: '/update-delivery-cost/'+id+'/'+price_b+'/'+price_a ,
+			url: '/update-delivery-cost/'+id+'/'+domicile+'/'+stopdesk ,
 			type: 'GET',
 
         success: function (res) {
-            toastr.success("Prix modifié avec succès", "Succès", {
+            toastr.success("Price successfully updated", "Success", {
                     timeOut: 5e3,
                     closeButton: !0,
                     debug: !1,
@@ -98,8 +94,8 @@
                     tapToDismiss: !1
 
             })
-            $('#price_b_'+id).val(price_b);
-            $('#price_a_'+id).val(price_a);
+            $('#domicile_'+id).val(price_b);
+            $('#stopdesk_'+id).val(price_a);
             }
 
         });

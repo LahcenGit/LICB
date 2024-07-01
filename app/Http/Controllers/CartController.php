@@ -128,7 +128,6 @@ class CartController extends Controller
                 }
 
                 $cart_item->save();
-
                 $nbr_cart = Cartitem::where('cart_id',$cart->id)->count();
                 $total = Cartitem::selectRaw('sum(total) as sum')->first();
                 $data = array(
@@ -152,13 +151,9 @@ class CartController extends Controller
   public function index(){
 
     $cartData = $this->fetchCartData();
-    $total_category = Category::where('parent_id', NULL)->count();
-    $moitie = ceil($total_category / 2);
-    $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-    $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
-    $categories = Category::where('parent_id',null)->limit('5')->get();
+    $categories = Category::where('parent_id',null)->get();
     $search_term = NULL;
-    return view('carts',compact('cartData','categories','first_part_categories','last_part_categories','search_term'));
+    return view('carts',compact('cartData','categories','search_term'));
   }
 
   public function update(Request $request, $id) {

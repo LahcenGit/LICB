@@ -253,6 +253,7 @@
 });
 </script>
 @endpush
+{{--
 
 @push('checkout-registration')
 <script>
@@ -279,6 +280,7 @@
     });
 </script>
 @endpush
+ --}}
 @push('update-cart')
 <script>
    $(document).ready(function() {
