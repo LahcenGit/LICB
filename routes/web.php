@@ -58,16 +58,13 @@ Route::resource('/admin/orders',OrderController::class);
 Route::resource('/admin/points-management',PointAdminController::class);
 Route::get('/get-attribute/{id}', [App\Http\Controllers\ProductController::class, 'getAttribute']);
 Route::get('/search/{value}', [App\Http\Controllers\ProductController::class, 'search']);
-Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
-Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
-Route::resource('/carts',CartController::class);
 Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::get('/get-price/{id}', [App\Http\Controllers\ProductController::class, 'getPrice']);
 Route::get('/get-price-product-added/{id}/{product_id}', [App\Http\Controllers\ProductController::class, 'getPriceProductAdded']);
 Route::get('/show-modal', [App\Http\Controllers\ProductController::class, 'showModal']);
 Route::get('/show-modal-add-mark', [App\Http\Controllers\ProductController::class, 'showModalAddMark']);
 Route::resource('/admin/delivery-costs',DeliverycostController::class);
-Route::get('/update-delivery-cost/{id}/{price_b}/{price_a}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
+Route::get('/update-delivery-cost/{id}/{domicile}/{stopdesk}', [App\Http\Controllers\DeliverycostController::class, 'updateDeliveryCost']);
 Route::get('/admin/add-order-step-one', [App\Http\Controllers\OrderController::class, 'addOrderStepOne']);
 Route::post('/admin/add-order-step-two', [App\Http\Controllers\OrderController::class, 'addOrderStepTwo']);
 Route::post('/admin/store-order', [App\Http\Controllers\OrderController::class, 'storeOrder']);
@@ -110,12 +107,16 @@ Route::get('/global-category/{slug}/{categoryId}/{subCategories}', [HomeControll
 Route::resource('/',HomeController::class);
 Route::resource('/comment',CommentController::class);
 
-
+//cart
+Route::post('/add-to-cart', [App\Http\Controllers\CartController::class, 'addToCart']);
+Route::get('/delete-cartitems', [App\Http\Controllers\CartController::class, 'deleteCartItems']);
+Route::post('/update-cart/{id}', [CartController::class, 'update']);
+Route::resource('/carts',CartController::class);
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
 Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
-Route::get('/get-cost/{wilaya}/{commune}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
+Route::get('/get-cost/{wilaya}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
 Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);
 
 

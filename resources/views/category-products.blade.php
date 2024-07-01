@@ -85,7 +85,7 @@
                                     <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                 </div>
                                 <div class="sort-by-dropdown-wrap">
-                                    {!! \App\Helpers\ProductHelper::getProductBadge($product) !!}
+                                    <span class="sort-by-text"> New <i class="fi-rs-angle-small-down "></i></span>
                                 </div>
                             </div>
                             <div class="sort-by-dropdown">
@@ -120,7 +120,7 @@
                                         <a class="action-btn" href="{{ asset('product/'.$product->slug) }}"><i class="fi-rs-eye"></i></a>
                                     </div>
                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">New</span>
+                                        {!! \App\Helpers\ProductHelper::getProductBadge($product) !!}
                                     </div>
                                 </div>
                                 <div class="product-content-wrap">

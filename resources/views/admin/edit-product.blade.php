@@ -331,10 +331,16 @@
                                                 <option value="14 "@if($product->p_GEN == '14') selected @endif>14</option>
 
                                             @elseif($product->p_TYPE == 'amd')
-                                                <option value="1" @if($product->p_GEN == '1') selected @endif>1</option>
-                                                <option value="2" @if($product->p_GEN == '2') selected @endif>2</option>
-                                                <option value="3" @if($product->p_GEN == '3') selected @endif>3</option>
-                                                <option value="4" @if($product->p_GEN == '4') selected @endif>4</option>
+                                                <option value="1000" @if($product->p_GEN == '1000') selected @endif>1000</option>
+                                                <option value="2000" @if($product->p_GEN == '2000') selected @endif>2000</option>
+                                                <option value="3000" @if($product->p_GEN == '3000') selected @endif>3000</option>
+                                                <option value="4000" @if($product->p_GEN == '4000') selected @endif>4000</option>
+                                                <option value="5000" @if($product->p_GEN == '5000') selected @endif>5000</option>
+                                                <option value="6000" @if($product->p_GEN == '6000') selected @endif>6000</option>
+                                                <option value="7000" @if($product->p_GEN == '7000') selected @endif>7000</option>
+                                                <option value="8000" @if($product->p_GEN == '8000') selected @endif>8000</option>
+                                                <option value="9000" @if($product->p_GEN == '9000') selected @endif>9000</option>
+                                                <option value="10000" @if($product->p_GEN == '10000') selected @endif>10000</option>
                                             @endif
                                         </select>
                                         </div>
@@ -365,10 +371,16 @@
                                                   @php
                                                     $selected_gen = json_decode($product->m_GEN, true);
                                                   @endphp
-                                                  <option value="1" @if(in_array('1', $selected_gen)) selected @endif>1</option>
-                                                  <option value="2" @if(in_array('2', $selected_gen)) selected @endif>2</option>
-                                                  <option value="3" @if(in_array('3', $selected_gen)) selected @endif>3</option>
-                                                  <option value="4" @if(in_array('4', $selected_gen)) selected @endif>4</option>
+                                                  <option value="1000" @if(in_array('1000', $selected_gen)) selected @endif>1000</option>
+                                                  <option value="2000" @if(in_array('2000', $selected_gen)) selected @endif>2000</option>
+                                                  <option value="3000" @if(in_array('3000', $selected_gen)) selected @endif>3000</option>
+                                                  <option value="4000" @if(in_array('4000', $selected_gen)) selected @endif>4000</option>
+                                                  <option value="5000" @if(in_array('5000', $selected_gen)) selected @endif>5000</option>
+                                                  <option value="6000" @if(in_array('6000', $selected_gen)) selected @endif>6000</option>
+                                                  <option value="7000" @if(in_array('7000', $selected_gen)) selected @endif>7000</option>
+                                                  <option value="8000" @if(in_array('8000', $selected_gen)) selected @endif>8000</option>
+                                                  <option value="9000" @if(in_array('9000', $selected_gen)) selected @endif>9000</option>
+                                                  <option value="10000" @if(in_array('10000', $selected_gen)) selected @endif>10000</option>
                                                 @endif
                                               </select>
                                         </div>

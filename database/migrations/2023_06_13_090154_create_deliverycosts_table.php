@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('deliverycosts', function (Blueprint $table) {
             $table->id();
+            $table->integer('code_wilaya');
             $table->string('wilaya');
-            $table->string('commune');
-            $table->string('extention');
-            $table->float('price_b');
-            $table->float('price_a');
-            $table->float('supp');
+            $table->float('domicile');
+            $table->float('stopdesk');
+            $table->float('annuler');
             $table->timestamps();
         });
     }

@@ -248,7 +248,7 @@
                                                     <h4>Total <span class="total">{{number_format($cartData['total']->sum)}} Da</span></h4>
                                                 </div>
                                                 <div class="shopping-cart-button">
-                                                    <a href="{{asset('/carts')}}" class="outline">Voir le panier</a>
+                                                    <a href="{{asset('/carts')}}" class="outline">See cart</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -798,6 +798,7 @@
     @stack('filter-product')
     @stack('comment-scripts')
     @stack('filter-product-by-subcategories')
+    @stack('update-cart')
 </body>
 
 </html>
