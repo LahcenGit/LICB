@@ -124,7 +124,7 @@
                                     Office &  <br />
                                     Furniture
                                 </h4>
-                                <a href="{{ asset('/global-category//office-furniture') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
+                                <a href="{{ asset('/global-category/office-furniture') }}" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -199,16 +199,12 @@
         <section class="section-padding pb-5">
             <div class="container">
                 <div class="section-title wow animate__animated animate__fadeIn">
-                    <h3 class="">PC Gaming</h3>
+                    <h3 class="">Gaming PC</h3>
                </div>
                 <div class="row">
                     <div class="col-lg-3 d-none d-lg-flex wow animate__animated animate__fadeIn">
-                        <div class="banner-img style-2">
-                            <div class="banner-text">
-                                <h2 class="mb-100 text-white">PC <br>
-                                    Gaming </h2>
-                                <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
-                            </div>
+                         <div class="banner-img style-2 d-flex align-items-end  justify-content-center" > 
+                            <a href="{{asset('/category/pc-licb')}}" class="btn btn-xs mb-3">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-12 wow animate__animated animate__fadeIn" data-wow-delay=".4s">
