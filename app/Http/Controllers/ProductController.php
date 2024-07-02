@@ -538,7 +538,6 @@ class ProductController extends Controller
 
         }
 
-        dd($has_color );
         $categories = Category::where('parent_id',null)->get();
         //$featured_categories = Category::where('parent_id',null)->limit(5)->get();
         // 3 new products

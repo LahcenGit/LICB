@@ -1,5 +1,12 @@
 @extends('layouts.front')
 @section('content')
+
+<style>
+    .cost-text{
+        font-weight: 800;
+        color: #CE0000;
+    }
+</style>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -22,10 +29,9 @@
         <form action="{{asset('/redirection')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     <div class="row">
                         <h4 class="mb-30">Billing details</h4>
-                        <form method="post">
                             <div class="row">
                                 <div class="form-group col-lg-6">
                                     <input type="text" required name="first_name" value="{{ Auth::user()->first_name }}" placeholder="First name *" required>
@@ -62,7 +68,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-6">
                     <div class="border p-40 cart-totals ml-30 mb-50">
                         <div class="d-flex align-items-end justify-content-between mb-30">
                             <h4>Order details</h4>
@@ -81,60 +87,53 @@
                                                 <h6 class="text-muted pl-20 pr-20">x {{ $cartitem->qte }}</h6>
                                             </td>
                                             <td>
-                                                <h4 class="text-brand">{{$cartitem->total }} Da</h4>
+                                                <h6 class="text-brand">{{$cartitem->total }} Da</h6>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tbody>
                                     <tr>
-                                        <td><h4 class="w-160 mb-5">Total</h4></td>
-                                        <td><h4 class="text-brand ">{{$cartData['total']->sum }} Da</h4></td>
+                                        <td><h6 class="w-160 mb-5">Sub Total :</h6></td>
+                                        <td><h6 class="text-brand ">{{$cartData['total']->sum }} Da</h6></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h4 class="mb-30">Delivery</h4>
+                                            <h6 class="mb-30">Delivery Cost :</h6>
                                         </td>
                                         <td class="d-flex justify-content-center">
                                             <ul class="shipping-type">
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio" id="bureau" value="bureau" type="radio" name="shipping" checked>
-                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Stopdesk : <span id="bureau-cost" >0 Da</span> </label>
+                                                        <label class="form-check-label" for="bureau" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Stopdesk : <span class="cost-text" id="bureau-cost" >0 Da</span> </label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="custome-radio">
                                                         <input class="form-check-input shipping-redio"  type="radio" name="shipping" id="domicile" value="domicile" >
-                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">At home : <span id="domicile-cost" >0 Da</span></label>
+                                                        <label class="form-check-label" for="domicile" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">At home : <span class="cost-text" id="domicile-cost" >0 Da</span></label>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><h4 class="w-160 mb-5">Total</h4></td>
+                                        <td><h4 class="w-160 mb-5">Total :</h4></td>
                                         <td><h4 class="text-brand total-price">{{$cartData['total']->sum}} Da</h4></td>
                                     </tr>
+
+
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <div class="payment ml-30">
-                        <h4 class="mb-30">Payment</h4>
-                        <div class="payment_option">
-                            <div class="custome-radio">
-                                <input class="form-check-input" required type="radio" name="payment_option" id="exampleRadios3" checked>
-                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Cash on delivery</label>
+                            <button type="submit" class="btn btn-fill-out btn-block mt-30" style="width: 100%;">Order<i class="fi-rs-sign-out ml-15"></i></button>
                             </div>
-                            <button type="submit" class="btn btn-fill-out btn-block mt-30">Order<i class="fi-rs-sign-out ml-15"></i></button>
-                        </form>
                         </div>
                     </div>
+                    
                 </div>
 
             </div>
-
         </form>
     </div>
 </main>
