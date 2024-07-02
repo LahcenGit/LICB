@@ -6,9 +6,11 @@ use App\Models\Cart;
 use App\Models\Cartitem;
 use App\Models\Category;
 use App\Models\Center;
+use App\Models\Commune;
 use App\Models\Deliverycost;
 use App\Models\Order;
 use App\Models\Orderline;
+use App\Models\Wilaya;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,13 +39,23 @@ class CheckoutController extends Controller
             'total' => $total
         ];
         $categories = Category::where('parent_id',null)->get();
-        $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
+        $wilayas = Wilaya::get();
         $search_term = NULL;
         return view('checkout',compact('cartData','cartitems','categories','wilayas','nbr_cartitem','search_term'));
 
     }
+
+    public function getCommunes($id){
+        $wilaya = Wilaya::find($id);
+        $communes = Commune::where('wilaya_id',$id)->get('name');
+        return response()->json([
+            'wilaya' => $wilaya,
+            'communes' => $communes
+        ]);
+     }
+
      public function getCost($wilaya){
-         return  $cost = Deliverycost::where('wilaya',$wilaya)->first();
+         return  $cost = Deliverycost::where('code_wilaya',$wilaya)->first();
      }
     public function storeOrder(Request $request){
         $request->validate([

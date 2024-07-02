@@ -23,9 +23,7 @@ class OrderController extends Controller
     public function addOrderToYalidine($id){
         $order = Order::find($id);
         $wilayas = Deliverycost::select('*')->groupBy('wilaya')->get();
-        $communes = Deliverycost::where('wilaya',$order->wilaya)->pluck('commune');
-
-        return view('admin.modal-order',compact('order','wilayas','communes'));
+        return view('admin.modal-order',compact('order','wilayas'));
     }
 
     public function storeOrderToYalidine($id){

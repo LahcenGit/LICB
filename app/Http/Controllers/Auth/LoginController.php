@@ -52,7 +52,13 @@ class LoginController extends Controller
                 return redirect('admin');
             }
             if(Auth::user()->type == 'customer'){
-                return redirect('/');
+                if (session('visited_carts_page')){
+                    return '/carts';
+                }
+                else{
+                    return redirect('/');
+                }
+
             }
 
         }
@@ -63,15 +69,11 @@ class LoginController extends Controller
 
     }
     public function showLoginForm(){
+        $visited_carts_page = session('visited_carts_page');
         $cartData = $this->fetchCartData();
         $categories = Category::where('parent_id',NULL)->get();
-
-        $total_category = Category::where('parent_id', NULL)->count();
-        $moitie = ceil($total_category / 2);
-        $first_part_categories = Category::take($moitie)->where('parent_id',NULL)->get();
-        $last_part_categories = Category::skip($moitie)->take($total_category - $moitie)->where('parent_id',NULL)->get();
         $search_term = NULL;
-        return view('auth.login',compact('cartData','categories','first_part_categories','last_part_categories','search_term'));
+        return view('auth.login',compact('cartData','categories','search_term','visited_carts_page'));
     }
 
     /**
