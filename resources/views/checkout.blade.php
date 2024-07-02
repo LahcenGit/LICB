@@ -48,11 +48,20 @@
                                         <select class="form-control select-active" id="wilayas" name="wilayas" required>
                                             <option value="">Wilayas...</option>
                                             @foreach ($wilayas as $wilaya)
-                                                <option value="{{$wilaya->wilaya}}">{{$wilaya->wilaya}}</option>
+                                                <option value="{{$wilaya->id}}">{{$wilaya->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group col-lg-6">
+                                    <div class="custom_select">
+                                        <select class="form-control select-active" id="communes" name="communes" required>
+                                            <option value="">Communes...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col-lg-6">
                                     <input required type="text" name="address" placeholder="Adresse *" required>
                                 </div>
@@ -146,6 +155,27 @@ $( "#wilayas" ).change(function() {
         var wilaya = $('#wilayas').val();
         var total = '{{$cartData['total']->sum}}';
         check = $('input[name="shipping"]:checked', '.shipping-type').val();
+        var data ="";
+        $.ajax({
+			url: '/get-communes/'+wilaya ,
+			type: 'GET',
+
+            success: function (res) {
+    var data = '';
+
+    if (res && res.communes && Array.isArray(res.communes) && res.communes.length) {
+        $.each(res.communes, function(i, commune) {
+            data += '<option value="'+ commune.name + '">' + commune.name + '</option>';
+        });
+    } else {
+        data += '<option value="In salah">In salah</option>';
+    }
+
+    $('#communes').html(data);
+    // $('#communes').niceSelect('update');
+}
+
+        });
         $.ajax({
 			url: '/get-cost/'+wilaya ,
 			type: 'GET',

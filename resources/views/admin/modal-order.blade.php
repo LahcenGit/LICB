@@ -34,10 +34,6 @@
                             <label>Wilaya*:</label>
                             <input type="text"  class="form-control input-default " value="{{ $order->wilaya }}" id="address" disabled>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label>Commune*:</label>
-                            <input type="text"  class="form-control input-default " value="{{ $order->commune }}" id="address" disabled>
-                        </div>
                       </div>
 
 
@@ -56,11 +52,11 @@
                             <label>Delivery :</label> <br>
                               <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" @if($order->is_stopdesk) checked @else disabled @endif>
-                                <label class="form-check-label" for="inlineRadio1">At the office</label>
+                                <label class="form-check-label" for="inlineRadio1">Stopdesk</label>
                               </div>
                               <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" @if($order->is_stopdesk) disabled @else checked @endif>
-                                <label class="form-check-label" for="inlineRadio2">At home</label>
+                                <label class="form-check-label" for="inlineRadio2">At Home</label>
                               </div>
                         </div>
                      </div>

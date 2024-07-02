@@ -114,7 +114,7 @@ Route::post('/update-cart/{id}', [CartController::class, 'update']);
 Route::resource('/carts',CartController::class);
 //chekout
 Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'index']);
-Route::get('/get-communes/{name}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
+Route::get('/get-communes/{wilaya}', [App\Http\Controllers\CheckoutController::class, 'getCommunes']);
 Route::get('/get-centers/{name}', [App\Http\Controllers\CheckoutController::class, 'getCenters']);
 Route::get('/get-cost/{wilaya}', [App\Http\Controllers\CheckoutController::class, 'getCost']);
 Route::post('/redirection', [App\Http\Controllers\CheckoutController::class, 'storeOrder']);

@@ -34,9 +34,7 @@
                             <p ><b> Nom :</b> {{ $order->first_name }} {{ $order->last_name }}<br>
                             <b> Tél: </b> {{$order->phone}}  <br>
                             <b> Adresse:</b> {{$order->address}} <br>
-                             <b> Wilaya:</b>  {{ucfirst($order->wilaya)}}<br>
-                             <b> Commune:</b>  {{ucfirst($order->commune)}}<br>
-
+                            <b> Wilaya:</b>  {{ucfirst($order->wilaya)}}<br>
                             Date: {{$order->created_at->format('Y-m-d')}} </p><br>
                         </div>
 
@@ -86,11 +84,7 @@
                                 <td > <b style="font-size: 17px">{{ number_format($order->total_f, 2) }}  Da</b> </td>
                             </tr>
                         </tbody>
-
-
                     </table>
-
-
                 </div>
             </div>
         </div>
